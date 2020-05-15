@@ -1,0 +1,23 @@
+name: Flutter Tests
+on: [push, pull_request]
+jobs:
+  test:
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v2
+      #         Clones the **BETA** flutter branch
+      - run: git clone https://github.com/flutter/flutter.git --depth 1 -b beta _flutter
+      - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
+      - run: flutter pub get
+      #         Runs the formatter
+      - run: flutter format lib/* --set-exit-if-changed
+      - run: flutter packages pub run build_runner build --delete-conflicting-outputs
+      - run: flutter pub run flutter_native_splash:create
+      - run: flutter pub run flutter_launcher_icons:main
+      #         Runs standard tests
+      - run: flutter test --no-pub
+      - run: git diff --exit-code
