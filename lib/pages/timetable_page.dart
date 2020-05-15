@@ -37,8 +37,7 @@ class _TimetablePageState extends State<TimetablePage>
   }
 
   Future<void> selectTimetable(Timetable selectedTimetable) async {
-    final TimetableVM timetableVM =
-        context.read<TimetableVM>();
+    final TimetableVM timetableVM = context.read<TimetableVM>();
     final Timetable timetable = await showModal<Timetable>(
       context: context,
       configuration: FadeScaleTransitionConfiguration(),

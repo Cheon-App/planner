@@ -27,8 +27,7 @@ class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
   }
 
   Future<void> deleteHomework() async {
-    final HomeworkVM homeworkVM =
-        context.read<HomeworkVM>();
+    final HomeworkVM homeworkVM = context.read<HomeworkVM>();
     Navigator.pop(context);
 
     await homeworkVM.deleteHomework(widget.homework);
@@ -82,15 +81,13 @@ class __HomeworkBodyState extends State<_HomeworkBody> {
   }
 
   void updateProgress(double progress) {
-    final HomeworkVM homeworkVM =
-        context.read<HomeworkVM>();
+    final HomeworkVM homeworkVM = context.read<HomeworkVM>();
     homeworkVM.updateHomework(widget.homework, progress: progress);
     setState(() => this.progress = progress);
   }
 
   void updateDescription(String description) {
-    final HomeworkVM homeworkVM =
-        context.read<HomeworkVM>();
+    final HomeworkVM homeworkVM = context.read<HomeworkVM>();
     homeworkVM.updateHomework(widget.homework, description: description);
   }
 

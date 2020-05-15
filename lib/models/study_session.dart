@@ -40,14 +40,19 @@ class StudySession extends CompareDateTime {
 
   /// The uuid identifer of the study session
   final String id;
+
   /// The start time of the study session
   final DateTime start;
+
   /// The end time of the study session
   final DateTime end;
+
   /// True if the study session has been completed
   final bool completed;
+
   /// The Exam this study session is for if it's for an exam
   final Exam exam;
+
   /// The Test this study session is for if it's for an test
   final Test test;
 }

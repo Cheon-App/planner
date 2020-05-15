@@ -109,8 +109,7 @@ class __BodyState extends State<_Body> {
   }
 
   Future<void> addLesson() async {
-    final TimetableVM timetableVM =
-        context.read<TimetableVM>();
+    final TimetableVM timetableVM = context.read<TimetableVM>();
     if (subject == null) {
       Scaffold.of(context).showSnackBar(
         const SnackBar(content: Text('Please select a subject.')),

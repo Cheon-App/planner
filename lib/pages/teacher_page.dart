@@ -42,8 +42,7 @@ class _TeacherPageState extends State<TeacherPage> {
 
   Future<void> deleteTeacher() async {
     if (editable == false) return;
-    final TeachersVM teachersVM =
-        context.read<TeachersVM>();
+    final TeachersVM teachersVM = context.read<TeachersVM>();
     Navigator.pop(context);
     return teachersVM.deleteTeacher(widget.teacher);
   }
@@ -51,15 +50,13 @@ class _TeacherPageState extends State<TeacherPage> {
   Future<void> updateName(String name) async {
     if (editable == false) return;
 
-    final TeachersVM teachersVM =
-        context.read<TeachersVM>();
+    final TeachersVM teachersVM = context.read<TeachersVM>();
     return teachersVM.updateTeacher(widget.teacher, name: name);
   }
 
   Future<void> updateEmail(String email) async {
     if (editable == false) return;
-    final TeachersVM teachersVM =
-        context.read<TeachersVM>();
+    final TeachersVM teachersVM = context.read<TeachersVM>();
     return teachersVM.updateTeacher(widget.teacher, email: email);
   }
 
