@@ -1,0 +1,10 @@
+{
+    "cSpell.ignoreWords": [
+        "cheon"
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "dart.previewFlutterUiGuides": true,
+    "dart.previewFlutterGutterIcons": true,
+    "cSpell.enabled": false,
+    "dart.previewNewCompletionPlaceholders": true,
+}
