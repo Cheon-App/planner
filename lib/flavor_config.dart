@@ -7,13 +7,11 @@ class FlavorConfig {
   /// and in app banners.
   factory FlavorConfig({
     @required Flavor flavor,
-    @required String apiUrl,
     Color color,
   }) {
     _instance ??= FlavorConfig._internal(
       flavor: flavor,
       name: _flavorToString(flavor),
-      apiUrl: apiUrl,
       color: color,
     );
 
@@ -24,7 +22,6 @@ class FlavorConfig {
     @required this.flavor,
     @required this.name,
     @required this.color,
-    @required this.apiUrl,
   });
 
   static String _flavorToString(Flavor flavor) {
@@ -51,7 +48,6 @@ class FlavorConfig {
   final Flavor flavor;
   final String name;
   final Color color;
-  final String apiUrl;
   static FlavorConfig _instance;
 
   static FlavorConfig get instance => _instance;

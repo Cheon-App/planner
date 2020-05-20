@@ -20,11 +20,7 @@ Future<void> main() async {
   await runZonedGuarded<Future<void>>(() async {
     configureApp();
 
-    FlavorConfig(
-      apiUrl: 'http://192.168.0.7:5000/graphql',
-      color: Colors.blue,
-      flavor: Flavor.DEV,
-    );
+    FlavorConfig(color: Colors.blue, flavor: Flavor.DEV);
 
     await registerDependencies();
 

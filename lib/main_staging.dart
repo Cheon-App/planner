@@ -7,11 +7,7 @@ import 'package:flutter/material.dart';
 Future<void> main() async {
   configureApp();
 
-  FlavorConfig(
-    apiUrl: 'https://hidden-crag-67240.herokuapp.com/graphql',
-    color: Colors.orange,
-    flavor: Flavor.STAGING,
-  );
+  FlavorConfig(color: Colors.orange, flavor: Flavor.STAGING);
 
   await registerDependencies();
 

@@ -20,10 +20,7 @@ Future<void> main() async {
   await runZonedGuarded<Future<void>>(() async {
     configureApp();
 
-    FlavorConfig(
-      apiUrl: 'https://api.cheon.app/graphql',
-      flavor: Flavor.PRODUCTION,
-    );
+    FlavorConfig(flavor: Flavor.PRODUCTION);
 
     await registerDependencies();
 

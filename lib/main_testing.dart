@@ -7,11 +7,7 @@ import 'package:flutter/material.dart';
 Future<void> main() async {
   configureApp();
 
-  FlavorConfig(
-    apiUrl: 'https://api.cheon.app/graphql',
-    color: Colors.teal,
-    flavor: Flavor.TESTING,
-  );
+  FlavorConfig(color: Colors.teal, flavor: Flavor.TESTING);
 
   await registerDependencies();
 
