@@ -11,5 +11,5 @@ Future<void> main() async {
 
   await registerDependencies();
 
-  runApp(const App());
+  runApp(App());
 }

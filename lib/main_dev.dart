@@ -24,7 +24,7 @@ Future<void> main() async {
 
     await registerDependencies();
 
-    runApp(const App());
+    runApp(App());
   }, (Object error, StackTrace stackTrace) {
     Crashlytics.instance.recordError(error, stackTrace);
     /* if (const bool.fromEnvironment('dart.vm.product')) {
