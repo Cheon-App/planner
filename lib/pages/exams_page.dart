@@ -136,7 +136,7 @@ class ExamsPagePageState extends State<ExamsPage>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Exams'),
+        title: Text('Assessments'),
         leading: MenuButton(),
         actions: <Widget>[
           IconButton(

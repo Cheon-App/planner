@@ -8,6 +8,8 @@ const String URL_PRIVACY_POLICY = '$URL_WEBSITE/privacy_policy';
 const String URL_TERMS_AND_CONDITIONS = '$URL_WEBSITE/terms_and_conditions';
 const String URL_POMODORO_TECHNIQUE =
     'https://en.wikipedia.org/wiki/Pomodoro_Technique';
+const String URL_ROADMAP =
+    'https://www.notion.so/822ef39ffbde4b308b0e9a6be629bbc7?v=8fa2d150f76546b4b7132d8da86bb7aa';
 
 const String IMG_FORGOT_PASSWORD = 'assets/images/forgot_password.svg';
 const String IMG_ADD_TEACHER = 'assets/images/add_teacher.svg';

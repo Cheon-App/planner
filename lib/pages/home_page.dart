@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:cheon/components/bottom_navigation_bar.dart';
 import 'package:cheon/components/cheon_icons.dart';
 import 'package:cheon/components/page_switcher.dart';
 import 'package:cheon/constants.dart';
@@ -91,7 +90,7 @@ class HomePageState extends State<HomePage> {
           _fabKeys.add(const ValueKey<String>('add'));
           _pages.add(const ExamsPage());
           _navigationIcons.add(FontAwesomeIcons.brain);
-          _pageNames.add('Exams');
+          _pageNames.add('Assessments');
           break;
         case _Page.REVISION:
           _fabKeys.add(null);
@@ -285,6 +284,14 @@ class _Drawer extends StatelessWidget {
     }
   }
 
+  Future<void> _openRoadmap(BuildContext context) async {
+    try {
+      await launchUrl(URL_ROADMAP);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -329,6 +336,11 @@ class _Drawer extends StatelessWidget {
               icon: FontAwesomeIcons.instagram,
             ),
             _DrawerTab(
+              onTap: () => _openRoadmap(context),
+              text: 'Roadmap',
+              icon: FontAwesomeIcons.clipboardList,
+            ),
+            _DrawerTab(
               onTap: _shareApp,
               text: 'Share',
               icon: FontAwesomeIcons.shareAlt,
@@ -361,7 +373,7 @@ class _DrawerTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       type: MaterialType.transparency,
-      shape: StadiumBorder(),
+      borderRadius: BorderRadius.circular(16),
       clipBehavior: Clip.antiAlias,
       child: ListTile(
         onTap: () {
@@ -405,15 +417,8 @@ class _BottomNav extends StatelessWidget {
     BuildContext context, {
     @required IconData icon,
     @required String title,
-    bool padding = false,
   }) {
-    return BottomNavigationBarItem(
-      title: Text(title),
-      icon: Padding(
-        padding: EdgeInsets.only(top: padding ? 4 : 0),
-        child: Icon(icon),
-      ),
-    );
+    return BottomNavigationBarItem(title: Text(title), icon: Icon(icon));
   }
 
   List<BottomNavigationBarItem> items(BuildContext context) {
@@ -427,7 +432,6 @@ class _BottomNav extends StatelessWidget {
           context,
           icon: pageIcons[page.index],
           title: pageNames[page.index],
-          padding: false,
         ),
       );
     }
@@ -436,8 +440,8 @@ class _BottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomBar(
-      type: BottomBarType.fixed,
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       elevation: 8,
       iconSize: 22,
       unselectedFontSize: 12,
