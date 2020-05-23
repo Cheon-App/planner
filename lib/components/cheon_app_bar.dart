@@ -1,3 +1,4 @@
+import 'package:cheon/components/menu_icon.dart';
 import 'package:flutter/material.dart';
 
 class CheonAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -21,6 +22,13 @@ class CheonAppBar extends StatelessWidget implements PreferredSizeWidget {
       // Prevents screen readers from reading this as it's the App name and
       // not specific to a part of the app.
       excludeHeaderSemantics: true,
+      leading: IconButton(
+        icon: MenuIcon(color: Theme.of(context).colorScheme.onBackground),
+        iconSize: 32,
+        onPressed: Scaffold.of(context).openDrawer,
+        tooltip: MaterialLocalizations.of(context).drawerLabel,
+      ),
+
       title: ExcludeSemantics(
         // The title of the app bar. In this case it's the app name.
         child: Text(

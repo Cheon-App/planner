@@ -1,8 +1,8 @@
-import 'package:cheon/components/dynamic_cheon_page.dart';
 import 'package:cheon/components/empty_placeholder.dart';
 import 'package:cheon/components/error_message.dart';
 import 'package:cheon/components/linear_progress_bar.dart';
 import 'package:cheon/components/loading_indicator.dart';
+import 'package:cheon/components/menu_button.dart';
 import 'package:cheon/components/sticky_section.dart';
 import 'package:cheon/components/subject_card.dart';
 import 'package:cheon/constants.dart';
@@ -123,17 +123,19 @@ class HomeworkPageState extends State<HomeworkPage>
         context.select<HomeworkVM, Stream<List<Homework>>>(
             (HomeworkVM vm) => vm.pastHomeworkStream);
 
-    return DynamicCheonPage(
-      title: 'Homework',
-      inHomePage: widget.inHomePage,
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(FontAwesomeIcons.history),
-          onPressed: _toggleHomeworkMode,
-          tooltip: _showCurrent ? 'Past Homework' : 'Current Homework',
-        ),
-      ],
-      child: StreamBuilder<List<Homework>>(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Homework'),
+        leading: MenuButton(),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(FontAwesomeIcons.history),
+            onPressed: _toggleHomeworkMode,
+            tooltip: _showCurrent ? 'Past Homework' : 'Current Homework',
+          ),
+        ],
+      ),
+      body: StreamBuilder<List<Homework>>(
         stream: _showCurrent ? currentHomeworkStream : pastHomeworkStream,
         builder: (
           BuildContext context,

@@ -1,8 +1,8 @@
-import 'package:cheon/components/dynamic_cheon_page.dart';
 import 'package:cheon/components/empty_placeholder.dart';
 import 'package:cheon/components/error_message.dart';
 import 'package:cheon/components/exam_card.dart';
 import 'package:cheon/components/loading_indicator.dart';
+import 'package:cheon/components/menu_button.dart';
 import 'package:cheon/components/sticky_section.dart';
 import 'package:cheon/components/test_card.dart';
 import 'package:cheon/constants.dart';
@@ -134,17 +134,19 @@ class ExamsPagePageState extends State<ExamsPage>
     super.build(context);
     final ExamsVM vm = Provider.of<ExamsVM>(context);
 
-    return DynamicCheonPage(
-      inHomePage: widget.inHomePage,
-      title: 'Exams',
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(FontAwesomeIcons.history),
-          onPressed: toggleShowCurrent,
-          tooltip: _showCurrent ? 'Past Tests/Exams' : 'Current Tests/Exams`',
-        )
-      ],
-      child: StreamBuilder<List<Assessment>>(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Exams'),
+        leading: MenuButton(),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(FontAwesomeIcons.history),
+            onPressed: toggleShowCurrent,
+            tooltip: _showCurrent ? 'Past Tests/Exams' : 'Current Tests/Exams`',
+          )
+        ],
+      ),
+      body: StreamBuilder<List<Assessment>>(
         stream: _showCurrent
             ? vm.currentAssessmentListStream
             : vm.pastAssessmentListStream,

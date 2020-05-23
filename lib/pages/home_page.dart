@@ -1,22 +1,28 @@
 import 'dart:convert';
 
 import 'package:cheon/components/bottom_navigation_bar.dart';
+import 'package:cheon/components/cheon_icons.dart';
 import 'package:cheon/components/page_switcher.dart';
+import 'package:cheon/constants.dart';
 import 'package:cheon/pages/add_event_page.dart';
 import 'package:cheon/pages/homework_page.dart';
 import 'package:cheon/pages/exams_page.dart';
-import 'package:cheon/pages/menu_page.dart';
+import 'package:cheon/pages/preferences_page.dart';
 import 'package:cheon/pages/revision_page.dart';
+import 'package:cheon/pages/subjects_page.dart';
+import 'package:cheon/pages/teachers_page.dart';
 import 'package:cheon/pages/timeline_page.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:cheon/pages/timetable_page.dart';
+import 'package:cheon/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:quick_actions/quick_actions.dart';
+import 'package:share/share.dart';
 
 /// All pages shown on the home page, changing the order changes the order
 /// of the items in the bottom and side navigation bar
-enum _Page { EXAMS, HOMEWORK, TIMELINE, REVISION, MENU }
+enum _Page { EXAMS, HOMEWORK, TIMELINE, REVISION, TIMETABLE }
 
 const String _ADD_HOMEWORK_QUICK_ACTION = 'add_homework';
 const String _ADD_EXAM_QUICK_ACTION = 'add_exam';
@@ -31,10 +37,10 @@ class HomePage extends StatefulWidget {
   static const String routeName = '/home';
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   /// A list of pages shown in the home page
@@ -93,11 +99,11 @@ class _HomePageState extends State<HomePage> {
           _navigationIcons.add(FontAwesomeIcons.bookReader);
           _pageNames.add('Revision');
           break;
-        case _Page.MENU:
+        case _Page.TIMETABLE:
           _fabKeys.add(null);
-          _pages.add(MenuPage());
-          _navigationIcons.add(FontAwesomeIcons.bars);
-          _pageNames.add('More');
+          _pages.add(TimetablePage());
+          _navigationIcons.add(CheonIcons.timetable);
+          _pageNames.add('Timetable');
           break;
       }
     }
@@ -197,6 +203,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void openDrawer() => _scaffoldKey.currentState.openDrawer();
+
   @override
   Widget build(BuildContext context) {
     final bool isMobile = MediaQuery.of(context).size.shortestSide < 600;
@@ -206,6 +214,7 @@ class _HomePageState extends State<HomePage> {
         return Scaffold(
           key: _scaffoldKey,
           resizeToAvoidBottomInset: false,
+          drawer: _Drawer(),
           // Displays the current page and also the side navigation bar if
           // the device is large(tablet) or it's in the landscape orientation
           body: _ResponsiveBody(
@@ -236,6 +245,142 @@ class _HomePageState extends State<HomePage> {
               : null,
         );
       },
+    );
+  }
+}
+
+class _Drawer extends StatelessWidget {
+  void _openSubjectsPage(BuildContext context) =>
+      Navigator.pushNamed(context, SubjectsPage.routeName);
+
+  void _openTeachersPage(BuildContext context) =>
+      Navigator.pushNamed(context, TeachersPage.routeName);
+
+  void _openPreferencesPage(BuildContext context) =>
+      Navigator.pushNamed(context, PreferencesPage.routeName);
+
+  /// Opens an invite url to the community Discord(messaging platform) group
+  Future<void> _openDiscord(BuildContext context) async {
+    try {
+      await launchUrl(URL_DISCORD);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  /// Opens the systems app sharing popup to let users share the following text
+  /// with friends
+  void _shareApp() {
+    Share.share(
+      'Check out Cheon! The latest smart planner and revision app for Android '
+      'and IOS: https://get.cheon.app',
+    );
+  }
+
+  Future<void> _openInstagram(BuildContext context) async {
+    try {
+      await launchUrl(URL_INSTAGRAM);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Spacer(),
+            Text(
+              'CHEON.APP',
+              style: TextStyle(
+                fontFamily: 'Orbitron',
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 24,
+              ),
+            ),
+            Spacer(),
+            _DrawerTab(
+              onTap: () => _openSubjectsPage(context),
+              text: 'Subjects',
+              icon: CheonIcons.books,
+            ),
+            _DrawerTab(
+              onTap: () => _openTeachersPage(context),
+              text: 'Teachers',
+              icon: FontAwesomeIcons.chalkboardTeacher,
+            ),
+            _DrawerTab(
+              onTap: () => _openPreferencesPage(context),
+              text: 'Settings',
+              icon: FontAwesomeIcons.slidersH,
+            ),
+            Divider(),
+            _DrawerTab(
+              onTap: () => _openDiscord(context),
+              icon: FontAwesomeIcons.discord,
+              text: 'Discord',
+              iconColor: const Color(0xFF7289DA),
+            ),
+            _DrawerTab(
+              onTap: () => _openInstagram(context),
+              text: 'Instagram',
+              icon: FontAwesomeIcons.instagram,
+            ),
+            _DrawerTab(
+              onTap: _shareApp,
+              text: 'Share',
+              icon: FontAwesomeIcons.shareAlt,
+            ),
+            Spacer(flex: 6),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _DrawerTab extends StatelessWidget {
+  const _DrawerTab({
+    Key key,
+    @required this.icon,
+    @required this.text,
+    @required this.onTap,
+    this.iconColor,
+    this.closeDrawer = true,
+  }) : super(key: key);
+
+  final IconData icon;
+  final String text;
+  final VoidCallback onTap;
+  final Color iconColor;
+  final bool closeDrawer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      type: MaterialType.transparency,
+      shape: StadiumBorder(),
+      clipBehavior: Clip.antiAlias,
+      child: ListTile(
+        onTap: () {
+          if (closeDrawer) Navigator.pop(context);
+          onTap();
+        },
+        leading: FaIcon(
+          icon,
+          color: iconColor ?? Theme.of(context).colorScheme.onSurface,
+        ),
+        title: Text(
+          text,
+          style: TextStyle(
+            fontSize: 16,
+            color: Theme.of(context).colorScheme.onSurface,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -282,7 +427,7 @@ class _BottomNav extends StatelessWidget {
           context,
           icon: pageIcons[page.index],
           title: pageNames[page.index],
-          padding: page == _Page.MENU,
+          padding: false,
         ),
       );
     }
@@ -334,7 +479,7 @@ class _FAB extends StatelessWidget {
     /// Type safe method for providing a floating action button based on the
     /// indexing of the [_Page] enum
     switch (page) {
-      case _Page.MENU:
+      case _Page.TIMETABLE:
         break;
       case _Page.HOMEWORK:
         widget = FloatingActionButton(

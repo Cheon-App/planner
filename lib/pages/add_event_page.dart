@@ -49,6 +49,12 @@ class _AddEventPageState extends State<AddEventPage> {
     // Initialises the event type to the one provided in the page constructor or
     // homework if no event type was provided.
     _eventType = widget.eventType ?? EventType.HOMEWORK;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Shows the EventType dialog as soon as the page is opened and context is
+      // available
+      selectEventType();
+    });
   }
 
   /// Displays a dialog containing a list of event types to choose from. Once an

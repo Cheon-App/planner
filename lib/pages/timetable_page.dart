@@ -1,9 +1,9 @@
 import 'package:animations/animations.dart';
 import 'package:cheon/app.dart';
 import 'package:cheon/components/custom_selection_dialog.dart';
-import 'package:cheon/components/dynamic_cheon_page.dart';
 import 'package:cheon/components/error_message.dart';
 import 'package:cheon/components/loading_indicator.dart';
+import 'package:cheon/components/menu_button.dart';
 import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/timetable.dart';
 import 'package:cheon/models/timetable_position.dart';
@@ -82,46 +82,47 @@ class _TimetablePageState extends State<TimetablePage>
         AsyncSnapshot<Timetable> timetableSnapshot,
       ) {
         final Timetable timetable = timetableSnapshot.data;
-        return DynamicCheonPage(
-          inHomePage: widget.inHomePage,
-          title: 'Timetable',
-          centerTitle: false,
-          actions: <Widget>[
-            Center(
-              child: Semantics(
-                onTapHint: 'switch timetables',
-                child: Material(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(App.borderRadius),
-                    side: BorderSide(
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: InkWell(
-                    onTap: () => selectTimetable(timetable),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                      child: Text(
-                        timetable != null
-                            ? 'Timetable ${timetable.week}'
-                            : 'Select',
-                        style: Theme.of(context).textTheme.subtitle2,
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Timetable'),
+            leading: MenuButton(),
+            actions: <Widget>[
+              Center(
+                child: Semantics(
+                  onTapHint: 'switch timetables',
+                  child: Material(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(App.borderRadius),
+                      side: BorderSide(
+                          color: Theme.of(context).colorScheme.secondary),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: InkWell(
+                      onTap: () => selectTimetable(timetable),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        child: Text(
+                          timetable != null
+                              ? 'Timetable ${timetable.week}'
+                              : 'Select',
+                          style: Theme.of(context).textTheme.subtitle2,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            IconButton(
-              icon: const Icon(FontAwesomeIcons.ellipsisV),
-              onPressed: openTimetableSettings,
-              tooltip: 'Timetable Settings',
-            )
-          ],
-          child: StreamBuilder<List<Lesson>>(
+              IconButton(
+                icon: const Icon(FontAwesomeIcons.ellipsisV),
+                onPressed: openTimetableSettings,
+                tooltip: 'Timetable Settings',
+              )
+            ],
+          ),
+          body: StreamBuilder<List<Lesson>>(
             stream: timetableVM.activeLessonListStream,
             initialData: const <Lesson>[],
             builder: (

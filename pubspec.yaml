@@ -114,8 +114,8 @@ dependencies:
   # Enables object comparison without overriding == and hashCode
   equatable: ^1.1.1
 
-  # Allows the user to annnotate a screen and send the image off
-  feedback: ^0.2.1
+  # In app feedback by wiredash.io
+  wiredash: ^0.0.1+1
 
 dev_dependencies:
   flutter_test:

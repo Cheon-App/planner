@@ -1,9 +1,9 @@
 import 'package:animations/animations.dart';
 import 'package:cheon/app.dart';
-import 'package:cheon/components/dynamic_cheon_page.dart';
 import 'package:cheon/components/empty_placeholder.dart';
 import 'package:cheon/components/error_message.dart';
 import 'package:cheon/components/linear_progress_bar.dart';
+import 'package:cheon/components/menu_button.dart';
 import 'package:cheon/components/number_dialog.dart';
 import 'package:cheon/components/platform_date_time_picker.dart';
 import 'package:cheon/components/primary_action_button.dart';
@@ -38,10 +38,12 @@ class _RevisonPageState extends State<RevisonPage>
   Widget build(BuildContext context) {
     super.build(context);
     final RevisionVM revisionVM = RevisionVM.of(context);
-    return DynamicCheonPage(
-      inHomePage: widget.inHomePage,
-      title: 'Revision',
-      child: PageTransitionSwitcher(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Revision'),
+        leading: MenuButton(),
+      ),
+      body: PageTransitionSwitcher(
         reverse: revisionVM.revisionSetup,
         transitionBuilder: (
           Widget child,
