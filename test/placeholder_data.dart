@@ -2,7 +2,6 @@ import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/test.dart';
-import 'package:cheon/models/year.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -14,15 +13,7 @@ Subject placeholderSubject = Subject(
   teacher: placeholderTeacher,
 );
 
-final Teacher placeholderTeacher = Teacher(
-  name: 'name',
-  id: 'id',
-  year: Year(
-    start: DateTime(2017, 9, 1),
-    end: DateTime(2018, 7, 31),
-    id: 'year_id',
-  ),
-);
+final Teacher placeholderTeacher = Teacher(name: 'name', id: 'id');
 
 final Exam placeholderExam = Exam(
   priority: 3,

@@ -6,7 +6,7 @@ part of 'database.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this, always_specify_types, implicit_dynamic_parameter, sort_constructors_first, implicit_dynamic_map_literal, avoid_renaming_method_parameters, sort_constructors_first, lines_longer_than_80_chars
+// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class SubjectModel extends DataClass implements Insertable<SubjectModel> {
   final String id;
   final String yearId;
@@ -696,2109 +696,6 @@ class $TeachersTable extends Teachers
 
   static TypeConverter<String, Uint8List> $converter0 = const UUIDConverter();
   static TypeConverter<String, Uint8List> $converter1 = const UUIDConverter();
-}
-
-class EventModel extends DataClass implements Insertable<EventModel> {
-  final String id;
-  final String title;
-  final String content;
-  final DateTime start;
-  final DateTime end;
-  final DateTime lastUpdated;
-  EventModel(
-      {@required this.id,
-      @required this.title,
-      @required this.content,
-      @required this.start,
-      @required this.end,
-      @required this.lastUpdated});
-  factory EventModel.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String prefix}) {
-    final effectivePrefix = prefix ?? '';
-    final uint8ListType = db.typeSystem.forDartType<Uint8List>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    return EventModel(
-      id: $EventsTable.$converter0.mapToDart(
-          uint8ListType.mapFromDatabaseResponse(data['${effectivePrefix}id'])),
-      title:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title']),
-      content:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}content']),
-      start:
-          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}start']),
-      end: dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}end']),
-      lastUpdated: dateTimeType
-          .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
-    );
-  }
-  factory EventModel.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return EventModel(
-      id: serializer.fromJson<String>(json['id']),
-      title: serializer.fromJson<String>(json['title']),
-      content: serializer.fromJson<String>(json['content']),
-      start: serializer.fromJson<DateTime>(json['start']),
-      end: serializer.fromJson<DateTime>(json['end']),
-      lastUpdated: serializer.fromJson<DateTime>(json['lastUpdated']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'title': serializer.toJson<String>(title),
-      'content': serializer.toJson<String>(content),
-      'start': serializer.toJson<DateTime>(start),
-      'end': serializer.toJson<DateTime>(end),
-      'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
-    };
-  }
-
-  @override
-  EventsCompanion createCompanion(bool nullToAbsent) {
-    return EventsCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      title:
-          title == null && nullToAbsent ? const Value.absent() : Value(title),
-      content: content == null && nullToAbsent
-          ? const Value.absent()
-          : Value(content),
-      start:
-          start == null && nullToAbsent ? const Value.absent() : Value(start),
-      end: end == null && nullToAbsent ? const Value.absent() : Value(end),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
-  }
-
-  EventModel copyWith(
-          {String id,
-          String title,
-          String content,
-          DateTime start,
-          DateTime end,
-          DateTime lastUpdated}) =>
-      EventModel(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        content: content ?? this.content,
-        start: start ?? this.start,
-        end: end ?? this.end,
-        lastUpdated: lastUpdated ?? this.lastUpdated,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('EventModel(')
-          ..write('id: $id, ')
-          ..write('title: $title, ')
-          ..write('content: $content, ')
-          ..write('start: $start, ')
-          ..write('end: $end, ')
-          ..write('lastUpdated: $lastUpdated')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => $mrjf($mrjc(
-      id.hashCode,
-      $mrjc(
-          title.hashCode,
-          $mrjc(
-              content.hashCode,
-              $mrjc(start.hashCode,
-                  $mrjc(end.hashCode, lastUpdated.hashCode))))));
-  @override
-  bool operator ==(dynamic other) =>
-      identical(this, other) ||
-      (other is EventModel &&
-          other.id == this.id &&
-          other.title == this.title &&
-          other.content == this.content &&
-          other.start == this.start &&
-          other.end == this.end &&
-          other.lastUpdated == this.lastUpdated);
-}
-
-class EventsCompanion extends UpdateCompanion<EventModel> {
-  final Value<String> id;
-  final Value<String> title;
-  final Value<String> content;
-  final Value<DateTime> start;
-  final Value<DateTime> end;
-  final Value<DateTime> lastUpdated;
-  const EventsCompanion({
-    this.id = const Value.absent(),
-    this.title = const Value.absent(),
-    this.content = const Value.absent(),
-    this.start = const Value.absent(),
-    this.end = const Value.absent(),
-    this.lastUpdated = const Value.absent(),
-  });
-  EventsCompanion.insert({
-    @required String id,
-    @required String title,
-    @required String content,
-    @required DateTime start,
-    @required DateTime end,
-    @required DateTime lastUpdated,
-  })  : id = Value(id),
-        title = Value(title),
-        content = Value(content),
-        start = Value(start),
-        end = Value(end),
-        lastUpdated = Value(lastUpdated);
-  EventsCompanion copyWith(
-      {Value<String> id,
-      Value<String> title,
-      Value<String> content,
-      Value<DateTime> start,
-      Value<DateTime> end,
-      Value<DateTime> lastUpdated}) {
-    return EventsCompanion(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      content: content ?? this.content,
-      start: start ?? this.start,
-      end: end ?? this.end,
-      lastUpdated: lastUpdated ?? this.lastUpdated,
-    );
-  }
-}
-
-class $EventsTable extends Events with TableInfo<$EventsTable, EventModel> {
-  final GeneratedDatabase _db;
-  final String _alias;
-  $EventsTable(this._db, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedBlobColumn _id;
-  @override
-  GeneratedBlobColumn get id => _id ??= _constructId();
-  GeneratedBlobColumn _constructId() {
-    return GeneratedBlobColumn('id', $tableName, false,
-        $customConstraints: 'UNIQUE NOT NULL');
-  }
-
-  final VerificationMeta _titleMeta = const VerificationMeta('title');
-  GeneratedTextColumn _title;
-  @override
-  GeneratedTextColumn get title => _title ??= _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn(
-      'title',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _contentMeta = const VerificationMeta('content');
-  GeneratedTextColumn _content;
-  @override
-  GeneratedTextColumn get content => _content ??= _constructContent();
-  GeneratedTextColumn _constructContent() {
-    return GeneratedTextColumn(
-      'content',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _startMeta = const VerificationMeta('start');
-  GeneratedDateTimeColumn _start;
-  @override
-  GeneratedDateTimeColumn get start => _start ??= _constructStart();
-  GeneratedDateTimeColumn _constructStart() {
-    return GeneratedDateTimeColumn(
-      'start',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _endMeta = const VerificationMeta('end');
-  GeneratedDateTimeColumn _end;
-  @override
-  GeneratedDateTimeColumn get end => _end ??= _constructEnd();
-  GeneratedDateTimeColumn _constructEnd() {
-    return GeneratedDateTimeColumn(
-      'end',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _lastUpdatedMeta =
-      const VerificationMeta('lastUpdated');
-  GeneratedDateTimeColumn _lastUpdated;
-  @override
-  GeneratedDateTimeColumn get lastUpdated =>
-      _lastUpdated ??= _constructLastUpdated();
-  GeneratedDateTimeColumn _constructLastUpdated() {
-    return GeneratedDateTimeColumn(
-      'last_updated',
-      $tableName,
-      false,
-    );
-  }
-
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, title, content, start, end, lastUpdated];
-  @override
-  $EventsTable get asDslTable => this;
-  @override
-  String get $tableName => _alias ?? 'events';
-  @override
-  final String actualTableName = 'events';
-  @override
-  VerificationContext validateIntegrity(EventsCompanion d,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    context.handle(_idMeta, const VerificationResult.success());
-    if (d.title.present) {
-      context.handle(
-          _titleMeta, title.isAcceptableValue(d.title.value, _titleMeta));
-    } else if (isInserting) {
-      context.missing(_titleMeta);
-    }
-    if (d.content.present) {
-      context.handle(_contentMeta,
-          content.isAcceptableValue(d.content.value, _contentMeta));
-    } else if (isInserting) {
-      context.missing(_contentMeta);
-    }
-    if (d.start.present) {
-      context.handle(
-          _startMeta, start.isAcceptableValue(d.start.value, _startMeta));
-    } else if (isInserting) {
-      context.missing(_startMeta);
-    }
-    if (d.end.present) {
-      context.handle(_endMeta, end.isAcceptableValue(d.end.value, _endMeta));
-    } else if (isInserting) {
-      context.missing(_endMeta);
-    }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
-    } else if (isInserting) {
-      context.missing(_lastUpdatedMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  EventModel map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return EventModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(EventsCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $EventsTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.title.present) {
-      map['title'] = Variable<String, StringType>(d.title.value);
-    }
-    if (d.content.present) {
-      map['content'] = Variable<String, StringType>(d.content.value);
-    }
-    if (d.start.present) {
-      map['start'] = Variable<DateTime, DateTimeType>(d.start.value);
-    }
-    if (d.end.present) {
-      map['end'] = Variable<DateTime, DateTimeType>(d.end.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
-  }
-
-  @override
-  $EventsTable createAlias(String alias) {
-    return $EventsTable(_db, alias);
-  }
-
-  static TypeConverter<String, Uint8List> $converter0 = const UUIDConverter();
-}
-
-class ReminderModel extends DataClass implements Insertable<ReminderModel> {
-  final String id;
-  final String title;
-  final String reminder;
-  final DateTime time;
-  final int weekday;
-  final bool recurring;
-  final DateTime lastUpdated;
-  ReminderModel(
-      {@required this.id,
-      @required this.title,
-      @required this.reminder,
-      @required this.time,
-      @required this.weekday,
-      @required this.recurring,
-      @required this.lastUpdated});
-  factory ReminderModel.fromData(
-      Map<String, dynamic> data, GeneratedDatabase db,
-      {String prefix}) {
-    final effectivePrefix = prefix ?? '';
-    final uint8ListType = db.typeSystem.forDartType<Uint8List>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final intType = db.typeSystem.forDartType<int>();
-    final boolType = db.typeSystem.forDartType<bool>();
-    return ReminderModel(
-      id: $RemindersTable.$converter0.mapToDart(
-          uint8ListType.mapFromDatabaseResponse(data['${effectivePrefix}id'])),
-      title:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title']),
-      reminder: stringType
-          .mapFromDatabaseResponse(data['${effectivePrefix}reminder']),
-      time:
-          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}time']),
-      weekday:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}weekday']),
-      recurring:
-          boolType.mapFromDatabaseResponse(data['${effectivePrefix}recurring']),
-      lastUpdated: dateTimeType
-          .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
-    );
-  }
-  factory ReminderModel.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return ReminderModel(
-      id: serializer.fromJson<String>(json['id']),
-      title: serializer.fromJson<String>(json['title']),
-      reminder: serializer.fromJson<String>(json['reminder']),
-      time: serializer.fromJson<DateTime>(json['time']),
-      weekday: serializer.fromJson<int>(json['weekday']),
-      recurring: serializer.fromJson<bool>(json['recurring']),
-      lastUpdated: serializer.fromJson<DateTime>(json['lastUpdated']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'title': serializer.toJson<String>(title),
-      'reminder': serializer.toJson<String>(reminder),
-      'time': serializer.toJson<DateTime>(time),
-      'weekday': serializer.toJson<int>(weekday),
-      'recurring': serializer.toJson<bool>(recurring),
-      'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
-    };
-  }
-
-  @override
-  RemindersCompanion createCompanion(bool nullToAbsent) {
-    return RemindersCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      title:
-          title == null && nullToAbsent ? const Value.absent() : Value(title),
-      reminder: reminder == null && nullToAbsent
-          ? const Value.absent()
-          : Value(reminder),
-      time: time == null && nullToAbsent ? const Value.absent() : Value(time),
-      weekday: weekday == null && nullToAbsent
-          ? const Value.absent()
-          : Value(weekday),
-      recurring: recurring == null && nullToAbsent
-          ? const Value.absent()
-          : Value(recurring),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
-  }
-
-  ReminderModel copyWith(
-          {String id,
-          String title,
-          String reminder,
-          DateTime time,
-          int weekday,
-          bool recurring,
-          DateTime lastUpdated}) =>
-      ReminderModel(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        reminder: reminder ?? this.reminder,
-        time: time ?? this.time,
-        weekday: weekday ?? this.weekday,
-        recurring: recurring ?? this.recurring,
-        lastUpdated: lastUpdated ?? this.lastUpdated,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('ReminderModel(')
-          ..write('id: $id, ')
-          ..write('title: $title, ')
-          ..write('reminder: $reminder, ')
-          ..write('time: $time, ')
-          ..write('weekday: $weekday, ')
-          ..write('recurring: $recurring, ')
-          ..write('lastUpdated: $lastUpdated')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => $mrjf($mrjc(
-      id.hashCode,
-      $mrjc(
-          title.hashCode,
-          $mrjc(
-              reminder.hashCode,
-              $mrjc(
-                  time.hashCode,
-                  $mrjc(weekday.hashCode,
-                      $mrjc(recurring.hashCode, lastUpdated.hashCode)))))));
-  @override
-  bool operator ==(dynamic other) =>
-      identical(this, other) ||
-      (other is ReminderModel &&
-          other.id == this.id &&
-          other.title == this.title &&
-          other.reminder == this.reminder &&
-          other.time == this.time &&
-          other.weekday == this.weekday &&
-          other.recurring == this.recurring &&
-          other.lastUpdated == this.lastUpdated);
-}
-
-class RemindersCompanion extends UpdateCompanion<ReminderModel> {
-  final Value<String> id;
-  final Value<String> title;
-  final Value<String> reminder;
-  final Value<DateTime> time;
-  final Value<int> weekday;
-  final Value<bool> recurring;
-  final Value<DateTime> lastUpdated;
-  const RemindersCompanion({
-    this.id = const Value.absent(),
-    this.title = const Value.absent(),
-    this.reminder = const Value.absent(),
-    this.time = const Value.absent(),
-    this.weekday = const Value.absent(),
-    this.recurring = const Value.absent(),
-    this.lastUpdated = const Value.absent(),
-  });
-  RemindersCompanion.insert({
-    @required String id,
-    @required String title,
-    @required String reminder,
-    @required DateTime time,
-    @required int weekday,
-    @required bool recurring,
-    @required DateTime lastUpdated,
-  })  : id = Value(id),
-        title = Value(title),
-        reminder = Value(reminder),
-        time = Value(time),
-        weekday = Value(weekday),
-        recurring = Value(recurring),
-        lastUpdated = Value(lastUpdated);
-  RemindersCompanion copyWith(
-      {Value<String> id,
-      Value<String> title,
-      Value<String> reminder,
-      Value<DateTime> time,
-      Value<int> weekday,
-      Value<bool> recurring,
-      Value<DateTime> lastUpdated}) {
-    return RemindersCompanion(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      reminder: reminder ?? this.reminder,
-      time: time ?? this.time,
-      weekday: weekday ?? this.weekday,
-      recurring: recurring ?? this.recurring,
-      lastUpdated: lastUpdated ?? this.lastUpdated,
-    );
-  }
-}
-
-class $RemindersTable extends Reminders
-    with TableInfo<$RemindersTable, ReminderModel> {
-  final GeneratedDatabase _db;
-  final String _alias;
-  $RemindersTable(this._db, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedBlobColumn _id;
-  @override
-  GeneratedBlobColumn get id => _id ??= _constructId();
-  GeneratedBlobColumn _constructId() {
-    return GeneratedBlobColumn('id', $tableName, false,
-        $customConstraints: 'UNIQUE NOT NULL');
-  }
-
-  final VerificationMeta _titleMeta = const VerificationMeta('title');
-  GeneratedTextColumn _title;
-  @override
-  GeneratedTextColumn get title => _title ??= _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn(
-      'title',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _reminderMeta = const VerificationMeta('reminder');
-  GeneratedTextColumn _reminder;
-  @override
-  GeneratedTextColumn get reminder => _reminder ??= _constructReminder();
-  GeneratedTextColumn _constructReminder() {
-    return GeneratedTextColumn(
-      'reminder',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _timeMeta = const VerificationMeta('time');
-  GeneratedDateTimeColumn _time;
-  @override
-  GeneratedDateTimeColumn get time => _time ??= _constructTime();
-  GeneratedDateTimeColumn _constructTime() {
-    return GeneratedDateTimeColumn(
-      'time',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _weekdayMeta = const VerificationMeta('weekday');
-  GeneratedIntColumn _weekday;
-  @override
-  GeneratedIntColumn get weekday => _weekday ??= _constructWeekday();
-  GeneratedIntColumn _constructWeekday() {
-    return GeneratedIntColumn(
-      'weekday',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _recurringMeta = const VerificationMeta('recurring');
-  GeneratedBoolColumn _recurring;
-  @override
-  GeneratedBoolColumn get recurring => _recurring ??= _constructRecurring();
-  GeneratedBoolColumn _constructRecurring() {
-    return GeneratedBoolColumn(
-      'recurring',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _lastUpdatedMeta =
-      const VerificationMeta('lastUpdated');
-  GeneratedDateTimeColumn _lastUpdated;
-  @override
-  GeneratedDateTimeColumn get lastUpdated =>
-      _lastUpdated ??= _constructLastUpdated();
-  GeneratedDateTimeColumn _constructLastUpdated() {
-    return GeneratedDateTimeColumn(
-      'last_updated',
-      $tableName,
-      false,
-    );
-  }
-
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, title, reminder, time, weekday, recurring, lastUpdated];
-  @override
-  $RemindersTable get asDslTable => this;
-  @override
-  String get $tableName => _alias ?? 'reminders';
-  @override
-  final String actualTableName = 'reminders';
-  @override
-  VerificationContext validateIntegrity(RemindersCompanion d,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    context.handle(_idMeta, const VerificationResult.success());
-    if (d.title.present) {
-      context.handle(
-          _titleMeta, title.isAcceptableValue(d.title.value, _titleMeta));
-    } else if (isInserting) {
-      context.missing(_titleMeta);
-    }
-    if (d.reminder.present) {
-      context.handle(_reminderMeta,
-          reminder.isAcceptableValue(d.reminder.value, _reminderMeta));
-    } else if (isInserting) {
-      context.missing(_reminderMeta);
-    }
-    if (d.time.present) {
-      context.handle(
-          _timeMeta, time.isAcceptableValue(d.time.value, _timeMeta));
-    } else if (isInserting) {
-      context.missing(_timeMeta);
-    }
-    if (d.weekday.present) {
-      context.handle(_weekdayMeta,
-          weekday.isAcceptableValue(d.weekday.value, _weekdayMeta));
-    } else if (isInserting) {
-      context.missing(_weekdayMeta);
-    }
-    if (d.recurring.present) {
-      context.handle(_recurringMeta,
-          recurring.isAcceptableValue(d.recurring.value, _recurringMeta));
-    } else if (isInserting) {
-      context.missing(_recurringMeta);
-    }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
-    } else if (isInserting) {
-      context.missing(_lastUpdatedMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  ReminderModel map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return ReminderModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(RemindersCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $RemindersTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.title.present) {
-      map['title'] = Variable<String, StringType>(d.title.value);
-    }
-    if (d.reminder.present) {
-      map['reminder'] = Variable<String, StringType>(d.reminder.value);
-    }
-    if (d.time.present) {
-      map['time'] = Variable<DateTime, DateTimeType>(d.time.value);
-    }
-    if (d.weekday.present) {
-      map['weekday'] = Variable<int, IntType>(d.weekday.value);
-    }
-    if (d.recurring.present) {
-      map['recurring'] = Variable<bool, BoolType>(d.recurring.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
-  }
-
-  @override
-  $RemindersTable createAlias(String alias) {
-    return $RemindersTable(_db, alias);
-  }
-
-  static TypeConverter<String, Uint8List> $converter0 = const UUIDConverter();
-}
-
-class YearModel extends DataClass implements Insertable<YearModel> {
-  final String id;
-  final DateTime start;
-  final DateTime end;
-  final DateTime lastSelected;
-  final DateTime lastUpdated;
-  YearModel(
-      {@required this.id,
-      @required this.start,
-      @required this.end,
-      @required this.lastSelected,
-      @required this.lastUpdated});
-  factory YearModel.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String prefix}) {
-    final effectivePrefix = prefix ?? '';
-    final uint8ListType = db.typeSystem.forDartType<Uint8List>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    return YearModel(
-      id: $YearsTable.$converter0.mapToDart(
-          uint8ListType.mapFromDatabaseResponse(data['${effectivePrefix}id'])),
-      start:
-          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}start']),
-      end: dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}end']),
-      lastSelected: dateTimeType
-          .mapFromDatabaseResponse(data['${effectivePrefix}last_selected']),
-      lastUpdated: dateTimeType
-          .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
-    );
-  }
-  factory YearModel.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return YearModel(
-      id: serializer.fromJson<String>(json['id']),
-      start: serializer.fromJson<DateTime>(json['start']),
-      end: serializer.fromJson<DateTime>(json['end']),
-      lastSelected: serializer.fromJson<DateTime>(json['lastSelected']),
-      lastUpdated: serializer.fromJson<DateTime>(json['lastUpdated']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'start': serializer.toJson<DateTime>(start),
-      'end': serializer.toJson<DateTime>(end),
-      'lastSelected': serializer.toJson<DateTime>(lastSelected),
-      'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
-    };
-  }
-
-  @override
-  YearsCompanion createCompanion(bool nullToAbsent) {
-    return YearsCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      start:
-          start == null && nullToAbsent ? const Value.absent() : Value(start),
-      end: end == null && nullToAbsent ? const Value.absent() : Value(end),
-      lastSelected: lastSelected == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastSelected),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
-  }
-
-  YearModel copyWith(
-          {String id,
-          DateTime start,
-          DateTime end,
-          DateTime lastSelected,
-          DateTime lastUpdated}) =>
-      YearModel(
-        id: id ?? this.id,
-        start: start ?? this.start,
-        end: end ?? this.end,
-        lastSelected: lastSelected ?? this.lastSelected,
-        lastUpdated: lastUpdated ?? this.lastUpdated,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('YearModel(')
-          ..write('id: $id, ')
-          ..write('start: $start, ')
-          ..write('end: $end, ')
-          ..write('lastSelected: $lastSelected, ')
-          ..write('lastUpdated: $lastUpdated')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => $mrjf($mrjc(
-      id.hashCode,
-      $mrjc(
-          start.hashCode,
-          $mrjc(end.hashCode,
-              $mrjc(lastSelected.hashCode, lastUpdated.hashCode)))));
-  @override
-  bool operator ==(dynamic other) =>
-      identical(this, other) ||
-      (other is YearModel &&
-          other.id == this.id &&
-          other.start == this.start &&
-          other.end == this.end &&
-          other.lastSelected == this.lastSelected &&
-          other.lastUpdated == this.lastUpdated);
-}
-
-class YearsCompanion extends UpdateCompanion<YearModel> {
-  final Value<String> id;
-  final Value<DateTime> start;
-  final Value<DateTime> end;
-  final Value<DateTime> lastSelected;
-  final Value<DateTime> lastUpdated;
-  const YearsCompanion({
-    this.id = const Value.absent(),
-    this.start = const Value.absent(),
-    this.end = const Value.absent(),
-    this.lastSelected = const Value.absent(),
-    this.lastUpdated = const Value.absent(),
-  });
-  YearsCompanion.insert({
-    @required String id,
-    @required DateTime start,
-    @required DateTime end,
-    @required DateTime lastSelected,
-    @required DateTime lastUpdated,
-  })  : id = Value(id),
-        start = Value(start),
-        end = Value(end),
-        lastSelected = Value(lastSelected),
-        lastUpdated = Value(lastUpdated);
-  YearsCompanion copyWith(
-      {Value<String> id,
-      Value<DateTime> start,
-      Value<DateTime> end,
-      Value<DateTime> lastSelected,
-      Value<DateTime> lastUpdated}) {
-    return YearsCompanion(
-      id: id ?? this.id,
-      start: start ?? this.start,
-      end: end ?? this.end,
-      lastSelected: lastSelected ?? this.lastSelected,
-      lastUpdated: lastUpdated ?? this.lastUpdated,
-    );
-  }
-}
-
-class $YearsTable extends Years with TableInfo<$YearsTable, YearModel> {
-  final GeneratedDatabase _db;
-  final String _alias;
-  $YearsTable(this._db, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedBlobColumn _id;
-  @override
-  GeneratedBlobColumn get id => _id ??= _constructId();
-  GeneratedBlobColumn _constructId() {
-    return GeneratedBlobColumn('id', $tableName, false,
-        $customConstraints: 'UNIQUE NOT NULL');
-  }
-
-  final VerificationMeta _startMeta = const VerificationMeta('start');
-  GeneratedDateTimeColumn _start;
-  @override
-  GeneratedDateTimeColumn get start => _start ??= _constructStart();
-  GeneratedDateTimeColumn _constructStart() {
-    return GeneratedDateTimeColumn(
-      'start',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _endMeta = const VerificationMeta('end');
-  GeneratedDateTimeColumn _end;
-  @override
-  GeneratedDateTimeColumn get end => _end ??= _constructEnd();
-  GeneratedDateTimeColumn _constructEnd() {
-    return GeneratedDateTimeColumn(
-      'end',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _lastSelectedMeta =
-      const VerificationMeta('lastSelected');
-  GeneratedDateTimeColumn _lastSelected;
-  @override
-  GeneratedDateTimeColumn get lastSelected =>
-      _lastSelected ??= _constructLastSelected();
-  GeneratedDateTimeColumn _constructLastSelected() {
-    return GeneratedDateTimeColumn(
-      'last_selected',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _lastUpdatedMeta =
-      const VerificationMeta('lastUpdated');
-  GeneratedDateTimeColumn _lastUpdated;
-  @override
-  GeneratedDateTimeColumn get lastUpdated =>
-      _lastUpdated ??= _constructLastUpdated();
-  GeneratedDateTimeColumn _constructLastUpdated() {
-    return GeneratedDateTimeColumn(
-      'last_updated',
-      $tableName,
-      false,
-    );
-  }
-
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, start, end, lastSelected, lastUpdated];
-  @override
-  $YearsTable get asDslTable => this;
-  @override
-  String get $tableName => _alias ?? 'years';
-  @override
-  final String actualTableName = 'years';
-  @override
-  VerificationContext validateIntegrity(YearsCompanion d,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    context.handle(_idMeta, const VerificationResult.success());
-    if (d.start.present) {
-      context.handle(
-          _startMeta, start.isAcceptableValue(d.start.value, _startMeta));
-    } else if (isInserting) {
-      context.missing(_startMeta);
-    }
-    if (d.end.present) {
-      context.handle(_endMeta, end.isAcceptableValue(d.end.value, _endMeta));
-    } else if (isInserting) {
-      context.missing(_endMeta);
-    }
-    if (d.lastSelected.present) {
-      context.handle(
-          _lastSelectedMeta,
-          lastSelected.isAcceptableValue(
-              d.lastSelected.value, _lastSelectedMeta));
-    } else if (isInserting) {
-      context.missing(_lastSelectedMeta);
-    }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
-    } else if (isInserting) {
-      context.missing(_lastUpdatedMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  YearModel map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return YearModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(YearsCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $YearsTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.start.present) {
-      map['start'] = Variable<DateTime, DateTimeType>(d.start.value);
-    }
-    if (d.end.present) {
-      map['end'] = Variable<DateTime, DateTimeType>(d.end.value);
-    }
-    if (d.lastSelected.present) {
-      map['last_selected'] =
-          Variable<DateTime, DateTimeType>(d.lastSelected.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
-  }
-
-  @override
-  $YearsTable createAlias(String alias) {
-    return $YearsTable(_db, alias);
-  }
-
-  static TypeConverter<String, Uint8List> $converter0 = const UUIDConverter();
-}
-
-class TermModel extends DataClass implements Insertable<TermModel> {
-  final String id;
-  final String yearId;
-  final int term;
-  final DateTime start;
-  final DateTime end;
-  final DateTime lastUpdated;
-  TermModel(
-      {@required this.id,
-      @required this.yearId,
-      @required this.term,
-      @required this.start,
-      @required this.end,
-      @required this.lastUpdated});
-  factory TermModel.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String prefix}) {
-    final effectivePrefix = prefix ?? '';
-    final uint8ListType = db.typeSystem.forDartType<Uint8List>();
-    final intType = db.typeSystem.forDartType<int>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    return TermModel(
-      id: $TermsTable.$converter0.mapToDart(
-          uint8ListType.mapFromDatabaseResponse(data['${effectivePrefix}id'])),
-      yearId: $TermsTable.$converter1.mapToDart(uint8ListType
-          .mapFromDatabaseResponse(data['${effectivePrefix}year_id'])),
-      term: intType.mapFromDatabaseResponse(data['${effectivePrefix}term']),
-      start:
-          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}start']),
-      end: dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}end']),
-      lastUpdated: dateTimeType
-          .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
-    );
-  }
-  factory TermModel.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return TermModel(
-      id: serializer.fromJson<String>(json['id']),
-      yearId: serializer.fromJson<String>(json['yearId']),
-      term: serializer.fromJson<int>(json['term']),
-      start: serializer.fromJson<DateTime>(json['start']),
-      end: serializer.fromJson<DateTime>(json['end']),
-      lastUpdated: serializer.fromJson<DateTime>(json['lastUpdated']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'yearId': serializer.toJson<String>(yearId),
-      'term': serializer.toJson<int>(term),
-      'start': serializer.toJson<DateTime>(start),
-      'end': serializer.toJson<DateTime>(end),
-      'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
-    };
-  }
-
-  @override
-  TermsCompanion createCompanion(bool nullToAbsent) {
-    return TermsCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      yearId:
-          yearId == null && nullToAbsent ? const Value.absent() : Value(yearId),
-      term: term == null && nullToAbsent ? const Value.absent() : Value(term),
-      start:
-          start == null && nullToAbsent ? const Value.absent() : Value(start),
-      end: end == null && nullToAbsent ? const Value.absent() : Value(end),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
-  }
-
-  TermModel copyWith(
-          {String id,
-          String yearId,
-          int term,
-          DateTime start,
-          DateTime end,
-          DateTime lastUpdated}) =>
-      TermModel(
-        id: id ?? this.id,
-        yearId: yearId ?? this.yearId,
-        term: term ?? this.term,
-        start: start ?? this.start,
-        end: end ?? this.end,
-        lastUpdated: lastUpdated ?? this.lastUpdated,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('TermModel(')
-          ..write('id: $id, ')
-          ..write('yearId: $yearId, ')
-          ..write('term: $term, ')
-          ..write('start: $start, ')
-          ..write('end: $end, ')
-          ..write('lastUpdated: $lastUpdated')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => $mrjf($mrjc(
-      id.hashCode,
-      $mrjc(
-          yearId.hashCode,
-          $mrjc(
-              term.hashCode,
-              $mrjc(start.hashCode,
-                  $mrjc(end.hashCode, lastUpdated.hashCode))))));
-  @override
-  bool operator ==(dynamic other) =>
-      identical(this, other) ||
-      (other is TermModel &&
-          other.id == this.id &&
-          other.yearId == this.yearId &&
-          other.term == this.term &&
-          other.start == this.start &&
-          other.end == this.end &&
-          other.lastUpdated == this.lastUpdated);
-}
-
-class TermsCompanion extends UpdateCompanion<TermModel> {
-  final Value<String> id;
-  final Value<String> yearId;
-  final Value<int> term;
-  final Value<DateTime> start;
-  final Value<DateTime> end;
-  final Value<DateTime> lastUpdated;
-  const TermsCompanion({
-    this.id = const Value.absent(),
-    this.yearId = const Value.absent(),
-    this.term = const Value.absent(),
-    this.start = const Value.absent(),
-    this.end = const Value.absent(),
-    this.lastUpdated = const Value.absent(),
-  });
-  TermsCompanion.insert({
-    @required String id,
-    @required String yearId,
-    @required int term,
-    @required DateTime start,
-    @required DateTime end,
-    @required DateTime lastUpdated,
-  })  : id = Value(id),
-        yearId = Value(yearId),
-        term = Value(term),
-        start = Value(start),
-        end = Value(end),
-        lastUpdated = Value(lastUpdated);
-  TermsCompanion copyWith(
-      {Value<String> id,
-      Value<String> yearId,
-      Value<int> term,
-      Value<DateTime> start,
-      Value<DateTime> end,
-      Value<DateTime> lastUpdated}) {
-    return TermsCompanion(
-      id: id ?? this.id,
-      yearId: yearId ?? this.yearId,
-      term: term ?? this.term,
-      start: start ?? this.start,
-      end: end ?? this.end,
-      lastUpdated: lastUpdated ?? this.lastUpdated,
-    );
-  }
-}
-
-class $TermsTable extends Terms with TableInfo<$TermsTable, TermModel> {
-  final GeneratedDatabase _db;
-  final String _alias;
-  $TermsTable(this._db, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedBlobColumn _id;
-  @override
-  GeneratedBlobColumn get id => _id ??= _constructId();
-  GeneratedBlobColumn _constructId() {
-    return GeneratedBlobColumn('id', $tableName, false,
-        $customConstraints: 'UNIQUE NOT NULL');
-  }
-
-  final VerificationMeta _yearIdMeta = const VerificationMeta('yearId');
-  GeneratedBlobColumn _yearId;
-  @override
-  GeneratedBlobColumn get yearId => _yearId ??= _constructYearId();
-  GeneratedBlobColumn _constructYearId() {
-    return GeneratedBlobColumn(
-      'year_id',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _termMeta = const VerificationMeta('term');
-  GeneratedIntColumn _term;
-  @override
-  GeneratedIntColumn get term => _term ??= _constructTerm();
-  GeneratedIntColumn _constructTerm() {
-    return GeneratedIntColumn(
-      'term',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _startMeta = const VerificationMeta('start');
-  GeneratedDateTimeColumn _start;
-  @override
-  GeneratedDateTimeColumn get start => _start ??= _constructStart();
-  GeneratedDateTimeColumn _constructStart() {
-    return GeneratedDateTimeColumn(
-      'start',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _endMeta = const VerificationMeta('end');
-  GeneratedDateTimeColumn _end;
-  @override
-  GeneratedDateTimeColumn get end => _end ??= _constructEnd();
-  GeneratedDateTimeColumn _constructEnd() {
-    return GeneratedDateTimeColumn(
-      'end',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _lastUpdatedMeta =
-      const VerificationMeta('lastUpdated');
-  GeneratedDateTimeColumn _lastUpdated;
-  @override
-  GeneratedDateTimeColumn get lastUpdated =>
-      _lastUpdated ??= _constructLastUpdated();
-  GeneratedDateTimeColumn _constructLastUpdated() {
-    return GeneratedDateTimeColumn(
-      'last_updated',
-      $tableName,
-      false,
-    );
-  }
-
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, yearId, term, start, end, lastUpdated];
-  @override
-  $TermsTable get asDslTable => this;
-  @override
-  String get $tableName => _alias ?? 'terms';
-  @override
-  final String actualTableName = 'terms';
-  @override
-  VerificationContext validateIntegrity(TermsCompanion d,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    context.handle(_idMeta, const VerificationResult.success());
-    context.handle(_yearIdMeta, const VerificationResult.success());
-    if (d.term.present) {
-      context.handle(
-          _termMeta, term.isAcceptableValue(d.term.value, _termMeta));
-    } else if (isInserting) {
-      context.missing(_termMeta);
-    }
-    if (d.start.present) {
-      context.handle(
-          _startMeta, start.isAcceptableValue(d.start.value, _startMeta));
-    } else if (isInserting) {
-      context.missing(_startMeta);
-    }
-    if (d.end.present) {
-      context.handle(_endMeta, end.isAcceptableValue(d.end.value, _endMeta));
-    } else if (isInserting) {
-      context.missing(_endMeta);
-    }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
-    } else if (isInserting) {
-      context.missing(_lastUpdatedMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  TermModel map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return TermModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(TermsCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $TermsTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.yearId.present) {
-      final converter = $TermsTable.$converter1;
-      map['year_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.yearId.value));
-    }
-    if (d.term.present) {
-      map['term'] = Variable<int, IntType>(d.term.value);
-    }
-    if (d.start.present) {
-      map['start'] = Variable<DateTime, DateTimeType>(d.start.value);
-    }
-    if (d.end.present) {
-      map['end'] = Variable<DateTime, DateTimeType>(d.end.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
-  }
-
-  @override
-  $TermsTable createAlias(String alias) {
-    return $TermsTable(_db, alias);
-  }
-
-  static TypeConverter<String, Uint8List> $converter0 = const UUIDConverter();
-  static TypeConverter<String, Uint8List> $converter1 = const UUIDConverter();
-}
-
-class InsetDayModel extends DataClass implements Insertable<InsetDayModel> {
-  final String id;
-  final String termId;
-  final DateTime date;
-  final DateTime lastUpdated;
-  InsetDayModel(
-      {@required this.id,
-      @required this.termId,
-      @required this.date,
-      @required this.lastUpdated});
-  factory InsetDayModel.fromData(
-      Map<String, dynamic> data, GeneratedDatabase db,
-      {String prefix}) {
-    final effectivePrefix = prefix ?? '';
-    final uint8ListType = db.typeSystem.forDartType<Uint8List>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    return InsetDayModel(
-      id: $InsetDayTable.$converter0.mapToDart(
-          uint8ListType.mapFromDatabaseResponse(data['${effectivePrefix}id'])),
-      termId: $InsetDayTable.$converter1.mapToDart(uint8ListType
-          .mapFromDatabaseResponse(data['${effectivePrefix}term_id'])),
-      date:
-          dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}date']),
-      lastUpdated: dateTimeType
-          .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
-    );
-  }
-  factory InsetDayModel.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return InsetDayModel(
-      id: serializer.fromJson<String>(json['id']),
-      termId: serializer.fromJson<String>(json['termId']),
-      date: serializer.fromJson<DateTime>(json['date']),
-      lastUpdated: serializer.fromJson<DateTime>(json['lastUpdated']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'termId': serializer.toJson<String>(termId),
-      'date': serializer.toJson<DateTime>(date),
-      'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
-    };
-  }
-
-  @override
-  InsetDayCompanion createCompanion(bool nullToAbsent) {
-    return InsetDayCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      termId:
-          termId == null && nullToAbsent ? const Value.absent() : Value(termId),
-      date: date == null && nullToAbsent ? const Value.absent() : Value(date),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
-  }
-
-  InsetDayModel copyWith(
-          {String id, String termId, DateTime date, DateTime lastUpdated}) =>
-      InsetDayModel(
-        id: id ?? this.id,
-        termId: termId ?? this.termId,
-        date: date ?? this.date,
-        lastUpdated: lastUpdated ?? this.lastUpdated,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('InsetDayModel(')
-          ..write('id: $id, ')
-          ..write('termId: $termId, ')
-          ..write('date: $date, ')
-          ..write('lastUpdated: $lastUpdated')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => $mrjf($mrjc(id.hashCode,
-      $mrjc(termId.hashCode, $mrjc(date.hashCode, lastUpdated.hashCode))));
-  @override
-  bool operator ==(dynamic other) =>
-      identical(this, other) ||
-      (other is InsetDayModel &&
-          other.id == this.id &&
-          other.termId == this.termId &&
-          other.date == this.date &&
-          other.lastUpdated == this.lastUpdated);
-}
-
-class InsetDayCompanion extends UpdateCompanion<InsetDayModel> {
-  final Value<String> id;
-  final Value<String> termId;
-  final Value<DateTime> date;
-  final Value<DateTime> lastUpdated;
-  const InsetDayCompanion({
-    this.id = const Value.absent(),
-    this.termId = const Value.absent(),
-    this.date = const Value.absent(),
-    this.lastUpdated = const Value.absent(),
-  });
-  InsetDayCompanion.insert({
-    @required String id,
-    @required String termId,
-    @required DateTime date,
-    @required DateTime lastUpdated,
-  })  : id = Value(id),
-        termId = Value(termId),
-        date = Value(date),
-        lastUpdated = Value(lastUpdated);
-  InsetDayCompanion copyWith(
-      {Value<String> id,
-      Value<String> termId,
-      Value<DateTime> date,
-      Value<DateTime> lastUpdated}) {
-    return InsetDayCompanion(
-      id: id ?? this.id,
-      termId: termId ?? this.termId,
-      date: date ?? this.date,
-      lastUpdated: lastUpdated ?? this.lastUpdated,
-    );
-  }
-}
-
-class $InsetDayTable extends InsetDay
-    with TableInfo<$InsetDayTable, InsetDayModel> {
-  final GeneratedDatabase _db;
-  final String _alias;
-  $InsetDayTable(this._db, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedBlobColumn _id;
-  @override
-  GeneratedBlobColumn get id => _id ??= _constructId();
-  GeneratedBlobColumn _constructId() {
-    return GeneratedBlobColumn('id', $tableName, false,
-        $customConstraints: 'UNIQUE NOT NULL');
-  }
-
-  final VerificationMeta _termIdMeta = const VerificationMeta('termId');
-  GeneratedBlobColumn _termId;
-  @override
-  GeneratedBlobColumn get termId => _termId ??= _constructTermId();
-  GeneratedBlobColumn _constructTermId() {
-    return GeneratedBlobColumn(
-      'term_id',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _dateMeta = const VerificationMeta('date');
-  GeneratedDateTimeColumn _date;
-  @override
-  GeneratedDateTimeColumn get date => _date ??= _constructDate();
-  GeneratedDateTimeColumn _constructDate() {
-    return GeneratedDateTimeColumn(
-      'date',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _lastUpdatedMeta =
-      const VerificationMeta('lastUpdated');
-  GeneratedDateTimeColumn _lastUpdated;
-  @override
-  GeneratedDateTimeColumn get lastUpdated =>
-      _lastUpdated ??= _constructLastUpdated();
-  GeneratedDateTimeColumn _constructLastUpdated() {
-    return GeneratedDateTimeColumn(
-      'last_updated',
-      $tableName,
-      false,
-    );
-  }
-
-  @override
-  List<GeneratedColumn> get $columns => [id, termId, date, lastUpdated];
-  @override
-  $InsetDayTable get asDslTable => this;
-  @override
-  String get $tableName => _alias ?? 'inset_day';
-  @override
-  final String actualTableName = 'inset_day';
-  @override
-  VerificationContext validateIntegrity(InsetDayCompanion d,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    context.handle(_idMeta, const VerificationResult.success());
-    context.handle(_termIdMeta, const VerificationResult.success());
-    if (d.date.present) {
-      context.handle(
-          _dateMeta, date.isAcceptableValue(d.date.value, _dateMeta));
-    } else if (isInserting) {
-      context.missing(_dateMeta);
-    }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
-    } else if (isInserting) {
-      context.missing(_lastUpdatedMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  InsetDayModel map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return InsetDayModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(InsetDayCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $InsetDayTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.termId.present) {
-      final converter = $InsetDayTable.$converter1;
-      map['term_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.termId.value));
-    }
-    if (d.date.present) {
-      map['date'] = Variable<DateTime, DateTimeType>(d.date.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
-  }
-
-  @override
-  $InsetDayTable createAlias(String alias) {
-    return $InsetDayTable(_db, alias);
-  }
-
-  static TypeConverter<String, Uint8List> $converter0 = const UUIDConverter();
-  static TypeConverter<String, Uint8List> $converter1 = const UUIDConverter();
-}
-
-class HomeworkModel extends DataClass implements Insertable<HomeworkModel> {
-  final String id;
-  final String subjectId;
-  final String lessonId;
-  final String studyId;
-  final String title;
-  final String description;
-  final DateTime due;
-  final int length;
-  final double progress;
-  final DateTime lastUpdated;
-  HomeworkModel(
-      {@required this.id,
-      @required this.subjectId,
-      this.lessonId,
-      this.studyId,
-      @required this.title,
-      this.description,
-      @required this.due,
-      @required this.length,
-      @required this.progress,
-      @required this.lastUpdated});
-  factory HomeworkModel.fromData(
-      Map<String, dynamic> data, GeneratedDatabase db,
-      {String prefix}) {
-    final effectivePrefix = prefix ?? '';
-    final uint8ListType = db.typeSystem.forDartType<Uint8List>();
-    final stringType = db.typeSystem.forDartType<String>();
-    final dateTimeType = db.typeSystem.forDartType<DateTime>();
-    final intType = db.typeSystem.forDartType<int>();
-    final doubleType = db.typeSystem.forDartType<double>();
-    return HomeworkModel(
-      id: $HomeworkTable.$converter0.mapToDart(
-          uint8ListType.mapFromDatabaseResponse(data['${effectivePrefix}id'])),
-      subjectId: $HomeworkTable.$converter1.mapToDart(uint8ListType
-          .mapFromDatabaseResponse(data['${effectivePrefix}subject_id'])),
-      lessonId: $HomeworkTable.$converter2.mapToDart(uint8ListType
-          .mapFromDatabaseResponse(data['${effectivePrefix}lesson_id'])),
-      studyId: $HomeworkTable.$converter3.mapToDart(uint8ListType
-          .mapFromDatabaseResponse(data['${effectivePrefix}study_id'])),
-      title:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title']),
-      description: stringType
-          .mapFromDatabaseResponse(data['${effectivePrefix}description']),
-      due: dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}due']),
-      length: intType.mapFromDatabaseResponse(data['${effectivePrefix}length']),
-      progress: doubleType
-          .mapFromDatabaseResponse(data['${effectivePrefix}progress']),
-      lastUpdated: dateTimeType
-          .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
-    );
-  }
-  factory HomeworkModel.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return HomeworkModel(
-      id: serializer.fromJson<String>(json['id']),
-      subjectId: serializer.fromJson<String>(json['subjectId']),
-      lessonId: serializer.fromJson<String>(json['lessonId']),
-      studyId: serializer.fromJson<String>(json['studyId']),
-      title: serializer.fromJson<String>(json['title']),
-      description: serializer.fromJson<String>(json['description']),
-      due: serializer.fromJson<DateTime>(json['due']),
-      length: serializer.fromJson<int>(json['length']),
-      progress: serializer.fromJson<double>(json['progress']),
-      lastUpdated: serializer.fromJson<DateTime>(json['lastUpdated']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer serializer}) {
-    serializer ??= moorRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'subjectId': serializer.toJson<String>(subjectId),
-      'lessonId': serializer.toJson<String>(lessonId),
-      'studyId': serializer.toJson<String>(studyId),
-      'title': serializer.toJson<String>(title),
-      'description': serializer.toJson<String>(description),
-      'due': serializer.toJson<DateTime>(due),
-      'length': serializer.toJson<int>(length),
-      'progress': serializer.toJson<double>(progress),
-      'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
-    };
-  }
-
-  @override
-  HomeworkCompanion createCompanion(bool nullToAbsent) {
-    return HomeworkCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      subjectId: subjectId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(subjectId),
-      lessonId: lessonId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lessonId),
-      studyId: studyId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(studyId),
-      title:
-          title == null && nullToAbsent ? const Value.absent() : Value(title),
-      description: description == null && nullToAbsent
-          ? const Value.absent()
-          : Value(description),
-      due: due == null && nullToAbsent ? const Value.absent() : Value(due),
-      length:
-          length == null && nullToAbsent ? const Value.absent() : Value(length),
-      progress: progress == null && nullToAbsent
-          ? const Value.absent()
-          : Value(progress),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
-  }
-
-  HomeworkModel copyWith(
-          {String id,
-          String subjectId,
-          String lessonId,
-          String studyId,
-          String title,
-          String description,
-          DateTime due,
-          int length,
-          double progress,
-          DateTime lastUpdated}) =>
-      HomeworkModel(
-        id: id ?? this.id,
-        subjectId: subjectId ?? this.subjectId,
-        lessonId: lessonId ?? this.lessonId,
-        studyId: studyId ?? this.studyId,
-        title: title ?? this.title,
-        description: description ?? this.description,
-        due: due ?? this.due,
-        length: length ?? this.length,
-        progress: progress ?? this.progress,
-        lastUpdated: lastUpdated ?? this.lastUpdated,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('HomeworkModel(')
-          ..write('id: $id, ')
-          ..write('subjectId: $subjectId, ')
-          ..write('lessonId: $lessonId, ')
-          ..write('studyId: $studyId, ')
-          ..write('title: $title, ')
-          ..write('description: $description, ')
-          ..write('due: $due, ')
-          ..write('length: $length, ')
-          ..write('progress: $progress, ')
-          ..write('lastUpdated: $lastUpdated')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => $mrjf($mrjc(
-      id.hashCode,
-      $mrjc(
-          subjectId.hashCode,
-          $mrjc(
-              lessonId.hashCode,
-              $mrjc(
-                  studyId.hashCode,
-                  $mrjc(
-                      title.hashCode,
-                      $mrjc(
-                          description.hashCode,
-                          $mrjc(
-                              due.hashCode,
-                              $mrjc(
-                                  length.hashCode,
-                                  $mrjc(progress.hashCode,
-                                      lastUpdated.hashCode))))))))));
-  @override
-  bool operator ==(dynamic other) =>
-      identical(this, other) ||
-      (other is HomeworkModel &&
-          other.id == this.id &&
-          other.subjectId == this.subjectId &&
-          other.lessonId == this.lessonId &&
-          other.studyId == this.studyId &&
-          other.title == this.title &&
-          other.description == this.description &&
-          other.due == this.due &&
-          other.length == this.length &&
-          other.progress == this.progress &&
-          other.lastUpdated == this.lastUpdated);
-}
-
-class HomeworkCompanion extends UpdateCompanion<HomeworkModel> {
-  final Value<String> id;
-  final Value<String> subjectId;
-  final Value<String> lessonId;
-  final Value<String> studyId;
-  final Value<String> title;
-  final Value<String> description;
-  final Value<DateTime> due;
-  final Value<int> length;
-  final Value<double> progress;
-  final Value<DateTime> lastUpdated;
-  const HomeworkCompanion({
-    this.id = const Value.absent(),
-    this.subjectId = const Value.absent(),
-    this.lessonId = const Value.absent(),
-    this.studyId = const Value.absent(),
-    this.title = const Value.absent(),
-    this.description = const Value.absent(),
-    this.due = const Value.absent(),
-    this.length = const Value.absent(),
-    this.progress = const Value.absent(),
-    this.lastUpdated = const Value.absent(),
-  });
-  HomeworkCompanion.insert({
-    @required String id,
-    @required String subjectId,
-    this.lessonId = const Value.absent(),
-    this.studyId = const Value.absent(),
-    @required String title,
-    this.description = const Value.absent(),
-    @required DateTime due,
-    @required int length,
-    @required double progress,
-    @required DateTime lastUpdated,
-  })  : id = Value(id),
-        subjectId = Value(subjectId),
-        title = Value(title),
-        due = Value(due),
-        length = Value(length),
-        progress = Value(progress),
-        lastUpdated = Value(lastUpdated);
-  HomeworkCompanion copyWith(
-      {Value<String> id,
-      Value<String> subjectId,
-      Value<String> lessonId,
-      Value<String> studyId,
-      Value<String> title,
-      Value<String> description,
-      Value<DateTime> due,
-      Value<int> length,
-      Value<double> progress,
-      Value<DateTime> lastUpdated}) {
-    return HomeworkCompanion(
-      id: id ?? this.id,
-      subjectId: subjectId ?? this.subjectId,
-      lessonId: lessonId ?? this.lessonId,
-      studyId: studyId ?? this.studyId,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      due: due ?? this.due,
-      length: length ?? this.length,
-      progress: progress ?? this.progress,
-      lastUpdated: lastUpdated ?? this.lastUpdated,
-    );
-  }
-}
-
-class $HomeworkTable extends Homework
-    with TableInfo<$HomeworkTable, HomeworkModel> {
-  final GeneratedDatabase _db;
-  final String _alias;
-  $HomeworkTable(this._db, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedBlobColumn _id;
-  @override
-  GeneratedBlobColumn get id => _id ??= _constructId();
-  GeneratedBlobColumn _constructId() {
-    return GeneratedBlobColumn('id', $tableName, false,
-        $customConstraints: 'UNIQUE NOT NULL');
-  }
-
-  final VerificationMeta _subjectIdMeta = const VerificationMeta('subjectId');
-  GeneratedBlobColumn _subjectId;
-  @override
-  GeneratedBlobColumn get subjectId => _subjectId ??= _constructSubjectId();
-  GeneratedBlobColumn _constructSubjectId() {
-    return GeneratedBlobColumn(
-      'subject_id',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _lessonIdMeta = const VerificationMeta('lessonId');
-  GeneratedBlobColumn _lessonId;
-  @override
-  GeneratedBlobColumn get lessonId => _lessonId ??= _constructLessonId();
-  GeneratedBlobColumn _constructLessonId() {
-    return GeneratedBlobColumn(
-      'lesson_id',
-      $tableName,
-      true,
-    );
-  }
-
-  final VerificationMeta _studyIdMeta = const VerificationMeta('studyId');
-  GeneratedBlobColumn _studyId;
-  @override
-  GeneratedBlobColumn get studyId => _studyId ??= _constructStudyId();
-  GeneratedBlobColumn _constructStudyId() {
-    return GeneratedBlobColumn(
-      'study_id',
-      $tableName,
-      true,
-    );
-  }
-
-  final VerificationMeta _titleMeta = const VerificationMeta('title');
-  GeneratedTextColumn _title;
-  @override
-  GeneratedTextColumn get title => _title ??= _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn(
-      'title',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
-  GeneratedTextColumn _description;
-  @override
-  GeneratedTextColumn get description =>
-      _description ??= _constructDescription();
-  GeneratedTextColumn _constructDescription() {
-    return GeneratedTextColumn(
-      'description',
-      $tableName,
-      true,
-    );
-  }
-
-  final VerificationMeta _dueMeta = const VerificationMeta('due');
-  GeneratedDateTimeColumn _due;
-  @override
-  GeneratedDateTimeColumn get due => _due ??= _constructDue();
-  GeneratedDateTimeColumn _constructDue() {
-    return GeneratedDateTimeColumn(
-      'due',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _lengthMeta = const VerificationMeta('length');
-  GeneratedIntColumn _length;
-  @override
-  GeneratedIntColumn get length => _length ??= _constructLength();
-  GeneratedIntColumn _constructLength() {
-    return GeneratedIntColumn(
-      'length',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _progressMeta = const VerificationMeta('progress');
-  GeneratedRealColumn _progress;
-  @override
-  GeneratedRealColumn get progress => _progress ??= _constructProgress();
-  GeneratedRealColumn _constructProgress() {
-    return GeneratedRealColumn(
-      'progress',
-      $tableName,
-      false,
-    );
-  }
-
-  final VerificationMeta _lastUpdatedMeta =
-      const VerificationMeta('lastUpdated');
-  GeneratedDateTimeColumn _lastUpdated;
-  @override
-  GeneratedDateTimeColumn get lastUpdated =>
-      _lastUpdated ??= _constructLastUpdated();
-  GeneratedDateTimeColumn _constructLastUpdated() {
-    return GeneratedDateTimeColumn(
-      'last_updated',
-      $tableName,
-      false,
-    );
-  }
-
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        subjectId,
-        lessonId,
-        studyId,
-        title,
-        description,
-        due,
-        length,
-        progress,
-        lastUpdated
-      ];
-  @override
-  $HomeworkTable get asDslTable => this;
-  @override
-  String get $tableName => _alias ?? 'homework';
-  @override
-  final String actualTableName = 'homework';
-  @override
-  VerificationContext validateIntegrity(HomeworkCompanion d,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    context.handle(_idMeta, const VerificationResult.success());
-    context.handle(_subjectIdMeta, const VerificationResult.success());
-    context.handle(_lessonIdMeta, const VerificationResult.success());
-    context.handle(_studyIdMeta, const VerificationResult.success());
-    if (d.title.present) {
-      context.handle(
-          _titleMeta, title.isAcceptableValue(d.title.value, _titleMeta));
-    } else if (isInserting) {
-      context.missing(_titleMeta);
-    }
-    if (d.description.present) {
-      context.handle(_descriptionMeta,
-          description.isAcceptableValue(d.description.value, _descriptionMeta));
-    }
-    if (d.due.present) {
-      context.handle(_dueMeta, due.isAcceptableValue(d.due.value, _dueMeta));
-    } else if (isInserting) {
-      context.missing(_dueMeta);
-    }
-    if (d.length.present) {
-      context.handle(
-          _lengthMeta, length.isAcceptableValue(d.length.value, _lengthMeta));
-    } else if (isInserting) {
-      context.missing(_lengthMeta);
-    }
-    if (d.progress.present) {
-      context.handle(_progressMeta,
-          progress.isAcceptableValue(d.progress.value, _progressMeta));
-    } else if (isInserting) {
-      context.missing(_progressMeta);
-    }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
-    } else if (isInserting) {
-      context.missing(_lastUpdatedMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  HomeworkModel map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return HomeworkModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(HomeworkCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $HomeworkTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.subjectId.present) {
-      final converter = $HomeworkTable.$converter1;
-      map['subject_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.subjectId.value));
-    }
-    if (d.lessonId.present) {
-      final converter = $HomeworkTable.$converter2;
-      map['lesson_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.lessonId.value));
-    }
-    if (d.studyId.present) {
-      final converter = $HomeworkTable.$converter3;
-      map['study_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.studyId.value));
-    }
-    if (d.title.present) {
-      map['title'] = Variable<String, StringType>(d.title.value);
-    }
-    if (d.description.present) {
-      map['description'] = Variable<String, StringType>(d.description.value);
-    }
-    if (d.due.present) {
-      map['due'] = Variable<DateTime, DateTimeType>(d.due.value);
-    }
-    if (d.length.present) {
-      map['length'] = Variable<int, IntType>(d.length.value);
-    }
-    if (d.progress.present) {
-      map['progress'] = Variable<double, RealType>(d.progress.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
-  }
-
-  @override
-  $HomeworkTable createAlias(String alias) {
-    return $HomeworkTable(_db, alias);
-  }
-
-  static TypeConverter<String, Uint8List> $converter0 = const UUIDConverter();
-  static TypeConverter<String, Uint8List> $converter1 = const UUIDConverter();
-  static TypeConverter<String, Uint8List> $converter2 = const UUIDConverter();
-  static TypeConverter<String, Uint8List> $converter3 = const UUIDConverter();
 }
 
 class ExamModel extends DataClass implements Insertable<ExamModel> {
@@ -5128,24 +3025,687 @@ class $LessonTimesTable extends LessonTimes
   }
 }
 
+class TaskModel extends DataClass implements Insertable<TaskModel> {
+  final String id;
+  final String subjectId;
+  final String title;
+  final String description;
+  final DateTime due;
+  final bool completed;
+  final DateTime lastUpdated;
+  TaskModel(
+      {@required this.id,
+      this.subjectId,
+      @required this.title,
+      @required this.description,
+      @required this.due,
+      @required this.completed,
+      @required this.lastUpdated});
+  factory TaskModel.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final uint8ListType = db.typeSystem.forDartType<Uint8List>();
+    final stringType = db.typeSystem.forDartType<String>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    final boolType = db.typeSystem.forDartType<bool>();
+    return TaskModel(
+      id: $TasksTable.$converter0.mapToDart(
+          uint8ListType.mapFromDatabaseResponse(data['${effectivePrefix}id'])),
+      subjectId: $TasksTable.$converter1.mapToDart(uint8ListType
+          .mapFromDatabaseResponse(data['${effectivePrefix}subject_id'])),
+      title:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title']),
+      description: stringType
+          .mapFromDatabaseResponse(data['${effectivePrefix}description']),
+      due: dateTimeType.mapFromDatabaseResponse(data['${effectivePrefix}due']),
+      completed:
+          boolType.mapFromDatabaseResponse(data['${effectivePrefix}completed']),
+      lastUpdated: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
+    );
+  }
+  factory TaskModel.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return TaskModel(
+      id: serializer.fromJson<String>(json['id']),
+      subjectId: serializer.fromJson<String>(json['subjectId']),
+      title: serializer.fromJson<String>(json['title']),
+      description: serializer.fromJson<String>(json['description']),
+      due: serializer.fromJson<DateTime>(json['due']),
+      completed: serializer.fromJson<bool>(json['completed']),
+      lastUpdated: serializer.fromJson<DateTime>(json['lastUpdated']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'subjectId': serializer.toJson<String>(subjectId),
+      'title': serializer.toJson<String>(title),
+      'description': serializer.toJson<String>(description),
+      'due': serializer.toJson<DateTime>(due),
+      'completed': serializer.toJson<bool>(completed),
+      'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
+    };
+  }
+
+  @override
+  TasksCompanion createCompanion(bool nullToAbsent) {
+    return TasksCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      subjectId: subjectId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(subjectId),
+      title:
+          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      description: description == null && nullToAbsent
+          ? const Value.absent()
+          : Value(description),
+      due: due == null && nullToAbsent ? const Value.absent() : Value(due),
+      completed: completed == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completed),
+      lastUpdated: lastUpdated == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdated),
+    );
+  }
+
+  TaskModel copyWith(
+          {String id,
+          String subjectId,
+          String title,
+          String description,
+          DateTime due,
+          bool completed,
+          DateTime lastUpdated}) =>
+      TaskModel(
+        id: id ?? this.id,
+        subjectId: subjectId ?? this.subjectId,
+        title: title ?? this.title,
+        description: description ?? this.description,
+        due: due ?? this.due,
+        completed: completed ?? this.completed,
+        lastUpdated: lastUpdated ?? this.lastUpdated,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('TaskModel(')
+          ..write('id: $id, ')
+          ..write('subjectId: $subjectId, ')
+          ..write('title: $title, ')
+          ..write('description: $description, ')
+          ..write('due: $due, ')
+          ..write('completed: $completed, ')
+          ..write('lastUpdated: $lastUpdated')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(
+          subjectId.hashCode,
+          $mrjc(
+              title.hashCode,
+              $mrjc(
+                  description.hashCode,
+                  $mrjc(due.hashCode,
+                      $mrjc(completed.hashCode, lastUpdated.hashCode)))))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is TaskModel &&
+          other.id == this.id &&
+          other.subjectId == this.subjectId &&
+          other.title == this.title &&
+          other.description == this.description &&
+          other.due == this.due &&
+          other.completed == this.completed &&
+          other.lastUpdated == this.lastUpdated);
+}
+
+class TasksCompanion extends UpdateCompanion<TaskModel> {
+  final Value<String> id;
+  final Value<String> subjectId;
+  final Value<String> title;
+  final Value<String> description;
+  final Value<DateTime> due;
+  final Value<bool> completed;
+  final Value<DateTime> lastUpdated;
+  const TasksCompanion({
+    this.id = const Value.absent(),
+    this.subjectId = const Value.absent(),
+    this.title = const Value.absent(),
+    this.description = const Value.absent(),
+    this.due = const Value.absent(),
+    this.completed = const Value.absent(),
+    this.lastUpdated = const Value.absent(),
+  });
+  TasksCompanion.insert({
+    @required String id,
+    this.subjectId = const Value.absent(),
+    @required String title,
+    @required String description,
+    @required DateTime due,
+    @required bool completed,
+    @required DateTime lastUpdated,
+  })  : id = Value(id),
+        title = Value(title),
+        description = Value(description),
+        due = Value(due),
+        completed = Value(completed),
+        lastUpdated = Value(lastUpdated);
+  TasksCompanion copyWith(
+      {Value<String> id,
+      Value<String> subjectId,
+      Value<String> title,
+      Value<String> description,
+      Value<DateTime> due,
+      Value<bool> completed,
+      Value<DateTime> lastUpdated}) {
+    return TasksCompanion(
+      id: id ?? this.id,
+      subjectId: subjectId ?? this.subjectId,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      due: due ?? this.due,
+      completed: completed ?? this.completed,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
+    );
+  }
+}
+
+class $TasksTable extends Tasks with TableInfo<$TasksTable, TaskModel> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $TasksTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedBlobColumn _id;
+  @override
+  GeneratedBlobColumn get id => _id ??= _constructId();
+  GeneratedBlobColumn _constructId() {
+    return GeneratedBlobColumn('id', $tableName, false,
+        $customConstraints: 'UNIQUE NOT NULL');
+  }
+
+  final VerificationMeta _subjectIdMeta = const VerificationMeta('subjectId');
+  GeneratedBlobColumn _subjectId;
+  @override
+  GeneratedBlobColumn get subjectId => _subjectId ??= _constructSubjectId();
+  GeneratedBlobColumn _constructSubjectId() {
+    return GeneratedBlobColumn(
+      'subject_id',
+      $tableName,
+      true,
+    );
+  }
+
+  final VerificationMeta _titleMeta = const VerificationMeta('title');
+  GeneratedTextColumn _title;
+  @override
+  GeneratedTextColumn get title => _title ??= _constructTitle();
+  GeneratedTextColumn _constructTitle() {
+    return GeneratedTextColumn(
+      'title',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  GeneratedTextColumn _description;
+  @override
+  GeneratedTextColumn get description =>
+      _description ??= _constructDescription();
+  GeneratedTextColumn _constructDescription() {
+    return GeneratedTextColumn(
+      'description',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _dueMeta = const VerificationMeta('due');
+  GeneratedDateTimeColumn _due;
+  @override
+  GeneratedDateTimeColumn get due => _due ??= _constructDue();
+  GeneratedDateTimeColumn _constructDue() {
+    return GeneratedDateTimeColumn(
+      'due',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _completedMeta = const VerificationMeta('completed');
+  GeneratedBoolColumn _completed;
+  @override
+  GeneratedBoolColumn get completed => _completed ??= _constructCompleted();
+  GeneratedBoolColumn _constructCompleted() {
+    return GeneratedBoolColumn(
+      'completed',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _lastUpdatedMeta =
+      const VerificationMeta('lastUpdated');
+  GeneratedDateTimeColumn _lastUpdated;
+  @override
+  GeneratedDateTimeColumn get lastUpdated =>
+      _lastUpdated ??= _constructLastUpdated();
+  GeneratedDateTimeColumn _constructLastUpdated() {
+    return GeneratedDateTimeColumn(
+      'last_updated',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, subjectId, title, description, due, completed, lastUpdated];
+  @override
+  $TasksTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'tasks';
+  @override
+  final String actualTableName = 'tasks';
+  @override
+  VerificationContext validateIntegrity(TasksCompanion d,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    context.handle(_idMeta, const VerificationResult.success());
+    context.handle(_subjectIdMeta, const VerificationResult.success());
+    if (d.title.present) {
+      context.handle(
+          _titleMeta, title.isAcceptableValue(d.title.value, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (d.description.present) {
+      context.handle(_descriptionMeta,
+          description.isAcceptableValue(d.description.value, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (d.due.present) {
+      context.handle(_dueMeta, due.isAcceptableValue(d.due.value, _dueMeta));
+    } else if (isInserting) {
+      context.missing(_dueMeta);
+    }
+    if (d.completed.present) {
+      context.handle(_completedMeta,
+          completed.isAcceptableValue(d.completed.value, _completedMeta));
+    } else if (isInserting) {
+      context.missing(_completedMeta);
+    }
+    if (d.lastUpdated.present) {
+      context.handle(_lastUpdatedMeta,
+          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
+    } else if (isInserting) {
+      context.missing(_lastUpdatedMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TaskModel map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return TaskModel.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  Map<String, Variable> entityToSql(TasksCompanion d) {
+    final map = <String, Variable>{};
+    if (d.id.present) {
+      final converter = $TasksTable.$converter0;
+      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
+    }
+    if (d.subjectId.present) {
+      final converter = $TasksTable.$converter1;
+      map['subject_id'] =
+          Variable<Uint8List, BlobType>(converter.mapToSql(d.subjectId.value));
+    }
+    if (d.title.present) {
+      map['title'] = Variable<String, StringType>(d.title.value);
+    }
+    if (d.description.present) {
+      map['description'] = Variable<String, StringType>(d.description.value);
+    }
+    if (d.due.present) {
+      map['due'] = Variable<DateTime, DateTimeType>(d.due.value);
+    }
+    if (d.completed.present) {
+      map['completed'] = Variable<bool, BoolType>(d.completed.value);
+    }
+    if (d.lastUpdated.present) {
+      map['last_updated'] =
+          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
+    }
+    return map;
+  }
+
+  @override
+  $TasksTable createAlias(String alias) {
+    return $TasksTable(_db, alias);
+  }
+
+  static TypeConverter<String, Uint8List> $converter0 = const UUIDConverter();
+  static TypeConverter<String, Uint8List> $converter1 = const UUIDConverter();
+}
+
+class SubTaskModel extends DataClass implements Insertable<SubTaskModel> {
+  final String id;
+  final String taskId;
+  final String title;
+  final bool completed;
+  final DateTime lastUpdated;
+  SubTaskModel(
+      {@required this.id,
+      @required this.taskId,
+      @required this.title,
+      @required this.completed,
+      @required this.lastUpdated});
+  factory SubTaskModel.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+      {String prefix}) {
+    final effectivePrefix = prefix ?? '';
+    final uint8ListType = db.typeSystem.forDartType<Uint8List>();
+    final stringType = db.typeSystem.forDartType<String>();
+    final boolType = db.typeSystem.forDartType<bool>();
+    final dateTimeType = db.typeSystem.forDartType<DateTime>();
+    return SubTaskModel(
+      id: $SubTasksTable.$converter0.mapToDart(
+          uint8ListType.mapFromDatabaseResponse(data['${effectivePrefix}id'])),
+      taskId: $SubTasksTable.$converter1.mapToDart(uint8ListType
+          .mapFromDatabaseResponse(data['${effectivePrefix}task_id'])),
+      title:
+          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title']),
+      completed:
+          boolType.mapFromDatabaseResponse(data['${effectivePrefix}completed']),
+      lastUpdated: dateTimeType
+          .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
+    );
+  }
+  factory SubTaskModel.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return SubTaskModel(
+      id: serializer.fromJson<String>(json['id']),
+      taskId: serializer.fromJson<String>(json['taskId']),
+      title: serializer.fromJson<String>(json['title']),
+      completed: serializer.fromJson<bool>(json['completed']),
+      lastUpdated: serializer.fromJson<DateTime>(json['lastUpdated']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'taskId': serializer.toJson<String>(taskId),
+      'title': serializer.toJson<String>(title),
+      'completed': serializer.toJson<bool>(completed),
+      'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
+    };
+  }
+
+  @override
+  SubTasksCompanion createCompanion(bool nullToAbsent) {
+    return SubTasksCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      taskId:
+          taskId == null && nullToAbsent ? const Value.absent() : Value(taskId),
+      title:
+          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      completed: completed == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completed),
+      lastUpdated: lastUpdated == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdated),
+    );
+  }
+
+  SubTaskModel copyWith(
+          {String id,
+          String taskId,
+          String title,
+          bool completed,
+          DateTime lastUpdated}) =>
+      SubTaskModel(
+        id: id ?? this.id,
+        taskId: taskId ?? this.taskId,
+        title: title ?? this.title,
+        completed: completed ?? this.completed,
+        lastUpdated: lastUpdated ?? this.lastUpdated,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('SubTaskModel(')
+          ..write('id: $id, ')
+          ..write('taskId: $taskId, ')
+          ..write('title: $title, ')
+          ..write('completed: $completed, ')
+          ..write('lastUpdated: $lastUpdated')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(
+          taskId.hashCode,
+          $mrjc(title.hashCode,
+              $mrjc(completed.hashCode, lastUpdated.hashCode)))));
+  @override
+  bool operator ==(dynamic other) =>
+      identical(this, other) ||
+      (other is SubTaskModel &&
+          other.id == this.id &&
+          other.taskId == this.taskId &&
+          other.title == this.title &&
+          other.completed == this.completed &&
+          other.lastUpdated == this.lastUpdated);
+}
+
+class SubTasksCompanion extends UpdateCompanion<SubTaskModel> {
+  final Value<String> id;
+  final Value<String> taskId;
+  final Value<String> title;
+  final Value<bool> completed;
+  final Value<DateTime> lastUpdated;
+  const SubTasksCompanion({
+    this.id = const Value.absent(),
+    this.taskId = const Value.absent(),
+    this.title = const Value.absent(),
+    this.completed = const Value.absent(),
+    this.lastUpdated = const Value.absent(),
+  });
+  SubTasksCompanion.insert({
+    @required String id,
+    @required String taskId,
+    @required String title,
+    @required bool completed,
+    @required DateTime lastUpdated,
+  })  : id = Value(id),
+        taskId = Value(taskId),
+        title = Value(title),
+        completed = Value(completed),
+        lastUpdated = Value(lastUpdated);
+  SubTasksCompanion copyWith(
+      {Value<String> id,
+      Value<String> taskId,
+      Value<String> title,
+      Value<bool> completed,
+      Value<DateTime> lastUpdated}) {
+    return SubTasksCompanion(
+      id: id ?? this.id,
+      taskId: taskId ?? this.taskId,
+      title: title ?? this.title,
+      completed: completed ?? this.completed,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
+    );
+  }
+}
+
+class $SubTasksTable extends SubTasks
+    with TableInfo<$SubTasksTable, SubTaskModel> {
+  final GeneratedDatabase _db;
+  final String _alias;
+  $SubTasksTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  GeneratedBlobColumn _id;
+  @override
+  GeneratedBlobColumn get id => _id ??= _constructId();
+  GeneratedBlobColumn _constructId() {
+    return GeneratedBlobColumn('id', $tableName, false,
+        $customConstraints: 'UNIQUE NOT NULL');
+  }
+
+  final VerificationMeta _taskIdMeta = const VerificationMeta('taskId');
+  GeneratedBlobColumn _taskId;
+  @override
+  GeneratedBlobColumn get taskId => _taskId ??= _constructTaskId();
+  GeneratedBlobColumn _constructTaskId() {
+    return GeneratedBlobColumn(
+      'task_id',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _titleMeta = const VerificationMeta('title');
+  GeneratedTextColumn _title;
+  @override
+  GeneratedTextColumn get title => _title ??= _constructTitle();
+  GeneratedTextColumn _constructTitle() {
+    return GeneratedTextColumn(
+      'title',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _completedMeta = const VerificationMeta('completed');
+  GeneratedBoolColumn _completed;
+  @override
+  GeneratedBoolColumn get completed => _completed ??= _constructCompleted();
+  GeneratedBoolColumn _constructCompleted() {
+    return GeneratedBoolColumn(
+      'completed',
+      $tableName,
+      false,
+    );
+  }
+
+  final VerificationMeta _lastUpdatedMeta =
+      const VerificationMeta('lastUpdated');
+  GeneratedDateTimeColumn _lastUpdated;
+  @override
+  GeneratedDateTimeColumn get lastUpdated =>
+      _lastUpdated ??= _constructLastUpdated();
+  GeneratedDateTimeColumn _constructLastUpdated() {
+    return GeneratedDateTimeColumn(
+      'last_updated',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, taskId, title, completed, lastUpdated];
+  @override
+  $SubTasksTable get asDslTable => this;
+  @override
+  String get $tableName => _alias ?? 'sub_tasks';
+  @override
+  final String actualTableName = 'sub_tasks';
+  @override
+  VerificationContext validateIntegrity(SubTasksCompanion d,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    context.handle(_idMeta, const VerificationResult.success());
+    context.handle(_taskIdMeta, const VerificationResult.success());
+    if (d.title.present) {
+      context.handle(
+          _titleMeta, title.isAcceptableValue(d.title.value, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (d.completed.present) {
+      context.handle(_completedMeta,
+          completed.isAcceptableValue(d.completed.value, _completedMeta));
+    } else if (isInserting) {
+      context.missing(_completedMeta);
+    }
+    if (d.lastUpdated.present) {
+      context.handle(_lastUpdatedMeta,
+          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
+    } else if (isInserting) {
+      context.missing(_lastUpdatedMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SubTaskModel map(Map<String, dynamic> data, {String tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
+    return SubTaskModel.fromData(data, _db, prefix: effectivePrefix);
+  }
+
+  @override
+  Map<String, Variable> entityToSql(SubTasksCompanion d) {
+    final map = <String, Variable>{};
+    if (d.id.present) {
+      final converter = $SubTasksTable.$converter0;
+      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
+    }
+    if (d.taskId.present) {
+      final converter = $SubTasksTable.$converter1;
+      map['task_id'] =
+          Variable<Uint8List, BlobType>(converter.mapToSql(d.taskId.value));
+    }
+    if (d.title.present) {
+      map['title'] = Variable<String, StringType>(d.title.value);
+    }
+    if (d.completed.present) {
+      map['completed'] = Variable<bool, BoolType>(d.completed.value);
+    }
+    if (d.lastUpdated.present) {
+      map['last_updated'] =
+          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
+    }
+    return map;
+  }
+
+  @override
+  $SubTasksTable createAlias(String alias) {
+    return $SubTasksTable(_db, alias);
+  }
+
+  static TypeConverter<String, Uint8List> $converter0 = const UUIDConverter();
+  static TypeConverter<String, Uint8List> $converter1 = const UUIDConverter();
+}
+
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   $SubjectsTable _subjects;
   $SubjectsTable get subjects => _subjects ??= $SubjectsTable(this);
   $TeachersTable _teachers;
   $TeachersTable get teachers => _teachers ??= $TeachersTable(this);
-  $EventsTable _events;
-  $EventsTable get events => _events ??= $EventsTable(this);
-  $RemindersTable _reminders;
-  $RemindersTable get reminders => _reminders ??= $RemindersTable(this);
-  $YearsTable _years;
-  $YearsTable get years => _years ??= $YearsTable(this);
-  $TermsTable _terms;
-  $TermsTable get terms => _terms ??= $TermsTable(this);
-  $InsetDayTable _insetDay;
-  $InsetDayTable get insetDay => _insetDay ??= $InsetDayTable(this);
-  $HomeworkTable _homework;
-  $HomeworkTable get homework => _homework ??= $HomeworkTable(this);
   $ExamsTable _exams;
   $ExamsTable get exams => _exams ??= $ExamsTable(this);
   $LessonsTable _lessons;
@@ -5158,16 +3718,14 @@ abstract class _$Database extends GeneratedDatabase {
   $StudyingTable get studying => _studying ??= $StudyingTable(this);
   $LessonTimesTable _lessonTimes;
   $LessonTimesTable get lessonTimes => _lessonTimes ??= $LessonTimesTable(this);
-  TermDao _termDao;
-  TermDao get termDao => _termDao ??= TermDao(this as Database);
+  $TasksTable _tasks;
+  $TasksTable get tasks => _tasks ??= $TasksTable(this);
+  $SubTasksTable _subTasks;
+  $SubTasksTable get subTasks => _subTasks ??= $SubTasksTable(this);
   ExamDao _examDao;
   ExamDao get examDao => _examDao ??= ExamDao(this as Database);
-  HomeworkDao _homeworkDao;
-  HomeworkDao get homeworkDao => _homeworkDao ??= HomeworkDao(this as Database);
   LessonDao _lessonDao;
   LessonDao get lessonDao => _lessonDao ??= LessonDao(this as Database);
-  ReminderDao _reminderDao;
-  ReminderDao get reminderDao => _reminderDao ??= ReminderDao(this as Database);
   SubjectDao _subjectDao;
   SubjectDao get subjectDao => _subjectDao ??= SubjectDao(this as Database);
   TeacherDao _teacherDao;
@@ -5177,27 +3735,23 @@ abstract class _$Database extends GeneratedDatabase {
   TimetableDao _timetableDao;
   TimetableDao get timetableDao =>
       _timetableDao ??= TimetableDao(this as Database);
-  YearDao _yearDao;
-  YearDao get yearDao => _yearDao ??= YearDao(this as Database);
   StudyDao _studyDao;
   StudyDao get studyDao => _studyDao ??= StudyDao(this as Database);
+  TaskDao _taskDao;
+  TaskDao get taskDao => _taskDao ??= TaskDao(this as Database);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
         subjects,
         teachers,
-        events,
-        reminders,
-        years,
-        terms,
-        insetDay,
-        homework,
         exams,
         lessons,
         timetables,
         tests,
         studying,
-        lessonTimes
+        lessonTimes,
+        tasks,
+        subTasks
       ];
 }

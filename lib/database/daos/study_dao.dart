@@ -6,11 +6,9 @@ import 'package:cheon/models/study_session.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/test.dart';
-import 'package:cheon/models/year.dart';
 import 'package:cheon/utils.dart';
 import 'package:moor/moor.dart';
 import 'package:cheon/repositories/study_repository.dart';
-import 'package:rxdart/rxdart.dart' hide Subject;
 
 part 'study_dao.g.dart';
 
@@ -19,32 +17,15 @@ part 'study_dao.g.dart';
   Tests,
   Subjects,
   Teachers,
-  Years,
   Studying,
 ])
 class StudyDao extends DatabaseAccessor<Database> with _$StudyDaoMixin {
   StudyDao(Database db) : super(db);
 
-  Stream<YearModel> _activeYearStream() {
-    return (select(years)
-          ..orderBy(<OrderingTerm Function($YearsTable)>[
-            ($YearsTable table) => OrderingTerm.desc(table.lastSelected),
-          ])
-          ..limit(1))
-        .watchSingle();
-  }
-
-  JoinedSelectStatement<Table, DataClass> _studySessionQueryFromYearModel(
-      YearModel yearModel) {
+  JoinedSelectStatement<Table, DataClass> get _studySessionQuery {
     final $StudyingTable examStudySession = alias(studying, 'exam_session');
     final $StudyingTable testStudySession = alias(studying, 'test_session');
-    return (select(subjects)
-          ..where(
-            ($SubjectsTable table) => table.yearId.equals(
-              uuidToUint8List(yearModel.id),
-            ),
-          ))
-        .join(<Join<Table, DataClass>>[
+    return select(subjects).join(<Join<Table, DataClass>>[
       leftOuterJoin(teachers, teachers.id.equalsExp(subjects.teacherId)),
       leftOuterJoin(exams, exams.subjectId.equalsExp(subjects.id)),
       leftOuterJoin(tests, tests.subjectId.equalsExp(subjects.id)),
@@ -59,39 +40,30 @@ class StudyDao extends DatabaseAccessor<Database> with _$StudyDaoMixin {
     ]);
   }
 
-  List<StudySession> _studySessionListFromTypedResult(
-    List<TypedResult> rows,
-    YearModel yearModel,
-  ) {
+  StudySession _rowToStudySession(TypedResult row) {
     final $StudyingTable examStudySession = alias(studying, 'exam_session');
     final $StudyingTable testStudySession = alias(studying, 'test_session');
-    return rows.map((TypedResult row) {
-      final SubjectModel subjectModel = row.readTable(subjects);
-      final TeacherModel teacherModel = row.readTable(teachers);
-      final ExamModel examModel = row.readTable(exams);
-      final TestModel testModel = row.readTable(tests);
-      final StudyModel studyModel =
-          row.readTable(examStudySession) ?? row.readTable(testStudySession);
+    final SubjectModel subjectModel = row.readTable(subjects);
+    final TeacherModel teacherModel = row.readTable(teachers);
+    final ExamModel examModel = row.readTable(exams);
+    final TestModel testModel = row.readTable(tests);
+    final StudyModel studyModel =
+        row.readTable(examStudySession) ?? row.readTable(testStudySession);
 
-      final Year year = Year.fromDBModel(yearModel);
-      final Subject subject = Subject.fromDBModel(
-        subjectModel: subjectModel,
-        year: year,
-        teacher: teacherModel != null
-            ? Teacher.fromDBModel(teacherModel: teacherModel, year: year)
-            : null,
-      );
+    final Subject subject = Subject.fromDBModel(
+      subjectModel: subjectModel,
+      teacher: teacherModel != null ? Teacher.fromDBModel(teacherModel) : null,
+    );
 
-      return StudySession.fromDBModel(
-        studyModel,
-        exam: examModel != null
-            ? Exam.fromDBModel(examModel: examModel, subject: subject)
-            : null,
-        test: testModel != null
-            ? Test.fromDBModel(testModel: testModel, subject: subject)
-            : null,
-      );
-    }).toList();
+    return StudySession.fromDBModel(
+      studyModel,
+      exam: examModel != null
+          ? Exam.fromDBModel(examModel: examModel, subject: subject)
+          : null,
+      test: testModel != null
+          ? Test.fromDBModel(testModel: testModel, subject: subject)
+          : null,
+    );
   }
 
   Stream<List<StudySession>> studySessionListFromDateStream(DateTime date) {
@@ -100,54 +72,35 @@ class StudyDao extends DatabaseAccessor<Database> with _$StudyDaoMixin {
     final $StudyingTable examStudySession = alias(studying, 'exam_session');
     final $StudyingTable testStudySession = alias(studying, 'test_session');
 
-    return _activeYearStream().switchMap(
-      (YearModel yearModel) {
-        return (_studySessionQueryFromYearModel(yearModel)
-              ..where(examStudySession.start.isBiggerOrEqualValue(startDate) |
-                  testStudySession.start.isBiggerOrEqualValue(startDate))
-              ..where(
-                examStudySession.start.isSmallerThanValue(startDate.add(
-                      const Duration(days: 1),
-                    )) |
-                    testStudySession.start.isSmallerThanValue(
-                      startDate.add(const Duration(days: 1)),
-                    ),
-              ))
-            .watch()
-            .map((List<TypedResult> rows) {
-          return _studySessionListFromTypedResult(rows, yearModel);
-        });
-      },
-    );
+    return (_studySessionQuery
+          ..where(examStudySession.start.isBiggerOrEqualValue(startDate) |
+              testStudySession.start.isBiggerOrEqualValue(startDate))
+          ..where(
+            examStudySession.start.isSmallerThanValue(startDate.add(
+                  const Duration(days: 1),
+                )) |
+                testStudySession.start.isSmallerThanValue(
+                  startDate.add(const Duration(days: 1)),
+                ),
+          ))
+        .map(_rowToStudySession)
+        .watch();
   }
 
   Stream<List<StudySession>> studySessionListFromExam(Exam exam) {
     final $StudyingTable examStudySession = alias(studying, 'exam_session');
-
-    return _activeYearStream().switchMap(
-      (YearModel yearModel) {
-        return (_studySessionQueryFromYearModel(yearModel)
-              ..where(examStudySession.examId.equals(uuidToUint8List(exam.id))))
-            .watch()
-            .map((List<TypedResult> rows) {
-          return _studySessionListFromTypedResult(rows, yearModel);
-        });
-      },
-    );
+    return (_studySessionQuery
+          ..where(examStudySession.examId.equals(uuidToUint8List(exam.id))))
+        .map(_rowToStudySession)
+        .watch();
   }
 
   Stream<List<StudySession>> studySessionListFromTest(Test test) {
     final $StudyingTable testStudySession = alias(studying, 'test_session');
-    return _activeYearStream().switchMap(
-      (YearModel yearModel) {
-        return (_studySessionQueryFromYearModel(yearModel)
-              ..where(testStudySession.testId.equals(uuidToUint8List(test.id))))
-            .watch()
-            .map((List<TypedResult> rows) {
-          return _studySessionListFromTypedResult(rows, yearModel);
-        });
-      },
-    );
+    return (_studySessionQuery
+          ..where(testStudySession.testId.equals(uuidToUint8List(test.id))))
+        .map(_rowToStudySession)
+        .watch();
   }
 
   Stream<double> progressTodayStream() {

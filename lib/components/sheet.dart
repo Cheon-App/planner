@@ -152,7 +152,7 @@ class _BottomSheetModalRoute<T> extends PopupRoute<T> {
                 animationController: _animationController,
                 onClosing: () => Navigator.pop(context),
                 builder: (BuildContext context) => Material(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).colorScheme.background,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(16),
                     topRight: Radius.circular(16),

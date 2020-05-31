@@ -1,14 +1,12 @@
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/calendar_event.dart';
 import 'package:cheon/models/exam.dart';
-import 'package:cheon/models/homework.dart';
 import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/study_session.dart';
 import 'package:cheon/models/timeline_data.dart';
 import 'package:cheon/models/timetable.dart';
 import 'package:cheon/repositories/event_repository.dart';
 import 'package:cheon/repositories/exam_repository.dart';
-import 'package:cheon/repositories/homework_repository.dart';
 import 'package:cheon/repositories/lesson_repository.dart';
 import 'package:cheon/repositories/study_repository.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';

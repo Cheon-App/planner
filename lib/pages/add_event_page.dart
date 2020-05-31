@@ -9,13 +9,14 @@ import 'package:cheon/components/tap_to_dismiss.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
-import 'package:cheon/view_models/homework_view_model.dart';
+import 'package:cheon/view_models/task_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 enum EventType {
+  TO_DO,
   HOMEWORK,
   TEST,
   EXAM,
@@ -93,7 +94,7 @@ class _AddEventPageState extends State<AddEventPage> {
   @override
   Widget build(BuildContext context) {
     /// The name of the event being added.
-    final String eventString = eventTypeToString(_eventType).toLowerCase();
+    final String eventString = eventTypeToString(_eventType);
 
     return TapToDismiss(
       child: Scaffold(
@@ -133,19 +134,17 @@ class _AddEventPageState extends State<AddEventPage> {
 
 /// Converts the [EventType] enum to a user friendly string.
 String eventTypeToString(EventType eventType) {
-  String type;
   switch (eventType) {
     case EventType.HOMEWORK:
       return 'Homework';
-      break;
     case EventType.TEST:
       return 'Test';
-      break;
     case EventType.EXAM:
       return 'Exam';
-      break;
+    case EventType.TO_DO:
+      return 'To-Do';
   }
-  return type;
+  return null;
 }
 
 class _EventBody extends StatefulWidget {
@@ -175,6 +174,7 @@ class _EventBodyState extends State<_EventBody> {
       GlobalKey<_HomeworkFormState>();
   final GlobalKey<_ExamFormState> examFormKey = GlobalKey<_ExamFormState>();
   final GlobalKey<_TestFormState> testFormKey = GlobalKey<_TestFormState>();
+  final GlobalKey<__ToDoFormState> toDoFormKey = GlobalKey<__ToDoFormState>();
   final GlobalKey<FormState> _nameFormKey = GlobalKey<FormState>();
 
   /// A controller for the name text field.
@@ -219,6 +219,9 @@ class _EventBodyState extends State<_EventBody> {
         case EventType.TEST:
           await testFormKey.currentState.addTest();
           break;
+        case EventType.TO_DO:
+          await toDoFormKey.currentState.addToDo();
+          break;
       }
     } catch (error) {
       // If there was an issue validating inputs then this displays a warning.
@@ -253,6 +256,12 @@ class _EventBodyState extends State<_EventBody> {
           key: testFormKey,
           name: _nameController.text,
           onEventTypeSelected: widget.onEventTypeSelected,
+        );
+      case EventType.TO_DO:
+        return _ToDoForm(
+          onEventTypeSelected: widget.onEventTypeSelected,
+          title: _nameController.text,
+          key: toDoFormKey,
         );
     }
     return const SizedBox.shrink();
@@ -305,6 +314,7 @@ class _EventBodyState extends State<_EventBody> {
                       labelStyle: textFieldStyle,
                       hintStyle: textFieldStyle,
                     ),
+                    textCapitalization: TextCapitalization.sentences,
                     validator: (String name) {
                       if (name.trim().isEmpty) return 'Name required';
                       return null;
@@ -809,7 +819,7 @@ class _HomeworkForm extends StatefulWidget {
 class _HomeworkFormState extends State<_HomeworkForm> {
   Future<void> addHomework() async {
     if (subject == null) return Future<void>.error('A subject is required.');
-    final HomeworkVM vm = context.read<HomeworkVM>();
+    final TaskVM vm = context.read<TaskVM>();
     await vm.addHomework(
       name: widget.name,
       subject: subject,
@@ -1143,6 +1153,71 @@ class _TestFormState extends State<_TestForm> {
             ),
           ],
         ),
+      ],
+    );
+  }
+}
+
+class _ToDoForm extends StatefulWidget {
+  const _ToDoForm({
+    Key key,
+    @required this.title,
+    @required this.onEventTypeSelected,
+  }) : super(key: key);
+
+  final String title;
+  final Function(EventType) onEventTypeSelected;
+
+  @override
+  __ToDoFormState createState() => __ToDoFormState();
+}
+
+class __ToDoFormState extends State<_ToDoForm> {
+  DateTime date = DateTime.now();
+  String note = '';
+
+  Future<void> addToDo() async {
+    final TaskVM vm = context.read<TaskVM>();
+    await vm.addToDo(title: widget.title, date: date, note: note);
+    Navigator.pop(context);
+  }
+
+  void setDate(DateTime date) {
+    if (this.date != date && date != null) {
+      setState(() => this.date = date);
+    }
+  }
+
+  void _setNote(String note) {
+    if (note != null && this.note != note) {
+      setState(() => this.note = note);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: _SelectEventTypeCard(
+                eventType: EventType.TO_DO,
+                onEventTypeSelected: widget.onEventTypeSelected,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: _SelectDateCard(
+                date: date,
+                onDateSelected: setDate,
+                fullDate: false,
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 4),
+        _ContentField(onTextChanged: _setNote, label: 'Note'),
       ],
     );
   }

@@ -1,57 +1,26 @@
 import 'package:cheon/database/database.dart';
 import 'package:cheon/database/tables.dart';
-import 'package:cheon/database/converters/uuid_converter.dart';
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
-import 'package:cheon/models/year.dart';
 import 'package:cheon/utils.dart';
 import 'package:flutter/material.dart' hide Table;
 import 'package:moor/moor.dart';
-import 'package:rxdart/rxdart.dart' hide Subject;
 
 part 'exam_dao.g.dart';
 
-@UseDao(tables: <Type>[Exams, Years, Subjects, Teachers])
+@UseDao(tables: <Type>[Exams, Subjects, Teachers])
 class ExamDao extends DatabaseAccessor<Database> with _$ExamDaoMixin {
   ExamDao(Database db) : super(db);
 
-  Stream<YearModel> _activeYearStream() {
-    return (select(years)
-          ..orderBy(<OrderingTerm Function($YearsTable)>[
-            ($YearsTable table) => OrderingTerm.desc(table.lastSelected),
-          ])
-          ..limit(1))
-        .watchSingle();
-  }
-
-  Future<YearModel> _activeYearFuture() {
-    return (select(years)
-          ..orderBy(<OrderingTerm Function($YearsTable)>[
-            ($YearsTable table) => OrderingTerm.desc(table.lastSelected),
-          ])
-          ..limit(1))
-        .getSingle();
-  }
-
-  JoinedSelectStatement<Table, DataClass> _examQueryFromYearModel(
-      YearModel yearModel) {
-    return (select(subjects)
-          ..where(
-            ($SubjectsTable table) => table.yearId.equals(
-              uuidToUint8List(yearModel.id),
-            ),
-          ))
-        .join(<Join<Table, DataClass>>[
+  JoinedSelectStatement<Table, DataClass> _examQuery() {
+    return (select(subjects)).join(<Join<Table, DataClass>>[
       leftOuterJoin(teachers, teachers.id.equalsExp(subjects.teacherId)),
       innerJoin(exams, exams.subjectId.equalsExp(subjects.id))
     ]);
   }
 
-  List<Exam> _examListFromTypedResult(
-    List<TypedResult> rows,
-    YearModel yearModel,
-  ) {
+  List<Exam> _examListFromTypedResult(List<TypedResult> rows) {
     return rows.map((TypedResult row) {
       final ExamModel exam = row.readTable(exams);
       final SubjectModel subject = row.readTable(subjects);
@@ -60,13 +29,7 @@ class ExamDao extends DatabaseAccessor<Database> with _$ExamDaoMixin {
         examModel: exam,
         subject: Subject.fromDBModel(
           subjectModel: subject,
-          year: Year.fromDBModel(yearModel),
-          teacher: teacher != null
-              ? Teacher.fromDBModel(
-                  teacherModel: teacher,
-                  year: Year.fromDBModel(yearModel),
-                )
-              : null,
+          teacher: teacher != null ? Teacher.fromDBModel(teacher) : null,
         ),
       );
     }).toList();
@@ -74,69 +37,44 @@ class ExamDao extends DatabaseAccessor<Database> with _$ExamDaoMixin {
 
   Stream<List<Exam>> pastExamListStream() {
     final DateTime now = strippedDateTime(DateTime.now());
-    return _activeYearStream().switchMap((YearModel yearModel) {
-      return (_examQueryFromYearModel(yearModel)
-            // All exams that started yesterday or before
-            ..where(exams.start.isSmallerThanValue(now)))
-          .watch()
-          .map(
-            (List<TypedResult> rows) => _examListFromTypedResult(
-              rows,
-              yearModel,
-            ),
-          );
-    });
+    return (_examQuery()
+          // All exams that started yesterday or before
+          ..where(exams.start.isSmallerThanValue(now)))
+        .watch()
+        .map((List<TypedResult> rows) => _examListFromTypedResult(rows));
   }
 
   Stream<List<Exam>> currentExamListStream() {
     final DateTime now = strippedDateTime(DateTime.now());
-    return _activeYearStream().switchMap((YearModel yearModel) {
-      return (_examQueryFromYearModel(yearModel)
-            // All exams that start today or after
-            ..where(exams.start.isBiggerOrEqualValue(now)))
-          .watch()
-          .map(
-            (List<TypedResult> rows) => _examListFromTypedResult(
-              rows,
-              yearModel,
-            ),
-          );
-    });
+    return (_examQuery()
+          // All exams that start today or after
+          ..where(exams.start.isBiggerOrEqualValue(now)))
+        .watch()
+        .map((List<TypedResult> rows) => _examListFromTypedResult(rows));
   }
 
   Future<List<Exam>> currentExamListFuture() async {
     final DateTime now = strippedDateTime(DateTime.now());
-    final YearModel yearModel = await _activeYearFuture();
     // All exams that start today or after
-    final List<TypedResult> rows = await (_examQueryFromYearModel(yearModel)
+    final List<TypedResult> rows = await (_examQuery()
           ..where(exams.start.isBiggerOrEqualValue(now)))
         .get();
 
-    return _examListFromTypedResult(
-      rows,
-      yearModel,
-    );
+    return _examListFromTypedResult(rows);
   }
 
   Stream<List<Exam>> examListFromDateStream(DateTime date) {
     final DateTime startDate = strippedDateTime(date);
-    return _activeYearStream().switchMap((YearModel yearModel) {
-      return (_examQueryFromYearModel(yearModel)
-            // All exams that start on the provided date
-            ..where(
-              exams.start.isBetweenValues(
-                startDate,
-                startDate.add(const Duration(days: 1)),
-              ),
-            ))
-          .watch()
-          .map(
-            (List<TypedResult> rows) => _examListFromTypedResult(
-              rows,
-              yearModel,
+    return (_examQuery()
+          // All exams that start on the provided date
+          ..where(
+            exams.start.isBetweenValues(
+              startDate,
+              startDate.add(const Duration(days: 1)),
             ),
-          );
-    });
+          ))
+        .watch()
+        .map((List<TypedResult> rows) => _examListFromTypedResult(rows));
   }
 
   Future<void> addExam({

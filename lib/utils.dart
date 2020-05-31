@@ -64,6 +64,11 @@ class TimeAheadMessages extends timeago.EnMessages {
   String suffixFromNow() => '';
 }
 
+extension StrippedDateTime on DateTime {
+  /// Returns a new [DateTime] with precision truncated to a day.
+  DateTime truncateToDay() => strippedDateTime(this);
+}
+
 /// An extension method added to [TimeOfDay] at compile time.
 /// Enables [TimeOfDay] to be converted to and from json.
 extension SerializedTimeOfDay on TimeOfDay {

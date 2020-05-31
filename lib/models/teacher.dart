@@ -1,5 +1,4 @@
 import 'package:cheon/database/database.dart';
-import 'package:cheon/models/year.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
@@ -9,21 +8,15 @@ class Teacher extends Equatable {
   const Teacher({
     @required this.id,
     @required this.name,
-    @required this.year,
     this.email,
   })  : assert(id != null),
-        assert(name != null),
-        assert(year != null);
+        assert(name != null);
 
-  factory Teacher.fromDBModel({
-    @required TeacherModel teacherModel,
-    @required Year year,
-  }) {
+  factory Teacher.fromDBModel(TeacherModel teacherModel) {
     return Teacher(
       id: teacherModel.id,
       name: teacherModel.name,
       email: teacherModel?.email,
-      year: year,
     );
   }
 
@@ -35,9 +28,6 @@ class Teacher extends Equatable {
 
   /// The teacher's email
   final String email;
-
-  /// The year the teacher belongs to
-  final Year year;
 
   @override
   List<Object> get props => <Object>[id];

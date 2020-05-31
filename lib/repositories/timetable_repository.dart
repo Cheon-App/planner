@@ -4,7 +4,6 @@ import 'package:cheon/models/lesson_time.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/timetable.dart';
-import 'package:cheon/models/year.dart';
 import 'package:rxdart/rxdart.dart' hide Subject;
 
 class TimetableRepository {
@@ -20,8 +19,7 @@ class TimetableRepository {
 
   final TimetableDao _dao = Database.instance.timetableDao;
 
-  Future<void> addTimetable(int index, Year year) =>
-      _dao.addTimetable(index, year);
+  Future<void> addTimetable(int index) => _dao.addTimetable(index);
 
   final BehaviorSubject<List<Timetable>> _timetableListSubject =
       BehaviorSubject<List<Timetable>>();

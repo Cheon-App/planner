@@ -5,7 +5,7 @@ import 'package:cheon/pages/home_page.dart';
 import 'package:cheon/routes.dart';
 import 'package:cheon/view_models/app_info_view_model.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
-import 'package:cheon/view_models/homework_view_model.dart';
+import 'package:cheon/view_models/task_view_model.dart';
 import 'package:cheon/view_models/lessons_view_model.dart';
 import 'package:cheon/view_models/preferences_view_model.dart';
 import 'package:cheon/view_models/revision_view_model.dart';
@@ -44,7 +44,7 @@ void configureApp() {
 }
 
 class App extends StatelessWidget {
-  const App({Key key}) : super(key: key);
+  App({Key key}) : super(key: key);
 
   static const double borderRadius = 8;
 
@@ -77,6 +77,8 @@ class App extends StatelessWidget {
 
   /// A global [FirebaseAnalytics] instance for event logging
   static final FirebaseAnalytics analytics = FirebaseAnalytics();
+
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
   /// The themeing used for the app.
   @visibleForTesting
@@ -205,6 +207,14 @@ class App extends StatelessWidget {
         brightness: brightness,
         textTheme: const CupertinoTextThemeData(),
       ),
+      tabBarTheme: TabBarTheme(
+        labelColor: onSurface,
+        indicator: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(color: onSurface, width: 2),
+          ),
+        ),
+      ),
       iconTheme: IconThemeData(color: onSurface),
       // platform: TargetPlatform.iOS,
     );
@@ -278,6 +288,13 @@ class App extends StatelessWidget {
               ? FlavorConfig.instance.name
               : '';
 
+          /*  projectId: Platform.environment['wiredash_project_id'],
+            secret: Platform.environment['wiredash_secret'],
+            navigatorKey: _navigatorKey,
+            theme: WiredashThemeData(
+              primaryColor: Colors.green,
+              secondaryColor: const Color(0xFF2bbd7e),
+            ), */
           return MaterialApp(
             title: '$titlePrefix Cheon Smart Planner'.trimLeft(),
             theme: theme(isDark: false),
@@ -290,6 +307,7 @@ class App extends StatelessWidget {
             navigatorObservers: <NavigatorObserver>[
               FirebaseAnalyticsObserver(analytics: analytics),
             ],
+            navigatorKey: _navigatorKey,
             builder: (BuildContext context, Widget child) {
               if (FlavorConfig.instance.isProduction() == false) {
                 // Adds a banner to the top left of the screen to show that the
@@ -323,10 +341,6 @@ class App extends StatelessWidget {
                   Provider<SubjectsVM>(
                     create: (_) => SubjectsVM(),
                     dispose: (_, SubjectsVM vm) => vm.dispose(),
-                  ),
-                  Provider<HomeworkVM>(
-                    create: (_) => HomeworkVM(),
-                    dispose: (_, HomeworkVM vm) => vm.dispose(),
                   ),
                   Provider<TeachersVM>(
                     create: (_) => TeachersVM(),

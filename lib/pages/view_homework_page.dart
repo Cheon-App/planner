@@ -1,6 +1,6 @@
 import 'package:cheon/components/raised_action_page.dart';
 import 'package:cheon/models/homework.dart';
-import 'package:cheon/view_models/homework_view_model.dart';
+import 'package:cheon/view_models/task_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:cheon/utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,7 +27,7 @@ class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
   }
 
   Future<void> deleteHomework() async {
-    final HomeworkVM homeworkVM = context.read<HomeworkVM>();
+    final TaskVM homeworkVM = context.read<TaskVM>();
     Navigator.pop(context);
 
     await homeworkVM.deleteHomework(widget.homework);
@@ -81,13 +81,13 @@ class __HomeworkBodyState extends State<_HomeworkBody> {
   }
 
   void updateProgress(double progress) {
-    final HomeworkVM homeworkVM = context.read<HomeworkVM>();
+    final TaskVM homeworkVM = context.read<TaskVM>();
     homeworkVM.updateHomework(widget.homework, progress: progress);
     setState(() => this.progress = progress);
   }
 
   void updateDescription(String description) {
-    final HomeworkVM homeworkVM = context.read<HomeworkVM>();
+    final TaskVM homeworkVM = context.read<TaskVM>();
     homeworkVM.updateHomework(widget.homework, description: description);
   }
 

@@ -2,102 +2,6 @@ import 'package:cheon/database/converters/color_converter.dart';
 import 'package:cheon/database/converters/uuid_converter.dart';
 import 'package:moor/moor.dart';
 
-@DataClassName('EventModel')
-class Events extends Table {
-  @override
-  bool get withoutRowId => true;
-
-  @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
-
-  // Primary Key
-  BlobColumn get id =>
-      blob().map(const UUIDConverter()).customConstraint('UNIQUE NOT NULL')();
-  TextColumn get title => text()();
-  TextColumn get content => text()();
-  DateTimeColumn get start => dateTime()();
-  DateTimeColumn get end => dateTime()();
-  DateTimeColumn get lastUpdated => dateTime()();
-}
-
-@DataClassName('ReminderModel')
-class Reminders extends Table {
-  @override
-  bool get withoutRowId => true;
-
-  @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
-
-  // Primary Key
-  BlobColumn get id =>
-      blob().map(const UUIDConverter()).customConstraint('UNIQUE NOT NULL')();
-  TextColumn get title => text()();
-  TextColumn get reminder => text()();
-  DateTimeColumn get time => dateTime()();
-  // 1 to 7
-  IntColumn get weekday => integer()();
-  BoolColumn get recurring => boolean()();
-  DateTimeColumn get lastUpdated => dateTime()();
-}
-
-@DataClassName('YearModel')
-class Years extends Table {
-  @override
-  bool get withoutRowId => true;
-
-  @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
-
-  // Primary Key
-  BlobColumn get id =>
-      blob().map(const UUIDConverter()).customConstraint('UNIQUE NOT NULL')();
-  DateTimeColumn get start => dateTime()();
-  DateTimeColumn get end => dateTime()();
-  DateTimeColumn get lastSelected => dateTime()();
-  DateTimeColumn get lastUpdated => dateTime()();
-}
-
-@DataClassName('TermModel')
-class Terms extends Table {
-  @override
-  bool get withoutRowId => true;
-
-  @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
-
-  // Primary Key
-  BlobColumn get id =>
-      blob().map(const UUIDConverter()).customConstraint('UNIQUE NOT NULL')();
-  // Foreign Key
-  BlobColumn get yearId => blob().map(const UUIDConverter())();
-  IntColumn get term => integer()();
-  DateTimeColumn get start => dateTime()();
-  DateTimeColumn get end => dateTime()();
-  DateTimeColumn get lastUpdated => dateTime()();
-}
-
-@DataClassName('InsetDayModel')
-class InsetDay extends Table {
-  @override
-  bool get withoutRowId => true;
-
-  @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
-
-  // Primary Key
-  BlobColumn get id =>
-      blob().map(const UUIDConverter()).customConstraint('UNIQUE NOT NULL')();
-  // Foreign Key
-  BlobColumn get termId => blob().map(const UUIDConverter())();
-  DateTimeColumn get date => dateTime()();
-  DateTimeColumn get lastUpdated => dateTime()();
-}
-
 @DataClassName('SubjectModel')
 class Subjects extends Table {
   @override
@@ -140,8 +44,8 @@ class Teachers extends Table {
   DateTimeColumn get lastUpdated => dateTime()();
 }
 
-@DataClassName('HomeworkModel')
-class Homework extends Table {
+@DataClassName('TaskModel')
+class Tasks extends Table {
   @override
   bool get withoutRowId => true;
 
@@ -152,18 +56,31 @@ class Homework extends Table {
   // Primary Key
   BlobColumn get id =>
       blob().map(const UUIDConverter()).customConstraint('UNIQUE NOT NULL')();
-  // Foreign Key
-  BlobColumn get subjectId => blob().map(const UUIDConverter())();
-  // Foreign Key
-  BlobColumn get lessonId => blob().map(const UUIDConverter()).nullable()();
-  // Foreign Key
-  BlobColumn get studyId => blob().map(const UUIDConverter()).nullable()();
+  // Optional Foreign key
+  BlobColumn get subjectId => blob().map(const UUIDConverter()).nullable()();
   TextColumn get title => text()();
-  TextColumn get description => text().nullable()();
+  TextColumn get description => text()();
   DateTimeColumn get due => dateTime()();
-  // Minutes
-  IntColumn get length => integer()();
-  RealColumn get progress => real()();
+  BoolColumn get completed => boolean()();
+  DateTimeColumn get lastUpdated => dateTime()();
+}
+
+@DataClassName('SubTaskModel')
+class SubTasks extends Table {
+  @override
+  bool get withoutRowId => true;
+
+  @override
+  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
+      <Column<dynamic, SqlType<dynamic>>>{id};
+
+  // Primary Key
+  BlobColumn get id =>
+      blob().map(const UUIDConverter()).customConstraint('UNIQUE NOT NULL')();
+  // Foreign key
+  BlobColumn get taskId => blob().map(const UUIDConverter())();
+  TextColumn get title => text()();
+  BoolColumn get completed => boolean()();
   DateTimeColumn get lastUpdated => dateTime()();
 }
 

@@ -4,7 +4,7 @@ import 'package:cheon/components/cheon_icons.dart';
 import 'package:cheon/components/page_switcher.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/pages/add_event_page.dart';
-import 'package:cheon/pages/homework_page.dart';
+import 'package:cheon/pages/tasks_page.dart';
 import 'package:cheon/pages/exams_page.dart';
 import 'package:cheon/pages/preferences_page.dart';
 import 'package:cheon/pages/revision_page.dart';
@@ -82,7 +82,7 @@ class HomePageState extends State<HomePage> {
           break;
         case _Page.HOMEWORK:
           _fabKeys.add(const ValueKey<String>('add'));
-          _pages.add(const HomeworkPage());
+          _pages.add(const TasksPage());
           _navigationIcons.add(FontAwesomeIcons.tasks);
           _pageNames.add('Tasks');
           break;
@@ -495,8 +495,8 @@ class _FAB extends StatelessWidget {
       case _Page.TIMELINE:
         widget = FloatingActionButton(
           child: const Icon(FontAwesomeIcons.plus),
-          onPressed: () => openAddEvent(context, EventType.HOMEWORK),
-          tooltip: 'Add homework',
+          onPressed: () => openAddEvent(context, EventType.TO_DO),
+          tooltip: 'Add to-do',
         );
         break;
       case _Page.REVISION:

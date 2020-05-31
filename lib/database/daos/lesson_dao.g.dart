@@ -11,6 +11,5 @@ mixin _$LessonDaoMixin on DatabaseAccessor<Database> {
   $TimetablesTable get timetables => db.timetables;
   $TeachersTable get teachers => db.teachers;
   $SubjectsTable get subjects => db.subjects;
-  $YearsTable get years => db.years;
   $LessonTimesTable get lessonTimes => db.lessonTimes;
 }

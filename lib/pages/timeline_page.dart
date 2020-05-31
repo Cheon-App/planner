@@ -42,6 +42,7 @@ class _TimelinePageState extends State<TimelinePage>
   Widget build(BuildContext context) {
     super.build(context);
     final TimelineVM timelineVM = Provider.of<TimelineVM>(context);
+    final Timetable timetable = timelineVM.selectedTimetable;
     return CheonPage(
       actions: <Widget>[
         IconButton(
@@ -64,12 +65,24 @@ class _TimelinePageState extends State<TimelinePage>
           const SizedBox(height: 8),
           const Divider(height: 0),
           Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Text(
-              '${dayToString(timelineVM.selectedDate.weekday)}, '
-              '${timelineVM.selectedDate.day} '
-              '${monthToString(timelineVM.selectedDate.month)}',
-              style: Theme.of(context).textTheme.headline5,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              children: [
+                Text(
+                  '${dayToString(timelineVM.selectedDate.weekday)}, '
+                  '${timelineVM.selectedDate.day} '
+                  '${monthToString(timelineVM.selectedDate.month)}',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                Spacer(),
+                Text(
+                  timetable != null ? 'Week ${timetable.week}' : 'No lessons',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )
+              ],
             ),
           ),
           Expanded(child: TimelineList()),

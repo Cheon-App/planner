@@ -11,6 +11,5 @@ mixin _$StudyDaoMixin on DatabaseAccessor<Database> {
   $TestsTable get tests => db.tests;
   $SubjectsTable get subjects => db.subjects;
   $TeachersTable get teachers => db.teachers;
-  $YearsTable get years => db.years;
   $StudyingTable get studying => db.studying;
 }

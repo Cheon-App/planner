@@ -1,5 +1,5 @@
 import 'package:cheon/models/homework.dart';
-import 'package:cheon/pages/homework_page.dart';
+import 'package:cheon/pages/tasks_page.dart';
 import 'package:cheon/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meta/meta.dart';
@@ -44,7 +44,7 @@ void main() {
       );
     }
 
-    final HomeworkPageState homeworkPage = HomeworkPageState();
+    final HomeworkListState homeworkPage = HomeworkListState();
 
     final DateTime weekStart = strippedDateTime(startOfWeek(DateTime.now()));
     final DateTime lastWeekStart = weekStart.subtract(const Duration(days: 7));

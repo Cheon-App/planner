@@ -4,7 +4,6 @@ import 'package:cheon/models/lesson_time.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/timetable.dart';
-import 'package:cheon/models/year.dart';
 import 'package:cheon/repositories/lesson_repository.dart';
 import 'package:cheon/repositories/timetable_repository.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
@@ -82,8 +81,8 @@ class TimetableVM extends ChangeNotifier {
   int _lessonsPerDay = 1;
   int get lessonsPerDay => _lessonsPerDay;
 
-  Future<void> addTimetable({@required Year year, @required int index}) =>
-      _timetableRepository.addTimetable(index, year);
+  Future<void> addTimetable({@required int index}) =>
+      _timetableRepository.addTimetable(index);
 
   Stream<List<Timetable>> get timetableListStream =>
       _timetableRepository.timetableListStream;

@@ -14,18 +14,7 @@ class MenuIcon extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
-          // children: [for (int i = 0; i < 3; i++) _Bar(color: color)],
-          children: <Widget>[
-            _Bar(color: color),
-            FractionallySizedBox(
-              widthFactor: 0.4,
-              child: _Bar(color: color),
-            ),
-            FractionallySizedBox(
-              widthFactor: 0.7,
-              child: _Bar(color: color),
-            ),
-          ],
+          children: [for (int i = 0; i < 3; i++) _Bar(color: color)],
         ),
       ),
     );

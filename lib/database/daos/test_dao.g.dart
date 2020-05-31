@@ -8,7 +8,6 @@ part of 'test_dao.dart';
 
 mixin _$TestDaoMixin on DatabaseAccessor<Database> {
   $TestsTable get tests => db.tests;
-  $YearsTable get years => db.years;
   $SubjectsTable get subjects => db.subjects;
   $TeachersTable get teachers => db.teachers;
 }

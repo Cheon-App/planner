@@ -1,0 +1,110 @@
+import 'package:cheon/database/database.dart';
+import 'package:cheon/database/tables.dart' as tables;
+import 'package:cheon/models/subject.dart';
+import 'package:cheon/models/task.dart';
+import 'package:cheon/models/teacher.dart';
+import 'package:cheon/utils.dart';
+import 'package:moor/moor.dart';
+
+part 'task_dao.g.dart';
+
+@UseDao(tables: <Type>[
+  tables.Tasks,
+  tables.SubTasks,
+  tables.Subjects,
+  tables.Teachers,
+])
+class TaskDao extends DatabaseAccessor<Database> with _$TaskDaoMixin {
+  TaskDao(Database db) : super(db);
+
+  JoinedSelectStatement<Table, DataClass> get _taskQuery {
+    return select(tasks).join(<Join<Table, DataClass>>[
+      leftOuterJoin(subjects, subjects.id.equalsExp(tasks.subjectId)),
+      leftOuterJoin(teachers, teachers.id.equalsExp(subjects.teacherId)),
+    ]);
+  }
+
+  Task _rowToTask(TypedResult row) {
+    final taskModel = row.readTable(tasks);
+    final subjectModel = row.readTable(subjects);
+    final teacherModel = row.readTable(teachers);
+    return Task.fromDbModel(
+      taskModel,
+      Subject.fromDBModel(
+        subjectModel: subjectModel,
+        teacher: Teacher.fromDBModel(teacherModel),
+      ),
+    );
+  }
+
+  Stream<List<Task>> currentTasksStream() {
+    final DateTime now = DateTime.now().truncateToDay();
+    return (_taskQuery
+          ..where(tasks.completed.equals(false))
+          ..where(tasks.due.isBiggerOrEqualValue(now)))
+        .map<Task>(_rowToTask)
+        .watch();
+  }
+
+  Stream<List<Task>> overdueTasksStream() {
+    final DateTime now = DateTime.now().truncateToDay();
+    return (_taskQuery
+          ..where(tasks.completed.equals(false))
+          ..where(tasks.due.isSmallerThanValue(now)))
+        .map<Task>(_rowToTask)
+        .watch();
+  }
+
+  Stream<List<Task>> completedTasksStream() {
+    return (_taskQuery..where(tasks.completed.equals(true)))
+        .map<Task>(_rowToTask)
+        .watch();
+  }
+
+  Future<void> addTask({
+    @required String title,
+    @required String note,
+    @required DateTime date,
+    @required Subject subject,
+  }) async {
+    await into(tasks).insert(TaskModel(
+      id: generateUUID(),
+      title: title,
+      description: note,
+      completed: false,
+      due: date,
+      subjectId: subject.id,
+      lastUpdated: DateTime.now(),
+    ));
+  }
+
+  Future<void> deleteTask(Task task) async {
+    final companion = TasksCompanion(id: Value<String>(task.id));
+    await (delete(tasks)..whereSamePrimaryKey(companion)).go();
+  }
+
+  /// *** Always provide the subject if it shouldn't be removed ***
+  Future<void> updateTask(
+    Task task, {
+    @required bool completed,
+    @required String title,
+    @required String note,
+    @required DateTime date,
+    @required Subject subject,
+  }) async {
+    final companion = TasksCompanion(
+      id: Value<String>(task.id),
+      completed: completed == null //
+          ? Value<bool>.absent()
+          : Value<bool>(completed),
+      due: date == null ? Value<DateTime>.absent() : Value<DateTime>(date),
+      description: note == null ? Value<String>.absent() : Value<String>(note),
+      title: title == null ? Value<String>.absent() : Value<String>(title),
+      lastUpdated: Value<DateTime>(DateTime.now()),
+      // Removes a subject if one isn't present
+      subjectId: Value<String>(subject?.id),
+    );
+
+    await (update(tasks)..whereSamePrimaryKey(companion)).write(companion);
+  }
+}

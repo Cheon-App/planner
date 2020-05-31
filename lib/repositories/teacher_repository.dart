@@ -1,32 +1,24 @@
 import 'package:cheon/database/daos/teacher_dao.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/models/teacher.dart';
-import 'package:cheon/models/year.dart';
-import 'package:cheon/repositories/year_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
 class TeacherRepository {
   TeacherRepository._internal() {
     _dao.teacherListStream().listen(_teacherListSubject.add);
-
-    YearRepository.instance.activeYearStream.listen((Year year) async {
-      _currentYear = year;
-    });
   }
   static TeacherRepository get instance => _singleton;
   static final TeacherRepository _singleton = TeacherRepository._internal();
 
   final TeacherDao _dao = Database.instance.teacherDao;
 
-  Year _currentYear;
-
   final BehaviorSubject<List<Teacher>> _teacherListSubject =
       BehaviorSubject<List<Teacher>>();
   Stream<List<Teacher>> get teacherListStream => _teacherListSubject.stream;
 
   Future<void> addTeacher({@required String name, @required String email}) =>
-      _dao.addTeacher(name: name, email: email, year: _currentYear);
+      _dao.addTeacher(name: name, email: email);
 
   Future<void> updateTeacher(Teacher teacher, {String name, String email}) =>
       _dao.updateTeacher(teacher, name: name, email: email);

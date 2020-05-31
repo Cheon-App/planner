@@ -10,5 +10,4 @@ mixin _$TimetableDaoMixin on DatabaseAccessor<Database> {
   $TimetablesTable get timetables => db.timetables;
   $LessonsTable get lessons => db.lessons;
   $LessonTimesTable get lessonTimes => db.lessonTimes;
-  $YearsTable get years => db.years;
 }

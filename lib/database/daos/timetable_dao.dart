@@ -1,85 +1,56 @@
 import 'package:cheon/database/database.dart';
-import 'package:cheon/database/converters/uuid_converter.dart';
 import 'package:cheon/models/lesson_time.dart';
 import 'package:cheon/database/tables.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/timetable.dart';
-import 'package:cheon/models/year.dart';
 import 'package:cheon/utils.dart';
 import 'package:moor/moor.dart';
-import 'package:rxdart/rxdart.dart' hide Subject;
 
 part 'timetable_dao.g.dart';
 
-@UseDao(tables: <Type>[Timetables, Lessons, LessonTimes, Years])
+@UseDao(tables: <Type>[Timetables, Lessons, LessonTimes])
 class TimetableDao extends DatabaseAccessor<Database> with _$TimetableDaoMixin {
   TimetableDao(Database db) : super(db);
 
-  Stream<YearModel> _activeYearStream() {
-    return (select(years)
-          ..orderBy(<OrderingTerm Function($YearsTable)>[
-            ($YearsTable table) => OrderingTerm.desc(table.lastSelected),
-          ])
-          ..limit(1))
-        .watchSingle();
-  }
-
   Stream<List<Timetable>> timetableListStream() {
-    return _activeYearStream().switchMap((YearModel yearModel) {
-      return (select(timetables)
-            ..where(
-              ($TimetablesTable table) => table.yearId.equals(
-                uuidToUint8List(yearModel.id),
-              ),
-            )
-            ..orderBy(<OrderingTerm Function($TimetablesTable)>[
-              ($TimetablesTable table) => OrderingTerm(
-                    expression: table.week,
-                    mode: OrderingMode.asc,
-                  )
-            ]))
-          .map(
-            (TimetableModel timetableModel) => Timetable.fromDBModel(
-              timetableModel,
-              Year.fromDBModel(yearModel),
-            ),
-          )
-          .watch();
-    });
+    return (select(timetables)
+          ..orderBy(<OrderingTerm Function($TimetablesTable)>[
+            ($TimetablesTable table) => OrderingTerm(
+                  expression: table.week,
+                  mode: OrderingMode.asc,
+                )
+          ]))
+        .map(
+          (TimetableModel timetableModel) =>
+              Timetable.fromDBModel(timetableModel),
+        )
+        .watch();
   }
 
   Stream<Timetable> activeTimetableStream() {
     // TODO account for auto switching
-    return _activeYearStream().switchMap((YearModel yearModel) {
-      return (select(timetables)
-            ..where(
-              ($TimetablesTable table) => table.yearId.equals(
-                uuidToUint8List(yearModel.id),
-              ),
-            )
-            ..orderBy(<OrderingTerm Function($TimetablesTable)>[
-              ($TimetablesTable table) => OrderingTerm(
-                    expression: table.lastSelected,
-                    mode: OrderingMode.desc,
-                  ),
-            ])
-            ..limit(1))
-          .map(
-            (TimetableModel timetableModel) => Timetable.fromDBModel(
-              timetableModel,
-              Year.fromDBModel(yearModel),
-            ),
-          )
-          .watchSingle();
-    });
+    return (select(timetables)
+          ..orderBy(<OrderingTerm Function($TimetablesTable)>[
+            ($TimetablesTable table) => OrderingTerm(
+                  expression: table.lastSelected,
+                  mode: OrderingMode.desc,
+                ),
+          ])
+          ..limit(1))
+        .map(
+          (TimetableModel timetableModel) =>
+              Timetable.fromDBModel(timetableModel),
+        )
+        .watchSingle();
   }
 
-  Future<void> addTimetable(int index, Year year) async {
+  Future<void> addTimetable(int index) async {
     final DateTime now = DateTime.now();
     await into(timetables).insert(TimetableModel(
       id: generateUUID(),
-      yearId: year.id,
+      // deprecated
+      yearId: '',
       saturday: false,
       sunday: false,
       week: index,

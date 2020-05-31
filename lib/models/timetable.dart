@@ -1,5 +1,4 @@
 import 'package:cheon/database/database.dart';
-import 'package:cheon/models/year.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
@@ -8,29 +7,24 @@ class Timetable extends Equatable {
   /// Represents a lesson timetable
   const Timetable({
     @required this.id,
-    @required this.year,
     @required this.week,
     @required this.saturdayEnabled,
     @required this.sundayEnabled,
     @required this.lastSelected,
   });
 
-  factory Timetable.fromDBModel(TimetableModel model, Year year) {
+  factory Timetable.fromDBModel(TimetableModel model) {
     return Timetable(
       id: model.id,
       week: model.week,
       saturdayEnabled: model.saturday,
       sundayEnabled: model.sunday,
-      year: year,
       lastSelected: model.lastSelected,
     );
   }
 
   /// A UUID identifier for this timetable
   final String id;
-
-  /// The year this timetable belongs to
-  final Year year;
 
   /// Used to order a list of timetables
   final int week;

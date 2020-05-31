@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'homework_dao.dart';
+part of 'task_dao.dart';
 
 // **************************************************************************
 // DaoGenerator
 // **************************************************************************
 
-mixin _$HomeworkDaoMixin on DatabaseAccessor<Database> {
-  $HomeworkTable get homework => db.homework;
-  $YearsTable get years => db.years;
+mixin _$TaskDaoMixin on DatabaseAccessor<Database> {
+  $TasksTable get tasks => db.tasks;
+  $SubTasksTable get subTasks => db.subTasks;
   $SubjectsTable get subjects => db.subjects;
   $TeachersTable get teachers => db.teachers;
 }

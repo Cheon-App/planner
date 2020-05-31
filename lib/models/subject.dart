@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:cheon/constants.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/models/teacher.dart';
-import 'package:cheon/models/year.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
@@ -18,22 +17,18 @@ class Subject extends Equatable {
     this.room,
     this.teacher,
     this.icon,
-    this.year,
   });
 
   factory Subject.fromDBModel({
     @required SubjectModel subjectModel,
-    @required Year year,
     @required Teacher teacher,
   }) {
     assert(subjectModel != null);
-    assert(year != null);
     return Subject(
       id: subjectModel.id,
       name: subjectModel.name,
       color: subjectModel.color,
       icon: subjectIconMap[subjectModel.iconId],
-      year: year,
       // Optional
       room: subjectModel.room,
       teacher: teacher,
@@ -51,9 +46,6 @@ class Subject extends Equatable {
 
   /// A chosen icon that represent this subject
   final IconData icon;
-
-  /// The year that this subject belongs to
-  final Year year;
 
   // Optional properties
   /// The room lessons of this subject take place in

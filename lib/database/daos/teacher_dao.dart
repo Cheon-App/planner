@@ -1,52 +1,31 @@
 import 'package:cheon/database/database.dart';
 import 'package:cheon/database/tables.dart';
-import 'package:cheon/database/converters/uuid_converter.dart';
 import 'package:cheon/models/teacher.dart';
-import 'package:cheon/models/year.dart';
 import 'package:cheon/utils.dart';
 import 'package:moor/moor.dart';
-import 'package:rxdart/rxdart.dart' hide Subject;
 
 part 'teacher_dao.g.dart';
 
-@UseDao(tables: <Type>[Teachers, Years])
+@UseDao(tables: <Type>[Teachers])
 class TeacherDao extends DatabaseAccessor<Database> with _$TeacherDaoMixin {
   TeacherDao(Database db) : super(db);
 
-  Stream<YearModel> _activeYearStream() {
-    return (select(years)
-          ..orderBy(<OrderingTerm Function($YearsTable)>[
-            ($YearsTable table) => OrderingTerm.desc(table.lastSelected),
-          ])
-          ..limit(1))
-        .watchSingle();
-  }
-
   Stream<List<Teacher>> teacherListStream() {
-    return _activeYearStream().switchMap((YearModel yearModel) {
-      return (select(teachers)
-            ..where(($TeachersTable table) =>
-                table.yearId.equals(uuidToUint8List(yearModel.id))))
-          .map(
-            (TeacherModel model) => Teacher.fromDBModel(
-              teacherModel: model,
-              year: Year.fromDBModel(yearModel),
-            ),
-          )
-          .watch();
-    });
+    return select(teachers)
+        .map((TeacherModel model) => Teacher.fromDBModel(model))
+        .watch();
   }
 
   Future<void> addTeacher({
     @required String name,
     @required String email,
-    @required Year year,
   }) {
     return into(teachers).insert(TeacherModel(
       id: generateUUID(),
       name: name,
       email: email,
-      yearId: year.id,
+      // deprecated
+      yearId: '',
       lastUpdated: DateTime.now(),
     ));
   }

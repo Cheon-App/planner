@@ -2,8 +2,6 @@ import 'package:cheon/constants.dart';
 import 'package:cheon/database/daos/subject_dao.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/models/teacher.dart';
-import 'package:cheon/models/year.dart';
-import 'package:cheon/repositories/year_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart' hide Subject;
 import 'package:cheon/models/subject.dart';
@@ -11,10 +9,6 @@ import 'package:cheon/models/subject.dart';
 class SubjectRepository {
   SubjectRepository._internal() {
     _dao.subjectListStream().listen(_subjectListSubject.add);
-
-    YearRepository.instance.activeYearStream.listen((Year year) {
-      _currentYear = year;
-    });
   }
 
   static SubjectRepository get instance => _singleton;
@@ -22,8 +16,6 @@ class SubjectRepository {
   static final SubjectRepository _singleton = SubjectRepository._internal();
 
   final SubjectDao _dao = Database.instance.subjectDao;
-
-  Year _currentYear;
 
   final BehaviorSubject<List<Subject>> _subjectListSubject =
       BehaviorSubject<List<Subject>>();
@@ -42,7 +34,6 @@ class SubjectRepository {
       iconId: iconSubjectMap[icon],
       room: room,
       teacher: teacher,
-      year: _currentYear,
     );
   }
 
