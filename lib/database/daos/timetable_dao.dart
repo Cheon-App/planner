@@ -153,4 +153,13 @@ class TimetableDao extends DatabaseAccessor<Database> with _$TimetableDaoMixin {
       lastUpdated: DateTime.now(),
     ));
   }
+
+  Future<bool> hasTimetables() async {
+    final count = countAll();
+
+    final query = selectOnly(timetables)..addColumns([count]);
+    final int timetableCount =
+        await query.map((row) => row.read(count)).getSingle();
+    return timetableCount > 0;
+  }
 }

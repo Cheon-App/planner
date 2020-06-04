@@ -35,6 +35,15 @@ class TimetableRepository {
   Stream<List<LessonTime>> get lessonTimeListStream =>
       _lessonTimeListSubject.stream;
 
+  Future<void> init() async {
+    if (await _dao.hasTimetables() == false) {
+      // Adds 5 default lesson times.
+      for (int i = 1; i <= 5; i++) {
+        await addLessonTime(i, DateTime(0, 0, 0, 8 + i, 0));
+      }
+    }
+  }
+
   Future<void> switchTimetable(Timetable timetable) =>
       _dao.switchTimetable(timetable);
 

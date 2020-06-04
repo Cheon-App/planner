@@ -16,8 +16,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 enum EventType {
-  TO_DO,
-  HOMEWORK,
+  TASK,
   TEST,
   EXAM,
 }
@@ -49,7 +48,7 @@ class _AddEventPageState extends State<AddEventPage> {
     super.initState();
     // Initialises the event type to the one provided in the page constructor or
     // homework if no event type was provided.
-    _eventType = widget.eventType ?? EventType.HOMEWORK;
+    _eventType = widget.eventType ?? EventType.TASK;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Shows the EventType dialog as soon as the page is opened and context is
@@ -135,14 +134,12 @@ class _AddEventPageState extends State<AddEventPage> {
 /// Converts the [EventType] enum to a user friendly string.
 String eventTypeToString(EventType eventType) {
   switch (eventType) {
-    case EventType.HOMEWORK:
-      return 'Homework';
     case EventType.TEST:
       return 'Test';
     case EventType.EXAM:
       return 'Exam';
-    case EventType.TO_DO:
-      return 'To-Do';
+    case EventType.TASK:
+      return 'Task';
   }
   return null;
 }
@@ -170,11 +167,9 @@ class _EventBodyState extends State<_EventBody> {
   /// The following Global Keys provide access functions from their respective
   /// forms to enable events to be created.
 
-  final GlobalKey<_HomeworkFormState> homeworkFormKey =
-      GlobalKey<_HomeworkFormState>();
   final GlobalKey<_ExamFormState> examFormKey = GlobalKey<_ExamFormState>();
   final GlobalKey<_TestFormState> testFormKey = GlobalKey<_TestFormState>();
-  final GlobalKey<__ToDoFormState> toDoFormKey = GlobalKey<__ToDoFormState>();
+  final GlobalKey<_TaskFormState> taskFormKey = GlobalKey<_TaskFormState>();
   final GlobalKey<FormState> _nameFormKey = GlobalKey<FormState>();
 
   /// A controller for the name text field.
@@ -213,19 +208,16 @@ class _EventBodyState extends State<_EventBody> {
         case EventType.EXAM:
           await examFormKey.currentState.addExam();
           break;
-        case EventType.HOMEWORK:
-          await homeworkFormKey.currentState.addHomework();
-          break;
         case EventType.TEST:
           await testFormKey.currentState.addTest();
           break;
-        case EventType.TO_DO:
-          await toDoFormKey.currentState.addToDo();
+        case EventType.TASK:
+          await taskFormKey.currentState.addTask();
           break;
       }
     } catch (error) {
       // If there was an issue validating inputs then this displays a warning.
-      handleValidationError(error);
+      if (error is String) handleValidationError(error);
     }
   }
 
@@ -233,12 +225,6 @@ class _EventBodyState extends State<_EventBody> {
   // form widget.
   Widget formWidget() {
     switch (widget.eventType) {
-      case EventType.HOMEWORK:
-        return _HomeworkForm(
-          key: homeworkFormKey,
-          name: _nameController.text,
-          onEventTypeSelected: widget.onEventTypeSelected,
-        );
       /*  case EventType.EVENT:
         return _EventForm(
           key: eventFormKey,
@@ -257,11 +243,11 @@ class _EventBodyState extends State<_EventBody> {
           name: _nameController.text,
           onEventTypeSelected: widget.onEventTypeSelected,
         );
-      case EventType.TO_DO:
-        return _ToDoForm(
+      case EventType.TASK:
+        return _TaskForm(
           onEventTypeSelected: widget.onEventTypeSelected,
           title: _nameController.text,
-          key: toDoFormKey,
+          key: taskFormKey,
         );
     }
     return const SizedBox.shrink();
@@ -306,7 +292,7 @@ class _EventBodyState extends State<_EventBody> {
                   child: TextFormField(
                     controller: _nameController,
                     decoration: InputDecoration(
-                      labelText: 'Name',
+                      labelText: 'Name*',
                       border: nameBorder,
                       focusedBorder: nameBorder,
                       enabledBorder: nameBorder,
@@ -390,13 +376,16 @@ class _SelectEventTypeCard extends StatelessWidget {
   }
 }
 
-class _SelectSubjectCard extends StatelessWidget {
+// TODO move this
+class SelectSubjectCard extends StatelessWidget {
   /// Creates a card containing a subject name and dropdown button to let users
   /// select a subject for an event.
-  const _SelectSubjectCard({
+  const SelectSubjectCard({
     Key key,
     this.currentSubject,
     @required this.onSubjectSelected,
+    this.isRequired = false,
+    this.enabled = true,
   }) : super(key: key);
 
   /// The selected subject
@@ -404,6 +393,11 @@ class _SelectSubjectCard extends StatelessWidget {
 
   /// A callback function invoked when a subject is selected.
   final Function(Subject) onSubjectSelected;
+
+  /// True if a subject must be selected
+  final bool isRequired;
+
+  final bool enabled;
 
   /// Displays the dialog containing a list of subjects that the user can choose
   /// from.
@@ -427,9 +421,12 @@ class _SelectSubjectCard extends StatelessWidget {
             Container(color: currentSubject?.color ?? Colors.grey, width: 4),
             Expanded(
               child: ListTile(
-                title: Text(currentSubject?.name ?? 'Subject'),
+                title: Text(
+                  currentSubject?.name ?? 'Subject${isRequired ? '*' : ''}',
+                ),
                 trailing: Icon(FontAwesomeIcons.chevronDown),
                 onTap: () => selectSubject(context),
+                enabled: enabled,
               ),
             ),
           ],
@@ -439,15 +436,18 @@ class _SelectSubjectCard extends StatelessWidget {
   }
 }
 
-class _SelectDateCard extends StatelessWidget {
+// TODO move this
+class SelectDateCard extends StatelessWidget {
   /// Creates a card containg the shorthand form of a date and a dropdown button
   /// to let users select a new date.
-  const _SelectDateCard({
+  const SelectDateCard({
     Key key,
     this.title,
     @required this.date,
     @required this.onDateSelected,
     this.fullDate = false,
+    this.enabled = true,
+    this.isRequired = false,
   })  : assert(date != null),
         assert(onDateSelected != null),
         assert(fullDate != null),
@@ -466,6 +466,11 @@ class _SelectDateCard extends StatelessWidget {
   /// date.
   final bool fullDate;
 
+  /// True if the card is interactable
+  final bool enabled;
+
+  final bool isRequired;
+
   /// Displays a date picker dialog and invokes the [onDateSelected] callback
   /// whenever the user selects a new date.
   Future<void> selectDate(BuildContext context) async {
@@ -482,9 +487,10 @@ class _SelectDateCard extends StatelessWidget {
     // The card containing the date text and title.
     return Card(
       child: ListTile(
-        title: Text(title ?? 'Date'),
+        title: Text((title ?? 'Date') + (isRequired ? '*' : '')),
         trailing: Text(dateString),
         onTap: () => selectDate(context),
+        enabled: enabled,
       ),
     );
   }
@@ -531,7 +537,7 @@ class _SelectTimeCard extends StatelessWidget {
 }
 
 class _SelectSubjectAndEventRow extends StatelessWidget {
-  /// Composition of the [_SelectSubjectCard] and the [_SelectEventTypeCard] for
+  /// Composition of the [SelectSubjectCard] and the [_SelectEventTypeCard] for
   /// forms that display both in a row.
   const _SelectSubjectAndEventRow({
     Key key,
@@ -539,6 +545,7 @@ class _SelectSubjectAndEventRow extends StatelessWidget {
     @required this.onSubjectSelected,
     @required this.eventType,
     @required this.onEventTypeSelected,
+    this.subjectRequired = false,
   })  : assert(onSubjectSelected != null),
         assert(eventType != null),
         assert(onEventTypeSelected != null),
@@ -556,6 +563,8 @@ class _SelectSubjectAndEventRow extends StatelessWidget {
   /// A callback function invoked when the user selects an event type.
   final Function(EventType) onEventTypeSelected;
 
+  final bool subjectRequired;
+
   @override
   Widget build(BuildContext context) {
     // A simple row displaying the select subject and select event card side by
@@ -570,9 +579,10 @@ class _SelectSubjectAndEventRow extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: _SelectSubjectCard(
+          child: SelectSubjectCard(
             onSubjectSelected: onSubjectSelected,
             currentSubject: currentSubject,
+            isRequired: subjectRequired,
           ),
         ),
       ],
@@ -801,95 +811,6 @@ class _RevisionPriorityInfoDialog extends StatelessWidget {
   }
 }
 
-class _HomeworkForm extends StatefulWidget {
-  const _HomeworkForm({
-    Key key,
-    @required this.name,
-    @required this.onEventTypeSelected,
-  })  : assert(name != null),
-        super(key: key);
-
-  final String name;
-  final Function(EventType) onEventTypeSelected;
-
-  @override
-  _HomeworkFormState createState() => _HomeworkFormState();
-}
-
-class _HomeworkFormState extends State<_HomeworkForm> {
-  Future<void> addHomework() async {
-    if (subject == null) return Future<void>.error('A subject is required.');
-    final TaskVM vm = context.read<TaskVM>();
-    await vm.addHomework(
-      name: widget.name,
-      subject: subject,
-      due: due,
-      length: length,
-      description: description,
-    );
-    Navigator.pop(context);
-  }
-
-  DateTime due = DateTime.now().add(const Duration(days: 1));
-  Subject subject;
-  Duration length = const Duration(minutes: 30);
-  String description = '';
-
-  void setSubject(Subject subject) {
-    if (subject != null && this.subject != subject) {
-      setState(() => this.subject = subject);
-    }
-  }
-
-  void setDueDate(DateTime dueDate) {
-    if (dueDate != null && dueDate != due) {
-      setState(() => due = dueDate);
-    }
-  }
-
-  void setLength(double length) {
-    if (length != null && this.length.inMinutes != length) {
-      setState(() => this.length = Duration(minutes: length.toInt()));
-    }
-  }
-
-  void setDescription(String description) {
-    if (description != null && this.description != description) {
-      setState(() => this.description = description);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        _SelectSubjectAndEventRow(
-          currentSubject: subject,
-          eventType: EventType.HOMEWORK,
-          onEventTypeSelected: widget.onEventTypeSelected,
-          onSubjectSelected: setSubject,
-        ),
-        _SelectDateCard(
-          title: 'Due',
-          date: due,
-          onDateSelected: setDueDate,
-          fullDate: true,
-        ),
-        _Slider(
-          divisions: 15,
-          label: 'Length',
-          minimum: 15,
-          maximum: 90,
-          onValueChanged: setLength,
-          value: length.inMinutes,
-        ),
-        const SizedBox(height: 4),
-        _ContentField(label: 'Description', onTextChanged: setDescription),
-      ],
-    );
-  }
-}
-
 class _ExamForm extends StatefulWidget {
   const _ExamForm({
     Key key,
@@ -990,11 +911,12 @@ class _ExamFormState extends State<_ExamForm> {
           eventType: EventType.EXAM,
           onEventTypeSelected: widget.onEventTypeSelected,
           onSubjectSelected: setSubject,
+          subjectRequired: true,
         ),
         Row(
           children: <Widget>[
             Expanded(
-              child: _SelectDateCard(
+              child: SelectDateCard(
                 date: dateTime,
                 onDateSelected: setDate,
                 fullDate: false,
@@ -1126,8 +1048,9 @@ class _TestFormState extends State<_TestForm> {
           eventType: EventType.TEST,
           onEventTypeSelected: widget.onEventTypeSelected,
           onSubjectSelected: setSubject,
+          subjectRequired: true,
         ),
-        _SelectDateCard(
+        SelectDateCard(
           date: date,
           onDateSelected: setDate,
           fullDate: true,
@@ -1158,8 +1081,8 @@ class _TestFormState extends State<_TestForm> {
   }
 }
 
-class _ToDoForm extends StatefulWidget {
-  const _ToDoForm({
+class _TaskForm extends StatefulWidget {
+  const _TaskForm({
     Key key,
     @required this.title,
     @required this.onEventTypeSelected,
@@ -1169,16 +1092,22 @@ class _ToDoForm extends StatefulWidget {
   final Function(EventType) onEventTypeSelected;
 
   @override
-  __ToDoFormState createState() => __ToDoFormState();
+  _TaskFormState createState() => _TaskFormState();
 }
 
-class __ToDoFormState extends State<_ToDoForm> {
+class _TaskFormState extends State<_TaskForm> {
   DateTime date = DateTime.now();
   String note = '';
+  Subject subject;
 
-  Future<void> addToDo() async {
+  Future<void> addTask() async {
     final TaskVM vm = context.read<TaskVM>();
-    await vm.addToDo(title: widget.title, date: date, note: note);
+    await vm.addTask(
+      title: widget.title,
+      date: date,
+      note: note,
+      subject: subject,
+    );
     Navigator.pop(context);
   }
 
@@ -1194,30 +1123,30 @@ class __ToDoFormState extends State<_ToDoForm> {
     }
   }
 
+  void _setSubject(Subject subject) {
+    if (subject != null && this.subject != subject) {
+      setState(() => this.subject = subject);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: _SelectEventTypeCard(
-                eventType: EventType.TO_DO,
-                onEventTypeSelected: widget.onEventTypeSelected,
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: _SelectDateCard(
-                date: date,
-                onDateSelected: setDate,
-                fullDate: false,
-              ),
-            )
-          ],
+        _SelectSubjectAndEventRow(
+          currentSubject: subject,
+          eventType: EventType.TASK,
+          onEventTypeSelected: widget.onEventTypeSelected,
+          onSubjectSelected: _setSubject,
+        ),
+        SelectDateCard(
+          date: date,
+          onDateSelected: setDate,
+          fullDate: true,
+          title: 'Due',
         ),
         const SizedBox(height: 4),
-        _ContentField(onTextChanged: _setNote, label: 'Note'),
+        _ContentField(onTextChanged: _setNote, label: 'Description'),
       ],
     );
   }

@@ -15,6 +15,7 @@ class SubjectCard extends StatelessWidget {
     this.bottom,
     this.dense = false,
     this.margin,
+    this.endPadding = true,
   })  : assert(dense != null),
         assert(trailing == null || trailingWidget == null),
         assert(
@@ -33,6 +34,7 @@ class SubjectCard extends StatelessWidget {
   final VoidCallback onTap;
   final bool dense;
   final EdgeInsetsGeometry margin;
+  final bool endPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +108,7 @@ class SubjectCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: endPadding ? 8 : 0),
             ],
           ),
         ),

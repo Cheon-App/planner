@@ -378,7 +378,7 @@ class _TimelineListState extends State<TimelineList> {
                 ),
               );
             }
-            children.add(_AddEventButton());
+            // children.add(_AddEventButton());
 
             return Column(
               children: <Widget>[
@@ -413,8 +413,11 @@ class _TimelineListState extends State<TimelineList> {
 class _AddEventButton extends StatelessWidget {
   void openAddEventPage(BuildContext context) {
     // TODO replace this with adding a study session.
-    Navigator.pushNamed(context, AddEventPage.routeName,
-        arguments: EventType.HOMEWORK);
+    Navigator.pushNamed(
+      context,
+      AddEventPage.routeName,
+      arguments: EventType.TASK,
+    );
   }
 
   @override
@@ -647,14 +650,14 @@ class _DashboardCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     const Text(
-                      'Homework due',
+                      'Tasks due',
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
-                      '${timelineVM.homeworkDue}',
+                      '${timelineVM.tasksDue}',
                       style: Theme.of(context)
                           .textTheme
                           .subtitle2

@@ -13,15 +13,14 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart' hide Subject;
 
 class StudyRepository {
-  StudyRepository._internal() {
+  StudyRepository._() {
     _dao.progressTodayStream().listen(_progressTodayStream.add);
     _dao.sessionsCompletedStream().listen(_sessionsCompletedSubject.add);
     _dao.completionRateStream().listen(_completionRateSubject.add);
     _dao.dailyStreakStream().listen(_dailyStreakSubject.add);
   }
-  static StudyRepository get instance => _singleton;
 
-  static final StudyRepository _singleton = StudyRepository._internal();
+  static final StudyRepository instance = StudyRepository._();
 
   final StudyDao _dao = Database.instance.studyDao;
   final ExamDao _examDao = Database.instance.examDao;

@@ -6,9 +6,7 @@ import 'package:cheon/components/tap_to_dismiss.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/lesson_time.dart';
 import 'package:cheon/models/timetable.dart';
-import 'package:cheon/models/year.dart';
 import 'package:cheon/view_models/timetable_view_model.dart';
-import 'package:cheon/view_models/year_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -278,14 +276,11 @@ class OptionsList extends StatelessWidget {
 }
 
 class _TimetableList extends StatelessWidget {
-  Future<void> addTimetable(
-    BuildContext context, {
-    @required Year year,
-    @required List<Timetable> timetables,
-  }) {
+  Future<void> addTimetable(BuildContext context,
+      {@required List<Timetable> timetables}) {
     final TimetableVM timetableVM = context.read<TimetableVM>();
 
-    return timetableVM.addTimetable(index: timetables.length + 1, year: year);
+    return timetableVM.addTimetable(index: timetables.length + 1);
   }
 
   @override
@@ -317,29 +312,12 @@ class _TimetableList extends StatelessWidget {
                       )
                     : const EmptyPlaceholder(text: 'No timetables.'),
               ),
-              StreamBuilder<Year>(
-                stream: context.select<YearVM, Stream<Year>>(
-                  (YearVM vm) => vm.activeYearStream,
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: PrimaryActionButton(
+                  onTap: () => addTimetable(context, timetables: timetables),
+                  text: 'ADD TIMETABLE',
                 ),
-                builder: (
-                  BuildContext context,
-                  AsyncSnapshot<Year> snapshot,
-                ) {
-                  final Year year = snapshot.data;
-                  return Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: PrimaryActionButton(
-                      onTap: year != null
-                          ? () => addTimetable(
-                                context,
-                                timetables: timetables,
-                                year: year,
-                              )
-                          : null,
-                      text: 'ADD TIMETABLE',
-                    ),
-                  );
-                },
               ),
             ],
           );

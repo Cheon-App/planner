@@ -5,7 +5,6 @@ import 'package:cheon/pages/home_page.dart';
 import 'package:cheon/routes.dart';
 import 'package:cheon/view_models/app_info_view_model.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
-import 'package:cheon/view_models/task_view_model.dart';
 import 'package:cheon/view_models/lessons_view_model.dart';
 import 'package:cheon/view_models/preferences_view_model.dart';
 import 'package:cheon/view_models/revision_view_model.dart';
@@ -14,7 +13,6 @@ import 'package:cheon/view_models/subjects_view_model.dart';
 import 'package:cheon/view_models/teachers_view_model.dart';
 import 'package:cheon/view_models/timeline_view_model.dart';
 import 'package:cheon/view_models/timetable_view_model.dart';
-import 'package:cheon/view_models/year_view_model.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
@@ -209,13 +207,16 @@ class App extends StatelessWidget {
       ),
       tabBarTheme: TabBarTheme(
         labelColor: onSurface,
-        indicator: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: onSurface, width: 2),
+        indicator: UnderlineTabIndicator(
+          borderSide: BorderSide(
+            color: onSurface,
+            style: BorderStyle.solid,
+            width: 2,
           ),
         ),
       ),
       iconTheme: IconThemeData(color: onSurface),
+
       // platform: TargetPlatform.iOS,
     );
   }
@@ -359,10 +360,6 @@ class App extends StatelessWidget {
                   Provider<ExamsVM>(
                     create: (_) => ExamsVM(),
                     dispose: (_, ExamsVM vm) => vm.dispose(),
-                  ),
-                  Provider<YearVM>(
-                    create: (_) => YearVM(),
-                    dispose: (_, YearVM vm) => vm.dispose(),
                   ),
                   ChangeNotifierProvider<TimetableVM>(
                     create: (_) => TimetableVM(),

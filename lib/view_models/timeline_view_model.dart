@@ -1,3 +1,4 @@
+import 'package:cheon/database/database.dart';
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/calendar_event.dart';
 import 'package:cheon/models/exam.dart';
@@ -18,16 +19,13 @@ import 'package:rxdart/rxdart.dart';
 
 class TimelineVM extends ChangeNotifier {
   TimelineVM() {
-    selectedDate = strippedDateTime(DateTime.now());
+    selectedDate = DateTime.now().truncateToDay();
 
-    _selectedDateSubject.stream
-        .switchMap(_homeworkRepository.dueHomeworkListFromDateStream)
-        .listen(
-      (List<Homework> homeworkList) {
-        _homeworkDue = homeworkList.length;
-        notifyListeners();
-      },
-    );
+    _selectedDateSubject.stream.switchMap(_taskDao.tasksDue).listen((count) {
+      _tasksDue = count;
+      notifyListeners();
+    });
+
     _selectedDateSubject.stream
         .switchMap(_lessonRepository.timetableFromDateStream)
         .listen(
@@ -39,6 +37,7 @@ class TimelineVM extends ChangeNotifier {
   }
 
   final KeyValueService _keyValueService = container<KeyValueService>();
+  final _taskDao = Database.instance.taskDao;
 
   final BehaviorSubject<DateTime> _selectedDateSubject =
       BehaviorSubject<DateTime>();
@@ -46,7 +45,6 @@ class TimelineVM extends ChangeNotifier {
   final LessonRepository _lessonRepository = LessonRepository.instance;
   final ExamRepository _examRepository = ExamRepository.instance;
   final EventRepository _eventRepository = EventRepository.instance;
-  final HomeworkRepository _homeworkRepository = HomeworkRepository.instance;
   final StudyRepository _studyRepository = StudyRepository.instance;
 
   /// A stream of [TimelineData] i.e. data consumed by the timeline page.
@@ -76,10 +74,10 @@ class TimelineVM extends ChangeNotifier {
             ),
           );
 
-  int _homeworkDue;
+  int _tasksDue;
 
-  /// The amount of homework due
-  int get homeworkDue => _homeworkDue;
+  /// The amount of tasks due
+  int get tasksDue => _tasksDue;
 
   DateTime _selectedDate;
 

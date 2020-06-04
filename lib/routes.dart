@@ -1,6 +1,7 @@
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/subject.dart';
+import 'package:cheon/models/task.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/test.dart';
 import 'package:cheon/models/timetable_position.dart';
@@ -18,12 +19,15 @@ import 'package:cheon/pages/teacher_page.dart';
 import 'package:cheon/pages/teachers_page.dart';
 import 'package:cheon/pages/timetable_page.dart';
 import 'package:cheon/pages/timetable_settings_page.dart';
-import 'package:cheon/pages/view_homework_page.dart';
 import 'package:cheon/pages/view_exam_page.dart';
 import 'package:cheon/pages/view_lesson_page.dart';
 import 'package:cheon/pages/view_subject_page.dart';
+import 'package:cheon/pages/view_task_page.dart';
 import 'package:cheon/pages/view_test_page.dart';
+import 'package:cheon/view_models/view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:cheon/view_models/task_view_model.dart';
 
 /// App routes used by the [Navigator] to navigate between pages
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
@@ -44,9 +48,13 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
         lesson: routeArguments(context) as Lesson,
       ),
   // Tasks
-  TasksPage.routeName: (_) => const TasksPage(),
-  ViewHomeworkPage.routeName: (BuildContext context) => ViewHomeworkPage(
-        homework: routeArguments(context) as Homework,
+  TasksPage.routeName: (_) => VMProvider<TaskVM>(
+        viewModel: (_) => TaskVM(),
+        child: const TasksPage(),
+      ),
+  ViewTaskPage.routeName: (context) => VMProvider<TaskVM>(
+        viewModel: (_) => TaskVM(),
+        child: ViewTaskPage(task: routeArguments(context) as Task),
       ),
   // Subjects
   SubjectsPage.routeName: (_) => SubjectsPage(),
@@ -62,8 +70,16 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   HomePage.routeName: (_) => const HomePage(),
   PreferencesPage.routeName: (_) => const PreferencesPage(inHomePage: false),
   TimetablePage.routeName: (_) => const TimetablePage(inHomePage: false),
-  AddEventPage.routeName: (BuildContext context) => AddEventPage(
-        eventType: routeArguments(context) as EventType,
+  AddEventPage.routeName: (BuildContext context) => MultiProvider(
+        providers: [
+          Provider<TaskVM>(
+            create: (_) => TaskVM(),
+            dispose: (__, vm) => vm.dispose(),
+          ),
+        ],
+        child: AddEventPage(
+          eventType: routeArguments(context) as EventType,
+        ),
       ),
   TimetableSettingsPage.routeName: (_) => const TimetableSettingsPage(),
   StudyPage.routeName: (BuildContext context) => StudyPage(
@@ -73,3 +89,23 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
 
 Object routeArguments(BuildContext context) =>
     ModalRoute.of(context).settings.arguments;
+
+class VMProvider<T extends ViewModel> extends StatelessWidget {
+  const VMProvider({
+    Key key,
+    @required this.viewModel,
+    this.child,
+  }) : super(key: key);
+
+  final T Function(BuildContext context) viewModel;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Provider<T>(
+      create: viewModel,
+      child: child,
+      dispose: (_, vm) => vm.dispose(),
+    );
+  }
+}

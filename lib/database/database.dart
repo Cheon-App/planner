@@ -43,12 +43,10 @@ part 'database.g.dart';
   ],
 )
 class Database extends _$Database {
-  Database._internal() : super(container<QueryExecutor>());
+  Database._() : super(container<QueryExecutor>());
 
   /// Always returns the same static instance of [Database]
-  static Database get instance => _singleton;
-
-  static final Database _singleton = Database._internal();
+  static final Database instance = Database._();
 
   /// Must be updated every time a change to the schema is made. Sometimes a
   /// manual migration is also required.
@@ -61,6 +59,9 @@ class Database extends _$Database {
   @override
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (Migrator m) => m.createAll(),
+        beforeOpen: (OpeningDetails openingDetails) async {
+          // Can be used to run operations e.g. prefill tables at start up
+        },
         onUpgrade: (Migrator m, int from, int to) async {
           Future<void> deleteTables(List<String> tables) async {
             for (String tableName in tables) {
@@ -106,9 +107,6 @@ class Database extends _$Database {
             }
             currentVersion++;
           }
-        },
-        beforeOpen: (OpeningDetails openingDetails) async {
-          // Can be used to run operations e.g. prefill tables at start up
         },
       );
 }

@@ -20,6 +20,7 @@ class RaisedActionPage extends StatelessWidget {
     this.onPrimaryActionTap,
     @required this.child,
     this.scaffoldKey,
+    this.showEditButton = true,
   })  : assert(appBarTitle != null),
         assert(color != null),
         assert(
@@ -43,18 +44,21 @@ class RaisedActionPage extends StatelessWidget {
   final VoidCallback onPrimaryActionTap;
   final Widget child;
   final GlobalKey<ScaffoldState> scaffoldKey;
+  final bool showEditButton;
 
   @override
   Widget build(BuildContext context) {
     final bool showActionButton = primaryActionTitle != null;
     final List<Widget> actions = <Widget>[];
     if (extraAction != null) actions.add(extraAction);
-    actions.add(IconButton(
-      icon: Icon(
-        editMode ? FontAwesomeIcons.check : FontAwesomeIcons.edit,
-      ),
-      onPressed: onEditModeChanged,
-    ));
+    if (showEditButton) {
+      actions.add(IconButton(
+        icon: Icon(
+          editMode ? FontAwesomeIcons.check : FontAwesomeIcons.edit,
+        ),
+        onPressed: onEditModeChanged,
+      ));
+    }
 
     return TapToDismiss(
       child: Scaffold(
@@ -81,7 +85,7 @@ class RaisedActionPage extends StatelessWidget {
             child: child,
           ),
         ),
-        floatingActionButton: editMode
+        floatingActionButton: editMode ?? false
             ? FloatingActionButton(
                 child: const Icon(FontAwesomeIcons.trashAlt),
                 onPressed: onDelete,

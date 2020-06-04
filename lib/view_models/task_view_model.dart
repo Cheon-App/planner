@@ -2,14 +2,13 @@ import 'dart:async';
 
 import 'package:cheon/database/daos/task_dao.dart';
 import 'package:cheon/database/database.dart';
-import 'package:cheon/models/homework.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/task.dart';
-import 'package:cheon/repositories/homework_repository.dart';
+import 'package:cheon/view_models/view_model.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart' hide Subject;
 
-class TaskVM {
+class TaskVM with ViewModel {
   TaskVM() {
     subscriptions = [
       _taskDao.currentTasksStream().listen(_currentTasksSubject.add),
@@ -18,7 +17,6 @@ class TaskVM {
     ];
   }
 
-  final HomeworkRepository _homeworkRepository = HomeworkRepository.instance;
   final TaskDao _taskDao = Database.instance.taskDao;
 
   final BehaviorSubject<List<Task>> _currentTasksSubject =
@@ -30,15 +28,24 @@ class TaskVM {
 
   List<StreamSubscription> subscriptions = [];
 
-  /// A stream of homework either due in the future or overdue
-  Stream<List<Homework>> get currentHomeworkStream =>
-      _homeworkRepository.currentHomeworkListStream;
+  Stream<List<Task>> get currentTasksStream => _currentTasksSubject.stream;
+  Stream<List<Task>> get overdueTasksStream => _overdueTasksSubject.stream;
+  Stream<List<Task>> get completedTasksStream => _completedTasksSubject.stream;
 
-  /// A stream of homework due in the past including overdue homework
-  Stream<List<Homework>> get pastHomeworkStream =>
-      _homeworkRepository.pastHomeworkListStream;
-
-
+  Stream<List<Task>> taskStreamFromStatus(TaskStatus status) {
+    switch (status) {
+      case TaskStatus.CURRENT:
+        return currentTasksStream;
+        break;
+      case TaskStatus.OVERDUE:
+        return overdueTasksStream;
+        break;
+      case TaskStatus.COMPLETE:
+        return completedTasksStream;
+        break;
+    }
+    return null;
+  }
 
   Future<void> addTask({
     @required String title,
@@ -56,7 +63,7 @@ class TaskVM {
 
   Future<void> completeTask(Task task) => updateTask(
         task,
-        complete: !task.completed,
+        completed: !task.completed,
         subject: task.subject,
       );
 
@@ -64,22 +71,23 @@ class TaskVM {
 
   Future<void> updateTask(
     Task task, {
-    bool complete,
+    bool completed,
     String title,
-    String note,
-    DateTime date,
+    String description,
+    DateTime due,
     @required Subject subject,
   }) {
     return _taskDao.updateTask(
       task,
-      completed: complete,
-      note: note,
+      completed: completed,
+      note: description,
       title: title,
-      date: date,
+      date: due,
       subject: subject,
     );
   }
 
+  @override
   void dispose() {
     _currentTasksSubject.close();
     _overdueTasksSubject.close();
@@ -89,3 +97,5 @@ class TaskVM {
     }
   }
 }
+
+enum TaskStatus { CURRENT, OVERDUE, COMPLETE }

@@ -30,10 +30,14 @@ class TaskDao extends DatabaseAccessor<Database> with _$TaskDaoMixin {
     final teacherModel = row.readTable(teachers);
     return Task.fromDbModel(
       taskModel,
-      Subject.fromDBModel(
-        subjectModel: subjectModel,
-        teacher: Teacher.fromDBModel(teacherModel),
-      ),
+      subjectModel != null
+          ? Subject.fromDBModel(
+              subjectModel: subjectModel,
+              teacher: teacherModel != null
+                  ? Teacher.fromDBModel(teacherModel)
+                  : null,
+            )
+          : null,
     );
   }
 
@@ -41,7 +45,8 @@ class TaskDao extends DatabaseAccessor<Database> with _$TaskDaoMixin {
     final DateTime now = DateTime.now().truncateToDay();
     return (_taskQuery
           ..where(tasks.completed.equals(false))
-          ..where(tasks.due.isBiggerOrEqualValue(now)))
+          ..where(tasks.due.isBiggerOrEqualValue(now))
+          ..orderBy([OrderingTerm.desc(tasks.due)]))
         .map<Task>(_rowToTask)
         .watch();
   }
@@ -50,15 +55,28 @@ class TaskDao extends DatabaseAccessor<Database> with _$TaskDaoMixin {
     final DateTime now = DateTime.now().truncateToDay();
     return (_taskQuery
           ..where(tasks.completed.equals(false))
-          ..where(tasks.due.isSmallerThanValue(now)))
+          ..where(tasks.due.isSmallerThanValue(now))
+          ..orderBy([OrderingTerm.desc(tasks.due)]))
         .map<Task>(_rowToTask)
         .watch();
   }
 
   Stream<List<Task>> completedTasksStream() {
-    return (_taskQuery..where(tasks.completed.equals(true)))
+    return (_taskQuery
+          ..where(tasks.completed.equals(true))
+          ..orderBy([OrderingTerm.desc(tasks.due)]))
         .map<Task>(_rowToTask)
         .watch();
+  }
+
+  // The number of tasks due today
+  Stream<int> tasksDue(DateTime date) {
+    // TODO fix it only returning 0 or 1
+    final filter = tasks.due.equals(date.truncateToDay());
+    final count = countAll(filter: filter);
+
+    final query = selectOnly(tasks)..addColumns([count]);
+    return query.map((row) => row.read(count)).watchSingle();
   }
 
   Future<void> addTask({
@@ -73,7 +91,7 @@ class TaskDao extends DatabaseAccessor<Database> with _$TaskDaoMixin {
       description: note,
       completed: false,
       due: date,
-      subjectId: subject.id,
+      subjectId: subject?.id,
       lastUpdated: DateTime.now(),
     ));
   }

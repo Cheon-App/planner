@@ -12,7 +12,9 @@ import 'package:cheon/pages/subjects_page.dart';
 import 'package:cheon/pages/teachers_page.dart';
 import 'package:cheon/pages/timeline_page.dart';
 import 'package:cheon/pages/timetable_page.dart';
+import 'package:cheon/routes.dart';
 import 'package:cheon/url_launcher.dart';
+import 'package:cheon/view_models/task_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,9 +23,9 @@ import 'package:share/share.dart';
 
 /// All pages shown on the home page, changing the order changes the order
 /// of the items in the bottom and side navigation bar
-enum _Page { EXAMS, HOMEWORK, TIMELINE, REVISION, TIMETABLE }
+enum _Page { EXAMS, TASKS, TIMELINE, REVISION, TIMETABLE }
 
-const String _ADD_HOMEWORK_QUICK_ACTION = 'add_homework';
+const String _ADD_TASK_QUICK_ACTION = 'add_task';
 const String _ADD_EXAM_QUICK_ACTION = 'add_exam';
 // const String _ADD_EVENT_QUICK_ACTION = 'add_event';
 
@@ -80,9 +82,14 @@ class HomePageState extends State<HomePage> {
           _navigationIcons.add(FontAwesomeIcons.stream);
           _pageNames.add('Timeline');
           break;
-        case _Page.HOMEWORK:
+        case _Page.TASKS:
           _fabKeys.add(const ValueKey<String>('add'));
-          _pages.add(const TasksPage());
+          _pages.add(
+            VMProvider<TaskVM>(
+              child: const TasksPage(),
+              viewModel: (_) => TaskVM(),
+            ),
+          );
           _navigationIcons.add(FontAwesomeIcons.tasks);
           _pageNames.add('Tasks');
           break;
@@ -126,11 +133,11 @@ class HomePageState extends State<HomePage> {
             arguments: EventType.EVENT,
           );
         } */
-        if (shortcutType == _ADD_HOMEWORK_QUICK_ACTION) {
+        if (shortcutType == _ADD_TASK_QUICK_ACTION) {
           Navigator.pushNamed(
             context,
             AddEventPage.routeName,
-            arguments: EventType.HOMEWORK,
+            arguments: EventType.TASK,
           );
         }
         if (shortcutType == _ADD_EXAM_QUICK_ACTION) {
@@ -150,8 +157,9 @@ class HomePageState extends State<HomePage> {
           icon: 'action_exam',
         ),
         const ShortcutItem(
-          type: _ADD_HOMEWORK_QUICK_ACTION,
-          localizedTitle: 'Add Homework',
+          type: _ADD_TASK_QUICK_ACTION,
+          localizedTitle: 'Add Task',
+          // TODO rename this and it's correspondng files
           icon: 'action_homework',
         ),
       ],
@@ -485,18 +493,18 @@ class _FAB extends StatelessWidget {
     switch (page) {
       case _Page.TIMETABLE:
         break;
-      case _Page.HOMEWORK:
+      case _Page.TASKS:
         widget = FloatingActionButton(
           child: const Icon(FontAwesomeIcons.plus),
-          onPressed: () => openAddEvent(context, EventType.HOMEWORK),
-          tooltip: 'Add homework',
+          onPressed: () => openAddEvent(context, EventType.TASK),
+          tooltip: 'Add task',
         );
         break;
       case _Page.TIMELINE:
         widget = FloatingActionButton(
           child: const Icon(FontAwesomeIcons.plus),
-          onPressed: () => openAddEvent(context, EventType.TO_DO),
-          tooltip: 'Add to-do',
+          onPressed: () => openAddEvent(context, EventType.TASK),
+          tooltip: 'Add task',
         );
         break;
       case _Page.REVISION:

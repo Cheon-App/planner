@@ -1,20 +1,14 @@
 import 'package:cheon/components/empty_placeholder.dart';
 import 'package:cheon/components/error_message.dart';
-import 'package:cheon/components/linear_progress_bar.dart';
 import 'package:cheon/components/loading_indicator.dart';
 import 'package:cheon/components/menu_button.dart';
-import 'package:cheon/components/platform_date_time_picker.dart';
-import 'package:cheon/components/sheet.dart';
-import 'package:cheon/components/sticky_section.dart';
 import 'package:cheon/components/subject_card.dart';
 import 'package:cheon/constants.dart';
-import 'package:cheon/models/homework.dart';
 import 'package:cheon/models/task.dart';
-import 'package:cheon/utils.dart';
+import 'package:cheon/pages/view_task_page.dart';
 import 'package:cheon/view_models/task_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cheon/pages/view_homework_page.dart';
 
 class TasksPage extends StatefulWidget {
   /// Creates a page containing a list of homework and other tasks
@@ -31,10 +25,25 @@ class _TasksPageState extends State<TasksPage>
   @override
   bool get wantKeepAlive => true;
 
+  Widget counter({int count, Color color}) {
+    return Container(
+      decoration: ShapeDecoration(
+        shape: CircleBorder(),
+        color: color,
+      ),
+      padding: const EdgeInsets.all(4),
+      child: Text(
+        '$count',
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
+    // TODO add the counters!
     return DefaultTabController(
       length: 3,
       initialIndex: 0,
@@ -43,9 +52,31 @@ class _TasksPageState extends State<TasksPage>
           title: Text('Tasks'),
           leading: MenuButton(),
           bottom: TabBar(
-            tabs: const [
-              Tab(text: 'CURRENT'),
-              Tab(text: 'OVERDUE'),
+            tabs: [
+              Tab(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text('CURRENT'),
+                    /*  counter(
+                      count: 12,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ), */
+                  ],
+                ),
+              ),
+              Tab(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text('OVERDUE'),
+                    /* counter(
+                      count: 12,
+                      color: Theme.of(context).colorScheme.error,
+                    ), */
+                  ],
+                ),
+              ),
               Tab(text: 'COMPLETE'),
             ],
           ),
@@ -60,7 +91,7 @@ class _TasksPageState extends State<TasksPage>
   }
 }
 
-class _HomeworkCard extends StatelessWidget {
+/* class _HomeworkCard extends StatelessWidget {
   const _HomeworkCard({Key key, @required this.homework}) : super(key: key);
 
   final Homework homework;
@@ -90,9 +121,9 @@ class _HomeworkCard extends StatelessWidget {
           : null,
     );
   }
-}
+} */
 
-class _HomeworkList extends StatefulWidget {
+/* class _HomeworkList extends StatefulWidget {
   const _HomeworkList({Key key, @required this.showCurrent}) : super(key: key);
   final bool showCurrent;
 
@@ -283,9 +314,9 @@ class HomeworkListState extends State<_HomeworkList>
       },
     );
   }
-}
+} */
 
-class _ToDoSheet extends StatefulWidget {
+/* class _ToDoSheet extends StatefulWidget {
   const _ToDoSheet({Key key, @required this.toDo}) : super(key: key);
   final Task toDo;
 
@@ -377,109 +408,98 @@ class __ToDoSheetState extends State<_ToDoSheet> {
       ),
     );
   }
-}
+} */
 
-class _ToDoCard extends StatelessWidget {
-  const _ToDoCard({Key key, @required this.toDo}) : super(key: key);
-  final Task toDo;
+class _TaskCard extends StatelessWidget {
+  const _TaskCard({Key key, @required this.task}) : super(key: key);
+  final Task task;
 
-  void _openToDo(BuildContext context) {
-    Sheet.showModalBottomSheet<void>(
-      context: context,
-      child: _ToDoSheet(toDo: toDo),
-    );
-  }
+  void _openTask(BuildContext context) => Navigator.pushNamed(
+        context,
+        ViewTaskPage.routeName,
+        arguments: task,
+      );
 
   @override
   Widget build(BuildContext context) {
     final TaskVM vm = context.watch<TaskVM>();
-    return Card(
-      child: InkWell(
-        onTap: () => _openToDo(context),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        toDo.title,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+    final hasSubject = task.subject != null;
+
+    final checkBox = Checkbox(
+      value: task.completed,
+      onChanged: (_) => vm.completeTask(task),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    );
+
+    final dateString = MaterialLocalizations.of(context).formatShortMonthDay(
+      task.due,
+    );
+
+    final hasDescription = task.description.isNotEmpty;
+    if (hasSubject) {
+      final subject = task.subject;
+      return SubjectCard(
+        title: task.title,
+        trailingWidget: checkBox,
+        color: subject.color,
+        onTap: () => _openTask(context),
+        dense: hasDescription,
+        subtitle: task.subject.name,
+        trailingSubtitle: Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: Text(dateString),
+        ),
+        bottom: hasDescription
+            ? Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: Text(task.description),
+              )
+            : null,
+        endPadding: false,
+      );
+    } else {
+      return Card(
+        child: InkWell(
+          onTap: () => _openTask(context),
+          child: Padding(
+            padding: EdgeInsets.only(left: 8, bottom: hasDescription ? 8 : 0),
+            child: IntrinsicHeight(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          task.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                      if (toDo.description.isNotEmpty)
-                        Text(
-                          toDo.description,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        )
+                      Text(dateString),
+                      checkBox,
                     ],
                   ),
-                ),
-                Checkbox(
-                  value: toDo.completed,
-                  onChanged: (_) => vm.completeToDo(toDo),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-              ],
+                  if (task.description.isNotEmpty)
+                    Text(
+                      task.description,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
-
-class _ToDoList extends StatefulWidget {
-  @override
-  __ToDoListState createState() => __ToDoListState();
-}
-
-class __ToDoListState extends State<_ToDoList>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    final TaskVM taskVM = Provider.of(context, listen: false);
-    return StreamBuilder<List<Task>>(
-      stream: taskVM.toDoStream,
-      builder: (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
-        if (snapshot.hasData) {
-          final List<Task> toDoList = snapshot.data;
-          if (toDoList.isEmpty) {
-            return EmptyPlaceholder(text: 'No To-Do\'s left!');
-          } else {
-            return ListView.builder(
-              itemCount: toDoList.length,
-              padding: const EdgeInsets.all(8),
-              itemBuilder: (BuildContext context, int index) {
-                return _ToDoCard(toDo: toDoList[index]);
-              },
-            );
-          }
-        } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return LoadingIndicator();
-        } else {
-          return const ErrorMessage();
-        }
-      },
-    );
-  }
-}
-
-enum TaskStatus { CURRENT, OVERDUE, COMPLETE }
 
 class _TaskList extends StatelessWidget {
   const _TaskList({Key key, @required this.taskStatus}) : super(key: key);
@@ -488,7 +508,68 @@ class _TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Stream builder 
-    return Placeholder();
+    // Stream builder
+    final taskVM = context.watch<TaskVM>();
+    return StreamBuilder<List<Task>>(
+      stream: taskVM.taskStreamFromStatus(taskStatus),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final List<Task> tasks = snapshot.data;
+
+          if (taskStatus == TaskStatus.CURRENT) {
+            if (tasks.isEmpty) {
+              return EmptyPlaceholder(
+                text: 'No tasks left!',
+                svgPath: IMG_TASKS,
+              );
+            }
+
+            return _CurrentTasksList(tasks: tasks);
+          } else {
+            if (tasks.isEmpty) {
+              if (taskStatus == TaskStatus.OVERDUE) {
+                return EmptyPlaceholder(
+                  text: 'No overdue tasks.',
+                  svgPath: IMG_TASKS,
+                );
+              } else {
+                return EmptyPlaceholder(
+                  text: 'No tasks completed.',
+                  svgPath: IMG_TASKS,
+                );
+              }
+            }
+            return ListView.builder(
+              itemCount: tasks.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _TaskCard(task: tasks[index]);
+              },
+            );
+          }
+        } else if (snapshot.connectionState == ConnectionState.waiting) {
+          return LoadingIndicator();
+        } else {
+          return ErrorMessage();
+        }
+      },
+    );
+  }
+}
+
+class _CurrentTasksList extends StatelessWidget {
+  const _CurrentTasksList({Key key, @required this.tasks}) : super(key: key);
+
+  final List<Task> tasks;
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO split into time frame segments e.g. this week, next week
+    return ListView.builder(
+      itemCount: tasks.length,
+      padding: const EdgeInsets.fromLTRB(8, 8, 8, 84),
+      itemBuilder: (context, index) {
+        return _TaskCard(task: tasks[index]);
+      },
+    );
   }
 }

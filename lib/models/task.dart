@@ -1,6 +1,7 @@
+import 'package:meta/meta.dart';
+
 import 'package:cheon/database/database.dart';
 import 'package:cheon/models/subject.dart';
-import 'package:meta/meta.dart';
 
 class Task {
   Task({
@@ -20,6 +21,24 @@ class Task {
       description: model.description,
       title: model.title,
       subject: subject,
+    );
+  }
+
+  Task copyWith({
+    String id,
+    DateTime due,
+    String description,
+    bool completed,
+    String title,
+    Subject subject,
+  }) {
+    return Task(
+      id: id ?? this.id,
+      due: due ?? this.due,
+      description: description ?? this.description,
+      completed: completed ?? this.completed,
+      title: title ?? this.title,
+      subject: subject ?? this.subject,
     );
   }
 
