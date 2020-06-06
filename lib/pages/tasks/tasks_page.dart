@@ -5,7 +5,7 @@ import 'package:cheon/components/menu_button.dart';
 import 'package:cheon/components/subject_card.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/task.dart';
-import 'package:cheon/pages/view_task_page.dart';
+import 'package:cheon/pages/view_task/view_task_page.dart';
 import 'package:cheon/view_models/task_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

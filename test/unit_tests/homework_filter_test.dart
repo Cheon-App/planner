@@ -1,5 +1,3 @@
-import 'package:cheon/models/homework.dart';
-import 'package:cheon/pages/tasks_page.dart';
 import 'package:cheon/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meta/meta.dart';

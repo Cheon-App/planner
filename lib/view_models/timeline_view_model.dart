@@ -37,7 +37,7 @@ class TimelineVM extends ChangeNotifier {
   }
 
   final KeyValueService _keyValueService = container<KeyValueService>();
-  final _taskDao = Database.instance.taskDao;
+  final _taskDao = container<Database>().taskDao;
 
   final BehaviorSubject<DateTime> _selectedDateSubject =
       BehaviorSubject<DateTime>();

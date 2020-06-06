@@ -1,5 +1,6 @@
 import 'package:cheon/database/daos/test_dao.dart';
 import 'package:cheon/database/database.dart';
+import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/test.dart';
 import 'package:cheon/utils.dart';
@@ -15,7 +16,7 @@ class TestRepository {
   static TestRepository get instance => _singleton;
   static final TestRepository _singleton = TestRepository._internal();
 
-  final TestDao _dao = Database.instance.testDao;
+  final TestDao _dao = container<Database>().testDao;
 
   final BehaviorSubject<List<Test>> _currentTestListSubject =
       BehaviorSubject<List<Test>>();

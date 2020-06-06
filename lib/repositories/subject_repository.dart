@@ -1,6 +1,7 @@
 import 'package:cheon/constants.dart';
 import 'package:cheon/database/daos/subject_dao.dart';
 import 'package:cheon/database/database.dart';
+import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart' hide Subject;
@@ -15,7 +16,7 @@ class SubjectRepository {
 
   static final SubjectRepository _singleton = SubjectRepository._internal();
 
-  final SubjectDao _dao = Database.instance.subjectDao;
+  final SubjectDao _dao = container<Database>().subjectDao;
 
   final BehaviorSubject<List<Subject>> _subjectListSubject =
       BehaviorSubject<List<Subject>>();

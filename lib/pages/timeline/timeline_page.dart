@@ -12,10 +12,10 @@ import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/study_session.dart';
 import 'package:cheon/models/timeline_data.dart';
 import 'package:cheon/models/timetable.dart';
-import 'package:cheon/pages/add_event_page.dart';
+import 'package:cheon/pages/add_event/add_event_page.dart';
 import 'package:cheon/components/error_message.dart';
-import 'package:cheon/pages/view_exam_page.dart';
-import 'package:cheon/pages/view_lesson_page.dart';
+import 'package:cheon/pages/view_exam/view_exam_page.dart';
+import 'package:cheon/pages/view_lesson/view_lesson_page.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/timeline_view_model.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -605,30 +605,9 @@ class _TimeRow extends StatelessWidget {
 }
 
 class _DashboardCard extends StatelessWidget {
-  Widget infoTile(BuildContext context,
-      {@required String name, @required String value}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Text(
-          name,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-        ),
-        Text(
-          value,
-          style: Theme.of(context)
-              .textTheme
-              .subtitle2
-              .copyWith(fontWeight: FontWeight.bold),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final TimelineVM timelineVM = Provider.of<TimelineVM>(context);
-    final Timetable timetable = timelineVM.selectedTimetable;
+    final timelineVM = context.watch<TimelineVM>();
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -636,34 +615,49 @@ class _DashboardCard extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Expanded(
-                child: Text(
-                  timetable != null ? 'Week ${timetable.week}' : 'No lessons',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '${timelineVM.tasksDue}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle2
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(
+                        text: ' tasks due',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
               const VerticalDivider(),
               Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    const Text(
-                      'Tasks due',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        // TODO use the correct number
+                        text: '-',
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle2
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    Text(
-                      '${timelineVM.tasksDue}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle2
-                          .copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                      TextSpan(
+                        text: ' tasks to go',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

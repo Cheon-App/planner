@@ -56,7 +56,9 @@ dependencies:
   moor: ^3.1.0
   # moor_flutter: ^2.1.1
   # https://github.com/simolus3/moor/issues/446
-  moor_ffi: ^0.6.0
+  moor_ffi: 0.5.0
+  # update moor once this issue is fixed
+  # https://github.com/simolus3/moor/issues/581
 
   # Supplies the app with the directory location for storing files
   path_provider: ^1.6.10

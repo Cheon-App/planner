@@ -1,7 +1,7 @@
 import 'package:cheon/components/priority_indicator.dart';
 import 'package:cheon/components/subject_card.dart';
 import 'package:cheon/models/exam.dart';
-import 'package:cheon/pages/view_exam_page.dart';
+import 'package:cheon/pages/view_exam/view_exam_page.dart';
 import 'package:flutter/material.dart';
 
 class ExamCard extends StatelessWidget {

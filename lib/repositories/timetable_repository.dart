@@ -1,5 +1,6 @@
 import 'package:cheon/database/daos/timetable_dao.dart';
 import 'package:cheon/database/database.dart';
+import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/lesson_time.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
@@ -17,7 +18,7 @@ class TimetableRepository {
 
   static final TimetableRepository _singleton = TimetableRepository._internal();
 
-  final TimetableDao _dao = Database.instance.timetableDao;
+  final TimetableDao _dao = container<Database>().timetableDao;
 
   Future<void> addTimetable(int index) => _dao.addTimetable(index);
 
@@ -37,6 +38,7 @@ class TimetableRepository {
 
   Future<void> init() async {
     if (await _dao.hasTimetables() == false) {
+      await addTimetable(1);
       // Adds 5 default lesson times.
       for (int i = 1; i <= 5; i++) {
         await addLessonTime(i, DateTime(0, 0, 0, 8 + i, 0));

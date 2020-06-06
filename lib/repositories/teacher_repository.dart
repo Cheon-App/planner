@@ -1,5 +1,6 @@
 import 'package:cheon/database/daos/teacher_dao.dart';
 import 'package:cheon/database/database.dart';
+import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
@@ -11,7 +12,7 @@ class TeacherRepository {
   static TeacherRepository get instance => _singleton;
   static final TeacherRepository _singleton = TeacherRepository._internal();
 
-  final TeacherDao _dao = Database.instance.teacherDao;
+  final TeacherDao _dao = container<Database>().teacherDao;
 
   final BehaviorSubject<List<Teacher>> _teacherListSubject =
       BehaviorSubject<List<Teacher>>();

@@ -23,7 +23,7 @@ class LessonRepository {
 
   final TimetableRepository _timetableRepository = TimetableRepository.instance;
 
-  final LessonDao _dao = Database.instance.lessonDao;
+  final LessonDao _dao = container<Database>().lessonDao;
 
   final KeyValueService _timetableKeyValueService =
       container<KeyValueService>('timetable');

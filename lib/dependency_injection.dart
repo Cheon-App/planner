@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:isolate';
 
+import 'package:cheon/database/database.dart';
 import 'package:cheon/services/app_info_service/app_info_service.dart';
 import 'package:cheon/services/app_info_service/mock_app_info_service.dart';
 import 'package:cheon/services/app_info_service/pi_app_info_service.dart';
@@ -12,6 +14,7 @@ import 'package:cheon/services/notification_service/local_notification_service.d
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:kiwi/kiwi.dart' as kiwi;
+import 'package:moor/isolate.dart';
 import 'package:moor_ffi/moor_ffi.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
@@ -29,9 +32,6 @@ Future<void> registerTestDependencies() async {
 
   container
       .registerInstance<AppInfoService, MockAppInfoService>(mockAppInfoService);
-
-  container
-      .registerSingleton<QueryExecutor, VmDatabase>((_) => VmDatabase.memory());
 }
 
 Future<void> registerDependencies() async {
@@ -39,7 +39,6 @@ Future<void> registerDependencies() async {
 
   final AppInfoService packageInfoAppInfoService =
       PackageInfoAppInfoService(packageInfo: packageInfo);
-  ;
 
   final Directory dir = await getApplicationDocumentsDirectory();
   Hive.init(dir.path);
@@ -74,15 +73,15 @@ Future<void> registerDependencies() async {
   final NotificationService localNotificationService =
       LocalNotificationService();
 
-  final LazyDatabase database = LazyDatabase(
-    () async {
-      final File file = File(path.join(dir.path, 'app.db'));
-      return VmDatabase(
-        file,
-        logStatements: false, //FlavorConfig.instance.isDevelopment(),
-      );
-    },
-  );
+  final MoorIsolate moorIsolate =
+      await _createMoorIsolate(path.join(dir.path, 'app.db'));
+
+  /// we can now create a database connection that will use the isolate
+  /// internally. This is NOT what's returned from _backgroundConnection, moor
+  /// uses an internal proxy class for isolate communication.
+  final DatabaseConnection connection = await moorIsolate.connect();
+
+  final Database db = Database.connect(connection);
 
   container.registerInstance<AppInfoService, PackageInfoAppInfoService>(
     packageInfoAppInfoService,
@@ -107,7 +106,7 @@ Future<void> registerDependencies() async {
     name: 'revision',
   );
 
-  container.registerInstance<QueryExecutor, LazyDatabase>(database);
+  container.registerInstance(db);
 
   container.registerInstance<CalendarService, DeviceCalendarService>(
       deviceCalendarService);
@@ -117,3 +116,38 @@ Future<void> registerDependencies() async {
 }
 
 void unregisterDependencies() => container.clear();
+
+Future<MoorIsolate> _createMoorIsolate(String path) async {
+  final receivePort = ReceivePort();
+
+  await Isolate.spawn(
+    _startBackground,
+    _IsolateStartRequest(receivePort.sendPort, path),
+  );
+
+  // _startBackground will send the MoorIsolate to this ReceivePort
+  return await receivePort.first as MoorIsolate;
+}
+
+void _startBackground(_IsolateStartRequest request) {
+  // this is the entry point from the background isolate! Let's create
+  // the database from the path we received
+  final executor = VmDatabase(File(request.targetPath));
+  // we're using MoorIsolate.inCurrent here as this method already runs on a
+  // background isolate. If we used MoorIsolate.spawn, a third isolate would be
+  // started which is not what we want!
+  final moorIsolate = MoorIsolate.inCurrent(
+    () => DatabaseConnection.fromExecutor(executor),
+  );
+  // inform the starting isolate about this, so that it can call .connect()
+  request.sendMoorIsolate.send(moorIsolate);
+}
+
+// used to bundle the SendPort and the target path, since isolate entry point
+// functions can only take one parameter.
+class _IsolateStartRequest {
+  _IsolateStartRequest(this.sendMoorIsolate, this.targetPath);
+
+  final SendPort sendMoorIsolate;
+  final String targetPath;
+}

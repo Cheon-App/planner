@@ -77,34 +77,26 @@ android {
     // App variants that can coexist on a single device
     productFlavors {
         
+        // Production
         prod {
             dimension "flavor-dim"
         }
 
-        staging {
-            dimension "flavor-dim"
-            applicationIdSuffix ".staging"
-            versionNameSuffix "-staging"
-        }
-        
+        // Development
         dev {
             dimension "flavor-dim"
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
         }
-        
-        dev2 {
-            dimension "flavor-dim"
-            applicationIdSuffix ".dev2"
-            versionNameSuffix "-dev2"
-        }
-        
-        dev3 {
-            dimension "flavor-dim"
-            applicationIdSuffix ".dev3"
-            versionNameSuffix "-dev3"
-        }
 
+        // Performance profiling, [profile] clashes with a build gradle name
+        performance {
+            dimension "flavor-dim"
+            applicationIdSuffix ".performance"
+            versionNameSuffix "-performance"
+        }
+        
+        // Some automated tests e.g. Driver tests or Repeato tests
         devTesting {
             dimension "flavor-dim"
             applicationIdSuffix ".dev_testing"

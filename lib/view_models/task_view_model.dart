@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cheon/database/daos/task_dao.dart';
 import 'package:cheon/database/database.dart';
+import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/task.dart';
 import 'package:cheon/view_models/view_model.dart';
@@ -17,7 +18,7 @@ class TaskVM with ViewModel {
     ];
   }
 
-  final TaskDao _taskDao = Database.instance.taskDao;
+  final TaskDao _taskDao = container<Database>().taskDao;
 
   final BehaviorSubject<List<Task>> _currentTasksSubject =
       BehaviorSubject<List<Task>>();

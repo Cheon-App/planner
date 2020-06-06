@@ -154,6 +154,7 @@ class TimetableDao extends DatabaseAccessor<Database> with _$TimetableDaoMixin {
     ));
   }
 
+  // TODO verify this works
   Future<bool> hasTimetables() async {
     final count = countAll();
 

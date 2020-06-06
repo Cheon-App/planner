@@ -31,7 +31,7 @@
             "flutterMode": "profile",
             "args": [
                 "--flavor",
-                "dev",
+                "profile",
                 "--target",
                 "lib/main_profile.dart"
             ]

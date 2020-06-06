@@ -2,6 +2,7 @@ import 'package:cheon/database/daos/exam_dao.dart';
 import 'package:cheon/database/daos/study_dao.dart';
 import 'package:cheon/database/daos/test_dao.dart';
 import 'package:cheon/database/database.dart';
+import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/compare_date_time.dart';
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/study_session.dart';
@@ -22,10 +23,10 @@ class StudyRepository {
 
   static final StudyRepository instance = StudyRepository._();
 
-  final StudyDao _dao = Database.instance.studyDao;
-  final ExamDao _examDao = Database.instance.examDao;
-  final TestDao _testDao = Database.instance.testDao;
-  // final LessonDao _lessonDao = Database.instance.lessonDao;
+  final StudyDao _dao = container<Database>().studyDao;
+  final ExamDao _examDao = container<Database>().examDao;
+  final TestDao _testDao = container<Database>().testDao;
+  // final LessonDao _lessonDao = container<Database>().lessonDao;
 
   Stream<List<StudySession>> studySessionListFromDateStream(DateTime date) =>
       _dao.studySessionListFromDateStream(date);

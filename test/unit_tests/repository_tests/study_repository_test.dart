@@ -14,10 +14,9 @@ void main() {
   group('StudyRepository', () {
     Database database;
     setUp(() async {
-      container.registerInstance<QueryExecutor, LazyDatabase>(
-        VmDatabase.memory(),
+      database = Database.connect(
+        DatabaseConnection.fromExecutor(VmDatabase.memory()),
       );
-      database = Database.instance;
     });
 
     tearDown(() async {

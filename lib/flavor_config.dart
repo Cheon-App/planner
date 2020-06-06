@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum Flavor { PROFILE, DEV, STAGING, PRODUCTION, TESTING }
+enum Flavor { PROFILE, DEV, PRODUCTION, TESTING }
 
 class FlavorConfig {
   /// Denotes the app flavor being used. This influences the API end points
@@ -32,9 +32,6 @@ class FlavorConfig {
       case Flavor.DEV:
         return 'DEV';
         break;
-      case Flavor.STAGING:
-        return 'STAGING';
-        break;
       case Flavor.PRODUCTION:
         return 'PRODUCTION';
         break;
@@ -54,7 +51,6 @@ class FlavorConfig {
 
   bool isProduction() => _instance.flavor == Flavor.PRODUCTION;
   bool isDevelopment() => _instance.flavor == Flavor.DEV;
-  bool isStaging() => _instance.flavor == Flavor.STAGING;
   bool isProfile() => _instance.flavor == Flavor.PROFILE;
   bool isTesting() => _instance.flavor == Flavor.TESTING;
 }

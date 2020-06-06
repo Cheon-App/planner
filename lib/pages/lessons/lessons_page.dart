@@ -4,7 +4,7 @@ import 'package:cheon/components/loading_indicator.dart';
 import 'package:cheon/components/subject_card.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/lesson.dart';
-import 'package:cheon/pages/view_lesson_page.dart';
+import 'package:cheon/pages/view_lesson/view_lesson_page.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/lessons_view_model.dart';
 import 'package:cheon/view_models/timetable_view_model.dart';

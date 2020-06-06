@@ -1,0 +1,882 @@
+{
+    "_meta": {
+        "description": "This file contains a serialized version of schema entities for moor.",
+        "version": "0.1.0-dev-preview"
+    },
+    "entities": [
+        {
+            "id": 0,
+            "references": [],
+            "type": "table",
+            "data": {
+                "name": "subjects",
+                "was_declared_in_moor": false,
+                "columns": [
+                    {
+                        "name": "id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": "UNIQUE NOT NULL",
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "year_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "teacher_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": true,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "moor_type": "ColumnType.text",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [
+                            {
+                                "allowed-lengths": {
+                                    "min": 1,
+                                    "max": 70
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "room",
+                        "moor_type": "ColumnType.text",
+                        "nullable": true,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "icon_id",
+                        "moor_type": "ColumnType.text",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "color",
+                        "moor_type": "ColumnType.integer",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const ColorConverter()",
+                            "dart_type_name": "Color"
+                        }
+                    },
+                    {
+                        "name": "last_updated",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    }
+                ],
+                "is_virtual": false,
+                "explicit_pk": [
+                    "id"
+                ]
+            }
+        },
+        {
+            "id": 1,
+            "references": [],
+            "type": "table",
+            "data": {
+                "name": "teachers",
+                "was_declared_in_moor": false,
+                "columns": [
+                    {
+                        "name": "id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": "UNIQUE NOT NULL",
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "year_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "moor_type": "ColumnType.text",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "email",
+                        "moor_type": "ColumnType.text",
+                        "nullable": true,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "last_updated",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    }
+                ],
+                "is_virtual": false,
+                "explicit_pk": [
+                    "id"
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "references": [],
+            "type": "table",
+            "data": {
+                "name": "exams",
+                "was_declared_in_moor": false,
+                "columns": [
+                    {
+                        "name": "id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": "UNIQUE NOT NULL",
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "subject_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "moor_type": "ColumnType.text",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "location",
+                        "moor_type": "ColumnType.text",
+                        "nullable": true,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "seat",
+                        "moor_type": "ColumnType.text",
+                        "nullable": true,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "start",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "end",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "priority",
+                        "moor_type": "ColumnType.integer",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": "const Constant<int>(3)",
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "last_updated",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    }
+                ],
+                "is_virtual": false,
+                "explicit_pk": [
+                    "id"
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "references": [],
+            "type": "table",
+            "data": {
+                "name": "lessons",
+                "was_declared_in_moor": false,
+                "columns": [
+                    {
+                        "name": "id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": "UNIQUE NOT NULL",
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "subject_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "teacher_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": true,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "timetable_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "period",
+                        "moor_type": "ColumnType.integer",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "room",
+                        "moor_type": "ColumnType.text",
+                        "nullable": true,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "weekday",
+                        "moor_type": "ColumnType.integer",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "note",
+                        "moor_type": "ColumnType.text",
+                        "nullable": true,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "last_updated",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    }
+                ],
+                "is_virtual": false,
+                "explicit_pk": [
+                    "id"
+                ]
+            }
+        },
+        {
+            "id": 4,
+            "references": [],
+            "type": "table",
+            "data": {
+                "name": "timetables",
+                "was_declared_in_moor": false,
+                "columns": [
+                    {
+                        "name": "id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": "UNIQUE NOT NULL",
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "year_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "week",
+                        "moor_type": "ColumnType.integer",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "saturday",
+                        "moor_type": "ColumnType.boolean",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "sunday",
+                        "moor_type": "ColumnType.boolean",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "last_selected",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "last_updated",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    }
+                ],
+                "is_virtual": false,
+                "explicit_pk": [
+                    "id"
+                ]
+            }
+        },
+        {
+            "id": 5,
+            "references": [],
+            "type": "table",
+            "data": {
+                "name": "tests",
+                "was_declared_in_moor": false,
+                "columns": [
+                    {
+                        "name": "id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": "UNIQUE NOT NULL",
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "subject_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "lesson_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": true,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "moor_type": "ColumnType.text",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "content",
+                        "moor_type": "ColumnType.text",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "date",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "priority",
+                        "moor_type": "ColumnType.integer",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": "const Constant<int>(3)",
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "last_updated",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    }
+                ],
+                "is_virtual": false,
+                "explicit_pk": [
+                    "id"
+                ]
+            }
+        },
+        {
+            "id": 6,
+            "references": [],
+            "type": "table",
+            "data": {
+                "name": "studying",
+                "was_declared_in_moor": false,
+                "columns": [
+                    {
+                        "name": "id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": "UNIQUE NOT NULL",
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "exam_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": true,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "test_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": true,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "moor_type": "ColumnType.text",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "start",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "end",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "completed",
+                        "moor_type": "ColumnType.boolean",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": "const Constant<bool>(false)",
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "last_updated",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    }
+                ],
+                "is_virtual": false,
+                "explicit_pk": [
+                    "id"
+                ]
+            }
+        },
+        {
+            "id": 7,
+            "references": [],
+            "type": "table",
+            "data": {
+                "name": "lesson_times",
+                "was_declared_in_moor": false,
+                "columns": [
+                    {
+                        "name": "period",
+                        "moor_type": "ColumnType.integer",
+                        "nullable": false,
+                        "customConstraints": "UNIQUE NOT NULL",
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "start_time",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "last_updated",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    }
+                ],
+                "is_virtual": false,
+                "explicit_pk": [
+                    "period"
+                ]
+            }
+        },
+        {
+            "id": 8,
+            "references": [],
+            "type": "table",
+            "data": {
+                "name": "tasks",
+                "was_declared_in_moor": false,
+                "columns": [
+                    {
+                        "name": "id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": "UNIQUE NOT NULL",
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "subject_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": true,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "moor_type": "ColumnType.text",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "description",
+                        "moor_type": "ColumnType.text",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "due",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "completed",
+                        "moor_type": "ColumnType.boolean",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "last_updated",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    }
+                ],
+                "is_virtual": false,
+                "explicit_pk": [
+                    "id"
+                ]
+            }
+        },
+        {
+            "id": 9,
+            "references": [],
+            "type": "table",
+            "data": {
+                "name": "sub_tasks",
+                "was_declared_in_moor": false,
+                "columns": [
+                    {
+                        "name": "id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": "UNIQUE NOT NULL",
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "task_id",
+                        "moor_type": "ColumnType.blob",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": [],
+                        "type_converter": {
+                            "dart_expr": "const UUIDConverter()",
+                            "dart_type_name": "String"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "moor_type": "ColumnType.text",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "completed",
+                        "moor_type": "ColumnType.boolean",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    },
+                    {
+                        "name": "last_updated",
+                        "moor_type": "ColumnType.datetime",
+                        "nullable": false,
+                        "customConstraints": null,
+                        "default_dart": null,
+                        "default_client_dart": null,
+                        "dsl_features": []
+                    }
+                ],
+                "is_virtual": false,
+                "explicit_pk": [
+                    "id"
+                ]
+            }
+        }
+    ]
+}

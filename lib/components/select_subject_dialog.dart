@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:cheon/components/custom_selection_dialog.dart';
 import 'package:cheon/components/subject_card.dart';
 import 'package:cheon/models/subject.dart';
-import 'package:cheon/pages/add_subject_page.dart';
+import 'package:cheon/pages/add_subject/add_subject_page.dart';
 import 'package:cheon/view_models/subjects_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

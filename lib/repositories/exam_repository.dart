@@ -1,5 +1,6 @@
 import 'package:cheon/database/daos/exam_dao.dart';
 import 'package:cheon/database/database.dart';
+import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/exam.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
@@ -14,7 +15,7 @@ class ExamRepository {
   static ExamRepository get instance => _singleton;
   static final ExamRepository _singleton = ExamRepository._internal();
 
-  final ExamDao _dao = Database.instance.examDao;
+  final ExamDao _dao = container<Database>().examDao;
 
   final BehaviorSubject<List<Exam>> _currentExamListSubject =
       BehaviorSubject<List<Exam>>();

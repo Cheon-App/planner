@@ -12,6 +12,7 @@ import 'package:cheon/database/tables.dart';
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/database/converters/uuid_converter.dart';
 import 'package:cheon/database/converters/color_converter.dart';
+import 'package:cheon/repositories/timetable_repository.dart';
 import 'package:moor/moor.dart';
 
 part 'database.g.dart';
@@ -43,10 +44,9 @@ part 'database.g.dart';
   ],
 )
 class Database extends _$Database {
-  Database._() : super(container<QueryExecutor>());
+  // Database._() : super(container<QueryExecutor>());
 
-  /// Always returns the same static instance of [Database]
-  static final Database instance = Database._();
+  Database.connect(DatabaseConnection connection) : super.connect(connection);
 
   /// Must be updated every time a change to the schema is made. Sometimes a
   /// manual migration is also required.
@@ -61,6 +61,7 @@ class Database extends _$Database {
         onCreate: (Migrator m) => m.createAll(),
         beforeOpen: (OpeningDetails openingDetails) async {
           // Can be used to run operations e.g. prefill tables at start up
+          TimetableRepository.instance.init();
         },
         onUpgrade: (Migrator m, int from, int to) async {
           Future<void> deleteTables(List<String> tables) async {

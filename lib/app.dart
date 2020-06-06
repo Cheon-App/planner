@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cheon/flavor_config.dart';
-import 'package:cheon/pages/home_page.dart';
+import 'package:cheon/pages/home/home_page.dart';
 import 'package:cheon/routes.dart';
 import 'package:cheon/view_models/app_info_view_model.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
