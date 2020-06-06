@@ -46,7 +46,7 @@ class TaskDao extends DatabaseAccessor<Database> with _$TaskDaoMixin {
     return (_taskQuery
           ..where(tasks.completed.equals(false))
           ..where(tasks.due.isBiggerOrEqualValue(now))
-          ..orderBy([OrderingTerm.desc(tasks.due)]))
+          ..orderBy([OrderingTerm.asc(tasks.due)]))
         .map<Task>(_rowToTask)
         .watch();
   }
@@ -56,7 +56,7 @@ class TaskDao extends DatabaseAccessor<Database> with _$TaskDaoMixin {
     return (_taskQuery
           ..where(tasks.completed.equals(false))
           ..where(tasks.due.isSmallerThanValue(now))
-          ..orderBy([OrderingTerm.desc(tasks.due)]))
+          ..orderBy([OrderingTerm.asc(tasks.due)]))
         .map<Task>(_rowToTask)
         .watch();
   }
