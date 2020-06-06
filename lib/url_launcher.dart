@@ -15,18 +15,17 @@ Future<void> launchUrl(String url) async {
 
 /// Opens the device's email app with the given email and optionally a subject
 /// and body
-Future<void> launchEmail(String email, {String subject, String body}) {
-  if (subject != null && body != null) {
-    // Creates an email with a subject and body
-    return launchUrl('mailto:$email?subject=$subject&body=$body');
-  } else if (subject != null) {
-    // Creates an email with a subject
-    return launchUrl('mailto:$email?subject=$subject');
-  } else if (body != null) {
-    // Creates an email with a body
-    return launchUrl('mailto:$email?body=$body');
-  } else {
-    // Creates an email without a subject or body
-    return launchUrl('mailto:$email');
-  }
+Future<void> launchEmail(String email, {String subject, String body}) async {
+  final parameters = <String, dynamic>{
+    'subject': subject,
+    'body': body,
+  }..removeWhere((_, dynamic value) => value == null);
+
+  final uri = Uri(
+    scheme: 'mailto',
+    path: email,
+    queryParameters: parameters.isNotEmpty ? parameters : null,
+  );
+
+  await launchUrl(uri.toString());
 }
