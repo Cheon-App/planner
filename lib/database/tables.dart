@@ -8,8 +8,7 @@ class Subjects extends Table {
   bool get withoutRowId => true;
 
   @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
+  Set<Column> get primaryKey => <Column>{id};
 
   // Primary Key
   BlobColumn get id =>
@@ -31,8 +30,7 @@ class Teachers extends Table {
   bool get withoutRowId => true;
 
   @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
+  Set<Column> get primaryKey => <Column>{id};
 
   // Primary Key
   BlobColumn get id =>
@@ -50,8 +48,7 @@ class Tasks extends Table {
   bool get withoutRowId => true;
 
   @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
+  Set<Column> get primaryKey => <Column>{id};
 
   // Primary Key
   BlobColumn get id =>
@@ -71,8 +68,7 @@ class SubTasks extends Table {
   bool get withoutRowId => true;
 
   @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
+  Set<Column> get primaryKey => <Column>{id};
 
   // Primary Key
   BlobColumn get id =>
@@ -90,8 +86,7 @@ class Studying extends Table {
   bool get withoutRowId => true;
 
   @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
+  Set<Column> get primaryKey => <Column>{id};
 
   // Primary Key
   BlobColumn get id =>
@@ -104,7 +99,7 @@ class Studying extends Table {
   DateTimeColumn get start => dateTime()();
   DateTimeColumn get end => dateTime()();
   BoolColumn get completed =>
-      boolean().withDefault(const Constant<bool, BoolType>(false))();
+      boolean().withDefault(const Constant<bool>(false))();
   DateTimeColumn get lastUpdated => dateTime()();
 }
 
@@ -114,8 +109,7 @@ class Exams extends Table {
   bool get withoutRowId => true;
 
   @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
+  Set<Column> get primaryKey => <Column>{id};
 
   // Primary Key
   BlobColumn get id =>
@@ -127,8 +121,7 @@ class Exams extends Table {
   TextColumn get seat => text().nullable()();
   DateTimeColumn get start => dateTime()();
   DateTimeColumn get end => dateTime()();
-  IntColumn get priority =>
-      integer().withDefault(const Constant<int, IntType>(3))();
+  IntColumn get priority => integer().withDefault(const Constant<int>(3))();
   DateTimeColumn get lastUpdated => dateTime()();
 }
 
@@ -138,8 +131,7 @@ class Tests extends Table {
   bool get withoutRowId => true;
 
   @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
+  Set<Column> get primaryKey => <Column>{id};
 
   // Primary Key
   BlobColumn get id =>
@@ -151,8 +143,7 @@ class Tests extends Table {
   TextColumn get title => text()();
   TextColumn get content => text()();
   DateTimeColumn get date => dateTime()();
-  IntColumn get priority =>
-      integer().withDefault(const Constant<int, IntType>(3))();
+  IntColumn get priority => integer().withDefault(const Constant<int>(3))();
   DateTimeColumn get lastUpdated => dateTime()();
 }
 
@@ -162,8 +153,7 @@ class Timetables extends Table {
   bool get withoutRowId => true;
 
   @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
+  Set<Column> get primaryKey => <Column>{id};
 
   // Primary Key
   BlobColumn get id =>
@@ -183,8 +173,7 @@ class Lessons extends Table {
   bool get withoutRowId => true;
 
   @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{id};
+  Set<Column> get primaryKey => <Column>{id};
 
   // Primary Key
   BlobColumn get id =>
@@ -206,8 +195,7 @@ class Lessons extends Table {
 @DataClassName('LessonTimeModel')
 class LessonTimes extends Table {
   @override
-  Set<Column<dynamic, SqlType<dynamic>>> get primaryKey =>
-      <Column<dynamic, SqlType<dynamic>>>{period};
+  Set<Column> get primaryKey => <Column>{period};
 
   // Primary Key
   IntColumn get period => integer().customConstraint('UNIQUE NOT NULL')();

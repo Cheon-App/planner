@@ -6,7 +6,7 @@ part of 'database.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
+// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this, always_specify_types, implicit_dynamic_parameter, sort_constructors_first, implicit_dynamic_map_literal, avoid_renaming_method_parameters, sort_constructors_first, lines_longer_than_80_chars
 class SubjectModel extends DataClass implements Insertable<SubjectModel> {
   final String id;
   final String yearId;
@@ -49,6 +49,60 @@ class SubjectModel extends DataClass implements Insertable<SubjectModel> {
           .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
     );
   }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      final converter = $SubjectsTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id));
+    }
+    if (!nullToAbsent || yearId != null) {
+      final converter = $SubjectsTable.$converter1;
+      map['year_id'] = Variable<Uint8List>(converter.mapToSql(yearId));
+    }
+    if (!nullToAbsent || teacherId != null) {
+      final converter = $SubjectsTable.$converter2;
+      map['teacher_id'] = Variable<Uint8List>(converter.mapToSql(teacherId));
+    }
+    if (!nullToAbsent || name != null) {
+      map['name'] = Variable<String>(name);
+    }
+    if (!nullToAbsent || room != null) {
+      map['room'] = Variable<String>(room);
+    }
+    if (!nullToAbsent || iconId != null) {
+      map['icon_id'] = Variable<String>(iconId);
+    }
+    if (!nullToAbsent || color != null) {
+      final converter = $SubjectsTable.$converter3;
+      map['color'] = Variable<int>(converter.mapToSql(color));
+    }
+    if (!nullToAbsent || lastUpdated != null) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated);
+    }
+    return map;
+  }
+
+  SubjectsCompanion toCompanion(bool nullToAbsent) {
+    return SubjectsCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      yearId:
+          yearId == null && nullToAbsent ? const Value.absent() : Value(yearId),
+      teacherId: teacherId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(teacherId),
+      name: name == null && nullToAbsent ? const Value.absent() : Value(name),
+      room: room == null && nullToAbsent ? const Value.absent() : Value(room),
+      iconId:
+          iconId == null && nullToAbsent ? const Value.absent() : Value(iconId),
+      color:
+          color == null && nullToAbsent ? const Value.absent() : Value(color),
+      lastUpdated: lastUpdated == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdated),
+    );
+  }
+
   factory SubjectModel.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
@@ -76,27 +130,6 @@ class SubjectModel extends DataClass implements Insertable<SubjectModel> {
       'color': serializer.toJson<Color>(color),
       'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
     };
-  }
-
-  @override
-  SubjectsCompanion createCompanion(bool nullToAbsent) {
-    return SubjectsCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      yearId:
-          yearId == null && nullToAbsent ? const Value.absent() : Value(yearId),
-      teacherId: teacherId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(teacherId),
-      name: name == null && nullToAbsent ? const Value.absent() : Value(name),
-      room: room == null && nullToAbsent ? const Value.absent() : Value(room),
-      iconId:
-          iconId == null && nullToAbsent ? const Value.absent() : Value(iconId),
-      color:
-          color == null && nullToAbsent ? const Value.absent() : Value(color),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
   }
 
   SubjectModel copyWith(
@@ -194,6 +227,28 @@ class SubjectsCompanion extends UpdateCompanion<SubjectModel> {
         iconId = Value(iconId),
         color = Value(color),
         lastUpdated = Value(lastUpdated);
+  static Insertable<SubjectModel> custom({
+    Expression<Uint8List> id,
+    Expression<Uint8List> yearId,
+    Expression<Uint8List> teacherId,
+    Expression<String> name,
+    Expression<String> room,
+    Expression<String> iconId,
+    Expression<int> color,
+    Expression<DateTime> lastUpdated,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (yearId != null) 'year_id': yearId,
+      if (teacherId != null) 'teacher_id': teacherId,
+      if (name != null) 'name': name,
+      if (room != null) 'room': room,
+      if (iconId != null) 'icon_id': iconId,
+      if (color != null) 'color': color,
+      if (lastUpdated != null) 'last_updated': lastUpdated,
+    });
+  }
+
   SubjectsCompanion copyWith(
       {Value<String> id,
       Value<String> yearId,
@@ -213,6 +268,41 @@ class SubjectsCompanion extends UpdateCompanion<SubjectModel> {
       color: color ?? this.color,
       lastUpdated: lastUpdated ?? this.lastUpdated,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      final converter = $SubjectsTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id.value));
+    }
+    if (yearId.present) {
+      final converter = $SubjectsTable.$converter1;
+      map['year_id'] = Variable<Uint8List>(converter.mapToSql(yearId.value));
+    }
+    if (teacherId.present) {
+      final converter = $SubjectsTable.$converter2;
+      map['teacher_id'] =
+          Variable<Uint8List>(converter.mapToSql(teacherId.value));
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (room.present) {
+      map['room'] = Variable<String>(room.value);
+    }
+    if (iconId.present) {
+      map['icon_id'] = Variable<String>(iconId.value);
+    }
+    if (color.present) {
+      final converter = $SubjectsTable.$converter3;
+      map['color'] = Variable<int>(converter.mapToSql(color.value));
+    }
+    if (lastUpdated.present) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated.value);
+    }
+    return map;
   }
 }
 
@@ -323,32 +413,35 @@ class $SubjectsTable extends Subjects
   @override
   final String actualTableName = 'subjects';
   @override
-  VerificationContext validateIntegrity(SubjectsCompanion d,
+  VerificationContext validateIntegrity(Insertable<SubjectModel> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
+    final data = instance.toColumns(true);
     context.handle(_idMeta, const VerificationResult.success());
     context.handle(_yearIdMeta, const VerificationResult.success());
     context.handle(_teacherIdMeta, const VerificationResult.success());
-    if (d.name.present) {
+    if (data.containsKey('name')) {
       context.handle(
-          _nameMeta, name.isAcceptableValue(d.name.value, _nameMeta));
+          _nameMeta, name.isAcceptableOrUnknown(data['name'], _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
-    if (d.room.present) {
+    if (data.containsKey('room')) {
       context.handle(
-          _roomMeta, room.isAcceptableValue(d.room.value, _roomMeta));
+          _roomMeta, room.isAcceptableOrUnknown(data['room'], _roomMeta));
     }
-    if (d.iconId.present) {
-      context.handle(
-          _iconIdMeta, iconId.isAcceptableValue(d.iconId.value, _iconIdMeta));
+    if (data.containsKey('icon_id')) {
+      context.handle(_iconIdMeta,
+          iconId.isAcceptableOrUnknown(data['icon_id'], _iconIdMeta));
     } else if (isInserting) {
       context.missing(_iconIdMeta);
     }
     context.handle(_colorMeta, const VerificationResult.success());
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
+    if (data.containsKey('last_updated')) {
+      context.handle(
+          _lastUpdatedMeta,
+          lastUpdated.isAcceptableOrUnknown(
+              data['last_updated'], _lastUpdatedMeta));
     } else if (isInserting) {
       context.missing(_lastUpdatedMeta);
     }
@@ -361,43 +454,6 @@ class $SubjectsTable extends Subjects
   SubjectModel map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return SubjectModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(SubjectsCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $SubjectsTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.yearId.present) {
-      final converter = $SubjectsTable.$converter1;
-      map['year_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.yearId.value));
-    }
-    if (d.teacherId.present) {
-      final converter = $SubjectsTable.$converter2;
-      map['teacher_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.teacherId.value));
-    }
-    if (d.name.present) {
-      map['name'] = Variable<String, StringType>(d.name.value);
-    }
-    if (d.room.present) {
-      map['room'] = Variable<String, StringType>(d.room.value);
-    }
-    if (d.iconId.present) {
-      map['icon_id'] = Variable<String, StringType>(d.iconId.value);
-    }
-    if (d.color.present) {
-      final converter = $SubjectsTable.$converter3;
-      map['color'] = Variable<int, IntType>(converter.mapToSql(d.color.value));
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
   }
 
   @override
@@ -441,6 +497,43 @@ class TeacherModel extends DataClass implements Insertable<TeacherModel> {
           .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
     );
   }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      final converter = $TeachersTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id));
+    }
+    if (!nullToAbsent || yearId != null) {
+      final converter = $TeachersTable.$converter1;
+      map['year_id'] = Variable<Uint8List>(converter.mapToSql(yearId));
+    }
+    if (!nullToAbsent || name != null) {
+      map['name'] = Variable<String>(name);
+    }
+    if (!nullToAbsent || email != null) {
+      map['email'] = Variable<String>(email);
+    }
+    if (!nullToAbsent || lastUpdated != null) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated);
+    }
+    return map;
+  }
+
+  TeachersCompanion toCompanion(bool nullToAbsent) {
+    return TeachersCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      yearId:
+          yearId == null && nullToAbsent ? const Value.absent() : Value(yearId),
+      name: name == null && nullToAbsent ? const Value.absent() : Value(name),
+      email:
+          email == null && nullToAbsent ? const Value.absent() : Value(email),
+      lastUpdated: lastUpdated == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdated),
+    );
+  }
+
   factory TeacherModel.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
@@ -462,21 +555,6 @@ class TeacherModel extends DataClass implements Insertable<TeacherModel> {
       'email': serializer.toJson<String>(email),
       'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
     };
-  }
-
-  @override
-  TeachersCompanion createCompanion(bool nullToAbsent) {
-    return TeachersCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      yearId:
-          yearId == null && nullToAbsent ? const Value.absent() : Value(yearId),
-      name: name == null && nullToAbsent ? const Value.absent() : Value(name),
-      email:
-          email == null && nullToAbsent ? const Value.absent() : Value(email),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
   }
 
   TeacherModel copyWith(
@@ -543,6 +621,22 @@ class TeachersCompanion extends UpdateCompanion<TeacherModel> {
         yearId = Value(yearId),
         name = Value(name),
         lastUpdated = Value(lastUpdated);
+  static Insertable<TeacherModel> custom({
+    Expression<Uint8List> id,
+    Expression<Uint8List> yearId,
+    Expression<String> name,
+    Expression<String> email,
+    Expression<DateTime> lastUpdated,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (yearId != null) 'year_id': yearId,
+      if (name != null) 'name': name,
+      if (email != null) 'email': email,
+      if (lastUpdated != null) 'last_updated': lastUpdated,
+    });
+  }
+
   TeachersCompanion copyWith(
       {Value<String> id,
       Value<String> yearId,
@@ -556,6 +650,29 @@ class TeachersCompanion extends UpdateCompanion<TeacherModel> {
       email: email ?? this.email,
       lastUpdated: lastUpdated ?? this.lastUpdated,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      final converter = $TeachersTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id.value));
+    }
+    if (yearId.present) {
+      final converter = $TeachersTable.$converter1;
+      map['year_id'] = Variable<Uint8List>(converter.mapToSql(yearId.value));
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (email.present) {
+      map['email'] = Variable<String>(email.value);
+    }
+    if (lastUpdated.present) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated.value);
+    }
+    return map;
   }
 }
 
@@ -632,24 +749,27 @@ class $TeachersTable extends Teachers
   @override
   final String actualTableName = 'teachers';
   @override
-  VerificationContext validateIntegrity(TeachersCompanion d,
+  VerificationContext validateIntegrity(Insertable<TeacherModel> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
+    final data = instance.toColumns(true);
     context.handle(_idMeta, const VerificationResult.success());
     context.handle(_yearIdMeta, const VerificationResult.success());
-    if (d.name.present) {
+    if (data.containsKey('name')) {
       context.handle(
-          _nameMeta, name.isAcceptableValue(d.name.value, _nameMeta));
+          _nameMeta, name.isAcceptableOrUnknown(data['name'], _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
-    if (d.email.present) {
+    if (data.containsKey('email')) {
       context.handle(
-          _emailMeta, email.isAcceptableValue(d.email.value, _emailMeta));
+          _emailMeta, email.isAcceptableOrUnknown(data['email'], _emailMeta));
     }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
+    if (data.containsKey('last_updated')) {
+      context.handle(
+          _lastUpdatedMeta,
+          lastUpdated.isAcceptableOrUnknown(
+              data['last_updated'], _lastUpdatedMeta));
     } else if (isInserting) {
       context.missing(_lastUpdatedMeta);
     }
@@ -662,31 +782,6 @@ class $TeachersTable extends Teachers
   TeacherModel map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return TeacherModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(TeachersCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $TeachersTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.yearId.present) {
-      final converter = $TeachersTable.$converter1;
-      map['year_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.yearId.value));
-    }
-    if (d.name.present) {
-      map['name'] = Variable<String, StringType>(d.name.value);
-    }
-    if (d.email.present) {
-      map['email'] = Variable<String, StringType>(d.email.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
   }
 
   @override
@@ -744,6 +839,65 @@ class ExamModel extends DataClass implements Insertable<ExamModel> {
           .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
     );
   }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      final converter = $ExamsTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id));
+    }
+    if (!nullToAbsent || subjectId != null) {
+      final converter = $ExamsTable.$converter1;
+      map['subject_id'] = Variable<Uint8List>(converter.mapToSql(subjectId));
+    }
+    if (!nullToAbsent || title != null) {
+      map['title'] = Variable<String>(title);
+    }
+    if (!nullToAbsent || location != null) {
+      map['location'] = Variable<String>(location);
+    }
+    if (!nullToAbsent || seat != null) {
+      map['seat'] = Variable<String>(seat);
+    }
+    if (!nullToAbsent || start != null) {
+      map['start'] = Variable<DateTime>(start);
+    }
+    if (!nullToAbsent || end != null) {
+      map['end'] = Variable<DateTime>(end);
+    }
+    if (!nullToAbsent || priority != null) {
+      map['priority'] = Variable<int>(priority);
+    }
+    if (!nullToAbsent || lastUpdated != null) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated);
+    }
+    return map;
+  }
+
+  ExamsCompanion toCompanion(bool nullToAbsent) {
+    return ExamsCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      subjectId: subjectId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(subjectId),
+      title:
+          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      location: location == null && nullToAbsent
+          ? const Value.absent()
+          : Value(location),
+      seat: seat == null && nullToAbsent ? const Value.absent() : Value(seat),
+      start:
+          start == null && nullToAbsent ? const Value.absent() : Value(start),
+      end: end == null && nullToAbsent ? const Value.absent() : Value(end),
+      priority: priority == null && nullToAbsent
+          ? const Value.absent()
+          : Value(priority),
+      lastUpdated: lastUpdated == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdated),
+    );
+  }
+
   factory ExamModel.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
@@ -773,31 +927,6 @@ class ExamModel extends DataClass implements Insertable<ExamModel> {
       'priority': serializer.toJson<int>(priority),
       'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
     };
-  }
-
-  @override
-  ExamsCompanion createCompanion(bool nullToAbsent) {
-    return ExamsCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      subjectId: subjectId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(subjectId),
-      title:
-          title == null && nullToAbsent ? const Value.absent() : Value(title),
-      location: location == null && nullToAbsent
-          ? const Value.absent()
-          : Value(location),
-      seat: seat == null && nullToAbsent ? const Value.absent() : Value(seat),
-      start:
-          start == null && nullToAbsent ? const Value.absent() : Value(start),
-      end: end == null && nullToAbsent ? const Value.absent() : Value(end),
-      priority: priority == null && nullToAbsent
-          ? const Value.absent()
-          : Value(priority),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
   }
 
   ExamModel copyWith(
@@ -906,6 +1035,30 @@ class ExamsCompanion extends UpdateCompanion<ExamModel> {
         start = Value(start),
         end = Value(end),
         lastUpdated = Value(lastUpdated);
+  static Insertable<ExamModel> custom({
+    Expression<Uint8List> id,
+    Expression<Uint8List> subjectId,
+    Expression<String> title,
+    Expression<String> location,
+    Expression<String> seat,
+    Expression<DateTime> start,
+    Expression<DateTime> end,
+    Expression<int> priority,
+    Expression<DateTime> lastUpdated,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (subjectId != null) 'subject_id': subjectId,
+      if (title != null) 'title': title,
+      if (location != null) 'location': location,
+      if (seat != null) 'seat': seat,
+      if (start != null) 'start': start,
+      if (end != null) 'end': end,
+      if (priority != null) 'priority': priority,
+      if (lastUpdated != null) 'last_updated': lastUpdated,
+    });
+  }
+
   ExamsCompanion copyWith(
       {Value<String> id,
       Value<String> subjectId,
@@ -927,6 +1080,42 @@ class ExamsCompanion extends UpdateCompanion<ExamModel> {
       priority: priority ?? this.priority,
       lastUpdated: lastUpdated ?? this.lastUpdated,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      final converter = $ExamsTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id.value));
+    }
+    if (subjectId.present) {
+      final converter = $ExamsTable.$converter1;
+      map['subject_id'] =
+          Variable<Uint8List>(converter.mapToSql(subjectId.value));
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (location.present) {
+      map['location'] = Variable<String>(location.value);
+    }
+    if (seat.present) {
+      map['seat'] = Variable<String>(seat.value);
+    }
+    if (start.present) {
+      map['start'] = Variable<DateTime>(start.value);
+    }
+    if (end.present) {
+      map['end'] = Variable<DateTime>(end.value);
+    }
+    if (priority.present) {
+      map['priority'] = Variable<int>(priority.value);
+    }
+    if (lastUpdated.present) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated.value);
+    }
+    return map;
   }
 }
 
@@ -1021,7 +1210,7 @@ class $ExamsTable extends Exams with TableInfo<$ExamsTable, ExamModel> {
   GeneratedIntColumn get priority => _priority ??= _constructPriority();
   GeneratedIntColumn _constructPriority() {
     return GeneratedIntColumn('priority', $tableName, false,
-        defaultValue: const Constant<int, IntType>(3));
+        defaultValue: const Constant<int>(3));
   }
 
   final VerificationMeta _lastUpdatedMeta =
@@ -1048,43 +1237,47 @@ class $ExamsTable extends Exams with TableInfo<$ExamsTable, ExamModel> {
   @override
   final String actualTableName = 'exams';
   @override
-  VerificationContext validateIntegrity(ExamsCompanion d,
+  VerificationContext validateIntegrity(Insertable<ExamModel> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
+    final data = instance.toColumns(true);
     context.handle(_idMeta, const VerificationResult.success());
     context.handle(_subjectIdMeta, const VerificationResult.success());
-    if (d.title.present) {
+    if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableValue(d.title.value, _titleMeta));
+          _titleMeta, title.isAcceptableOrUnknown(data['title'], _titleMeta));
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
-    if (d.location.present) {
+    if (data.containsKey('location')) {
       context.handle(_locationMeta,
-          location.isAcceptableValue(d.location.value, _locationMeta));
+          location.isAcceptableOrUnknown(data['location'], _locationMeta));
     }
-    if (d.seat.present) {
+    if (data.containsKey('seat')) {
       context.handle(
-          _seatMeta, seat.isAcceptableValue(d.seat.value, _seatMeta));
+          _seatMeta, seat.isAcceptableOrUnknown(data['seat'], _seatMeta));
     }
-    if (d.start.present) {
+    if (data.containsKey('start')) {
       context.handle(
-          _startMeta, start.isAcceptableValue(d.start.value, _startMeta));
+          _startMeta, start.isAcceptableOrUnknown(data['start'], _startMeta));
     } else if (isInserting) {
       context.missing(_startMeta);
     }
-    if (d.end.present) {
-      context.handle(_endMeta, end.isAcceptableValue(d.end.value, _endMeta));
+    if (data.containsKey('end')) {
+      context.handle(
+          _endMeta, end.isAcceptableOrUnknown(data['end'], _endMeta));
     } else if (isInserting) {
       context.missing(_endMeta);
     }
-    if (d.priority.present) {
+    if (data.containsKey('priority')) {
       context.handle(_priorityMeta,
-          priority.isAcceptableValue(d.priority.value, _priorityMeta));
+          priority.isAcceptableOrUnknown(data['priority'], _priorityMeta));
     }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
+    if (data.containsKey('last_updated')) {
+      context.handle(
+          _lastUpdatedMeta,
+          lastUpdated.isAcceptableOrUnknown(
+              data['last_updated'], _lastUpdatedMeta));
     } else if (isInserting) {
       context.missing(_lastUpdatedMeta);
     }
@@ -1097,43 +1290,6 @@ class $ExamsTable extends Exams with TableInfo<$ExamsTable, ExamModel> {
   ExamModel map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return ExamModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(ExamsCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $ExamsTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.subjectId.present) {
-      final converter = $ExamsTable.$converter1;
-      map['subject_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.subjectId.value));
-    }
-    if (d.title.present) {
-      map['title'] = Variable<String, StringType>(d.title.value);
-    }
-    if (d.location.present) {
-      map['location'] = Variable<String, StringType>(d.location.value);
-    }
-    if (d.seat.present) {
-      map['seat'] = Variable<String, StringType>(d.seat.value);
-    }
-    if (d.start.present) {
-      map['start'] = Variable<DateTime, DateTimeType>(d.start.value);
-    }
-    if (d.end.present) {
-      map['end'] = Variable<DateTime, DateTimeType>(d.end.value);
-    }
-    if (d.priority.present) {
-      map['priority'] = Variable<int, IntType>(d.priority.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
   }
 
   @override
@@ -1190,6 +1346,69 @@ class LessonModel extends DataClass implements Insertable<LessonModel> {
           .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
     );
   }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      final converter = $LessonsTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id));
+    }
+    if (!nullToAbsent || subjectId != null) {
+      final converter = $LessonsTable.$converter1;
+      map['subject_id'] = Variable<Uint8List>(converter.mapToSql(subjectId));
+    }
+    if (!nullToAbsent || teacherId != null) {
+      final converter = $LessonsTable.$converter2;
+      map['teacher_id'] = Variable<Uint8List>(converter.mapToSql(teacherId));
+    }
+    if (!nullToAbsent || timetableId != null) {
+      final converter = $LessonsTable.$converter3;
+      map['timetable_id'] =
+          Variable<Uint8List>(converter.mapToSql(timetableId));
+    }
+    if (!nullToAbsent || period != null) {
+      map['period'] = Variable<int>(period);
+    }
+    if (!nullToAbsent || room != null) {
+      map['room'] = Variable<String>(room);
+    }
+    if (!nullToAbsent || weekday != null) {
+      map['weekday'] = Variable<int>(weekday);
+    }
+    if (!nullToAbsent || note != null) {
+      map['note'] = Variable<String>(note);
+    }
+    if (!nullToAbsent || lastUpdated != null) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated);
+    }
+    return map;
+  }
+
+  LessonsCompanion toCompanion(bool nullToAbsent) {
+    return LessonsCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      subjectId: subjectId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(subjectId),
+      teacherId: teacherId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(teacherId),
+      timetableId: timetableId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(timetableId),
+      period:
+          period == null && nullToAbsent ? const Value.absent() : Value(period),
+      room: room == null && nullToAbsent ? const Value.absent() : Value(room),
+      weekday: weekday == null && nullToAbsent
+          ? const Value.absent()
+          : Value(weekday),
+      note: note == null && nullToAbsent ? const Value.absent() : Value(note),
+      lastUpdated: lastUpdated == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdated),
+    );
+  }
+
   factory LessonModel.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
@@ -1219,32 +1438,6 @@ class LessonModel extends DataClass implements Insertable<LessonModel> {
       'note': serializer.toJson<String>(note),
       'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
     };
-  }
-
-  @override
-  LessonsCompanion createCompanion(bool nullToAbsent) {
-    return LessonsCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      subjectId: subjectId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(subjectId),
-      teacherId: teacherId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(teacherId),
-      timetableId: timetableId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(timetableId),
-      period:
-          period == null && nullToAbsent ? const Value.absent() : Value(period),
-      room: room == null && nullToAbsent ? const Value.absent() : Value(room),
-      weekday: weekday == null && nullToAbsent
-          ? const Value.absent()
-          : Value(weekday),
-      note: note == null && nullToAbsent ? const Value.absent() : Value(note),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
   }
 
   LessonModel copyWith(
@@ -1353,6 +1546,30 @@ class LessonsCompanion extends UpdateCompanion<LessonModel> {
         period = Value(period),
         weekday = Value(weekday),
         lastUpdated = Value(lastUpdated);
+  static Insertable<LessonModel> custom({
+    Expression<Uint8List> id,
+    Expression<Uint8List> subjectId,
+    Expression<Uint8List> teacherId,
+    Expression<Uint8List> timetableId,
+    Expression<int> period,
+    Expression<String> room,
+    Expression<int> weekday,
+    Expression<String> note,
+    Expression<DateTime> lastUpdated,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (subjectId != null) 'subject_id': subjectId,
+      if (teacherId != null) 'teacher_id': teacherId,
+      if (timetableId != null) 'timetable_id': timetableId,
+      if (period != null) 'period': period,
+      if (room != null) 'room': room,
+      if (weekday != null) 'weekday': weekday,
+      if (note != null) 'note': note,
+      if (lastUpdated != null) 'last_updated': lastUpdated,
+    });
+  }
+
   LessonsCompanion copyWith(
       {Value<String> id,
       Value<String> subjectId,
@@ -1374,6 +1591,46 @@ class LessonsCompanion extends UpdateCompanion<LessonModel> {
       note: note ?? this.note,
       lastUpdated: lastUpdated ?? this.lastUpdated,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      final converter = $LessonsTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id.value));
+    }
+    if (subjectId.present) {
+      final converter = $LessonsTable.$converter1;
+      map['subject_id'] =
+          Variable<Uint8List>(converter.mapToSql(subjectId.value));
+    }
+    if (teacherId.present) {
+      final converter = $LessonsTable.$converter2;
+      map['teacher_id'] =
+          Variable<Uint8List>(converter.mapToSql(teacherId.value));
+    }
+    if (timetableId.present) {
+      final converter = $LessonsTable.$converter3;
+      map['timetable_id'] =
+          Variable<Uint8List>(converter.mapToSql(timetableId.value));
+    }
+    if (period.present) {
+      map['period'] = Variable<int>(period.value);
+    }
+    if (room.present) {
+      map['room'] = Variable<String>(room.value);
+    }
+    if (weekday.present) {
+      map['weekday'] = Variable<int>(weekday.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
+    }
+    if (lastUpdated.present) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated.value);
+    }
+    return map;
   }
 }
 
@@ -1509,36 +1766,39 @@ class $LessonsTable extends Lessons with TableInfo<$LessonsTable, LessonModel> {
   @override
   final String actualTableName = 'lessons';
   @override
-  VerificationContext validateIntegrity(LessonsCompanion d,
+  VerificationContext validateIntegrity(Insertable<LessonModel> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
+    final data = instance.toColumns(true);
     context.handle(_idMeta, const VerificationResult.success());
     context.handle(_subjectIdMeta, const VerificationResult.success());
     context.handle(_teacherIdMeta, const VerificationResult.success());
     context.handle(_timetableIdMeta, const VerificationResult.success());
-    if (d.period.present) {
-      context.handle(
-          _periodMeta, period.isAcceptableValue(d.period.value, _periodMeta));
+    if (data.containsKey('period')) {
+      context.handle(_periodMeta,
+          period.isAcceptableOrUnknown(data['period'], _periodMeta));
     } else if (isInserting) {
       context.missing(_periodMeta);
     }
-    if (d.room.present) {
+    if (data.containsKey('room')) {
       context.handle(
-          _roomMeta, room.isAcceptableValue(d.room.value, _roomMeta));
+          _roomMeta, room.isAcceptableOrUnknown(data['room'], _roomMeta));
     }
-    if (d.weekday.present) {
+    if (data.containsKey('weekday')) {
       context.handle(_weekdayMeta,
-          weekday.isAcceptableValue(d.weekday.value, _weekdayMeta));
+          weekday.isAcceptableOrUnknown(data['weekday'], _weekdayMeta));
     } else if (isInserting) {
       context.missing(_weekdayMeta);
     }
-    if (d.note.present) {
+    if (data.containsKey('note')) {
       context.handle(
-          _noteMeta, note.isAcceptableValue(d.note.value, _noteMeta));
+          _noteMeta, note.isAcceptableOrUnknown(data['note'], _noteMeta));
     }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
+    if (data.containsKey('last_updated')) {
+      context.handle(
+          _lastUpdatedMeta,
+          lastUpdated.isAcceptableOrUnknown(
+              data['last_updated'], _lastUpdatedMeta));
     } else if (isInserting) {
       context.missing(_lastUpdatedMeta);
     }
@@ -1551,47 +1811,6 @@ class $LessonsTable extends Lessons with TableInfo<$LessonsTable, LessonModel> {
   LessonModel map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return LessonModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(LessonsCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $LessonsTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.subjectId.present) {
-      final converter = $LessonsTable.$converter1;
-      map['subject_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.subjectId.value));
-    }
-    if (d.teacherId.present) {
-      final converter = $LessonsTable.$converter2;
-      map['teacher_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.teacherId.value));
-    }
-    if (d.timetableId.present) {
-      final converter = $LessonsTable.$converter3;
-      map['timetable_id'] = Variable<Uint8List, BlobType>(
-          converter.mapToSql(d.timetableId.value));
-    }
-    if (d.period.present) {
-      map['period'] = Variable<int, IntType>(d.period.value);
-    }
-    if (d.room.present) {
-      map['room'] = Variable<String, StringType>(d.room.value);
-    }
-    if (d.weekday.present) {
-      map['weekday'] = Variable<int, IntType>(d.weekday.value);
-    }
-    if (d.note.present) {
-      map['note'] = Variable<String, StringType>(d.note.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
   }
 
   @override
@@ -1645,6 +1864,55 @@ class TimetableModel extends DataClass implements Insertable<TimetableModel> {
           .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
     );
   }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      final converter = $TimetablesTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id));
+    }
+    if (!nullToAbsent || yearId != null) {
+      final converter = $TimetablesTable.$converter1;
+      map['year_id'] = Variable<Uint8List>(converter.mapToSql(yearId));
+    }
+    if (!nullToAbsent || week != null) {
+      map['week'] = Variable<int>(week);
+    }
+    if (!nullToAbsent || saturday != null) {
+      map['saturday'] = Variable<bool>(saturday);
+    }
+    if (!nullToAbsent || sunday != null) {
+      map['sunday'] = Variable<bool>(sunday);
+    }
+    if (!nullToAbsent || lastSelected != null) {
+      map['last_selected'] = Variable<DateTime>(lastSelected);
+    }
+    if (!nullToAbsent || lastUpdated != null) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated);
+    }
+    return map;
+  }
+
+  TimetablesCompanion toCompanion(bool nullToAbsent) {
+    return TimetablesCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      yearId:
+          yearId == null && nullToAbsent ? const Value.absent() : Value(yearId),
+      week: week == null && nullToAbsent ? const Value.absent() : Value(week),
+      saturday: saturday == null && nullToAbsent
+          ? const Value.absent()
+          : Value(saturday),
+      sunday:
+          sunday == null && nullToAbsent ? const Value.absent() : Value(sunday),
+      lastSelected: lastSelected == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastSelected),
+      lastUpdated: lastUpdated == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdated),
+    );
+  }
+
   factory TimetableModel.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
@@ -1670,27 +1938,6 @@ class TimetableModel extends DataClass implements Insertable<TimetableModel> {
       'lastSelected': serializer.toJson<DateTime>(lastSelected),
       'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
     };
-  }
-
-  @override
-  TimetablesCompanion createCompanion(bool nullToAbsent) {
-    return TimetablesCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      yearId:
-          yearId == null && nullToAbsent ? const Value.absent() : Value(yearId),
-      week: week == null && nullToAbsent ? const Value.absent() : Value(week),
-      saturday: saturday == null && nullToAbsent
-          ? const Value.absent()
-          : Value(saturday),
-      sunday:
-          sunday == null && nullToAbsent ? const Value.absent() : Value(sunday),
-      lastSelected: lastSelected == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastSelected),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
   }
 
   TimetableModel copyWith(
@@ -1780,6 +2027,26 @@ class TimetablesCompanion extends UpdateCompanion<TimetableModel> {
         sunday = Value(sunday),
         lastSelected = Value(lastSelected),
         lastUpdated = Value(lastUpdated);
+  static Insertable<TimetableModel> custom({
+    Expression<Uint8List> id,
+    Expression<Uint8List> yearId,
+    Expression<int> week,
+    Expression<bool> saturday,
+    Expression<bool> sunday,
+    Expression<DateTime> lastSelected,
+    Expression<DateTime> lastUpdated,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (yearId != null) 'year_id': yearId,
+      if (week != null) 'week': week,
+      if (saturday != null) 'saturday': saturday,
+      if (sunday != null) 'sunday': sunday,
+      if (lastSelected != null) 'last_selected': lastSelected,
+      if (lastUpdated != null) 'last_updated': lastUpdated,
+    });
+  }
+
   TimetablesCompanion copyWith(
       {Value<String> id,
       Value<String> yearId,
@@ -1797,6 +2064,35 @@ class TimetablesCompanion extends UpdateCompanion<TimetableModel> {
       lastSelected: lastSelected ?? this.lastSelected,
       lastUpdated: lastUpdated ?? this.lastUpdated,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      final converter = $TimetablesTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id.value));
+    }
+    if (yearId.present) {
+      final converter = $TimetablesTable.$converter1;
+      map['year_id'] = Variable<Uint8List>(converter.mapToSql(yearId.value));
+    }
+    if (week.present) {
+      map['week'] = Variable<int>(week.value);
+    }
+    if (saturday.present) {
+      map['saturday'] = Variable<bool>(saturday.value);
+    }
+    if (sunday.present) {
+      map['sunday'] = Variable<bool>(sunday.value);
+    }
+    if (lastSelected.present) {
+      map['last_selected'] = Variable<DateTime>(lastSelected.value);
+    }
+    if (lastUpdated.present) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated.value);
+    }
+    return map;
   }
 }
 
@@ -1900,40 +2196,43 @@ class $TimetablesTable extends Timetables
   @override
   final String actualTableName = 'timetables';
   @override
-  VerificationContext validateIntegrity(TimetablesCompanion d,
+  VerificationContext validateIntegrity(Insertable<TimetableModel> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
+    final data = instance.toColumns(true);
     context.handle(_idMeta, const VerificationResult.success());
     context.handle(_yearIdMeta, const VerificationResult.success());
-    if (d.week.present) {
+    if (data.containsKey('week')) {
       context.handle(
-          _weekMeta, week.isAcceptableValue(d.week.value, _weekMeta));
+          _weekMeta, week.isAcceptableOrUnknown(data['week'], _weekMeta));
     } else if (isInserting) {
       context.missing(_weekMeta);
     }
-    if (d.saturday.present) {
+    if (data.containsKey('saturday')) {
       context.handle(_saturdayMeta,
-          saturday.isAcceptableValue(d.saturday.value, _saturdayMeta));
+          saturday.isAcceptableOrUnknown(data['saturday'], _saturdayMeta));
     } else if (isInserting) {
       context.missing(_saturdayMeta);
     }
-    if (d.sunday.present) {
-      context.handle(
-          _sundayMeta, sunday.isAcceptableValue(d.sunday.value, _sundayMeta));
+    if (data.containsKey('sunday')) {
+      context.handle(_sundayMeta,
+          sunday.isAcceptableOrUnknown(data['sunday'], _sundayMeta));
     } else if (isInserting) {
       context.missing(_sundayMeta);
     }
-    if (d.lastSelected.present) {
+    if (data.containsKey('last_selected')) {
       context.handle(
           _lastSelectedMeta,
-          lastSelected.isAcceptableValue(
-              d.lastSelected.value, _lastSelectedMeta));
+          lastSelected.isAcceptableOrUnknown(
+              data['last_selected'], _lastSelectedMeta));
     } else if (isInserting) {
       context.missing(_lastSelectedMeta);
     }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
+    if (data.containsKey('last_updated')) {
+      context.handle(
+          _lastUpdatedMeta,
+          lastUpdated.isAcceptableOrUnknown(
+              data['last_updated'], _lastUpdatedMeta));
     } else if (isInserting) {
       context.missing(_lastUpdatedMeta);
     }
@@ -1946,38 +2245,6 @@ class $TimetablesTable extends Timetables
   TimetableModel map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return TimetableModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(TimetablesCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $TimetablesTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.yearId.present) {
-      final converter = $TimetablesTable.$converter1;
-      map['year_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.yearId.value));
-    }
-    if (d.week.present) {
-      map['week'] = Variable<int, IntType>(d.week.value);
-    }
-    if (d.saturday.present) {
-      map['saturday'] = Variable<bool, BoolType>(d.saturday.value);
-    }
-    if (d.sunday.present) {
-      map['sunday'] = Variable<bool, BoolType>(d.sunday.value);
-    }
-    if (d.lastSelected.present) {
-      map['last_selected'] =
-          Variable<DateTime, DateTimeType>(d.lastSelected.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
   }
 
   @override
@@ -2033,6 +2300,63 @@ class TestModel extends DataClass implements Insertable<TestModel> {
           .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
     );
   }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      final converter = $TestsTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id));
+    }
+    if (!nullToAbsent || subjectId != null) {
+      final converter = $TestsTable.$converter1;
+      map['subject_id'] = Variable<Uint8List>(converter.mapToSql(subjectId));
+    }
+    if (!nullToAbsent || lessonId != null) {
+      final converter = $TestsTable.$converter2;
+      map['lesson_id'] = Variable<Uint8List>(converter.mapToSql(lessonId));
+    }
+    if (!nullToAbsent || title != null) {
+      map['title'] = Variable<String>(title);
+    }
+    if (!nullToAbsent || content != null) {
+      map['content'] = Variable<String>(content);
+    }
+    if (!nullToAbsent || date != null) {
+      map['date'] = Variable<DateTime>(date);
+    }
+    if (!nullToAbsent || priority != null) {
+      map['priority'] = Variable<int>(priority);
+    }
+    if (!nullToAbsent || lastUpdated != null) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated);
+    }
+    return map;
+  }
+
+  TestsCompanion toCompanion(bool nullToAbsent) {
+    return TestsCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      subjectId: subjectId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(subjectId),
+      lessonId: lessonId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lessonId),
+      title:
+          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      content: content == null && nullToAbsent
+          ? const Value.absent()
+          : Value(content),
+      date: date == null && nullToAbsent ? const Value.absent() : Value(date),
+      priority: priority == null && nullToAbsent
+          ? const Value.absent()
+          : Value(priority),
+      lastUpdated: lastUpdated == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdated),
+    );
+  }
+
   factory TestModel.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
@@ -2060,31 +2384,6 @@ class TestModel extends DataClass implements Insertable<TestModel> {
       'priority': serializer.toJson<int>(priority),
       'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
     };
-  }
-
-  @override
-  TestsCompanion createCompanion(bool nullToAbsent) {
-    return TestsCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      subjectId: subjectId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(subjectId),
-      lessonId: lessonId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lessonId),
-      title:
-          title == null && nullToAbsent ? const Value.absent() : Value(title),
-      content: content == null && nullToAbsent
-          ? const Value.absent()
-          : Value(content),
-      date: date == null && nullToAbsent ? const Value.absent() : Value(date),
-      priority: priority == null && nullToAbsent
-          ? const Value.absent()
-          : Value(priority),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
   }
 
   TestModel copyWith(
@@ -2182,6 +2481,28 @@ class TestsCompanion extends UpdateCompanion<TestModel> {
         content = Value(content),
         date = Value(date),
         lastUpdated = Value(lastUpdated);
+  static Insertable<TestModel> custom({
+    Expression<Uint8List> id,
+    Expression<Uint8List> subjectId,
+    Expression<Uint8List> lessonId,
+    Expression<String> title,
+    Expression<String> content,
+    Expression<DateTime> date,
+    Expression<int> priority,
+    Expression<DateTime> lastUpdated,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (subjectId != null) 'subject_id': subjectId,
+      if (lessonId != null) 'lesson_id': lessonId,
+      if (title != null) 'title': title,
+      if (content != null) 'content': content,
+      if (date != null) 'date': date,
+      if (priority != null) 'priority': priority,
+      if (lastUpdated != null) 'last_updated': lastUpdated,
+    });
+  }
+
   TestsCompanion copyWith(
       {Value<String> id,
       Value<String> subjectId,
@@ -2201,6 +2522,41 @@ class TestsCompanion extends UpdateCompanion<TestModel> {
       priority: priority ?? this.priority,
       lastUpdated: lastUpdated ?? this.lastUpdated,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      final converter = $TestsTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id.value));
+    }
+    if (subjectId.present) {
+      final converter = $TestsTable.$converter1;
+      map['subject_id'] =
+          Variable<Uint8List>(converter.mapToSql(subjectId.value));
+    }
+    if (lessonId.present) {
+      final converter = $TestsTable.$converter2;
+      map['lesson_id'] =
+          Variable<Uint8List>(converter.mapToSql(lessonId.value));
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (content.present) {
+      map['content'] = Variable<String>(content.value);
+    }
+    if (date.present) {
+      map['date'] = Variable<DateTime>(date.value);
+    }
+    if (priority.present) {
+      map['priority'] = Variable<int>(priority.value);
+    }
+    if (lastUpdated.present) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated.value);
+    }
+    return map;
   }
 }
 
@@ -2283,7 +2639,7 @@ class $TestsTable extends Tests with TableInfo<$TestsTable, TestModel> {
   GeneratedIntColumn get priority => _priority ??= _constructPriority();
   GeneratedIntColumn _constructPriority() {
     return GeneratedIntColumn('priority', $tableName, false,
-        defaultValue: const Constant<int, IntType>(3));
+        defaultValue: const Constant<int>(3));
   }
 
   final VerificationMeta _lastUpdatedMeta =
@@ -2310,37 +2666,40 @@ class $TestsTable extends Tests with TableInfo<$TestsTable, TestModel> {
   @override
   final String actualTableName = 'tests';
   @override
-  VerificationContext validateIntegrity(TestsCompanion d,
+  VerificationContext validateIntegrity(Insertable<TestModel> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
+    final data = instance.toColumns(true);
     context.handle(_idMeta, const VerificationResult.success());
     context.handle(_subjectIdMeta, const VerificationResult.success());
     context.handle(_lessonIdMeta, const VerificationResult.success());
-    if (d.title.present) {
+    if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableValue(d.title.value, _titleMeta));
+          _titleMeta, title.isAcceptableOrUnknown(data['title'], _titleMeta));
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
-    if (d.content.present) {
+    if (data.containsKey('content')) {
       context.handle(_contentMeta,
-          content.isAcceptableValue(d.content.value, _contentMeta));
+          content.isAcceptableOrUnknown(data['content'], _contentMeta));
     } else if (isInserting) {
       context.missing(_contentMeta);
     }
-    if (d.date.present) {
+    if (data.containsKey('date')) {
       context.handle(
-          _dateMeta, date.isAcceptableValue(d.date.value, _dateMeta));
+          _dateMeta, date.isAcceptableOrUnknown(data['date'], _dateMeta));
     } else if (isInserting) {
       context.missing(_dateMeta);
     }
-    if (d.priority.present) {
+    if (data.containsKey('priority')) {
       context.handle(_priorityMeta,
-          priority.isAcceptableValue(d.priority.value, _priorityMeta));
+          priority.isAcceptableOrUnknown(data['priority'], _priorityMeta));
     }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
+    if (data.containsKey('last_updated')) {
+      context.handle(
+          _lastUpdatedMeta,
+          lastUpdated.isAcceptableOrUnknown(
+              data['last_updated'], _lastUpdatedMeta));
     } else if (isInserting) {
       context.missing(_lastUpdatedMeta);
     }
@@ -2353,42 +2712,6 @@ class $TestsTable extends Tests with TableInfo<$TestsTable, TestModel> {
   TestModel map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return TestModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(TestsCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $TestsTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.subjectId.present) {
-      final converter = $TestsTable.$converter1;
-      map['subject_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.subjectId.value));
-    }
-    if (d.lessonId.present) {
-      final converter = $TestsTable.$converter2;
-      map['lesson_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.lessonId.value));
-    }
-    if (d.title.present) {
-      map['title'] = Variable<String, StringType>(d.title.value);
-    }
-    if (d.content.present) {
-      map['content'] = Variable<String, StringType>(d.content.value);
-    }
-    if (d.date.present) {
-      map['date'] = Variable<DateTime, DateTimeType>(d.date.value);
-    }
-    if (d.priority.present) {
-      map['priority'] = Variable<int, IntType>(d.priority.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
   }
 
   @override
@@ -2444,6 +2767,60 @@ class StudyModel extends DataClass implements Insertable<StudyModel> {
           .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
     );
   }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      final converter = $StudyingTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id));
+    }
+    if (!nullToAbsent || examId != null) {
+      final converter = $StudyingTable.$converter1;
+      map['exam_id'] = Variable<Uint8List>(converter.mapToSql(examId));
+    }
+    if (!nullToAbsent || testId != null) {
+      final converter = $StudyingTable.$converter2;
+      map['test_id'] = Variable<Uint8List>(converter.mapToSql(testId));
+    }
+    if (!nullToAbsent || title != null) {
+      map['title'] = Variable<String>(title);
+    }
+    if (!nullToAbsent || start != null) {
+      map['start'] = Variable<DateTime>(start);
+    }
+    if (!nullToAbsent || end != null) {
+      map['end'] = Variable<DateTime>(end);
+    }
+    if (!nullToAbsent || completed != null) {
+      map['completed'] = Variable<bool>(completed);
+    }
+    if (!nullToAbsent || lastUpdated != null) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated);
+    }
+    return map;
+  }
+
+  StudyingCompanion toCompanion(bool nullToAbsent) {
+    return StudyingCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      examId:
+          examId == null && nullToAbsent ? const Value.absent() : Value(examId),
+      testId:
+          testId == null && nullToAbsent ? const Value.absent() : Value(testId),
+      title:
+          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      start:
+          start == null && nullToAbsent ? const Value.absent() : Value(start),
+      end: end == null && nullToAbsent ? const Value.absent() : Value(end),
+      completed: completed == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completed),
+      lastUpdated: lastUpdated == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdated),
+    );
+  }
+
   factory StudyModel.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
@@ -2471,28 +2848,6 @@ class StudyModel extends DataClass implements Insertable<StudyModel> {
       'completed': serializer.toJson<bool>(completed),
       'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
     };
-  }
-
-  @override
-  StudyingCompanion createCompanion(bool nullToAbsent) {
-    return StudyingCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      examId:
-          examId == null && nullToAbsent ? const Value.absent() : Value(examId),
-      testId:
-          testId == null && nullToAbsent ? const Value.absent() : Value(testId),
-      title:
-          title == null && nullToAbsent ? const Value.absent() : Value(title),
-      start:
-          start == null && nullToAbsent ? const Value.absent() : Value(start),
-      end: end == null && nullToAbsent ? const Value.absent() : Value(end),
-      completed: completed == null && nullToAbsent
-          ? const Value.absent()
-          : Value(completed),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
   }
 
   StudyModel copyWith(
@@ -2591,6 +2946,28 @@ class StudyingCompanion extends UpdateCompanion<StudyModel> {
         start = Value(start),
         end = Value(end),
         lastUpdated = Value(lastUpdated);
+  static Insertable<StudyModel> custom({
+    Expression<Uint8List> id,
+    Expression<Uint8List> examId,
+    Expression<Uint8List> testId,
+    Expression<String> title,
+    Expression<DateTime> start,
+    Expression<DateTime> end,
+    Expression<bool> completed,
+    Expression<DateTime> lastUpdated,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (examId != null) 'exam_id': examId,
+      if (testId != null) 'test_id': testId,
+      if (title != null) 'title': title,
+      if (start != null) 'start': start,
+      if (end != null) 'end': end,
+      if (completed != null) 'completed': completed,
+      if (lastUpdated != null) 'last_updated': lastUpdated,
+    });
+  }
+
   StudyingCompanion copyWith(
       {Value<String> id,
       Value<String> examId,
@@ -2610,6 +2987,39 @@ class StudyingCompanion extends UpdateCompanion<StudyModel> {
       completed: completed ?? this.completed,
       lastUpdated: lastUpdated ?? this.lastUpdated,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      final converter = $StudyingTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id.value));
+    }
+    if (examId.present) {
+      final converter = $StudyingTable.$converter1;
+      map['exam_id'] = Variable<Uint8List>(converter.mapToSql(examId.value));
+    }
+    if (testId.present) {
+      final converter = $StudyingTable.$converter2;
+      map['test_id'] = Variable<Uint8List>(converter.mapToSql(testId.value));
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (start.present) {
+      map['start'] = Variable<DateTime>(start.value);
+    }
+    if (end.present) {
+      map['end'] = Variable<DateTime>(end.value);
+    }
+    if (completed.present) {
+      map['completed'] = Variable<bool>(completed.value);
+    }
+    if (lastUpdated.present) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated.value);
+    }
+    return map;
   }
 }
 
@@ -2693,7 +3103,7 @@ class $StudyingTable extends Studying
   GeneratedBoolColumn get completed => _completed ??= _constructCompleted();
   GeneratedBoolColumn _constructCompleted() {
     return GeneratedBoolColumn('completed', $tableName, false,
-        defaultValue: const Constant<bool, BoolType>(false));
+        defaultValue: const Constant<bool>(false));
   }
 
   final VerificationMeta _lastUpdatedMeta =
@@ -2720,36 +3130,40 @@ class $StudyingTable extends Studying
   @override
   final String actualTableName = 'studying';
   @override
-  VerificationContext validateIntegrity(StudyingCompanion d,
+  VerificationContext validateIntegrity(Insertable<StudyModel> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
+    final data = instance.toColumns(true);
     context.handle(_idMeta, const VerificationResult.success());
     context.handle(_examIdMeta, const VerificationResult.success());
     context.handle(_testIdMeta, const VerificationResult.success());
-    if (d.title.present) {
+    if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableValue(d.title.value, _titleMeta));
+          _titleMeta, title.isAcceptableOrUnknown(data['title'], _titleMeta));
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
-    if (d.start.present) {
+    if (data.containsKey('start')) {
       context.handle(
-          _startMeta, start.isAcceptableValue(d.start.value, _startMeta));
+          _startMeta, start.isAcceptableOrUnknown(data['start'], _startMeta));
     } else if (isInserting) {
       context.missing(_startMeta);
     }
-    if (d.end.present) {
-      context.handle(_endMeta, end.isAcceptableValue(d.end.value, _endMeta));
+    if (data.containsKey('end')) {
+      context.handle(
+          _endMeta, end.isAcceptableOrUnknown(data['end'], _endMeta));
     } else if (isInserting) {
       context.missing(_endMeta);
     }
-    if (d.completed.present) {
+    if (data.containsKey('completed')) {
       context.handle(_completedMeta,
-          completed.isAcceptableValue(d.completed.value, _completedMeta));
+          completed.isAcceptableOrUnknown(data['completed'], _completedMeta));
     }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
+    if (data.containsKey('last_updated')) {
+      context.handle(
+          _lastUpdatedMeta,
+          lastUpdated.isAcceptableOrUnknown(
+              data['last_updated'], _lastUpdatedMeta));
     } else if (isInserting) {
       context.missing(_lastUpdatedMeta);
     }
@@ -2762,42 +3176,6 @@ class $StudyingTable extends Studying
   StudyModel map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return StudyModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(StudyingCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $StudyingTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.examId.present) {
-      final converter = $StudyingTable.$converter1;
-      map['exam_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.examId.value));
-    }
-    if (d.testId.present) {
-      final converter = $StudyingTable.$converter2;
-      map['test_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.testId.value));
-    }
-    if (d.title.present) {
-      map['title'] = Variable<String, StringType>(d.title.value);
-    }
-    if (d.start.present) {
-      map['start'] = Variable<DateTime, DateTimeType>(d.start.value);
-    }
-    if (d.end.present) {
-      map['end'] = Variable<DateTime, DateTimeType>(d.end.value);
-    }
-    if (d.completed.present) {
-      map['completed'] = Variable<bool, BoolType>(d.completed.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
   }
 
   @override
@@ -2832,6 +3210,34 @@ class LessonTimeModel extends DataClass implements Insertable<LessonTimeModel> {
           .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
     );
   }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || period != null) {
+      map['period'] = Variable<int>(period);
+    }
+    if (!nullToAbsent || startTime != null) {
+      map['start_time'] = Variable<DateTime>(startTime);
+    }
+    if (!nullToAbsent || lastUpdated != null) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated);
+    }
+    return map;
+  }
+
+  LessonTimesCompanion toCompanion(bool nullToAbsent) {
+    return LessonTimesCompanion(
+      period:
+          period == null && nullToAbsent ? const Value.absent() : Value(period),
+      startTime: startTime == null && nullToAbsent
+          ? const Value.absent()
+          : Value(startTime),
+      lastUpdated: lastUpdated == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdated),
+    );
+  }
+
   factory LessonTimeModel.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
@@ -2849,20 +3255,6 @@ class LessonTimeModel extends DataClass implements Insertable<LessonTimeModel> {
       'startTime': serializer.toJson<DateTime>(startTime),
       'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
     };
-  }
-
-  @override
-  LessonTimesCompanion createCompanion(bool nullToAbsent) {
-    return LessonTimesCompanion(
-      period:
-          period == null && nullToAbsent ? const Value.absent() : Value(period),
-      startTime: startTime == null && nullToAbsent
-          ? const Value.absent()
-          : Value(startTime),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
   }
 
   LessonTimeModel copyWith(
@@ -2904,12 +3296,23 @@ class LessonTimesCompanion extends UpdateCompanion<LessonTimeModel> {
     this.lastUpdated = const Value.absent(),
   });
   LessonTimesCompanion.insert({
-    @required int period,
+    this.period = const Value.absent(),
     @required DateTime startTime,
     @required DateTime lastUpdated,
-  })  : period = Value(period),
-        startTime = Value(startTime),
+  })  : startTime = Value(startTime),
         lastUpdated = Value(lastUpdated);
+  static Insertable<LessonTimeModel> custom({
+    Expression<int> period,
+    Expression<DateTime> startTime,
+    Expression<DateTime> lastUpdated,
+  }) {
+    return RawValuesInsertable({
+      if (period != null) 'period': period,
+      if (startTime != null) 'start_time': startTime,
+      if (lastUpdated != null) 'last_updated': lastUpdated,
+    });
+  }
+
   LessonTimesCompanion copyWith(
       {Value<int> period,
       Value<DateTime> startTime,
@@ -2919,6 +3322,21 @@ class LessonTimesCompanion extends UpdateCompanion<LessonTimeModel> {
       startTime: startTime ?? this.startTime,
       lastUpdated: lastUpdated ?? this.lastUpdated,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (period.present) {
+      map['period'] = Variable<int>(period.value);
+    }
+    if (startTime.present) {
+      map['start_time'] = Variable<DateTime>(startTime.value);
+    }
+    if (lastUpdated.present) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated.value);
+    }
+    return map;
   }
 }
 
@@ -2971,24 +3389,25 @@ class $LessonTimesTable extends LessonTimes
   @override
   final String actualTableName = 'lesson_times';
   @override
-  VerificationContext validateIntegrity(LessonTimesCompanion d,
+  VerificationContext validateIntegrity(Insertable<LessonTimeModel> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
-    if (d.period.present) {
-      context.handle(
-          _periodMeta, period.isAcceptableValue(d.period.value, _periodMeta));
-    } else if (isInserting) {
-      context.missing(_periodMeta);
+    final data = instance.toColumns(true);
+    if (data.containsKey('period')) {
+      context.handle(_periodMeta,
+          period.isAcceptableOrUnknown(data['period'], _periodMeta));
     }
-    if (d.startTime.present) {
+    if (data.containsKey('start_time')) {
       context.handle(_startTimeMeta,
-          startTime.isAcceptableValue(d.startTime.value, _startTimeMeta));
+          startTime.isAcceptableOrUnknown(data['start_time'], _startTimeMeta));
     } else if (isInserting) {
       context.missing(_startTimeMeta);
     }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
+    if (data.containsKey('last_updated')) {
+      context.handle(
+          _lastUpdatedMeta,
+          lastUpdated.isAcceptableOrUnknown(
+              data['last_updated'], _lastUpdatedMeta));
     } else if (isInserting) {
       context.missing(_lastUpdatedMeta);
     }
@@ -3001,22 +3420,6 @@ class $LessonTimesTable extends LessonTimes
   LessonTimeModel map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return LessonTimeModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(LessonTimesCompanion d) {
-    final map = <String, Variable>{};
-    if (d.period.present) {
-      map['period'] = Variable<int, IntType>(d.period.value);
-    }
-    if (d.startTime.present) {
-      map['start_time'] = Variable<DateTime, DateTimeType>(d.startTime.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
   }
 
   @override
@@ -3064,6 +3467,56 @@ class TaskModel extends DataClass implements Insertable<TaskModel> {
           .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
     );
   }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      final converter = $TasksTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id));
+    }
+    if (!nullToAbsent || subjectId != null) {
+      final converter = $TasksTable.$converter1;
+      map['subject_id'] = Variable<Uint8List>(converter.mapToSql(subjectId));
+    }
+    if (!nullToAbsent || title != null) {
+      map['title'] = Variable<String>(title);
+    }
+    if (!nullToAbsent || description != null) {
+      map['description'] = Variable<String>(description);
+    }
+    if (!nullToAbsent || due != null) {
+      map['due'] = Variable<DateTime>(due);
+    }
+    if (!nullToAbsent || completed != null) {
+      map['completed'] = Variable<bool>(completed);
+    }
+    if (!nullToAbsent || lastUpdated != null) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated);
+    }
+    return map;
+  }
+
+  TasksCompanion toCompanion(bool nullToAbsent) {
+    return TasksCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      subjectId: subjectId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(subjectId),
+      title:
+          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      description: description == null && nullToAbsent
+          ? const Value.absent()
+          : Value(description),
+      due: due == null && nullToAbsent ? const Value.absent() : Value(due),
+      completed: completed == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completed),
+      lastUpdated: lastUpdated == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdated),
+    );
+  }
+
   factory TaskModel.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
@@ -3089,28 +3542,6 @@ class TaskModel extends DataClass implements Insertable<TaskModel> {
       'completed': serializer.toJson<bool>(completed),
       'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
     };
-  }
-
-  @override
-  TasksCompanion createCompanion(bool nullToAbsent) {
-    return TasksCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      subjectId: subjectId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(subjectId),
-      title:
-          title == null && nullToAbsent ? const Value.absent() : Value(title),
-      description: description == null && nullToAbsent
-          ? const Value.absent()
-          : Value(description),
-      due: due == null && nullToAbsent ? const Value.absent() : Value(due),
-      completed: completed == null && nullToAbsent
-          ? const Value.absent()
-          : Value(completed),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
   }
 
   TaskModel copyWith(
@@ -3199,6 +3630,26 @@ class TasksCompanion extends UpdateCompanion<TaskModel> {
         due = Value(due),
         completed = Value(completed),
         lastUpdated = Value(lastUpdated);
+  static Insertable<TaskModel> custom({
+    Expression<Uint8List> id,
+    Expression<Uint8List> subjectId,
+    Expression<String> title,
+    Expression<String> description,
+    Expression<DateTime> due,
+    Expression<bool> completed,
+    Expression<DateTime> lastUpdated,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (subjectId != null) 'subject_id': subjectId,
+      if (title != null) 'title': title,
+      if (description != null) 'description': description,
+      if (due != null) 'due': due,
+      if (completed != null) 'completed': completed,
+      if (lastUpdated != null) 'last_updated': lastUpdated,
+    });
+  }
+
   TasksCompanion copyWith(
       {Value<String> id,
       Value<String> subjectId,
@@ -3216,6 +3667,36 @@ class TasksCompanion extends UpdateCompanion<TaskModel> {
       completed: completed ?? this.completed,
       lastUpdated: lastUpdated ?? this.lastUpdated,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      final converter = $TasksTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id.value));
+    }
+    if (subjectId.present) {
+      final converter = $TasksTable.$converter1;
+      map['subject_id'] =
+          Variable<Uint8List>(converter.mapToSql(subjectId.value));
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (due.present) {
+      map['due'] = Variable<DateTime>(due.value);
+    }
+    if (completed.present) {
+      map['completed'] = Variable<bool>(completed.value);
+    }
+    if (lastUpdated.present) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated.value);
+    }
+    return map;
   }
 }
 
@@ -3318,37 +3799,43 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, TaskModel> {
   @override
   final String actualTableName = 'tasks';
   @override
-  VerificationContext validateIntegrity(TasksCompanion d,
+  VerificationContext validateIntegrity(Insertable<TaskModel> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
+    final data = instance.toColumns(true);
     context.handle(_idMeta, const VerificationResult.success());
     context.handle(_subjectIdMeta, const VerificationResult.success());
-    if (d.title.present) {
+    if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableValue(d.title.value, _titleMeta));
+          _titleMeta, title.isAcceptableOrUnknown(data['title'], _titleMeta));
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
-    if (d.description.present) {
-      context.handle(_descriptionMeta,
-          description.isAcceptableValue(d.description.value, _descriptionMeta));
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description'], _descriptionMeta));
     } else if (isInserting) {
       context.missing(_descriptionMeta);
     }
-    if (d.due.present) {
-      context.handle(_dueMeta, due.isAcceptableValue(d.due.value, _dueMeta));
+    if (data.containsKey('due')) {
+      context.handle(
+          _dueMeta, due.isAcceptableOrUnknown(data['due'], _dueMeta));
     } else if (isInserting) {
       context.missing(_dueMeta);
     }
-    if (d.completed.present) {
+    if (data.containsKey('completed')) {
       context.handle(_completedMeta,
-          completed.isAcceptableValue(d.completed.value, _completedMeta));
+          completed.isAcceptableOrUnknown(data['completed'], _completedMeta));
     } else if (isInserting) {
       context.missing(_completedMeta);
     }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
+    if (data.containsKey('last_updated')) {
+      context.handle(
+          _lastUpdatedMeta,
+          lastUpdated.isAcceptableOrUnknown(
+              data['last_updated'], _lastUpdatedMeta));
     } else if (isInserting) {
       context.missing(_lastUpdatedMeta);
     }
@@ -3361,37 +3848,6 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, TaskModel> {
   TaskModel map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return TaskModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(TasksCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $TasksTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.subjectId.present) {
-      final converter = $TasksTable.$converter1;
-      map['subject_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.subjectId.value));
-    }
-    if (d.title.present) {
-      map['title'] = Variable<String, StringType>(d.title.value);
-    }
-    if (d.description.present) {
-      map['description'] = Variable<String, StringType>(d.description.value);
-    }
-    if (d.due.present) {
-      map['due'] = Variable<DateTime, DateTimeType>(d.due.value);
-    }
-    if (d.completed.present) {
-      map['completed'] = Variable<bool, BoolType>(d.completed.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
   }
 
   @override
@@ -3435,6 +3891,45 @@ class SubTaskModel extends DataClass implements Insertable<SubTaskModel> {
           .mapFromDatabaseResponse(data['${effectivePrefix}last_updated']),
     );
   }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || id != null) {
+      final converter = $SubTasksTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id));
+    }
+    if (!nullToAbsent || taskId != null) {
+      final converter = $SubTasksTable.$converter1;
+      map['task_id'] = Variable<Uint8List>(converter.mapToSql(taskId));
+    }
+    if (!nullToAbsent || title != null) {
+      map['title'] = Variable<String>(title);
+    }
+    if (!nullToAbsent || completed != null) {
+      map['completed'] = Variable<bool>(completed);
+    }
+    if (!nullToAbsent || lastUpdated != null) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated);
+    }
+    return map;
+  }
+
+  SubTasksCompanion toCompanion(bool nullToAbsent) {
+    return SubTasksCompanion(
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
+      taskId:
+          taskId == null && nullToAbsent ? const Value.absent() : Value(taskId),
+      title:
+          title == null && nullToAbsent ? const Value.absent() : Value(title),
+      completed: completed == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completed),
+      lastUpdated: lastUpdated == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdated),
+    );
+  }
+
   factory SubTaskModel.fromJson(Map<String, dynamic> json,
       {ValueSerializer serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
@@ -3456,23 +3951,6 @@ class SubTaskModel extends DataClass implements Insertable<SubTaskModel> {
       'completed': serializer.toJson<bool>(completed),
       'lastUpdated': serializer.toJson<DateTime>(lastUpdated),
     };
-  }
-
-  @override
-  SubTasksCompanion createCompanion(bool nullToAbsent) {
-    return SubTasksCompanion(
-      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
-      taskId:
-          taskId == null && nullToAbsent ? const Value.absent() : Value(taskId),
-      title:
-          title == null && nullToAbsent ? const Value.absent() : Value(title),
-      completed: completed == null && nullToAbsent
-          ? const Value.absent()
-          : Value(completed),
-      lastUpdated: lastUpdated == null && nullToAbsent
-          ? const Value.absent()
-          : Value(lastUpdated),
-    );
   }
 
   SubTaskModel copyWith(
@@ -3542,6 +4020,22 @@ class SubTasksCompanion extends UpdateCompanion<SubTaskModel> {
         title = Value(title),
         completed = Value(completed),
         lastUpdated = Value(lastUpdated);
+  static Insertable<SubTaskModel> custom({
+    Expression<Uint8List> id,
+    Expression<Uint8List> taskId,
+    Expression<String> title,
+    Expression<bool> completed,
+    Expression<DateTime> lastUpdated,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (taskId != null) 'task_id': taskId,
+      if (title != null) 'title': title,
+      if (completed != null) 'completed': completed,
+      if (lastUpdated != null) 'last_updated': lastUpdated,
+    });
+  }
+
   SubTasksCompanion copyWith(
       {Value<String> id,
       Value<String> taskId,
@@ -3555,6 +4049,29 @@ class SubTasksCompanion extends UpdateCompanion<SubTaskModel> {
       completed: completed ?? this.completed,
       lastUpdated: lastUpdated ?? this.lastUpdated,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      final converter = $SubTasksTable.$converter0;
+      map['id'] = Variable<Uint8List>(converter.mapToSql(id.value));
+    }
+    if (taskId.present) {
+      final converter = $SubTasksTable.$converter1;
+      map['task_id'] = Variable<Uint8List>(converter.mapToSql(taskId.value));
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (completed.present) {
+      map['completed'] = Variable<bool>(completed.value);
+    }
+    if (lastUpdated.present) {
+      map['last_updated'] = Variable<DateTime>(lastUpdated.value);
+    }
+    return map;
   }
 }
 
@@ -3632,26 +4149,29 @@ class $SubTasksTable extends SubTasks
   @override
   final String actualTableName = 'sub_tasks';
   @override
-  VerificationContext validateIntegrity(SubTasksCompanion d,
+  VerificationContext validateIntegrity(Insertable<SubTaskModel> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
+    final data = instance.toColumns(true);
     context.handle(_idMeta, const VerificationResult.success());
     context.handle(_taskIdMeta, const VerificationResult.success());
-    if (d.title.present) {
+    if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableValue(d.title.value, _titleMeta));
+          _titleMeta, title.isAcceptableOrUnknown(data['title'], _titleMeta));
     } else if (isInserting) {
       context.missing(_titleMeta);
     }
-    if (d.completed.present) {
+    if (data.containsKey('completed')) {
       context.handle(_completedMeta,
-          completed.isAcceptableValue(d.completed.value, _completedMeta));
+          completed.isAcceptableOrUnknown(data['completed'], _completedMeta));
     } else if (isInserting) {
       context.missing(_completedMeta);
     }
-    if (d.lastUpdated.present) {
-      context.handle(_lastUpdatedMeta,
-          lastUpdated.isAcceptableValue(d.lastUpdated.value, _lastUpdatedMeta));
+    if (data.containsKey('last_updated')) {
+      context.handle(
+          _lastUpdatedMeta,
+          lastUpdated.isAcceptableOrUnknown(
+              data['last_updated'], _lastUpdatedMeta));
     } else if (isInserting) {
       context.missing(_lastUpdatedMeta);
     }
@@ -3664,31 +4184,6 @@ class $SubTasksTable extends SubTasks
   SubTaskModel map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return SubTaskModel.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(SubTasksCompanion d) {
-    final map = <String, Variable>{};
-    if (d.id.present) {
-      final converter = $SubTasksTable.$converter0;
-      map['id'] = Variable<Uint8List, BlobType>(converter.mapToSql(d.id.value));
-    }
-    if (d.taskId.present) {
-      final converter = $SubTasksTable.$converter1;
-      map['task_id'] =
-          Variable<Uint8List, BlobType>(converter.mapToSql(d.taskId.value));
-    }
-    if (d.title.present) {
-      map['title'] = Variable<String, StringType>(d.title.value);
-    }
-    if (d.completed.present) {
-      map['completed'] = Variable<bool, BoolType>(d.completed.value);
-    }
-    if (d.lastUpdated.present) {
-      map['last_updated'] =
-          Variable<DateTime, DateTimeType>(d.lastUpdated.value);
-    }
-    return map;
   }
 
   @override

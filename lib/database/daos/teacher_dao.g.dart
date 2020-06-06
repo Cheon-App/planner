@@ -7,5 +7,5 @@ part of 'teacher_dao.dart';
 // **************************************************************************
 
 mixin _$TeacherDaoMixin on DatabaseAccessor<Database> {
-  $TeachersTable get teachers => db.teachers;
+  $TeachersTable get teachers => attachedDatabase.teachers;
 }

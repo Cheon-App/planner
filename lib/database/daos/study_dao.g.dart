@@ -7,9 +7,9 @@ part of 'study_dao.dart';
 // **************************************************************************
 
 mixin _$StudyDaoMixin on DatabaseAccessor<Database> {
-  $ExamsTable get exams => db.exams;
-  $TestsTable get tests => db.tests;
-  $SubjectsTable get subjects => db.subjects;
-  $TeachersTable get teachers => db.teachers;
-  $StudyingTable get studying => db.studying;
+  $ExamsTable get exams => attachedDatabase.exams;
+  $TestsTable get tests => attachedDatabase.tests;
+  $SubjectsTable get subjects => attachedDatabase.subjects;
+  $TeachersTable get teachers => attachedDatabase.teachers;
+  $StudyingTable get studying => attachedDatabase.studying;
 }

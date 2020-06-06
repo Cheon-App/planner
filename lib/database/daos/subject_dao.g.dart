@@ -7,6 +7,6 @@ part of 'subject_dao.dart';
 // **************************************************************************
 
 mixin _$SubjectDaoMixin on DatabaseAccessor<Database> {
-  $SubjectsTable get subjects => db.subjects;
-  $TeachersTable get teachers => db.teachers;
+  $SubjectsTable get subjects => attachedDatabase.subjects;
+  $TeachersTable get teachers => attachedDatabase.teachers;
 }

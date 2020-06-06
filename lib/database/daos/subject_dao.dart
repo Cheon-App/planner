@@ -49,7 +49,7 @@ class SubjectDao extends DatabaseAccessor<Database> with _$SubjectDaoMixin {
       lastUpdated: DateTime.now(),
     );
 
-    await into<SubjectModel>(subjects).insert(subject);
+    await into(subjects).insert(subject);
   }
 
   Future<void> updateSubject(

@@ -7,7 +7,7 @@ part of 'timetable_dao.dart';
 // **************************************************************************
 
 mixin _$TimetableDaoMixin on DatabaseAccessor<Database> {
-  $TimetablesTable get timetables => db.timetables;
-  $LessonsTable get lessons => db.lessons;
-  $LessonTimesTable get lessonTimes => db.lessonTimes;
+  $TimetablesTable get timetables => attachedDatabase.timetables;
+  $LessonsTable get lessons => attachedDatabase.lessons;
+  $LessonTimesTable get lessonTimes => attachedDatabase.lessonTimes;
 }

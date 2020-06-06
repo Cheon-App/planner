@@ -7,8 +7,8 @@ part of 'task_dao.dart';
 // **************************************************************************
 
 mixin _$TaskDaoMixin on DatabaseAccessor<Database> {
-  $TasksTable get tasks => db.tasks;
-  $SubTasksTable get subTasks => db.subTasks;
-  $SubjectsTable get subjects => db.subjects;
-  $TeachersTable get teachers => db.teachers;
+  $TasksTable get tasks => attachedDatabase.tasks;
+  $SubTasksTable get subTasks => attachedDatabase.subTasks;
+  $SubjectsTable get subjects => attachedDatabase.subjects;
+  $TeachersTable get teachers => attachedDatabase.teachers;
 }

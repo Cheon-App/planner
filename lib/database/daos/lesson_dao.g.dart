@@ -7,9 +7,9 @@ part of 'lesson_dao.dart';
 // **************************************************************************
 
 mixin _$LessonDaoMixin on DatabaseAccessor<Database> {
-  $LessonsTable get lessons => db.lessons;
-  $TimetablesTable get timetables => db.timetables;
-  $TeachersTable get teachers => db.teachers;
-  $SubjectsTable get subjects => db.subjects;
-  $LessonTimesTable get lessonTimes => db.lessonTimes;
+  $LessonsTable get lessons => attachedDatabase.lessons;
+  $TimetablesTable get timetables => attachedDatabase.timetables;
+  $TeachersTable get teachers => attachedDatabase.teachers;
+  $SubjectsTable get subjects => attachedDatabase.subjects;
+  $LessonTimesTable get lessonTimes => attachedDatabase.lessonTimes;
 }
