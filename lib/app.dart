@@ -20,6 +20,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter/services.dart';
+import 'package:flutter_interactive_keyboard/flutter_interactive_keyboard.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -331,6 +332,14 @@ class App extends StatelessWidget {
                 isDark: Theme.of(context).brightness == Brightness.dark,
                 child: child,
               );
+
+              if (Theme.of(context).platform == TargetPlatform.iOS) {
+                child = KeyboardManagerWidget(
+                  child: child,
+                  onKeyboardOpen: () {},
+                  onKeyboardClose: () {},
+                );
+              }
 
               /// More O(1) objects injected into the widget tree.
               /// The [MultiProvider] widget allows these to be given in a list
