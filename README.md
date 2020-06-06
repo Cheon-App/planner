@@ -1,4 +1,5 @@
 # Cheon Smart Planner
+![Quality Assurance](https://github.com/Cheon-App/planner/workflows/Quality%20Assurance/badge.svg) ![Flutter Build](https://github.com/Cheon-App/planner/workflows/Flutter%20Build/badge.svg)
 
 ## Getting Started
 Create a Firebase project and add an Android or IOS app to it. You'll be given the option to download a google-services.json(Android) or GoogleService-Info.plist(IOS) file which should be placed in android/app/google-services.json or ios/Runner/GoogleService-Info.plist respectively.

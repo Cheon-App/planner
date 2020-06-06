@@ -1,4 +1,4 @@
-name: Flutter Workflow
+name: Quality Assurance
 on: [push, pull_request]
 jobs:
   main:
