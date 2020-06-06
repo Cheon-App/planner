@@ -1,8 +1,5 @@
 name: Flutter Workflow
-on:
-  push:
-    branches:
-      - develop
+on: [push, pull_request]
 jobs:
   main:
     name: Quality Assurance on ${{ matrix.os }}
