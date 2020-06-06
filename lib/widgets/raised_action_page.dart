@@ -1,6 +1,6 @@
-import 'package:cheon/components/primary_action_button.dart';
-import 'package:cheon/components/raised_body.dart';
-import 'package:cheon/components/tap_to_dismiss.dart';
+import 'package:cheon/widgets/primary_action_button.dart';
+import 'package:cheon/widgets/raised_body.dart';
+import 'package:cheon/widgets/tap_to_dismiss.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

@@ -1,5 +1,5 @@
-import 'package:cheon/components/empty_placeholder.dart';
-import 'package:cheon/components/raised_action_page.dart';
+import 'package:cheon/widgets/empty_placeholder.dart';
+import 'package:cheon/widgets/raised_action_page.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/study_session.dart';
 import 'package:cheon/models/subject.dart';

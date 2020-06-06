@@ -1,4 +1,4 @@
-import 'package:cheon/components/raised_action_page.dart';
+import 'package:cheon/widgets/raised_action_page.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/task.dart';
 import 'package:cheon/pages/add_event/add_event_page.dart';

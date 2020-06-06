@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:cheon/components/sheet_handle.dart';
+import 'package:cheon/widgets/sheet_handle.dart';
 import 'package:flutter/material.dart';
 
 class Sheet {

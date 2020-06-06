@@ -1,4 +1,4 @@
-import 'package:cheon/components/subject_card.dart';
+import 'package:cheon/widgets/subject_card.dart';
 import 'package:cheon/models/study_session.dart';
 import 'package:cheon/pages/study/study_page.dart';
 import 'package:flutter/material.dart';

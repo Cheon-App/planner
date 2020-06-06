@@ -1,5 +1,5 @@
-import 'package:cheon/components/day_toggle.dart';
-import 'package:cheon/components/platform_selection_dialog.dart';
+import 'package:cheon/widgets/day_toggle.dart';
+import 'package:cheon/widgets/platform_selection_dialog.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/url_launcher.dart';
 import 'package:cheon/view_models/app_info_view_model.dart';
@@ -7,7 +7,7 @@ import 'package:cheon/view_models/preferences_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:cheon/components/platform_date_time_picker.dart';
+import 'package:cheon/widgets/platform_date_time_picker.dart';
 
 /// A page used to change app settings
 class PreferencesPage extends StatelessWidget {

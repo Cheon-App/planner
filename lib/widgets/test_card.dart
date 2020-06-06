@@ -1,7 +1,7 @@
-import 'package:cheon/components/subject_card.dart';
-import 'package:cheon/components/priority_indicator.dart';
+import 'package:cheon/widgets/subject_card.dart';
+import 'package:cheon/widgets/priority_indicator.dart';
 import 'package:cheon/models/test.dart';
-import 'package:cheon/pages/view_test/view_test_page.dart';
+import 'package:cheon/pages/exams/view_test_page.dart';
 import 'package:flutter/material.dart';
 
 class TestCard extends StatelessWidget {

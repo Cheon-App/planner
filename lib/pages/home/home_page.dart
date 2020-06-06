@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:cheon/components/cheon_icons.dart';
-import 'package:cheon/components/page_switcher.dart';
+import 'package:cheon/widgets/cheon_icons.dart';
+import 'package:cheon/widgets/page_switcher.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/pages/add_event/add_event_page.dart';
 import 'package:cheon/pages/tasks/tasks_page.dart';

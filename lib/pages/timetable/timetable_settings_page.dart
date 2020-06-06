@@ -1,12 +1,12 @@
-import 'package:cheon/components/empty_placeholder.dart';
-import 'package:cheon/components/error_message.dart';
-import 'package:cheon/components/platform_date_time_picker.dart';
-import 'package:cheon/components/primary_action_button.dart';
-import 'package:cheon/components/tap_to_dismiss.dart';
+import 'package:cheon/widgets/empty_placeholder.dart';
+import 'package:cheon/widgets/error_message.dart';
+import 'package:cheon/widgets/platform_date_time_picker.dart';
+import 'package:cheon/widgets/primary_action_button.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/lesson_time.dart';
 import 'package:cheon/models/timetable.dart';
 import 'package:cheon/view_models/timetable_view_model.dart';
+import 'package:cheon/widgets/tap_to_dismiss.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

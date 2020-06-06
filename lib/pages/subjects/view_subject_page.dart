@@ -1,4 +1,4 @@
-import 'package:cheon/components/raised_action_page.dart';
+import 'package:cheon/widgets/raised_action_page.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/view_models/subjects_view_model.dart';

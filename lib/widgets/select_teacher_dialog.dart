@@ -1,6 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:cheon/app.dart';
-import 'package:cheon/components/custom_selection_dialog.dart';
+import 'package:cheon/widgets/custom_selection_dialog.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/pages/teachers/teacher_page.dart';
 import 'package:cheon/view_models/teachers_view_model.dart';

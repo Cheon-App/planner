@@ -1,4 +1,4 @@
-import 'package:cheon/components/cheon_app_bar.dart';
+import 'package:cheon/widgets/cheon_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class CheonPage extends StatelessWidget {

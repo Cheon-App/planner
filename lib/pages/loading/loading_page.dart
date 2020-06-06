@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cheon/components/loading_indicator.dart';
+import 'package:cheon/widgets/loading_indicator.dart';
 
 class LoadingPage extends StatelessWidget {
   /// Creates a page containing a loading indicator in its center.

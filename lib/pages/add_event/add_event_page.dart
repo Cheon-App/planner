@@ -1,11 +1,11 @@
 import 'package:animations/animations.dart';
 import 'package:cheon/app.dart';
-import 'package:cheon/components/platform_date_time_picker.dart';
-import 'package:cheon/components/platform_selection_dialog.dart';
-import 'package:cheon/components/primary_action_button.dart';
-import 'package:cheon/components/raised_body.dart';
-import 'package:cheon/components/select_subject_dialog.dart';
-import 'package:cheon/components/tap_to_dismiss.dart';
+import 'package:cheon/widgets/platform_date_time_picker.dart';
+import 'package:cheon/widgets/platform_selection_dialog.dart';
+import 'package:cheon/widgets/primary_action_button.dart';
+import 'package:cheon/widgets/raised_body.dart';
+import 'package:cheon/widgets/select_subject_dialog.dart';
+import 'package:cheon/widgets/tap_to_dismiss.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/exams_view_model.dart';

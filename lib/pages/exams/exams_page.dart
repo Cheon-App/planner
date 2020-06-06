@@ -1,10 +1,10 @@
-import 'package:cheon/components/empty_placeholder.dart';
-import 'package:cheon/components/error_message.dart';
-import 'package:cheon/components/exam_card.dart';
-import 'package:cheon/components/loading_indicator.dart';
-import 'package:cheon/components/menu_button.dart';
-import 'package:cheon/components/sticky_section.dart';
-import 'package:cheon/components/test_card.dart';
+import 'package:cheon/widgets/empty_placeholder.dart';
+import 'package:cheon/widgets/error_message.dart';
+import 'package:cheon/widgets/exam_card.dart';
+import 'package:cheon/widgets/loading_indicator.dart';
+import 'package:cheon/widgets/menu_button.dart';
+import 'package:cheon/widgets/sticky_section.dart';
+import 'package:cheon/widgets/test_card.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/assessment.dart';
 import 'package:cheon/models/exam.dart';

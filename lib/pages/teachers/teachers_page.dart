@@ -1,6 +1,6 @@
-import 'package:cheon/components/empty_placeholder.dart';
-import 'package:cheon/components/error_message.dart';
-import 'package:cheon/components/loading_indicator.dart';
+import 'package:cheon/widgets/empty_placeholder.dart';
+import 'package:cheon/widgets/error_message.dart';
+import 'package:cheon/widgets/loading_indicator.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/pages/teachers/teacher_page.dart';

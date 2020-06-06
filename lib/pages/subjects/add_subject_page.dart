@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:animations/animations.dart';
-import 'package:cheon/components/grid_selection_dialog.dart';
-import 'package:cheon/components/primary_action_button.dart';
-import 'package:cheon/components/select_teacher_dialog.dart';
-import 'package:cheon/components/tap_to_dismiss.dart';
+import 'package:cheon/widgets/grid_selection_dialog.dart';
+import 'package:cheon/widgets/primary_action_button.dart';
+import 'package:cheon/widgets/select_teacher_dialog.dart';
+import 'package:cheon/widgets/tap_to_dismiss.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/selection_dialog_widget_item.dart';
 import 'package:cheon/models/teacher.dart';
