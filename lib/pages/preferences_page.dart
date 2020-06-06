@@ -1,8 +1,7 @@
+import 'package:cheon/components/day_toggle.dart';
 import 'package:cheon/components/platform_selection_dialog.dart';
 import 'package:cheon/constants.dart';
-import 'package:cheon/app.dart';
 import 'package:cheon/url_launcher.dart';
-import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/app_info_view_model.dart';
 import 'package:cheon/view_models/preferences_view_model.dart';
 import 'package:flutter/material.dart';
@@ -140,34 +139,16 @@ class _NotificationsCard extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              final double availableWidth = constraints.maxWidth - 8;
-              return AbsorbPointer(
-                absorbing: !homeworkReminders,
-                child: AnimatedOpacity(
-                  duration: DURATION_MEDIUM,
-                  opacity: homeworkReminders ? 1 : 0.75,
-                  child: ToggleButtons(
-                    constraints: BoxConstraints(
-                      minWidth: availableWidth / 7,
-                      minHeight: 48,
-                    ),
-                    borderRadius: BorderRadius.circular(App.borderRadius),
-                    children: <Widget>[
-                      for (int i = 1; i <= 7; i++)
-                        Text(
-                          dayToShortString(i),
-                          // Unabbreviated week days for screen readers
-                          semanticsLabel: dayToString(i),
-                        ),
-                    ],
-                    isSelected: preferences.homeworkReminderDays,
-                    onPressed: preferences.toggleHomeworkReminderDay,
-                  ),
-                ),
-              );
-            },
+          child: AbsorbPointer(
+            absorbing: !homeworkReminders,
+            child: AnimatedOpacity(
+              duration: DURATION_MEDIUM,
+              opacity: homeworkReminders ? 1 : 0.75,
+              child: DayToggle(
+                isSelected: (i) => preferences.homeworkReminderDays[i],
+                onPressed: preferences.toggleHomeworkReminderDay,
+              ),
+            ),
           ),
         ),
         ListTile(
