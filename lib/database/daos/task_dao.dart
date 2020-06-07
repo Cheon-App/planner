@@ -71,6 +71,7 @@ class TaskDao extends DatabaseAccessor<Database> with _$TaskDaoMixin {
 
   // The number of tasks due today
   Stream<int> tasksDue(DateTime date) {
+    return Stream.value(0);
     // TODO fix it only returning 0 or 1
     final filter = tasks.due.equals(date.truncateToDay());
     final count = countAll(filter: filter);
@@ -81,6 +82,7 @@ class TaskDao extends DatabaseAccessor<Database> with _$TaskDaoMixin {
 
   // TODO fix this
   Stream<int> tasksToGo(DateTime date) {
+    return Stream.value(0);
     
     date = date.truncateToDay();
 
