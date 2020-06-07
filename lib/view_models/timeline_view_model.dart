@@ -1,3 +1,5 @@
+import 'package:cheon/database/daos/study_dao.dart';
+import 'package:cheon/database/daos/task_dao.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/calendar_event.dart';
@@ -21,23 +23,25 @@ class TimelineVM extends ChangeNotifier {
   TimelineVM() {
     selectedDate = DateTime.now().truncateToDay();
 
-    _selectedDateSubject.stream.switchMap(_taskDao.tasksDue).listen((count) {
-      _tasksDue = count;
-      notifyListeners();
-    });
-
-    _selectedDateSubject.stream
-        .switchMap(_lessonRepository.timetableFromDateStream)
-        .listen(
-      (Timetable timetable) {
-        _selectedTimetable = timetable;
-        notifyListeners();
+    _selectedDateSubject.stream.switchMap(
+      (DateTime date) {
+        return CombineLatestStream.combine3<int, int, Timetable, void>(
+          _taskDao.tasksToGo(date),
+          _studyDao.sesionsToGo(date),
+          _lessonRepository.timetableFromDateStream(date),
+          (int tasksToGo, int sessionsToGo, Timetable timetable) {
+            _tasksToGo = tasksToGo;
+            _sessionsToGo = sessionsToGo;
+            _selectedTimetable = timetable;
+          },
+        );
       },
-    );
+    ).listen((_) => notifyListeners());
   }
 
   final KeyValueService _keyValueService = container<KeyValueService>();
-  final _taskDao = container<Database>().taskDao;
+  final TaskDao _taskDao = container<Database>().taskDao;
+  final StudyDao _studyDao = container<Database>().studyDao;
 
   final BehaviorSubject<DateTime> _selectedDateSubject =
       BehaviorSubject<DateTime>();
@@ -73,11 +77,6 @@ class TimelineVM extends ChangeNotifier {
               },
             ),
           );
-
-  int _tasksDue;
-
-  /// The amount of tasks due
-  int get tasksDue => _tasksDue;
 
   int _sessionsToGo = 0;
   int get sessionsToGo => _sessionsToGo;

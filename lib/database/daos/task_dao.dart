@@ -79,6 +79,25 @@ class TaskDao extends DatabaseAccessor<Database> with _$TaskDaoMixin {
     return query.map((row) => row.read(count)).watchSingle();
   }
 
+  // TODO fix this
+  Stream<int> tasksToGo(DateTime date) {
+    
+    date = date.truncateToDay();
+
+    // filter only available from SQLITE v3.3!!!
+    final Expression<int> aggregate = tasks.id.count(
+      filter: tasks.completed.equals(false) & tasks.due.equals(date),
+    );
+
+    final filter = tasks.completed.equals(false) & tasks.due.equals(date);
+    final count = countAll(filter: filter);
+    final query = selectOnly(tasks)..addColumns([count]);
+    return query.map((row) => row.read(count)).watchSingle();
+
+    // final query = selectOnly(tasks)..addColumns([aggregate]);
+    // return query.map((row) => row.read(aggregate)).watchSingle();
+  }
+
   Future<void> addTask({
     @required String title,
     @required String note,

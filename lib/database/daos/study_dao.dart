@@ -168,6 +168,11 @@ class StudyDao extends DatabaseAccessor<Database> with _$StudyDaoMixin {
     return Stream<int>.value(3);
   }
 
+  Stream<int> sesionsToGo(DateTime date) {
+    // TODO calculate real value
+    return Stream<int>.value(99);
+  }
+
   Future<void> addSessionList(List<Session> sessionList) async {
     return batch((Batch batch) {
       batch.insertAll(

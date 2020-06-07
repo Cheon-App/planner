@@ -333,12 +333,12 @@ class _TimelineListState extends State<TimelineList> {
           final TimelineData timelineData = snapshot.data;
           if (timelineData.isEmpty) {
             return Column(
-              children: <Widget>[
-                Padding(
+              children: const <Widget>[
+                /* Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: _DashboardCard(),
-                ),
-                const Expanded(
+                ), */
+                 Expanded(
                   child: EmptyPlaceholder(
                     svgPath: IMG_TIMELINE,
                     text: 'No events on this day.',
@@ -382,10 +382,10 @@ class _TimelineListState extends State<TimelineList> {
 
             return Column(
               children: <Widget>[
-                Padding(
+                /* Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: _DashboardCard(),
-                ),
+                ), */
                 Expanded(
                   child: ListView(
                     primary: false,
