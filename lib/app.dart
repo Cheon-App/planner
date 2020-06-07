@@ -102,7 +102,7 @@ class App extends StatelessWidget {
       primaryColor: accentColor,
       primaryColorLight: const Color(0xFF80e27e),
       primaryColorDark: const Color(0xFF087f23),
-      primaryColorBrightness: Brightness.dark,
+      primaryColorBrightness: brightness,
       primarySwatch: accentColor,
       // Secondary accent colour
       accentColor: accentColor,

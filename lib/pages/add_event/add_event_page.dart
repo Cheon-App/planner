@@ -64,6 +64,7 @@ class _AddEventPageState extends State<AddEventPage> {
     final EventType eventType = await showPlatformSelectionDialog(
       context: context,
       selectedItem: _eventType,
+      material: true,
       items: EventType.values
           .map(
             (EventType type) => SelectionDialogItem<EventType>(

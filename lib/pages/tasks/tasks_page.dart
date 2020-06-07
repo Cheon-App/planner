@@ -49,6 +49,7 @@ class _TasksPageState extends State<TasksPage>
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: false,
           title: Text('Tasks'),
           leading: MenuButton(),
           bottom: TabBar(

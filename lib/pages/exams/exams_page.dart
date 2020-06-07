@@ -136,6 +136,7 @@ class AssessmentsPagePageState extends State<AssessmentsPage>
 
     return Scaffold(
       appBar: AppBar(
+          centerTitle: false,
         title: Text('Assessments'),
         leading: MenuButton(),
         actions: <Widget>[

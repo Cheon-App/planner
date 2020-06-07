@@ -39,7 +39,11 @@ class _RevisonPageState extends State<RevisonPage>
     super.build(context);
     final RevisionVM revisionVM = RevisionVM.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text('Revision'), leading: MenuButton()),
+      appBar: AppBar(
+        title: Text('Revision'),
+        leading: MenuButton(),
+        centerTitle: false,
+      ),
       resizeToAvoidBottomInset: false,
       body: PageTransitionSwitcher(
         reverse: revisionVM.revisionSetup,
