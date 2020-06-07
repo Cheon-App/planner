@@ -1,16 +1,15 @@
-import 'package:cheon/widgets/empty_placeholder.dart';
-import 'package:cheon/widgets/error_message.dart';
-import 'package:cheon/widgets/loading_indicator.dart';
+import 'package:cheon/models/subject.dart';
+import 'package:cheon/pages/add_event/add_event_page.dart';
 import 'package:cheon/widgets/raised_action_page.dart';
 import 'package:cheon/widgets/raised_body.dart';
-import 'package:cheon/widgets/study_session_card.dart';
-import 'package:cheon/constants.dart';
 import 'package:cheon/models/exam.dart';
-import 'package:cheon/models/study_session.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cheon/widgets/select_date_card.dart';
+import 'package:cheon/widgets/select_subject_card.dart';
+import 'package:cheon/widgets/select_time_card.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 /// Creates a page containing the details of the given exam
@@ -24,155 +23,232 @@ class ViewExamPage extends StatefulWidget {
 }
 
 class _ViewExamPageState extends State<ViewExamPage> {
-  bool editMode = false;
+  Subject _subject;
 
-  void enableEditing() => setState(() => editMode = true);
-
-  void saveChanges() {
-    setState(() => editMode = false);
+  @override
+  void initState() {
+    super.initState();
+    _subject = widget.exam.subject;
   }
 
-  Future<void> deleteExam() {
+  Future<void> _deleteExam() {
     final ExamsVM examsVM = context.read<ExamsVM>();
     Navigator.pop(context);
     return examsVM.deleteExam(widget.exam);
   }
 
+  Future<void> _setSubject(Subject subject) async {
+    final examsVM = context.read<ExamsVM>();
+    setState(() => _subject = subject);
+    await examsVM.updateExam(widget.exam.id, subject: subject);
+  }
+
   @override
   Widget build(BuildContext context) {
     return RaisedActionPage(
-      appBarTitle: '${widget.exam.subject.name} Exam',
-      color: widget.exam.subject.color,
-      editMode: editMode,
-      child: _ExamBody(exam: widget.exam, editMode: editMode),
-      onEditModeChanged: editMode ? saveChanges : enableEditing,
-      onDelete: deleteExam,
+      appBarTitle: '${_subject.name} Exam',
+      color: _subject.color,
+      primaryActionEnabled: false,
+      showEditButton: false,
+      extraAction: IconButton(
+        onPressed: _deleteExam,
+        icon: FaIcon(FontAwesomeIcons.trashAlt),
+        tooltip: 'Delete',
+      ),
+      child: _ExamBody(
+        exam: widget.exam,
+        onSubjectChanged: _setSubject,
+        subject: _subject,
+      ),
+      onDelete: _deleteExam,
     );
   }
 }
 
-class _ExamBody extends StatelessWidget {
+class _ExamBody extends StatefulWidget {
   const _ExamBody({
     Key key,
     @required this.exam,
-    @required this.editMode,
-  })  : assert(editMode != null),
-        super(key: key);
+    @required this.subject,
+    @required this.onSubjectChanged,
+  }) : super(key: key);
 
   final Exam exam;
-  final bool editMode;
+  final Subject subject;
+  final Function(Subject) onSubjectChanged;
 
-  void deleteExam() {}
+  @override
+  __ExamBodyState createState() => __ExamBodyState();
+}
+
+class __ExamBodyState extends State<_ExamBody> {
+  TextEditingController _titleController;
+  TextEditingController _seatController;
+  TextEditingController _locationController;
+  TextEditingController _priorityController;
+  DateTime _startDateTime;
+  DateTime _endDateTime;
+  String examID;
+
+  @override
+  void initState() {
+    super.initState();
+    final exam = widget.exam;
+    examID = exam.id;
+    _titleController = TextEditingController(text: exam.title);
+    _seatController = TextEditingController(text: exam.seat);
+    _locationController = TextEditingController(text: exam.location);
+    _priorityController = TextEditingController(
+      text: exam.priority.toString(),
+    );
+    _startDateTime = exam.start;
+    _endDateTime = exam.end;
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _seatController.dispose();
+    _locationController.dispose();
+    _priorityController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _setTitle(String title) async {
+    final examsVM = context.read<ExamsVM>();
+    await examsVM.updateExam(examID, name: title);
+  }
+
+  Future<void> _setDate(DateTime date) async {
+    final examsVM = context.read<ExamsVM>();
+    final start = date.withTime(_startDateTime.time);
+    final end = date.withTime(_endDateTime.time);
+    await examsVM.updateExam(examID, start: start, end: end);
+    setState(() => _startDateTime = start);
+  }
+
+  Future<void> _setStartTime(TimeOfDay time) async {
+    final examsVM = context.read<ExamsVM>();
+    final start = _startDateTime.withTime(time);
+    await examsVM.updateExam(examID, start: start);
+    setState(() => _startDateTime = start);
+  }
+
+  Future<void> _setEndTime(TimeOfDay time) async {
+    final examsVM = context.read<ExamsVM>();
+    final end = _endDateTime.withTime(time);
+    await examsVM.updateExam(examID, end: end);
+    setState(() => _endDateTime = end);
+  }
+
+  Future<void> _setSeat(String seat) async {
+    final examsVM = context.read<ExamsVM>();
+    await examsVM.updateExam(examID, seat: seat);
+  }
+
+  Future<void> _setLocation(String location) async {
+    final examsVM = context.read<ExamsVM>();
+    await examsVM.updateExam(examID, location: location);
+  }
+
+  Future<void> _setPriority(String priority) async {
+    final examsVM = context.read<ExamsVM>();
+    await examsVM.updateExam(examID, priority: int.parse(priority));
+  }
 
   @override
   Widget build(BuildContext context) {
     return RaisedBody(
       child: ListView(
+        primary: false,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
         children: <Widget>[
-          ListTile(
-            leading: Icon(
-              FontAwesomeIcons.calendarAlt,
-              color: Theme.of(context).iconTheme.color,
-            ),
-            title: Text(
-              fuzzyTimestamp(exam.start),
-              style: Theme.of(context).textTheme.headline5,
-            ),
-            trailing: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Text(
-                  MaterialLocalizations.of(context).formatTimeOfDay(
-                    TimeOfDay.fromDateTime(exam.start),
+          // Title
+          TextField(
+            onChanged: _setTitle,
+            controller: _titleController,
+            decoration: InputDecoration(labelText: 'Title'),
+            textCapitalization: TextCapitalization.sentences,
+          ),
+          const SizedBox(height: 4),
+          // Date & Subject
+          IntrinsicHeight(
+            child: Row(
+              children: [
+                Expanded(
+                  child: SelectDateCard(
+                    date: _startDateTime,
+                    onDateSelected: _setDate,
                   ),
-                  style: Theme.of(context).textTheme.subtitle2,
                 ),
-                Text(
-                  MaterialLocalizations.of(context).formatTimeOfDay(
-                    TimeOfDay.fromDateTime(exam.end),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: SelectSubjectCard(
+                    onSubjectSelected: widget.onSubjectChanged,
+                    currentSubject: widget.subject,
+                    isRequired: true,
                   ),
-                  style: Theme.of(context).textTheme.subtitle2,
                 ),
               ],
             ),
           ),
-          ListTile(
-            leading: Icon(
-              FontAwesomeIcons.brain,
-              color: Theme.of(context).iconTheme.color,
-            ),
-            title: Text(
-              exam.title,
-              style: Theme.of(context).textTheme.headline5,
-            ),
-            trailing: exam.seat != null
-                ? Text(
-                    'Seat ${exam.seat}',
-                    style: Theme.of(context).textTheme.headline5,
-                  )
-                : null,
-          ),
-          const Divider(height: 0),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text(
-                  'Study sessions for this exam',
-                  style: Theme.of(context).textTheme.headline5,
+          // Start & End Time
+          IntrinsicHeight(
+            child: Row(
+              children: [
+                Expanded(
+                  child: SelectTimeCard(
+                    title: 'Start',
+                    onTimeSelected: _setStartTime,
+                    time: TimeOfDay.fromDateTime(_startDateTime),
+                  ),
                 ),
-                _StudySessionList(exam: exam),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: SelectTimeCard(
+                    title: 'End',
+                    onTimeSelected: _setEndTime,
+                    time: TimeOfDay.fromDateTime(_endDateTime),
+                  ),
+                ),
               ],
             ),
+          ),
+          const SizedBox(height: 4),
+          // Seat & Location
+          IntrinsicHeight(
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _seatController,
+                    onChanged: _setSeat,
+                    decoration: InputDecoration(labelText: 'Seat'),
+                    textCapitalization: TextCapitalization.sentences,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: TextField(
+                    controller: _locationController,
+                    onChanged: _setLocation,
+                    decoration: InputDecoration(labelText: 'Location'),
+                    textCapitalization: TextCapitalization.sentences,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
+          TextField(
+            controller: _priorityController,
+            onChanged: _setPriority,
+            decoration: InputDecoration(labelText: 'Revision Priority'),
+            keyboardType: TextInputType.number,
+            textCapitalization: TextCapitalization.sentences,
           ),
         ],
       ),
-    );
-  }
-}
-
-class _StudySessionList extends StatelessWidget {
-  const _StudySessionList({Key key, @required this.exam}) : super(key: key);
-
-  final Exam exam;
-
-  @override
-  Widget build(BuildContext context) {
-    final ExamsVM examsVM = Provider.of<ExamsVM>(context);
-    return StreamBuilder<List<StudySession>>(
-      stream: examsVM.studySessionListFromExam(exam),
-      builder: (
-        BuildContext context,
-        AsyncSnapshot<List<StudySession>> snapshot,
-      ) {
-        if (snapshot.hasData) {
-          final List<StudySession> studySessionList = snapshot.data;
-          if (studySessionList.isNotEmpty) {
-            return ListView.builder(
-              itemCount: studySessionList.length,
-              primary: false,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return StudySessionCard(studySession: studySessionList[index]);
-              },
-            );
-          } else {
-            return const EmptyPlaceholder(
-              text: 'No study sessions.',
-              svgPath: IMG_STUDYING,
-            );
-          }
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const LoadingIndicator();
-        }
-
-        return const ErrorMessage();
-      },
     );
   }
 }

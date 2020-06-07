@@ -18,8 +18,9 @@ class ExamCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String seat = exam.seat != null ? 'Seat ${exam.seat}' : '';
-    final String location = exam.location != null ? '${exam.location}' : '';
+    final String seat =
+        exam.seat?.isNotEmpty ?? false ? 'Seat ${exam.seat}' : '';
+    final String location = exam.location ?? '';
     final int minutes = exam.end.difference(exam.start).inMinutes;
     return SubjectCard(
       onTap: () => openExam(context),

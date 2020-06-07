@@ -31,8 +31,8 @@ import 'package:cheon/view_models/task_view_model.dart';
 
 /// App routes used by the [Navigator] to navigate between pages
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
-  // Exams
-  ExamsPage.routeName: (_) => const ExamsPage(inHomePage: false),
+  // Assessments
+  AssessmentsPage.routeName: (_) => const AssessmentsPage(inHomePage: false),
   ViewExamPage.routeName: (BuildContext context) => ViewExamPage(
         exam: routeArguments(context) as Exam,
       ),

@@ -1,10 +1,11 @@
 import 'package:animations/animations.dart';
 import 'package:cheon/app.dart';
-import 'package:cheon/widgets/platform_date_time_picker.dart';
 import 'package:cheon/widgets/platform_selection_dialog.dart';
 import 'package:cheon/widgets/primary_action_button.dart';
 import 'package:cheon/widgets/raised_body.dart';
-import 'package:cheon/widgets/select_subject_dialog.dart';
+import 'package:cheon/widgets/select_date_card.dart';
+import 'package:cheon/widgets/select_subject_card.dart';
+import 'package:cheon/widgets/select_time_card.dart';
 import 'package:cheon/widgets/tap_to_dismiss.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/utils.dart';
@@ -371,166 +372,6 @@ class _SelectEventTypeCard extends StatelessWidget {
         title: Text(eventTypeToString(eventType)),
         trailing: Icon(FontAwesomeIcons.chevronDown),
         onTap: () => selectEventType(context),
-      ),
-    );
-  }
-}
-
-// TODO move this
-class SelectSubjectCard extends StatelessWidget {
-  /// Creates a card containing a subject name and dropdown button to let users
-  /// select a subject for an event.
-  const SelectSubjectCard({
-    Key key,
-    this.currentSubject,
-    @required this.onSubjectSelected,
-    this.isRequired = false,
-    this.enabled = true,
-  }) : super(key: key);
-
-  /// The selected subject
-  final Subject currentSubject;
-
-  /// A callback function invoked when a subject is selected.
-  final Function(Subject) onSubjectSelected;
-
-  /// True if a subject must be selected
-  final bool isRequired;
-
-  final bool enabled;
-
-  /// Displays the dialog containing a list of subjects that the user can choose
-  /// from.
-  Future<void> selectSubject(BuildContext context) async {
-    final Subject subject = await showSelectSubjectDialog(
-      context: context,
-      selectedSubject: currentSubject,
-    );
-
-    if (subject != null) onSubjectSelected(subject);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // The Card containing the subject name and dropdown button used to display
-    // the SelectSubject dialog.
-    return IntrinsicHeight(
-      child: Card(
-        child: Row(
-          children: <Widget>[
-            Container(color: currentSubject?.color ?? Colors.grey, width: 4),
-            Expanded(
-              child: ListTile(
-                title: Text(
-                  currentSubject?.name ?? 'Subject${isRequired ? '*' : ''}',
-                ),
-                trailing: Icon(FontAwesomeIcons.chevronDown),
-                onTap: () => selectSubject(context),
-                enabled: enabled,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// TODO move this
-class SelectDateCard extends StatelessWidget {
-  /// Creates a card containg the shorthand form of a date and a dropdown button
-  /// to let users select a new date.
-  const SelectDateCard({
-    Key key,
-    this.title,
-    @required this.date,
-    @required this.onDateSelected,
-    this.fullDate = false,
-    this.enabled = true,
-    this.isRequired = false,
-  })  : assert(date != null),
-        assert(onDateSelected != null),
-        assert(fullDate != null),
-        super(key: key);
-
-  /// An optional title for the card.
-  final String title;
-
-  /// The date shown by the card.
-  final DateTime date;
-
-  /// A callback function invoked when the user selects a card.
-  final Function(DateTime) onDateSelected;
-
-  /// True if the date should be formatted as a full date instead of a shorthand
-  /// date.
-  final bool fullDate;
-
-  /// True if the card is interactable
-  final bool enabled;
-
-  final bool isRequired;
-
-  /// Displays a date picker dialog and invokes the [onDateSelected] callback
-  /// whenever the user selects a new date.
-  Future<void> selectDate(BuildContext context) async {
-    showPlatformDatePicker(context: context, initialDate: date)
-        .listen(onDateSelected);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    /// The date text representing the provided date.
-    final String dateString = fullDate
-        ? MaterialLocalizations.of(context).formatFullDate(date)
-        : MaterialLocalizations.of(context).formatMediumDate(date);
-    // The card containing the date text and title.
-    return Card(
-      child: ListTile(
-        title: Text((title ?? 'Date') + (isRequired ? '*' : '')),
-        trailing: Text(dateString),
-        onTap: () => selectDate(context),
-        enabled: enabled,
-      ),
-    );
-  }
-}
-
-class _SelectTimeCard extends StatelessWidget {
-  /// Creates a card containing a title and text representing the provided time.
-  const _SelectTimeCard({
-    Key key,
-    this.title,
-    @required this.time,
-    @required this.onTimeSelected,
-  })  : assert(time != null),
-        assert(onTimeSelected != null),
-        super(key: key);
-
-  /// An optional title for the card. Defaults to 'Time'
-  final String title;
-
-  /// The time to be displayed in this card.
-  final TimeOfDay time;
-
-  /// A callback function invoked when a new time is selected by the user.
-  final Function(TimeOfDay) onTimeSelected;
-
-  /// Displays a time picker dialog and invokes the [onTimeSelected] callback
-  /// whenever the user selects a new time.
-  Future<void> selectTime(BuildContext context) async {
-    showPlatformTimePicker(context: context, initialTime: time)
-        .listen(onTimeSelected);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // The card containing the title text and the provided time.
-    return Card(
-      child: ListTile(
-        title: Text(title ?? 'Time'),
-        trailing: Text(MaterialLocalizations.of(context).formatTimeOfDay(time)),
-        onTap: () => selectTime(context),
       ),
     );
   }
@@ -924,7 +765,7 @@ class _ExamFormState extends State<_ExamForm> {
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: _SelectTimeCard(
+              child: SelectTimeCard(
                 onTimeSelected: setTime,
                 time: TimeOfDay.fromDateTime(dateTime),
               ),

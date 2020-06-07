@@ -156,6 +156,7 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
                 maxLength: 18,
                 maxLengthEnforced: false,
                 validator: nameValidator,
+                textCapitalization: TextCapitalization.sentences,
               ),
               const SizedBox(height: 4),
               Row(
@@ -194,6 +195,7 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
                 controller: _roomController,
                 decoration:
                     const InputDecoration(labelText: 'Room', isDense: true),
+                textCapitalization: TextCapitalization.sentences,
               ),
               const SizedBox(height: 4),
               Card(

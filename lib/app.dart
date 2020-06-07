@@ -216,6 +216,7 @@ class App extends StatelessWidget {
           ),
         ),
       ),
+
       iconTheme: IconThemeData(color: onSurface),
 
       // platform: TargetPlatform.iOS,

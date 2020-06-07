@@ -95,7 +95,7 @@ class HomePageState extends State<HomePage> {
           break;
         case _Page.EXAMS:
           _fabKeys.add(const ValueKey<String>('add'));
-          _pages.add(const ExamsPage());
+          _pages.add(const AssessmentsPage());
           _navigationIcons.add(FontAwesomeIcons.brain);
           _pageNames.add('Assessments');
           break;

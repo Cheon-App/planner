@@ -3,6 +3,8 @@ import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/task.dart';
 import 'package:cheon/pages/add_event/add_event_page.dart';
 import 'package:cheon/view_models/task_view_model.dart';
+import 'package:cheon/widgets/select_date_card.dart';
+import 'package:cheon/widgets/select_subject_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';

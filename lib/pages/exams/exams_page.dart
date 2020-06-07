@@ -15,19 +15,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class ExamsPage extends StatefulWidget {
+class AssessmentsPage extends StatefulWidget {
   /// Creates a page containing upcoming exams and tests
-  const ExamsPage({Key key, this.inHomePage = true}) : super(key: key);
+  const AssessmentsPage({Key key, this.inHomePage = true}) : super(key: key);
 
-  static const String routeName = '/exams';
+  static const String routeName = '/assessments';
   final bool inHomePage;
 
   @override
-  ExamsPagePageState createState() => ExamsPagePageState();
+  AssessmentsPagePageState createState() => AssessmentsPagePageState();
 }
 
 @visibleForTesting
-class ExamsPagePageState extends State<ExamsPage>
+class AssessmentsPagePageState extends State<AssessmentsPage>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;

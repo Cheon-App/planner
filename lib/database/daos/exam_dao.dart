@@ -100,16 +100,17 @@ class ExamDao extends DatabaseAccessor<Database> with _$ExamDaoMixin {
   }
 
   Future<void> updateExam(
-    Exam exam, {
+    String examId, {
     String name,
     DateTime start,
     DateTime end,
     String seat,
     String location,
     int priority,
+    Subject subject,
   }) {
     final ExamsCompanion companion = ExamsCompanion(
-      id: Value<String>(exam.id),
+      id: Value<String>(examId),
       title: name != null ? Value<String>(name) : const Value<String>.absent(),
       start: start != null
           ? Value<DateTime>(start)
@@ -122,6 +123,9 @@ class ExamDao extends DatabaseAccessor<Database> with _$ExamDaoMixin {
       priority:
           priority != null ? Value<int>(priority) : const Value<int>.absent(),
       lastUpdated: Value<DateTime>(DateTime.now()),
+      subjectId: subject == null //
+          ? Value<String>.absent()
+          : Value<String>(subject.id),
     );
     return (update(exams)..whereSamePrimaryKey(companion)).write(companion);
   }

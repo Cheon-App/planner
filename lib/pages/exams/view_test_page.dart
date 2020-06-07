@@ -1,15 +1,9 @@
 import 'package:cheon/widgets/raised_action_page.dart';
 import 'package:cheon/models/test.dart';
-import 'package:cheon/models/study_session.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:cheon/widgets/study_session_card.dart';
 import 'package:cheon/utils.dart';
-import 'package:cheon/constants.dart';
-import 'package:cheon/widgets/empty_placeholder.dart';
-import 'package:cheon/widgets/error_message.dart';
-import 'package:cheon/widgets/loading_indicator.dart';
 
 import 'package:provider/provider.dart';
 
@@ -121,64 +115,7 @@ class __TestBodyState extends State<_TestBody> {
             maxLines: 6,
           ),
         ),
-        const Divider(height: 0),
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Text(
-                'Study sessions for this test',
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              _StudySessionList(test: widget.test),
-            ],
-          ),
-        ),
       ],
-    );
-  }
-}
-
-class _StudySessionList extends StatelessWidget {
-  const _StudySessionList({Key key, @required this.test}) : super(key: key);
-
-  final Test test;
-
-  @override
-  Widget build(BuildContext context) {
-    final ExamsVM examsVM = Provider.of<ExamsVM>(context);
-    return StreamBuilder<List<StudySession>>(
-      stream: examsVM.studySessionListFromTest(test),
-      builder: (
-        BuildContext context,
-        AsyncSnapshot<List<StudySession>> snapshot,
-      ) {
-        if (snapshot.hasData) {
-          final List<StudySession> studySessionList = snapshot.data;
-          if (studySessionList.isNotEmpty) {
-            return ListView.builder(
-              itemCount: studySessionList.length,
-              primary: false,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return StudySessionCard(studySession: studySessionList[index]);
-              },
-            );
-          } else {
-            return const EmptyPlaceholder(
-              text: 'No study sessions.',
-              svgPath: IMG_STUDYING,
-            );
-          }
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const LoadingIndicator();
-        }
-
-        return const ErrorMessage();
-      },
     );
   }
 }

@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
+
 import 'package:cheon/database/database.dart';
 import 'package:cheon/models/assessment.dart';
 import 'package:cheon/models/subject.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 @immutable
 class Exam extends Assessment {
