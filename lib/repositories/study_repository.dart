@@ -3,7 +3,6 @@ import 'package:cheon/database/daos/study_dao.dart';
 import 'package:cheon/database/daos/test_dao.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/dependency_injection.dart';
-import 'package:cheon/models/compare_date_time.dart';
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/study_session.dart';
 import 'package:cheon/models/subject.dart';
@@ -78,34 +77,52 @@ class StudyRepository {
 
   @visibleForTesting
   // TODO test this
-  /// Returns the [DateTime] of the start of the first session
-  DateTime firstSessionStart({
+  /// Returns the [DateTime] of the start of the first session.
+  FirstSessionDateTime firstSessionStart({
+    // The duration of a study session.
     @required Duration revisionDuration,
+    // The time of the first study session.
     @required TimeOfDay startTime,
+    // No study sessions can occur after this time.
     @required TimeOfDay endTime,
   }) {
     final DateTime now = DateTime.now();
-    DateTime nextSessionStart = dateTimeWithTimeOfDay(now, startTime);
-    // If we've missed the start time
-    if (now.isAfter(nextSessionStart)) {
-      if (TimeOfDay.fromDateTime(
-        now.add(revisionDuration),
-      ).isBeforeOrSameAs(endTime)) {
-        // We still have time to add at least one study session
-        nextSessionStart = now.add(const Duration(minutes: 1));
-      } else {
-        // We cannot fit another study session in today so we're skipping to the
-        // next day
-        nextSessionStart = nextSessionStart.add(const Duration(days: 1));
-      }
+    final TimeOfDay nowTime = TimeOfDay.now();
+    DateTime nextSessionStart;
+    bool firstDaySkipped;
+
+    // either before start & end time, between start & end time or after both
+
+    final bool beforeStart = nowTime.isBeforeOrSameAs(startTime);
+    final bool afterStartAndBeforeEnd =
+        !beforeStart && nowTime.isBefore(endTime);
+
+    if (beforeStart) {
+      nextSessionStart = now.withTime(startTime);
+      firstDaySkipped = false;
+    } else if (afterStartAndBeforeEnd) {
+      // The first session will commence a minute after the creation of the
+      // study sessions
+      nextSessionStart = now.add(Duration(minutes: 1));
+      firstDaySkipped = false;
+    } else {
+      /// We've missed today's slots so the first session will be at [startTime]
+      /// tomorrow
+      nextSessionStart = now.add(Duration(days: 1)).withTime(startTime);
+      firstDaySkipped = true;
     }
-    return nextSessionStart;
+
+    return FirstSessionDateTime(
+      date: nextSessionStart,
+      todaySkipped: firstDaySkipped,
+    );
   }
 
   @visibleForTesting
   // TODO test this
-  /// Returns a map containing blank [Session]s every day from now until the
-  /// day before the last assessment
+  /// Returns a map containing blank [Session]s every day from now until either
+  /// the day of the last assessment or the day before based on
+  /// [sessionsOnAssessmentDay]
   Map<int, List<Session>> placeholderSessionMap({
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,
@@ -114,37 +131,40 @@ class StudyRepository {
     @required Duration longBreak,
     @required int daysUntilLastAssessment,
     @required int extendedBreakFrequency,
+    @required bool sessionsOnAssessmentDay,
   }) {
+    // Prevents sessions from being created on the last day if we've configured
+    // that behaviour
+    if (sessionsOnAssessmentDay == false) daysUntilLastAssessment--;
+
     final Map<int, List<Session>> sessionMap = <int, List<Session>>{};
 
-    DateTime nextSessionStart = firstSessionStart(
+    final FirstSessionDateTime firstSessionDateTime = firstSessionStart(
       startTime: startTime,
       endTime: endTime,
       revisionDuration: revisionDuration,
     );
 
-    final DateTime nowStripped = strippedDateTime(DateTime.now());
+    DateTime nextSessionStart = firstSessionDateTime.date;
 
     // If no sessions can be created today then the sessionMap[0] should be an
     // empty list
-    final bool skippedFirstDay =
-        nextSessionStart.isAfter(nowStripped.add(const Duration(days: 1))) ||
-            nextSessionStart
-                .isAtSameMomentAs(nowStripped.add(const Duration(days: 1)));
+    final bool todaySkipped = firstSessionDateTime.todaySkipped;
 
-    if (skippedFirstDay) sessionMap[0] = <Session>[];
+    if (todaySkipped) sessionMap[0] = <Session>[];
 
     /// Populates the [sessionMap] with sessions from now
     /// until the last exam
-    for (int i = skippedFirstDay ? 1 : 0; i < daysUntilLastAssessment; i++) {
+    for (int i = todaySkipped ? 1 : 0; i <= daysUntilLastAssessment; i++) {
       // Used to decide when to take a long break
       int dailySessionCount = 0;
       final List<Session> sessionList = <Session>[];
 
       // While there's enough time for another study session
-      while (TimeOfDay.fromDateTime(
-        nextSessionStart.add(revisionDuration),
-      ).isBeforeOrSameAs(endTime)) {
+      while (nextSessionStart
+          .add(revisionDuration)
+          .time
+          .isBeforeOrSameAs(endTime)) {
         // Increment the amount of sessions added
         dailySessionCount += 1;
         // Add the study session without a test or exam
@@ -152,8 +172,9 @@ class StudyRepository {
           start: nextSessionStart,
           end: nextSessionStart.add(revisionDuration),
         ));
+        // Consume the time alloted to the Session we just created
         nextSessionStart = nextSessionStart.add(revisionDuration);
-
+        // Consume a break
         if (dailySessionCount % extendedBreakFrequency == 0) {
           // add long break
           nextSessionStart = nextSessionStart.add(longBreak);
@@ -167,9 +188,41 @@ class StudyRepository {
 
       // Reset the start time and push the day forward by one
       nextSessionStart = nextSessionStart.add(const Duration(days: 1));
-      nextSessionStart = dateTimeWithTimeOfDay(nextSessionStart, startTime);
+      nextSessionStart = nextSessionStart.withTime(startTime);
     }
     return sessionMap;
+  }
+
+  bool slotsAvailable({
+    @required TimeOfDay endTime,
+    @required Duration revisionDuration,
+    @required int daysUntilLastAssessment,
+    @required bool sessionsOnLastDay,
+  }) {
+    final DateTime now = DateTime.now();
+    final DateTime nowTruncated = now.truncateToDay();
+
+    /// The final time that a session could be started at today in order for
+    /// it to not overrun the [endTime]
+    final DateTime lastSessionStartToday = dateTimeWithTimeOfDay(
+      nowTruncated,
+      endTime,
+    ).subtract(revisionDuration);
+
+    /// The final day of assessments
+    final bool lastDay = daysUntilLastAssessment == 0;
+
+    /// It's too late to start a session as it'd end after [endTime]
+    final bool lastStartTimeMissed = now.compareTo(lastSessionStartToday) > 0;
+
+    // Checks if sessions can be created
+    if (lastDay && (lastStartTimeMissed || !sessionsOnLastDay)) {
+      /// Either no study sessions can be created that wouldn't end after
+      /// [endTime] or we've configured no sessions to occur on the last day.
+      return false;
+    } else {
+      return true;
+    }
   }
 
   Future<GeneratedRevisionResult> generateRevisionBlocks({
@@ -184,6 +237,7 @@ class StudyRepository {
     double priorityMultiplier = 1,
     double timeRemainingMultiplier = 1,
     double varietyMultiplier = 1,
+    bool sessionsOnAssessmentDay = false,
   }) async {
     final List<Exam> examList = List<Exam>.unmodifiable(
       await _examDao.currentExamListFuture(),
@@ -206,21 +260,29 @@ class StudyRepository {
     }
 
     final DateTime now = DateTime.now();
-    final DateTime nowStripped = strippedDateTime(now);
+    final DateTime nowTruncated = now.truncateToDay();
 
     final int daysUntilLastAssessment =
-        strippedDateTime(lastAssessmentDate).difference(nowStripped).inDays;
+        lastAssessmentDate.truncateToDay().difference(nowTruncated).inDays;
+
     print('daysUntilLastAssessment: $daysUntilLastAssessment');
-    // Checks if sessions can be created
-    if (daysUntilLastAssessment == 0 &&
-        CompareDateTime(now).compareTimeTo(endTime) > 0) {
-      /// No study sessions can be created as the only assessments are today
-      /// and this is being run after the [endTime]
+
+    final bool _slotsAvailable = slotsAvailable(
+      daysUntilLastAssessment: daysUntilLastAssessment,
+      endTime: endTime,
+      revisionDuration: revisionDuration,
+      // sessionsOnAssessmentDay applies to all assessments but is still
+      // relevant here
+      sessionsOnLastDay: sessionsOnAssessmentDay,
+    );
+
+    if (_slotsAvailable == false) {
+      // No slots are available
       return GeneratedRevisionResult.NO_SLOTS_AVAILABLE;
     }
 
     // For every day up until the day before the last assessment a list is added
-    //  to this map containing unassigned study sessions for that day
+    // to this map containing unassigned study sessions for that day
     final Map<int, List<Session>> sessionMap = placeholderSessionMap(
       startTime: startTime,
       endTime: endTime,
@@ -229,6 +291,7 @@ class StudyRepository {
       daysUntilLastAssessment: daysUntilLastAssessment,
       extendedBreakFrequency: extendedBreakFrequency,
       revisionDuration: revisionDuration,
+      sessionsOnAssessmentDay: sessionsOnAssessmentDay,
     );
 
     print('sessionMap.length: ${sessionMap.length}');
@@ -254,6 +317,7 @@ class StudyRepository {
 
     /// Uses a probabalistic algorithm to fill blank [Session]s with
     /// [Assessment]s
+    // TODO replace < with <= and adjust algorithm appropriately
     for (int dayIndex = 0; dayIndex < daysUntilLastAssessment; dayIndex++) {
       /// A list of blank sessions for the current day
       /// The algorithm will pair these [Session]s with an [Assessment]
@@ -264,7 +328,7 @@ class StudyRepository {
           ...sessionMap[i]
       ];
 
-      final DateTime currentDate = nowStripped.add(Duration(days: dayIndex));
+      final DateTime currentDate = nowTruncated.add(Duration(days: dayIndex));
       print('Day ${dayIndex + 1} | $currentDate');
 
       // Retains assessments due tomorrow or in the future
@@ -370,11 +434,12 @@ class StudyRepository {
 
       updateScores();
 
-      dailySessionList.map((Session s) => s.start).forEach(print);
+      dailySessionList
+          .map((Session s) => s.start.toString())
+          .forEach(debugPrint);
 
+      // Binding of assessments to a session
       for (Session session in dailySessionList) {
-        print('Initialising session');
-
         /// Assigns a [WeightedAssessment] to a session
         final WeightedAssessment bestAssessment = weightedAssessmentList.first;
         session.addWeightedAssessment(bestAssessment);
@@ -400,6 +465,7 @@ class StudyRepository {
     // Removes old study sessions then adds the newly created ones
     await _dao.removeFutureStudySessions();
     final List<Session> sessionPlaceholders = <Session>[];
+
     sessionMap.values.forEach(sessionPlaceholders.addAll);
     await _dao.addSessionList(sessionPlaceholders);
 
@@ -422,7 +488,7 @@ enum GeneratedRevisionResult {
   NO_SLOTS_AVAILABLE,
 }
 
-class Session {
+class Session with EquatableMixin {
   Session.blank({@required this.start, @required this.end});
 
   void addWeightedAssessment(WeightedAssessment assessment) {
@@ -438,6 +504,9 @@ class Session {
 
   final DateTime start;
   final DateTime end;
+
+  @override
+  List<Object> get props => [start, end, _assessmentID, _assessmentType];
 }
 
 @visibleForTesting
@@ -490,7 +559,27 @@ class WeightedAssessment with EquatableMixin {
   double varietyWeight;
 
   @override
-  List<Object> get props => <Object>[id];
+  List<Object> get props => <Object>[
+        id,
+        type,
+        userPriority,
+        date,
+        subject,
+        score,
+        timeRemainingWeight,
+        priorityWeight,
+        varietyWeight
+      ];
 }
 
 enum AssessmentType { EXAM, TEST }
+
+class FirstSessionDateTime {
+  FirstSessionDateTime({@required this.date, @required this.todaySkipped});
+
+  /// The DateTime of the first study session
+  final DateTime date;
+
+  /// True if no study sessions could be scheduled today
+  final bool todaySkipped;
+}

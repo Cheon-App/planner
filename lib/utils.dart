@@ -66,6 +66,7 @@ class TimeAheadMessages extends timeago.EnMessages {
 
 extension StrippedDateTime on DateTime {
   /// Returns a new [DateTime] with precision truncated to a day.
+  /// Useful for comparing dates where the time is irrelevant
   DateTime truncateToDay() => strippedDateTime(this);
 }
 
@@ -106,6 +107,12 @@ extension TimeOfDayComparison on TimeOfDay {
       isAfter(timeOfDay) || isSameTimeAs(timeOfDay);
 
   bool isSameTimeAs(TimeOfDay timeOfDay) => timeOfDay == this;
+}
+
+extension CopyWithTime on DateTime {
+  DateTime withTime(TimeOfDay time) => dateTimeWithTimeOfDay(this, time);
+
+  TimeOfDay get time => TimeOfDay.fromDateTime(this);
 }
 
 /// Returns a [DateTime] matching the start of the week i.e. 00:00 on Monday.

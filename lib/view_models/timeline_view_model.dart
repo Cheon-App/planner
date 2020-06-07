@@ -79,6 +79,11 @@ class TimelineVM extends ChangeNotifier {
   /// The amount of tasks due
   int get tasksDue => _tasksDue;
 
+  int _sessionsToGo = 0;
+  int get sessionsToGo => _sessionsToGo;
+  int _tasksToGo = 0;
+  int get tasksToGo => _tasksToGo;
+
   DateTime _selectedDate;
 
   /// The date events are currently being shown for

@@ -22,36 +22,70 @@ part 'study_dao.g.dart';
 class StudyDao extends DatabaseAccessor<Database> with _$StudyDaoMixin {
   StudyDao(Database db) : super(db);
 
-  JoinedSelectStatement<Table, DataClass> get _studySessionQuery {
-    final $StudyingTable examStudySession = alias(studying, 'exam_session');
-    final $StudyingTable testStudySession = alias(studying, 'test_session');
-    return select(subjects).join(<Join<Table, DataClass>>[
-      leftOuterJoin(teachers, teachers.id.equalsExp(subjects.teacherId)),
-      leftOuterJoin(exams, exams.subjectId.equalsExp(subjects.id)),
-      leftOuterJoin(tests, tests.subjectId.equalsExp(subjects.id)),
+  JoinedSelectStatement<Table, DataClass> _studySessionDateQuery(
+    DateTime date,
+  ) {
+    final DateTime startDate = date.truncateToDay();
+    final DateTime dayAfterStartDate = startDate.add(Duration(days: 1));
+
+    final $SubjectsTable examSubject = alias(subjects, 'exam_subject');
+    final $SubjectsTable testSubject = alias(subjects, 'test_subject');
+    final $TeachersTable examTeacher = alias(teachers, 'exam_teacher');
+    final $TeachersTable testTeacher = alias(teachers, 'test_teacher');
+
+    return (select(studying)
+          ..where(
+            (tbl) => tbl.start.isBetweenValues(startDate, dayAfterStartDate),
+          ))
+        .join(<Join<Table, DataClass>>[
+      leftOuterJoin(exams, exams.id.equalsExp(studying.examId)),
+      leftOuterJoin(tests, tests.id.equalsExp(studying.testId)),
+      leftOuterJoin(examSubject, examSubject.id.equalsExp(exams.subjectId)),
+      leftOuterJoin(testSubject, testSubject.id.equalsExp(tests.subjectId)),
       leftOuterJoin(
-        examStudySession,
-        examStudySession.examId.equalsExp(exams.id),
-      ),
+          examTeacher, examTeacher.id.equalsExp(examSubject.teacherId)),
       leftOuterJoin(
-        testStudySession,
-        testStudySession.testId.equalsExp(tests.id),
-      )
+          testTeacher, testTeacher.id.equalsExp(testSubject.teacherId)),
     ]);
   }
 
-  StudySession _rowToStudySession(TypedResult row) {
-    final $StudyingTable examStudySession = alias(studying, 'exam_session');
-    final $StudyingTable testStudySession = alias(studying, 'test_session');
-    final SubjectModel subjectModel = row.readTable(subjects);
-    final TeacherModel teacherModel = row.readTable(teachers);
+  JoinedSelectStatement<Table, DataClass> _studySessionExamQuery(Exam exam) {
+    return (select(studying)
+          ..where((tbl) => tbl.examId.equals(uuidToUint8List(exam.id))))
+        .join(<Join<Table, DataClass>>[
+      innerJoin(exams, exams.id.equals(uuidToUint8List(exam.id))),
+      innerJoin(subjects, subjects.id.equalsExp(exams.subjectId)),
+      leftOuterJoin(teachers, teachers.id.equalsExp(subjects.teacherId)),
+    ]);
+  }
+
+  JoinedSelectStatement<Table, DataClass> _studySessionTestQuery(Test test) {
+    return (select(studying)
+          ..where((tbl) => tbl.testId.equals(uuidToUint8List(test.id))))
+        .join(<Join<Table, DataClass>>[
+      innerJoin(tests, tests.id.equals(uuidToUint8List(test.id))),
+      innerJoin(subjects, subjects.id.equalsExp(tests.subjectId)),
+      leftOuterJoin(teachers, teachers.id.equalsExp(subjects.teacherId)),
+    ]);
+  }
+
+  StudySession _dateRowToStudySession(TypedResult row) {
+    final $SubjectsTable examSubject = alias(subjects, 'exam_subject');
+    final $SubjectsTable testSubject = alias(subjects, 'test_subject');
+
+    final $TeachersTable examTeacher = alias(teachers, 'exam_teacher');
+    final $TeachersTable testTeacher = alias(teachers, 'test_teacher');
+
+    final SubjectModel examSubjectModel = row.readTable(examSubject);
+    final SubjectModel testSubjectModel = row.readTable(testSubject);
+    final TeacherModel teacherModel =
+        row.readTable(examTeacher) ?? row.readTable(testTeacher);
     final ExamModel examModel = row.readTable(exams);
     final TestModel testModel = row.readTable(tests);
-    final StudyModel studyModel =
-        row.readTable(examStudySession) ?? row.readTable(testStudySession);
+    final StudyModel studyModel = row.readTable(studying);
 
     final Subject subject = Subject.fromDBModel(
-      subjectModel: subjectModel,
+      subjectModel: examSubjectModel ?? testSubjectModel,
       teacher: teacherModel != null ? Teacher.fromDBModel(teacherModel) : null,
     );
 
@@ -66,41 +100,52 @@ class StudyDao extends DatabaseAccessor<Database> with _$StudyDaoMixin {
     );
   }
 
+  StudySession _examRowToStudySession(TypedResult row) {
+    final SubjectModel subjectModel = row.readTable(subjects);
+    final TeacherModel teacherModel = row.readTable(teachers);
+    final ExamModel examModel = row.readTable(exams);
+    final StudyModel studyModel = row.readTable(studying);
+
+    final Subject subject = Subject.fromDBModel(
+      subjectModel: subjectModel,
+      teacher: teacherModel != null ? Teacher.fromDBModel(teacherModel) : null,
+    );
+
+    return StudySession.fromDBModel(
+      studyModel,
+      exam: Exam.fromDBModel(examModel: examModel, subject: subject),
+      test: null,
+    );
+  }
+
+  StudySession _testRowToStudySession(TypedResult row) {
+    final SubjectModel subjectModel = row.readTable(subjects);
+    final TeacherModel teacherModel = row.readTable(teachers);
+    final TestModel testModel = row.readTable(tests);
+    final StudyModel studyModel = row.readTable(studying);
+
+    final Subject subject = Subject.fromDBModel(
+      subjectModel: subjectModel,
+      teacher: teacherModel != null ? Teacher.fromDBModel(teacherModel) : null,
+    );
+
+    return StudySession.fromDBModel(
+      studyModel,
+      test: Test.fromDBModel(testModel: testModel, subject: subject),
+      exam: null,
+    );
+  }
+
   Stream<List<StudySession>> studySessionListFromDateStream(DateTime date) {
-    final DateTime startDate = strippedDateTime(date);
-
-    final $StudyingTable examStudySession = alias(studying, 'exam_session');
-    final $StudyingTable testStudySession = alias(studying, 'test_session');
-
-    return (_studySessionQuery
-          ..where(examStudySession.start.isBiggerOrEqualValue(startDate) |
-              testStudySession.start.isBiggerOrEqualValue(startDate))
-          ..where(
-            examStudySession.start.isSmallerThanValue(startDate.add(
-                  const Duration(days: 1),
-                )) |
-                testStudySession.start.isSmallerThanValue(
-                  startDate.add(const Duration(days: 1)),
-                ),
-          ))
-        .map(_rowToStudySession)
-        .watch();
+    return _studySessionDateQuery(date).map(_dateRowToStudySession).watch();
   }
 
   Stream<List<StudySession>> studySessionListFromExam(Exam exam) {
-    final $StudyingTable examStudySession = alias(studying, 'exam_session');
-    return (_studySessionQuery
-          ..where(examStudySession.examId.equals(uuidToUint8List(exam.id))))
-        .map(_rowToStudySession)
-        .watch();
+    return _studySessionExamQuery(exam).map(_examRowToStudySession).watch();
   }
 
   Stream<List<StudySession>> studySessionListFromTest(Test test) {
-    final $StudyingTable testStudySession = alias(studying, 'test_session');
-    return (_studySessionQuery
-          ..where(testStudySession.testId.equals(uuidToUint8List(test.id))))
-        .map(_rowToStudySession)
-        .watch();
+    return _studySessionTestQuery(test).map(_testRowToStudySession).watch();
   }
 
   Stream<double> progressTodayStream() {
@@ -123,26 +168,28 @@ class StudyDao extends DatabaseAccessor<Database> with _$StudyDaoMixin {
     return Stream<int>.value(3);
   }
 
-  Future<void> addSessionList(List<Session> sessionList) {
-    return transaction(() async {
-      for (Session session in sessionList) {
-        print('Inserting session: ${session.assessmentID}');
-        await into(studying).insert(StudyModel(
-          id: generateUUID(),
-          examId: session.assessmentType == AssessmentType.EXAM
-              ? session.assessmentID
-              : null,
-          testId: session.assessmentType == AssessmentType.TEST
-              ? session.assessmentID
-              : null,
-          start: session.start,
-          end: session.end,
-          completed: false,
-          lastUpdated: DateTime.now(),
-          // Deprecated column
-          title: '',
-        ));
-      }
+  Future<void> addSessionList(List<Session> sessionList) async {
+    return batch((Batch batch) {
+      batch.insertAll(
+        studying,
+        sessionList.map((session) {
+          return StudyModel(
+            id: generateUUID(),
+            examId: session.assessmentType == AssessmentType.EXAM
+                ? session.assessmentID
+                : null,
+            testId: session.assessmentType == AssessmentType.TEST
+                ? session.assessmentID
+                : null,
+            start: session.start,
+            end: session.end,
+            completed: false,
+            lastUpdated: DateTime.now(),
+            // Deprecated column
+            title: '',
+          );
+        }).toList(),
+      );
     });
   }
 

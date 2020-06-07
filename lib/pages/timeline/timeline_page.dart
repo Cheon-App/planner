@@ -605,6 +605,31 @@ class _TimeRow extends StatelessWidget {
 }
 
 class _DashboardCard extends StatelessWidget {
+  Widget infoTile(BuildContext context, {String number, String text}) {
+    return Expanded(
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: '$number',
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle2
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+            TextSpan(
+              text: ' $text',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final timelineVM = context.watch<TimelineVM>();
@@ -614,51 +639,16 @@ class _DashboardCard extends StatelessWidget {
         child: IntrinsicHeight(
           child: Row(
             children: <Widget>[
-              Expanded(
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: '${timelineVM.tasksDue}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle2
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: ' tasks due',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              infoTile(
+                context,
+                number: '${timelineVM.sessionsToGo}',
+                text: 'sessions to go',
               ),
               const VerticalDivider(),
-              Expanded(
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        // TODO use the correct number
-                        text: '-',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle2
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: ' tasks to go',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              infoTile(
+                context,
+                number: '${timelineVM.tasksToGo}',
+                text: 'tasks to go',
               ),
             ],
           ),

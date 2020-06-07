@@ -241,17 +241,10 @@ class OptionsList extends StatelessWidget {
               context: context,
               tiles: <Widget>[
                 SwitchListTile.adaptive(
-                  title: const Text('Auto switch timetables'),
+                  title: const Text('Rotate timetables weekly'),
                   onChanged: (bool b) => timetableVM.autoSwitch = b,
                   value: timetableVM.autoSwitch,
                 ),
-                /* SwitchListTile.adaptive(
-                  title: const Text('Switch timetables in holidays'),
-                  onChanged: timetableVM.autoSwitch
-                      ? (bool b) => timetableVM.switchInHolidays = b
-                      : null,
-                  value: timetableVM.switchInHolidays,
-                ), */
                 /* SwitchListTile.adaptive(
                   title: const Text('Use letters'),
                   onChanged: null, // (bool b) => timetableVM.useLetters = b,

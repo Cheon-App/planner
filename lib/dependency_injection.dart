@@ -73,13 +73,17 @@ Future<void> registerDependencies() async {
   final NotificationService localNotificationService =
       LocalNotificationService();
 
-  final MoorIsolate moorIsolate =
-      await _createMoorIsolate(path.join(dir.path, 'app.db'));
+  final String dbPath = path.join(dir.path, 'app.db');
 
+  // ### ISOLATE ALTERNATIVE ###
+  // final MoorIsolate moorIsolate = await _createMoorIsolate(dbPath);
   /// we can now create a database connection that will use the isolate
   /// internally. This is NOT what's returned from _backgroundConnection, moor
   /// uses an internal proxy class for isolate communication.
-  final DatabaseConnection connection = await moorIsolate.connect();
+  // final DatabaseConnection connection =  await moorIsolate.connect();
+
+  final DatabaseConnection connection = DatabaseConnection.fromExecutor(
+      LazyDatabase(() => VmDatabase(File(dbPath))));
 
   final Database db = Database.connect(connection);
 
