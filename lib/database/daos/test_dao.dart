@@ -13,9 +13,10 @@ class TestDao extends DatabaseAccessor<Database> with _$TestDaoMixin {
   TestDao(Database db) : super(db);
 
   JoinedSelectStatement<Table, DataClass> get _testQuery {
-    return select(subjects).join(<Join<Table, DataClass>>[
+    return (select(tests)..orderBy([(tbl) => OrderingTerm.asc(tbl.date)]))
+        .join([
+      innerJoin(subjects, subjects.id.equalsExp(tests.subjectId)),
       leftOuterJoin(teachers, teachers.id.equalsExp(subjects.teacherId)),
-      innerJoin(tests, tests.subjectId.equalsExp(subjects.id)),
     ]);
   }
 

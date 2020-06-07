@@ -14,9 +14,10 @@ class ExamDao extends DatabaseAccessor<Database> with _$ExamDaoMixin {
   ExamDao(Database db) : super(db);
 
   JoinedSelectStatement<Table, DataClass> _examQuery() {
-    return (select(subjects)).join(<Join<Table, DataClass>>[
+    return (select(exams)..orderBy([(tbl) => OrderingTerm.asc(tbl.start)]))
+        .join([
+      innerJoin(subjects, subjects.id.equalsExp(exams.subjectId)),
       leftOuterJoin(teachers, teachers.id.equalsExp(subjects.teacherId)),
-      innerJoin(exams, exams.subjectId.equalsExp(subjects.id))
     ]);
   }
 
