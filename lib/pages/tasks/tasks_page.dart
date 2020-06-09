@@ -542,6 +542,7 @@ class _TaskList extends StatelessWidget {
             }
             return ListView.builder(
               itemCount: tasks.length,
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 84),
               itemBuilder: (BuildContext context, int index) {
                 return _TaskCard(task: tasks[index]);
               },

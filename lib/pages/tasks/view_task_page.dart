@@ -1,7 +1,6 @@
 import 'package:cheon/widgets/raised_action_page.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/task.dart';
-import 'package:cheon/pages/add_event/add_event_page.dart';
 import 'package:cheon/view_models/task_view_model.dart';
 import 'package:cheon/widgets/select_date_card.dart';
 import 'package:cheon/widgets/select_subject_card.dart';
@@ -91,30 +90,33 @@ class __TaskBodyState extends State<_TaskBody> {
     );
   }
 
-  void _updateDueDate(DateTime due) {
+  Future<void> _updateDueDate(DateTime due) async {
     if (due == null) return;
+    setState(() {
+      _task = _task.copyWith(due: due);
+    });
     final taskVM = context.read<TaskVM>();
-    taskVM.updateTask(
+    await taskVM.updateTask(
       widget.task,
       subject: _task.subject,
       due: due,
     );
   }
 
-  void _updateSubject(Subject subject) {
+  Future<void> _updateSubject(Subject subject) async {
     if (subject == null) return;
-    final taskVM = context.read<TaskVM>();
     setState(() {
       _task = _task.copyWith(subject: subject);
     });
-    taskVM.updateTask(widget.task, subject: _task.subject);
+    final taskVM = context.read<TaskVM>();
+    await taskVM.updateTask(widget.task, subject: _task.subject);
   }
 
   Future<void> _completeTask() async {
-    final taskVM = context.read<TaskVM>();
     setState(() {
       _task = _task.copyWith(completed: !_task.completed);
     });
+    final taskVM = context.read<TaskVM>();
     await taskVM.completeTask(widget.task);
   }
 

@@ -11,21 +11,21 @@ If you're on Android you'll also need to [create a keystore](https://flutter.dev
 
 #### Production build
 
-`flutter run --release --flavor prod`
+`flutter run --release --flavor prod -t lib/main_prod.dart`
 
 #### Development build
 
-`flutter run --release -t lib/main_dev.dart --flavor dev`
+`flutter run --release --flavor dev`
 
 ### IOS
 
 #### Production build
 
-`flutter run --release`
+`flutter run --release -t lib/main_prod.dart`
 
 #### Development build
 
-`flutter run --release -t lib/main_dev.dart`
+`flutter run --release`
 
 ## Static analysis
 
