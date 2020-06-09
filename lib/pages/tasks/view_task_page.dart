@@ -136,7 +136,7 @@ class __TaskBodyState extends State<_TaskBody> {
           children: [
             Expanded(
               child: SelectDateCard(
-                date: widget.task.due,
+                date: _task.due,
                 title: 'Due',
                 onDateSelected: _updateDueDate,
                 fullDate: false,
