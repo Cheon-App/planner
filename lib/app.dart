@@ -20,7 +20,7 @@ import 'package:cheon/routes.dart';
 import 'package:cheon/view_models/app_info_view_model.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
 import 'package:cheon/view_models/lessons_view_model.dart';
-import 'package:cheon/view_models/preferences_view_model.dart';
+import 'package:cheon/view_models/settings_view_model.dart';
 import 'package:cheon/view_models/revision_view_model.dart';
 import 'package:cheon/view_models/study_view_model.dart';
 import 'package:cheon/view_models/subjects_view_model.dart';
@@ -288,13 +288,13 @@ class App extends StatelessWidget {
     // to objects in the widget tree.
     return MultiProvider(
       providers: <SingleChildWidget>[
-        ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
+        ChangeNotifierProvider<SettingsVM>(create: (_) => SettingsVM()),
       ],
       child: Builder(
         builder: (BuildContext context) {
-          final Preferences preferences = context.watch<Preferences>();
-          final ThemeMode themeMode = preferences.themeMode;
-          final bool isAmoled = preferences.amoledDark;
+          final SettingsVM settings = context.watch<SettingsVM>();
+          final ThemeMode themeMode = settings.themeMode;
+          final bool isAmoled = settings.amoledDark;
           final String titlePrefix = !FlavorConfig.instance.isProduction()
               ? FlavorConfig.instance.name
               : '';

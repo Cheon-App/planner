@@ -47,7 +47,7 @@ Future<void> registerDependencies() async {
   final Directory dir = await getApplicationDocumentsDirectory();
   Hive.init(dir.path);
 
-  final Box<dynamic> preferencesBox =
+  final Box<dynamic> settingsBox =
       await Hive.openBox<dynamic>('preferences_box');
 
   final Box<dynamic> timetableBox =
@@ -57,8 +57,8 @@ Future<void> registerDependencies() async {
   final Box<dynamic> revisionBox = await Hive.openBox<dynamic>('revision_box');
   final Box<dynamic> calendarBox = await Hive.openBox<dynamic>('calendar_box');
 
-  final KeyValueService preferencesKeyValueService =
-      HiveKeyValueService(preferencesBox);
+  final KeyValueService settingsKeyValueService =
+      HiveKeyValueService(settingsBox);
 
   final KeyValueService timetableKeyValueService =
       HiveKeyValueService(timetableBox);
@@ -96,7 +96,7 @@ Future<void> registerDependencies() async {
   );
 
   container.registerInstance<KeyValueService, HiveKeyValueService>(
-    preferencesKeyValueService,
+    settingsKeyValueService,
   );
 
   container.registerInstance<KeyValueService, HiveKeyValueService>(

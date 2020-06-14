@@ -13,8 +13,8 @@ import 'package:cheon/services/calendar_service/calendar_service.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
 import 'package:cheon/utils.dart';
 
-class Preferences extends ChangeNotifier {
-  Preferences() {
+class SettingsVM extends ChangeNotifier {
+  SettingsVM() {
     _themeMode = ThemeMode.values[
         _keyValueService.getValue(THEME_MODE) ?? ThemeMode.system.index];
 
@@ -37,8 +37,6 @@ class Preferences extends ChangeNotifier {
 
     _importCalendarEvents =
         _keyValueService.getValue(IMPORT_CALENDAR_EVENTS) ?? false;
-
-    notifyListeners();
   }
 
   static const String THEME_MODE = 'theme_mode';

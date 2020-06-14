@@ -20,7 +20,7 @@ import 'package:cheon/constants.dart';
 import 'package:cheon/pages/add_event/add_event_page.dart';
 import 'package:cheon/pages/tasks/tasks_page.dart';
 import 'package:cheon/pages/assessments/exams_page.dart';
-import 'package:cheon/pages/preferences/preferences_page.dart';
+import 'package:cheon/pages/settings/settings_page.dart';
 import 'package:cheon/pages/revision/revision_page.dart';
 import 'package:cheon/pages/subjects/subjects_page.dart';
 import 'package:cheon/pages/teachers/teachers_page.dart';
@@ -360,8 +360,8 @@ class _Drawer extends StatelessWidget {
   void _openTeachersPage(BuildContext context) =>
       Navigator.pushNamed(context, TeachersPage.routeName);
 
-  void _openPreferencesPage(BuildContext context) =>
-      Navigator.pushNamed(context, PreferencesPage.routeName);
+  void _openSettingsPage(BuildContext context) =>
+      Navigator.pushNamed(context, SettingsPage.routeName);
 
   /// Opens an invite url to the community Discord(messaging platform) group
   Future<void> _openDiscord(BuildContext context) async {
@@ -424,7 +424,7 @@ class _Drawer extends StatelessWidget {
               icon: FontAwesomeIcons.chalkboardTeacher,
             ),
             _DrawerTab(
-              onTap: () => _openPreferencesPage(context),
+              onTap: () => _openSettingsPage(context),
               text: 'Settings',
               icon: FontAwesomeIcons.slidersH,
             ),

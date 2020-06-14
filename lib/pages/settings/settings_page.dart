@@ -11,14 +11,14 @@ import 'package:cheon/widgets/platform_selection_dialog.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/url_launcher.dart';
 import 'package:cheon/view_models/app_info_view_model.dart';
-import 'package:cheon/view_models/preferences_view_model.dart';
+import 'package:cheon/view_models/settings_view_model.dart';
 import 'package:cheon/widgets/platform_date_time_picker.dart';
 
 /// A page used to change app settings
-class PreferencesPage extends StatelessWidget {
-  const PreferencesPage({Key key, this.inHomePage = true}) : super(key: key);
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({Key key, this.inHomePage = true}) : super(key: key);
 
-  static const String routeName = '/preferences';
+  static const String routeName = '/settings';
   final bool inHomePage;
 
   @override
@@ -53,7 +53,7 @@ class _AboutAppCard extends StatelessWidget {
     final AppInfo appInfo = Provider.of<AppInfo>(context);
     final String appVersion = '${appInfo.versionName} | ${appInfo.buildNumber}';
 
-    return _PreferencesCard(
+    return _SettingsCard(
       title: 'About This App',
       subtitle: 'App information',
       separated: true,
@@ -116,29 +116,28 @@ class _NotificationsCard extends StatelessWidget {
   void setHomeworkReminderTime(
     BuildContext context,
   ) {
-    final Preferences preferences =
-        Provider.of<Preferences>(context, listen: false);
+    final SettingsVM settings = Provider.of<SettingsVM>(context, listen: false);
 
-    final TimeOfDay previousTime = preferences.homeworkReminderTime;
+    final TimeOfDay previousTime = settings.homeworkReminderTime;
     showPlatformTimePicker(context: context, initialTime: previousTime)
         .listen((TimeOfDay time) {
       if (time == null) return;
-      preferences.homeworkReminderTime = time;
+      settings.homeworkReminderTime = time;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final Preferences preferences = Provider.of<Preferences>(context);
-    final bool homeworkReminders = preferences.homeworkReminders;
+    final SettingsVM settings = Provider.of<SettingsVM>(context);
+    final bool homeworkReminders = settings.homeworkReminders;
 
-    return _PreferencesCard(
+    return _SettingsCard(
       title: 'Notifications',
       subtitle: 'Configure app notifications',
       separated: false,
       children: <Widget>[
         SwitchListTile.adaptive(
-          onChanged: (bool b) => preferences.homeworkReminders = b,
+          onChanged: (bool b) => settings.homeworkReminders = b,
           value: homeworkReminders,
           title: const Text('Homework reminders'),
         ),
@@ -150,8 +149,8 @@ class _NotificationsCard extends StatelessWidget {
               duration: DURATION_MEDIUM,
               opacity: homeworkReminders ? 1 : 0.75,
               child: DayToggle(
-                isSelected: (i) => preferences.homeworkReminderDays[i],
-                onPressed: preferences.toggleHomeworkReminderDay,
+                isSelected: (i) => settings.homeworkReminderDays[i],
+                onPressed: settings.toggleHomeworkReminderDay,
               ),
             ),
           ),
@@ -162,7 +161,7 @@ class _NotificationsCard extends StatelessWidget {
           title: const Text('Reminder Time'),
           trailing: Text(
             MaterialLocalizations.of(context)
-                .formatTimeOfDay(preferences.homeworkReminderTime),
+                .formatTimeOfDay(settings.homeworkReminderTime),
             style: TextStyle(
               color: homeworkReminders
                   ? Theme.of(context).colorScheme.onBackground
@@ -182,14 +181,14 @@ class _NotificationsCard extends StatelessWidget {
     BuildContext context, {
     @required Calendar selectedCalendar,
   }) async {
-    final Preferences preferences = Provider.of(context, listen: false);
+    final SettingsVM settings = Provider.of(context, listen: false);
     final String selectedCalendarId = selectedCalendar?.id;
     final Calendar calendar = await showModal<Calendar>(
       context: context,
       configuration: FadeScaleTransitionConfiguration(),
       builder: (BuildContext context) {
         return FutureBuilder<List<Calendar>>(
-          future: preferences.calendarList(),
+          future: settings.calendarList(),
           initialData: List<Calendar>.from(<Calendar>[]),
           builder: (
             BuildContext context,
@@ -261,25 +260,25 @@ class _NotificationsCard extends StatelessWidget {
       },
     );
     if (calendar == null) return;
-    preferences.selectedCalendar = calendar;
+    settings.selectedCalendar = calendar;
   }
 
   @override
   Widget build(BuildContext context) {
-    final Preferences preferences = Provider.of<Preferences>(context);
-    final bool noSelectedCalendar = preferences.selectedCalendar == null;
-    return _PreferencesCard(
+    final SettingsVM settings = Provider.of<SettingsVM>(context);
+    final bool noSelectedCalendar = settings.selectedCalendar == null;
+    return _SettingsCard(
       title: 'Calendar',
       subtitle: 'Manage calendar syncronisation',
       separated: true,
       children: <Widget>[
         SwitchListTile.adaptive(
-          onChanged: (bool value) => preferences.importCalendarEvents = value,
-          value: preferences.importCalendarEvents,
+          onChanged: (bool value) => settings.importCalendarEvents = value,
+          value: settings.importCalendarEvents,
           title: const Text('Import calendar events'),
         ),
         ListTile(
-          enabled: preferences.importCalendarEvents,
+          enabled: settings.importCalendarEvents,
           title: const Text('Select calendar'),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -287,19 +286,19 @@ class _NotificationsCard extends StatelessWidget {
                 ? const <Widget>[]
                 : <Widget>[
                     Text(
-                      preferences.selectedCalendar.name,
+                      settings.selectedCalendar.name,
                       style: Theme.of(context).textTheme.subtitle2.copyWith(
-                            color: !preferences.importCalendarEvents
+                            color: !settings.importCalendarEvents
                                 ? Colors.grey.shade700
                                 : null,
                           ),
                     ),
-                    Text(preferences.selectedCalendar.accountName),
+                    Text(settings.selectedCalendar.accountName),
                   ],
           ),
           onTap: () => showSelectCalendarDialog(
             context,
-            selectedCalendar: preferences.selectedCalendar,
+            selectedCalendar: settings.selectedCalendar,
           ),
         ),
       ],
@@ -307,8 +306,8 @@ class _NotificationsCard extends StatelessWidget {
   }
 } */
 
-class _PreferencesCard extends StatelessWidget {
-  const _PreferencesCard({
+class _SettingsCard extends StatelessWidget {
+  const _SettingsCard({
     Key key,
     @required this.title,
     @required this.children,
@@ -395,20 +394,20 @@ class _ThemeCard extends StatelessWidget {
             ),
           )
           .toList(),
-      selectedItem: Provider.of<Preferences>(context, listen: false).themeMode,
+      selectedItem: Provider.of<SettingsVM>(context, listen: false).themeMode,
     );
 
     if (themeMode != null) {
-      Provider.of<Preferences>(context, listen: false).themeMode = themeMode;
+      Provider.of<SettingsVM>(context, listen: false).themeMode = themeMode;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final Preferences preferences = Provider.of<Preferences>(context);
-    final ThemeMode themeMode = preferences.themeMode;
-    final bool amoledDark = preferences.amoledDark;
-    return _PreferencesCard(
+    final SettingsVM settings = Provider.of<SettingsVM>(context);
+    final ThemeMode themeMode = settings.themeMode;
+    final bool amoledDark = settings.amoledDark;
+    return _SettingsCard(
       title: 'Theme',
       subtitle: 'Configure the appearance of the app',
       separated: true,
@@ -421,7 +420,7 @@ class _ThemeCard extends StatelessWidget {
         SwitchListTile.adaptive(
           title: const Text('AMOLED Dark Mode'),
           onChanged: Theme.of(context).brightness == Brightness.dark
-              ? (bool b) => preferences.amoledDark = b
+              ? (bool b) => settings.amoledDark = b
               : null,
           value: amoledDark,
         ),

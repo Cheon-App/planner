@@ -19,7 +19,7 @@ import 'package:cheon/pages/tasks/tasks_page.dart';
 import 'package:cheon/pages/assessments/exams_page.dart';
 import 'package:cheon/pages/home/home_page.dart';
 import 'package:cheon/pages/lessons/lessons_page.dart';
-import 'package:cheon/pages/preferences/preferences_page.dart';
+import 'package:cheon/pages/settings/settings_page.dart';
 import 'package:cheon/pages/study/study_page.dart';
 import 'package:cheon/pages/subjects/subjects_page.dart';
 import 'package:cheon/pages/teachers/teacher_page.dart';
@@ -73,7 +73,7 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
         teacher: routeArguments(context) as Teacher,
       ),
   HomePage.routeName: (_) => const HomePage(),
-  PreferencesPage.routeName: (_) => const PreferencesPage(inHomePage: false),
+  SettingsPage.routeName: (_) => const SettingsPage(inHomePage: false),
   TimetablePage.routeName: (_) => const TimetablePage(inHomePage: false),
   AddEventPage.routeName: (BuildContext context) => MultiProvider(
         providers: [

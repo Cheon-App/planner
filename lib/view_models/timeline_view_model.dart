@@ -22,7 +22,7 @@ import 'package:cheon/repositories/lesson_repository.dart';
 import 'package:cheon/repositories/study_repository.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
 import 'package:cheon/utils.dart';
-import 'package:cheon/view_models/preferences_view_model.dart';
+import 'package:cheon/view_models/settings_view_model.dart';
 
 class TimelineVM extends ChangeNotifier {
   TimelineVM() {
@@ -63,7 +63,7 @@ class TimelineVM extends ChangeNotifier {
               _lessonRepository.lessonListFromDateStream(date),
               _examRepository.examListFromDateStream(date),
               _studyRepository.studySessionListFromDateStream(date),
-              _keyValueService.getValue(Preferences.IMPORT_CALENDAR_EVENTS) ??
+              _keyValueService.getValue(SettingsVM.IMPORT_CALENDAR_EVENTS) ??
                       false
                   ? _eventRepository.eventListStreamFromDate(date).asStream()
                   : Stream<List<CalendarEvent>>.value(<CalendarEvent>[]),
