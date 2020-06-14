@@ -6,6 +6,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
+import 'package:cheon/models/subject.dart';
+import 'package:cheon/models/teacher.dart';
+import 'package:cheon/widgets/select_subject_card.dart';
+import 'package:cheon/widgets/select_teacher_card.dart';
 import 'package:cheon/widgets/empty_placeholder.dart';
 import 'package:cheon/widgets/error_message.dart';
 import 'package:cheon/widgets/loading_indicator.dart';
@@ -34,33 +38,44 @@ class ViewLessonPage extends StatefulWidget {
 }
 
 class _ViewLessonPageState extends State<ViewLessonPage> {
-  bool editMode = false;
+  Subject _subject;
 
-  void enableEditing() => setState(() => editMode = true);
-
-  void saveChanges() {
-    setState(() => editMode = false);
+  @override
+  void initState() {
+    super.initState();
+    _subject = widget.lesson.subject;
   }
 
-  Future<void> deleteLesson() {
-    final LessonsVM lessonsVM = Provider.of<LessonsVM>(context, listen: false);
+  Future<void> _deleteLesson() {
+    final lessonsVM = context.read<LessonsVM>();
     Navigator.pop(context);
     return lessonsVM.deleteLesson(widget.lesson);
+  }
+
+  Future<void> _setSubject(Subject subject) async {
+    setState(() => _subject = subject);
+    final lessonsVM = context.read<LessonsVM>();
+    await lessonsVM.updateLesson(widget.lesson, subject: subject);
   }
 
   @override
   Widget build(BuildContext context) {
     return RaisedActionPage(
-      appBarTitle: '${widget.lesson.subject.name} lesson',
-      color: widget.lesson.subject.color,
-      editMode: editMode,
+      appBarTitle: '${_subject.name} lesson',
+      color: _subject.color,
+      primaryActionEnabled: false,
+      showEditButton: false,
+      extraAction: IconButton(
+        onPressed: _deleteLesson,
+        icon: FaIcon(FontAwesomeIcons.trashAlt),
+        tooltip: 'Delete',
+      ),
       child: _LessonBody(
         lesson: widget.lesson,
-        editMode: editMode,
         nested: widget.nested,
+        subject: _subject,
+        onSubjectChanged: _setSubject,
       ),
-      onEditModeChanged: editMode ? saveChanges : enableEditing,
-      onDelete: deleteLesson,
     );
   }
 }
@@ -69,15 +84,16 @@ class _LessonBody extends StatefulWidget {
   const _LessonBody({
     Key key,
     @required this.lesson,
-    @required this.editMode,
     @required this.nested,
+    @required this.subject,
+    @required this.onSubjectChanged,
   })  : assert(lesson != null),
-        assert(editMode != null),
         super(key: key);
 
   final Lesson lesson;
-  final bool editMode;
   final bool nested;
+  final Subject subject;
+  final ValueChanged<Subject> onSubjectChanged;
 
   @override
   __LessonBodyState createState() => __LessonBodyState();
@@ -85,11 +101,16 @@ class _LessonBody extends StatefulWidget {
 
 class __LessonBodyState extends State<_LessonBody> {
   TextEditingController _noteController;
+  TextEditingController _roomController;
+  Teacher _teacher;
 
   @override
   void initState() {
     super.initState();
-    _noteController = TextEditingController(text: widget.lesson.note);
+    final lesson = widget.lesson;
+    _noteController = TextEditingController(text: lesson.note);
+    _roomController = TextEditingController(text: lesson.room);
+    _teacher = lesson.teacher;
   }
 
   @override
@@ -102,61 +123,102 @@ class __LessonBodyState extends State<_LessonBody> {
 
   @override
   void dispose() {
-    super.dispose();
     _noteController.dispose();
+    _roomController.dispose();
+    super.dispose();
   }
 
-  void updateNote(String text) {
-    final LessonsVM lessonsVM = Provider.of<LessonsVM>(context, listen: false);
+  void _updateNote(String text) {
+    final lessonsVM = context.read<LessonsVM>();
     lessonsVM.updateLesson(widget.lesson, note: text);
+  }
+
+  Future<void> _setTeacher(Teacher teacher) async {
+    setState(() => _teacher = teacher);
+    final lessonsVM = context.read<LessonsVM>();
+    await lessonsVM.updateLesson(widget.lesson, teacher: teacher);
+  }
+
+  Future<void> _setRoom(String room) async {
+    final lessonsVM = context.read<LessonsVM>();
+    await lessonsVM.updateLesson(widget.lesson, room: room);
   }
 
   @override
   Widget build(BuildContext context) {
+    final lesson = widget.lesson;
+    final timeString =
+        MaterialLocalizations.of(context).formatTimeOfDay(lesson.startTime);
     return ListView(
+      primary: false,
+      padding: const EdgeInsets.only(top: 12),
       children: <Widget>[
-        ListTile(
-          title: Text(
-            '${dayToString(widget.lesson.weekday)} Week '
-            '${widget.lesson.timetable.week}',
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          subtitle: const Text('One hour'),
-          trailing: Text(
-            MaterialLocalizations.of(context)
-                .formatTimeOfDay(widget.lesson.startTime),
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          leading: Icon(
-            FontAwesomeIcons.calendarAlt,
-            color: Theme.of(context).iconTheme.color,
-          ),
-        ),
-        ListTile(
-          title: Text(
-            widget.lesson.teacher?.name ?? '',
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          trailing: Text(
-            widget.lesson.room ?? '',
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          leading: Icon(
-            FontAwesomeIcons.chalkboardTeacher,
-            color: Theme.of(context).iconTheme.color,
-          ),
-        ),
         Padding(
-          padding: const EdgeInsets.all(8),
-          child: TextFormField(
-            controller: _noteController,
-            decoration: const InputDecoration(
-              labelText: 'Note',
-              alignLabelWithHint: true,
-            ),
-            onChanged: updateNote,
-            minLines: 2,
-            maxLines: 2,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Column(
+            children: [
+              Card(
+                  child: ListTile(
+                title: Text(
+                  '${dayToString(lesson.weekday)}, Period ${lesson.period} at '
+                  '$timeString',
+                  textAlign: TextAlign.center,
+                ),
+              )),
+            ],
+          ),
+        ),
+        Divider(height: 4, thickness: 0),
+        // Subject & Room
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: SelectSubjectCard(
+                      subject: widget.subject,
+                      onSubjectChanged: widget.onSubjectChanged,
+                      isRequired: true,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: TextField(
+                      onChanged: _setRoom,
+                      controller: _roomController,
+                      decoration: InputDecoration(
+                        labelText: 'Room',
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 12,
+                        ),
+                      ),
+                      textCapitalization: TextCapitalization.sentences,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              // Teacher
+              SelectTeacherCard(
+                onTeacherChanged: _setTeacher,
+                teacher: _teacher,
+              ),
+              const SizedBox(height: 8),
+              // Note
+              TextFormField(
+                controller: _noteController,
+                decoration: InputDecoration(
+                  labelText: 'Note',
+                  alignLabelWithHint: true,
+                ),
+                onChanged: _updateNote,
+                minLines: 2,
+                maxLines: 2,
+              ),
+            ],
           ),
         ),
         !widget.nested
@@ -188,21 +250,21 @@ class _OtherLessonsSection extends StatefulWidget {
 class __OtherLessonsSectionState extends State<_OtherLessonsSection> {
   Stream<List<Lesson>> _otherLessonsStream;
 
-  void openLessonPage(Lesson lesson) {
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(
-        builder: (_) => ViewLessonPage(lesson: lesson, nested: true),
-      ),
-    );
-  }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final LessonsVM lessonsVM = Provider.of<LessonsVM>(context, listen: false);
     _otherLessonsStream =
         lessonsVM.lessonListFromSubjectStream(widget.lesson.subject);
+  }
+
+  void _openLessonPage(Lesson lesson) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (_) => ViewLessonPage(lesson: lesson, nested: true),
+      ),
+    );
   }
 
   @override
@@ -246,7 +308,7 @@ class __OtherLessonsSectionState extends State<_OtherLessonsSection> {
                             subtitle: lesson.teacher?.name ?? 'No Teacher',
                             trailingSubtitle:
                                 lesson.room != null ? Text(lesson.room) : null,
-                            onTap: () => openLessonPage(lesson),
+                            onTap: () => _openLessonPage(lesson),
                           );
                         },
                       );

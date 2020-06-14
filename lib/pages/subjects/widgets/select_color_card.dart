@@ -1,7 +1,12 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:animations/animations.dart';
+
+// Project imports:
 import 'package:cheon/models/selection_dialog_widget_item.dart';
 import 'package:cheon/widgets/grid_selection_dialog.dart';
-import 'package:flutter/material.dart';
 
 class SelectColorCard extends StatelessWidget {
   const SelectColorCard({

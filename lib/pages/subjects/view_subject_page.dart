@@ -1,14 +1,14 @@
 // Flutter imports:
-import 'package:cheon/pages/subjects/widgets/select_color_card.dart';
-import 'package:cheon/pages/subjects/widgets/select_icon_card.dart';
-import 'package:cheon/pages/subjects/widgets/select_teacher_card.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Package imports:
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
+import 'package:cheon/pages/subjects/widgets/select_color_card.dart';
+import 'package:cheon/pages/subjects/widgets/select_icon_card.dart';
+import 'package:cheon/widgets/select_teacher_card.dart';
 import 'package:cheon/widgets/raised_action_page.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
@@ -177,23 +177,6 @@ class __SubjectBodyState extends State<_SubjectBody> {
         ),
         const SizedBox(height: 4),
         SelectTeacherCard(teacher: _teacher, onTeacherChanged: _setTeacher)
-      ],
-    );
-    return Stack(
-      children: <Widget>[
-        Center(
-          child: Icon(
-            widget.subject.icon,
-            color: Theme.of(context).colorScheme.onBackground.withOpacity(0.2),
-            size: MediaQuery.of(context).size.longestSide * 0.2,
-          ),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: const <Widget>[
-            //
-          ],
-        ),
       ],
     );
   }

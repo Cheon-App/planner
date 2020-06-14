@@ -6,7 +6,6 @@ import 'package:cheon/database/daos/lesson_dao.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/lesson.dart';
-import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/timetable.dart';
 import 'package:cheon/repositories/timetable_repository.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
@@ -129,10 +128,6 @@ class LessonRepository {
     );
   }
 
-  Stream<List<Lesson>> lessonListFromSubjectStream(Subject subject) {
-    return _dao.lessonListFromSubjectStream(subject);
-  }
-
   final BehaviorSubject<List<Lesson>> _lessonListSubject =
       BehaviorSubject<List<Lesson>>();
   Stream<List<Lesson>> get lessonListStream => _lessonListSubject.stream;
@@ -141,9 +136,4 @@ class LessonRepository {
       BehaviorSubject<List<Lesson>>();
   Stream<List<Lesson>> get activeLessonListStream =>
       _activeLessonListSubject.stream;
-
-  Future<void> updateLesson(Lesson lesson, {String room, String note}) =>
-      _dao.updateLesson(lesson, room: room, note: note);
-
-  Future<void> deleteLesson(Lesson lesson) => _dao.deleteLesson(lesson);
 }

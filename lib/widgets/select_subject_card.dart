@@ -14,7 +14,7 @@ class SelectSubjectCard extends StatelessWidget {
   const SelectSubjectCard({
     Key key,
     this.subject,
-    @required this.onSubjectSelected,
+    @required this.onSubjectChanged,
     this.isRequired = false,
     this.enabled = true,
   }) : super(key: key);
@@ -23,7 +23,7 @@ class SelectSubjectCard extends StatelessWidget {
   final Subject subject;
 
   /// A callback function invoked when a subject is selected.
-  final Function(Subject) onSubjectSelected;
+  final Function(Subject) onSubjectChanged;
 
   /// True if a subject must be selected
   final bool isRequired;
@@ -38,7 +38,7 @@ class SelectSubjectCard extends StatelessWidget {
       selectedSubject: this.subject,
     );
 
-    if (subject != null) onSubjectSelected(subject);
+    if (subject != null) onSubjectChanged(subject);
   }
 
   @override

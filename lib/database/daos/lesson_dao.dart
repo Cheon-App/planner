@@ -2,6 +2,7 @@
 import 'package:moor/moor.dart';
 
 // Project imports:
+import 'package:cheon/database/db_value.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/database/tables.dart';
 import 'package:cheon/database/converters/uuid_converter.dart';
@@ -119,11 +120,19 @@ class LessonDao extends DatabaseAccessor<Database> with _$LessonDaoMixin {
         .watch();
   }
 
-  Future<void> updateLesson(Lesson lesson, {String room, String note}) {
+  Future<void> updateLesson(
+    Lesson lesson, {
+    String room,
+    String note,
+    Subject subject,
+    Teacher teacher,
+  }) {
     final LessonsCompanion companion = LessonsCompanion(
       id: Value<String>(lesson.id),
-      room: room != null ? Value<String>(room) : const Value<String>.absent(),
-      note: note != null ? Value<String>(note) : const Value<String>.absent(),
+      room: DbValue(room),
+      note: DbValue(note),
+      subjectId: DbValue(subject?.id),
+      teacherId: DbValue(teacher?.id),
       lastUpdated: Value<DateTime>(DateTime.now()),
     );
     return (update(lessons)..whereSamePrimaryKey(companion)).write(companion);

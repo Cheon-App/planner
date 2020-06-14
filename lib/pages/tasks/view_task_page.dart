@@ -151,7 +151,7 @@ class __TaskBodyState extends State<_TaskBody> {
             Expanded(
               child: SelectSubjectCard(
                 subject: _task.subject,
-                onSubjectSelected: _updateSubject,
+                onSubjectChanged: _updateSubject,
               ),
             ),
           ],
@@ -192,7 +192,7 @@ class _SelectSubjectFormCard extends FormField<Subject> {
           initialValue: initialSubject,
           builder: (FormFieldState<Subject> state) {
             return SelectSubjectCard(
-              onSubjectSelected: state.didChange,
+              onSubjectChanged: state.didChange,
               subject: state.value,
               isRequired: subjectRequired,
               enabled: enabled,

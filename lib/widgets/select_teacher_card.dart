@@ -1,7 +1,12 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+// Project imports:
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/widgets/select_teacher_dialog.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SelectTeacherCard extends StatelessWidget {
   const SelectTeacherCard({

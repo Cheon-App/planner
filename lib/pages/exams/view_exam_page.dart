@@ -188,7 +188,7 @@ class __ExamBodyState extends State<_ExamBody> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: SelectSubjectCard(
-                    onSubjectSelected: widget.onSubjectChanged,
+                    onSubjectChanged: widget.onSubjectChanged,
                     subject: widget.subject,
                     isRequired: true,
                   ),

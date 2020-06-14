@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
+import 'package:cheon/widgets/select_subject_card.dart';
+import 'package:cheon/widgets/select_teacher_card.dart';
 import 'package:cheon/widgets/primary_action_button.dart';
-import 'package:cheon/widgets/select_subject_dialog.dart';
-import 'package:cheon/widgets/select_teacher_dialog.dart';
 import 'package:cheon/widgets/tap_to_dismiss.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/subject.dart';
@@ -54,18 +53,11 @@ class _Body extends StatefulWidget {
 }
 
 class __BodyState extends State<_Body> {
-  Subject subject;
-  Teacher teacher;
-  String room;
+  Subject _subject;
+  Teacher _teacher;
   String note;
 
-  TextEditingController _roomController;
-
-  @override
-  void initState() {
-    super.initState();
-    _roomController = TextEditingController();
-  }
+  final TextEditingController _roomController = TextEditingController();
 
   @override
   void dispose() {
@@ -73,49 +65,31 @@ class __BodyState extends State<_Body> {
     _roomController.dispose();
   }
 
-  Future<void> selectSubject() async {
-    final Subject subject = await showSelectSubjectDialog(context: context);
-    if (subject == null || this.subject == subject) return;
-
+  void _setSubject(Subject subject) {
     setState(() {
-      if (subject.teacher != null && teacher == null) {
-        teacher = subject.teacher;
+      // Update teacher
+      if (subject.teacher != null && _teacher == null) {
+        _teacher = subject.teacher;
       }
-      if (subject.room != null && room == null) {
+      // Update room
+      if (subject.room != null && _roomController.text.isEmpty) {
         _roomController.text = subject.room;
       }
-      this.subject = subject;
+      // Update subject
+      _subject = subject;
     });
   }
 
-  Future<void> selectTeacher() async {
-    final Teacher teacher = await showSelectTeacherDialog(
-      context: context,
-      selectedTeacher: this.teacher,
-    );
-    if (teacher == null) return;
-    setState(() {
-      this.teacher = teacher;
-    });
-  }
-
-  void updateRoom(String room) {
-    if (room == null) return;
-    setState(() {
-      this.room = room;
-    });
-  }
-
-  void updateNote(String note) {
+  void _updateNote(String note) {
     if (note == null) return;
     setState(() {
       this.note = note;
     });
   }
 
-  Future<void> addLesson() async {
+  Future<void> _addLesson() async {
     final TimetableVM timetableVM = context.read<TimetableVM>();
-    if (subject == null) {
+    if (_subject == null) {
       Scaffold.of(context).showSnackBar(
         const SnackBar(content: Text('Please select a subject.')),
       );
@@ -127,9 +101,9 @@ class __BodyState extends State<_Body> {
       timetable: widget.timetablePosition.timetable,
       period: widget.timetablePosition.period,
       weekday: widget.timetablePosition.weekday,
-      subject: subject,
-      teacher: teacher,
-      room: room,
+      subject: _subject,
+      teacher: _teacher,
+      room: _roomController.text,
       note: note,
     );
   }
@@ -143,46 +117,32 @@ class __BodyState extends State<_Body> {
           Row(
             children: <Widget>[
               Expanded(
-                child: IntrinsicHeight(
-                  child: Card(
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                            color: subject?.color ?? Colors.grey, width: 4),
-                        Expanded(
-                          child: ListTile(
-                            title: Text(
-                              subject != null ? subject.name : 'Subject',
-                            ),
-                            trailing: Icon(FontAwesomeIcons.chevronDown),
-                            onTap: selectSubject,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                child: SelectSubjectCard(
+                  subject: _subject,
+                  onSubjectChanged: _setSubject,
+                  isRequired: true,
                 ),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Card(
-                  child: ListTile(
-                    title: Text(teacher != null ? teacher.name : 'Teacher'),
-                    trailing: Icon(FontAwesomeIcons.chevronDown),
-                    onTap: selectTeacher,
+                child: TextField(
+                  controller: _roomController,
+                  decoration: const InputDecoration(
+                    labelText: 'Room',
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 16,
+                      horizontal: 12,
+                    ),
                   ),
+                  textCapitalization: TextCapitalization.sentences,
                 ),
-              ),
+              )
             ],
           ),
           const SizedBox(height: 4),
-          TextField(
-            controller: _roomController,
-            decoration: const InputDecoration(
-              labelText: 'Room',
-              alignLabelWithHint: true,
-            ),
-            onChanged: updateRoom,
+          SelectTeacherCard(
+            teacher: _teacher,
+            onTeacherChanged: (t) => setState(() => _teacher = t),
           ),
           const SizedBox(height: 8),
           TextField(
@@ -190,7 +150,7 @@ class __BodyState extends State<_Body> {
               labelText: 'Note',
               alignLabelWithHint: true,
             ),
-            onChanged: updateNote,
+            onChanged: _updateNote,
             minLines: 2,
             maxLines: 2,
           ),
@@ -207,7 +167,7 @@ class __BodyState extends State<_Body> {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: PrimaryActionButton(
               text: 'ADD',
-              onTap: subject != null ? () => addLesson() : null,
+              onTap: _subject != null ? () => _addLesson() : null,
             ),
           ),
         ],

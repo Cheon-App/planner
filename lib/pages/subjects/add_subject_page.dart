@@ -2,15 +2,15 @@
 import 'dart:math';
 
 // Flutter imports:
-import 'package:cheon/pages/subjects/widgets/select_color_card.dart';
-import 'package:cheon/pages/subjects/widgets/select_icon_card.dart';
-import 'package:cheon/pages/subjects/widgets/select_teacher_card.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:provider/provider.dart';
 
 // Project imports:
+import 'package:cheon/pages/subjects/widgets/select_color_card.dart';
+import 'package:cheon/pages/subjects/widgets/select_icon_card.dart';
+import 'package:cheon/widgets/select_teacher_card.dart';
 import 'package:cheon/widgets/primary_action_button.dart';
 import 'package:cheon/widgets/tap_to_dismiss.dart';
 import 'package:cheon/constants.dart';
