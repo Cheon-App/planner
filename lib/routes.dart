@@ -48,12 +48,12 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
         lesson: routeArguments(context) as Lesson,
       ),
   // Tasks
-  TasksPage.routeName: (_) => VMProvider<TaskVM>(
-        viewModel: (_) => TaskVM(),
+  TasksPage.routeName: (_) => ChangeNotifierProvider<TaskVM>(
+        create: (_) => TaskVM(),
         child: const TasksPage(),
       ),
-  ViewTaskPage.routeName: (context) => VMProvider<TaskVM>(
-        viewModel: (_) => TaskVM(),
+  ViewTaskPage.routeName: (context) => ChangeNotifierProvider<TaskVM>(
+        create: (_) => TaskVM(),
         child: ViewTaskPage(task: routeArguments(context) as Task),
       ),
   // Subjects
@@ -72,10 +72,7 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   TimetablePage.routeName: (_) => const TimetablePage(inHomePage: false),
   AddEventPage.routeName: (BuildContext context) => MultiProvider(
         providers: [
-          Provider<TaskVM>(
-            create: (_) => TaskVM(),
-            dispose: (__, vm) => vm.dispose(),
-          ),
+          ChangeNotifierProvider<TaskVM>(create: (_) => TaskVM()),
         ],
         child: AddEventPage(
           eventType: routeArguments(context) as EventType,

@@ -23,6 +23,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_interactive_keyboard/flutter_interactive_keyboard.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+// import 'package:wiredash/wiredash.dart';
 
 /// Handles app theming and initialisation
 void configureApp() {
@@ -290,8 +291,7 @@ class App extends StatelessWidget {
           final String titlePrefix = !FlavorConfig.instance.isProduction()
               ? FlavorConfig.instance.name
               : '';
-
-          /*  projectId: Platform.environment['wiredash_project_id'],
+          /* projectId: Platform.environment['wiredash_project_id'],
             secret: Platform.environment['wiredash_secret'],
             navigatorKey: _navigatorKey,
             theme: WiredashThemeData(

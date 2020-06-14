@@ -12,7 +12,7 @@
                 "--flavor",
                 "dev",
                 "--target",
-                "lib/main_dev.dart"
+                "lib/main.dart"
             ]
         },
         {
@@ -21,7 +21,7 @@
             "type": "dart",
             "args": [
                 "--target",
-                "lib/main_dev.dart"
+                "lib/main.dart"
             ]
         },
         {
@@ -41,6 +41,8 @@
             "request": "launch",
             "type": "dart",
             "args": [
+                "--target",
+                "lib/main_prod.dart",
                 "--flavor",
                 "prod"
             ]

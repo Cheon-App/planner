@@ -12,14 +12,16 @@ import 'package:cheon/pages/subjects/subjects_page.dart';
 import 'package:cheon/pages/teachers/teachers_page.dart';
 import 'package:cheon/pages/timeline/timeline_page.dart';
 import 'package:cheon/pages/timetable/timetable_page.dart';
-import 'package:cheon/routes.dart';
 import 'package:cheon/url_launcher.dart';
 import 'package:cheon/view_models/task_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 import 'package:share/share.dart';
+import 'package:wiredash/wiredash.dart';
 
 /// All pages shown on the home page, changing the order changes the order
 /// of the items in the bottom and side navigation bar
@@ -71,6 +73,11 @@ class HomePageState extends State<HomePage> {
     // If the app is opened using a shortcut then it is dealt with here
     _initializeQuickActions();
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Decides if a review popup should be displayed
+      _initReviewPopup();
+    });
+
     /// Type safe way of generating a list of pages, fab keys, navigation icons,
     /// and page names for various components in the home page that relies on
     /// indexing of the [_Page] enum
@@ -85,9 +92,9 @@ class HomePageState extends State<HomePage> {
         case _Page.TASKS:
           _fabKeys.add(const ValueKey<String>('add'));
           _pages.add(
-            VMProvider<TaskVM>(
+            ChangeNotifierProvider<TaskVM>(
+              create: (_) => TaskVM(),
               child: const TasksPage(),
-              viewModel: (_) => TaskVM(),
             ),
           );
           _navigationIcons.add(FontAwesomeIcons.tasks);
@@ -164,6 +171,90 @@ class HomePageState extends State<HomePage> {
         ),
       ],
     );
+  }
+
+  Future<void> _initReviewPopup() async {
+    const dialogMessage =
+        'Finding the app useful? Help others discover it by leaving a review. '
+        'It\'s really quick!';
+
+    final RateMyApp rateMyApp = RateMyApp(
+      googlePlayIdentifier: 'app.cheon.app',
+      appStoreIdentifier: '1486076973',
+      minDays: 5,
+      minLaunches: 10,
+      remindDays: 10,
+      remindLaunches: 15,
+    );
+
+    await rateMyApp.init();
+
+    if (rateMyApp.shouldOpenDialog || true) {
+      rateMyApp.showRateDialog(
+        context,
+        // The dialog title.
+        title: 'Rate this app!',
+        // The dialog message.
+        message: dialogMessage,
+        // The button click listener (useful if you want to cancel the click
+        // event
+        listener: (button) {
+          switch (button) {
+            case RateMyAppDialogButton.rate:
+              print('Clicked on "Rate".');
+              break;
+            case RateMyAppDialogButton.later:
+              print('Clicked on "Later".');
+              break;
+            case RateMyAppDialogButton.no:
+              print('Clicked on "No".');
+              break;
+          }
+
+          return true; // Return false if you want to cancel the click event.
+        },
+        // Set to false if you want to show the Apple's native app rating dialog
+        //  on iOS.
+        ignoreIOS: false,
+        // Custom dialog styles.
+        dialogStyle: DialogStyle(
+          dialogShape: Theme.of(context).dialogTheme.shape,
+        ),
+        // Called when the user dismissed the dialog (either by taping outside
+        // or by pressing the "back" button).
+        onDismissed: () => rateMyApp.callEvent(
+          RateMyAppEventType.laterButtonPressed,
+        ),
+        // This one allows you to change the default dialog content.
+        // contentBuilder: (context, defaultContent) => content,
+        // This one allows you to use your own buttons.
+        actionsBuilder: (context) => [
+          FlatButton(
+            child: Text('NO'),
+            onPressed: () {
+              Navigator.pop(context);
+              rateMyApp.callEvent(RateMyAppEventType.noButtonPressed);
+            },
+          ),
+          FlatButton(
+            child: Text('LATER'),
+            onPressed: () {
+              Navigator.pop(context);
+              rateMyApp.callEvent(RateMyAppEventType.laterButtonPressed);
+            },
+          ),
+          RaisedButton(
+            child: Text('RATE!'),
+            color: Theme.of(context).colorScheme.secondary,
+            textColor: Theme.of(context).colorScheme.onSecondary,
+            onPressed: () {
+              Navigator.pop(context);
+              rateMyApp.callEvent(RateMyAppEventType.rateButtonPressed);
+            },
+          ),
+        ],
+      );
+    }
   }
 
   Future<void> _initNotifications() async {
@@ -343,15 +434,21 @@ class _Drawer extends StatelessWidget {
               text: 'Instagram',
               icon: FontAwesomeIcons.instagram,
             ),
+            Divider(),
+            _DrawerTab(
+              onTap: _shareApp,
+              text: 'Share',
+              icon: FontAwesomeIcons.shareAlt,
+            ),
             _DrawerTab(
               onTap: () => _openRoadmap(context),
               text: 'Roadmap',
               icon: FontAwesomeIcons.clipboardList,
             ),
             _DrawerTab(
-              onTap: _shareApp,
-              text: 'Share',
-              icon: FontAwesomeIcons.shareAlt,
+              onTap: () => Wiredash.of(context).show,
+              text: 'Found a bug?',
+              icon: FontAwesomeIcons.bug,
             ),
             Spacer(flex: 6),
           ],

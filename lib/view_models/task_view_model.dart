@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:cheon/database/daos/task_dao.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/dependency_injection.dart';
@@ -9,11 +10,19 @@ import 'package:cheon/view_models/view_model.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart' hide Subject;
 
-class TaskVM with ViewModel {
+class TaskVM extends ChangeNotifier with ViewModel {
   TaskVM() {
     subscriptions = [
-      _taskDao.currentTasksStream().listen(_currentTasksSubject.add),
-      _taskDao.overdueTasksStream().listen(_overdueTasksSubject.add),
+      _taskDao.currentTasksStream().listen((tasks) {
+        _currentTasksSubject.add(tasks);
+        _currentTasksCount = tasks.length;
+        notifyListeners();
+      }),
+      _taskDao.overdueTasksStream().listen((tasks) {
+        _overdueTasksSubject.add(tasks);
+        _overdueTasksCount = tasks.length;
+        notifyListeners();
+      }),
       _taskDao.completedTasksStream().listen(_completedTasksSubject.add),
     ];
   }
@@ -88,6 +97,12 @@ class TaskVM with ViewModel {
     );
   }
 
+  int _overdueTasksCount = 0;
+  int get overdueTasksCount => _overdueTasksCount;
+
+  int _currentTasksCount = 0;
+  int get currentTasksCount => _currentTasksCount;
+
   @override
   void dispose() {
     _currentTasksSubject.close();
@@ -96,6 +111,7 @@ class TaskVM with ViewModel {
     for (StreamSubscription subscription in subscriptions) {
       subscription.cancel();
     }
+    super.dispose();
   }
 }
 

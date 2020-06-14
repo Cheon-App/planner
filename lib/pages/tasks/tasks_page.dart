@@ -25,16 +25,19 @@ class _TasksPageState extends State<TasksPage>
   @override
   bool get wantKeepAlive => true;
 
-  Widget counter({int count, Color color}) {
+  Widget counter({@required int count, @required Color color}) {
     return Container(
+      constraints: BoxConstraints(
+        minWidth: 20,
+        minHeight: 20,
+      ),
       decoration: ShapeDecoration(
         shape: CircleBorder(),
         color: color,
       ),
-      padding: const EdgeInsets.all(4),
-      child: Text(
-        '$count',
-        style: TextStyle(color: Colors.white),
+      alignment: Alignment.center,
+      child: FittedBox(
+        child: Text('$count', style: TextStyle(color: Colors.white)),
       ),
     );
   }
@@ -43,7 +46,7 @@ class _TasksPageState extends State<TasksPage>
   Widget build(BuildContext context) {
     super.build(context);
 
-    // TODO add the counters!
+    final taskVM = context.watch<TaskVM>();
     return DefaultTabController(
       length: 3,
       initialIndex: 0,
@@ -59,10 +62,10 @@ class _TasksPageState extends State<TasksPage>
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text('CURRENT'),
-                    /*  counter(
-                      count: 12,
+                    counter(
+                      count: taskVM.currentTasksCount,
                       color: Theme.of(context).colorScheme.secondary,
-                    ), */
+                    ),
                   ],
                 ),
               ),
@@ -71,10 +74,10 @@ class _TasksPageState extends State<TasksPage>
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text('OVERDUE'),
-                    /* counter(
-                      count: 12,
+                    counter(
+                      count: taskVM.overdueTasksCount,
                       color: Theme.of(context).colorScheme.error,
-                    ), */
+                    ),
                   ],
                 ),
               ),

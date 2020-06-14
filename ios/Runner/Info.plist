@@ -67,5 +67,9 @@
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Enables events from your calendar to be shown in the app.</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+    	<string>itms</string>
+	</array>
 </dict>
 </plist>

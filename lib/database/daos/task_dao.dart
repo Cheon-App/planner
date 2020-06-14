@@ -83,7 +83,7 @@ class TaskDao extends DatabaseAccessor<Database> with _$TaskDaoMixin {
   // TODO fix this
   Stream<int> tasksToGo(DateTime date) {
     return Stream.value(0);
-    
+
     date = date.truncateToDay();
 
     // filter only available from SQLITE v3.3!!!
