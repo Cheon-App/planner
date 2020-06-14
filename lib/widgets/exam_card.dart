@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cheon/widgets/priority_indicator.dart';
 import 'package:cheon/widgets/subject_card.dart';
 import 'package:cheon/models/exam.dart';
-import 'package:cheon/pages/exams/view_exam_page.dart';
+import 'package:cheon/pages/assessments/view_exam_page.dart';
 
 class ExamCard extends StatelessWidget {
   /// Creates a card containing information for an exam

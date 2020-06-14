@@ -23,6 +23,7 @@ jobs:
       - run: flutter packages pub run build_runner build --delete-conflicting-outputs
       - run: flutter pub run flutter_native_splash:create
       - run: flutter pub run flutter_launcher_icons:main
+      - run: flutter pub run import_sorter:main
       - run: git diff --exit-code
       # Runs standard tests
       - run: flutter test --no-pub --coverage

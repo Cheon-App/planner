@@ -342,6 +342,8 @@ class App extends StatelessWidget {
               );
 
               if (Theme.of(context).platform == TargetPlatform.iOS) {
+                // Closes the keyboard when swiping down
+                // Android users have a back button
                 child = KeyboardManagerWidget(
                   child: child,
                   onKeyboardOpen: () {},

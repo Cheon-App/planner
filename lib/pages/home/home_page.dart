@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 import 'package:share/share.dart';
-import 'package:wiredash/wiredash.dart';
+// import 'package:wiredash/wiredash.dart';
 
 // Project imports:
 import 'package:cheon/widgets/cheon_icons.dart';
@@ -19,7 +19,7 @@ import 'package:cheon/widgets/page_switcher.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/pages/add_event/add_event_page.dart';
 import 'package:cheon/pages/tasks/tasks_page.dart';
-import 'package:cheon/pages/exams/exams_page.dart';
+import 'package:cheon/pages/assessments/exams_page.dart';
 import 'package:cheon/pages/preferences/preferences_page.dart';
 import 'package:cheon/pages/revision/revision_page.dart';
 import 'package:cheon/pages/subjects/subjects_page.dart';
@@ -31,7 +31,7 @@ import 'package:cheon/view_models/task_view_model.dart';
 
 /// All pages shown on the home page, changing the order changes the order
 /// of the items in the bottom and side navigation bar
-enum _Page { EXAMS, TASKS, TIMELINE, REVISION, TIMETABLE }
+enum _Page { ASSESSMENTS, TASKS, TIMELINE, REVISION, TIMETABLE }
 
 const String _ADD_TASK_QUICK_ACTION = 'add_task';
 const String _ADD_EXAM_QUICK_ACTION = 'add_exam';
@@ -106,7 +106,7 @@ class HomePageState extends State<HomePage> {
           _navigationIcons.add(FontAwesomeIcons.tasks);
           _pageNames.add('Tasks');
           break;
-        case _Page.EXAMS:
+        case _Page.ASSESSMENTS:
           _fabKeys.add(const ValueKey<String>('add'));
           _pages.add(const AssessmentsPage());
           _navigationIcons.add(FontAwesomeIcons.brain);
@@ -451,11 +451,11 @@ class _Drawer extends StatelessWidget {
               text: 'Roadmap',
               icon: FontAwesomeIcons.clipboardList,
             ),
-            _DrawerTab(
+            /* _DrawerTab(
               onTap: () => Wiredash.of(context).show,
               text: 'Found a bug?',
               icon: FontAwesomeIcons.bug,
-            ),
+            ), */
             Spacer(flex: 6),
           ],
         ),
@@ -617,7 +617,7 @@ class _FAB extends StatelessWidget {
           tooltip: 'Add revision',
         ); */
         break;
-      case _Page.EXAMS:
+      case _Page.ASSESSMENTS:
         widget = FloatingActionButton(
           child: const Icon(FontAwesomeIcons.plus),
           onPressed: () => openAddEvent(context, EventType.EXAM),

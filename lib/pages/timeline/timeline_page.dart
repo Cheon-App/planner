@@ -23,7 +23,7 @@ import 'package:cheon/models/timeline_data.dart';
 import 'package:cheon/models/timetable.dart';
 import 'package:cheon/pages/add_event/add_event_page.dart';
 import 'package:cheon/widgets/error_message.dart';
-import 'package:cheon/pages/exams/view_exam_page.dart';
+import 'package:cheon/pages/assessments/view_exam_page.dart';
 import 'package:cheon/pages/lessons/view_lesson_page.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/timeline_view_model.dart';
