@@ -41,8 +41,9 @@ class SelectDateCard extends StatelessWidget {
   /// Displays a date picker dialog and invokes the [onDateSelected] callback
   /// whenever the user selects a new date.
   Future<void> selectDate(BuildContext context) async {
-    showPlatformDatePicker(context: context, initialDate: date)
-        .listen(onDateSelected);
+    showPlatformDatePicker(context: context, initialDate: date).listen((date) {
+      if (date != null) onDateSelected(date);
+    });
   }
 
   @override

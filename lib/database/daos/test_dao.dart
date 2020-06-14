@@ -2,6 +2,7 @@
 import 'package:moor/moor.dart';
 
 // Project imports:
+import 'package:cheon/database/db_value.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/database/tables.dart';
 import 'package:cheon/models/subject.dart';
@@ -90,17 +91,15 @@ class TestDao extends DatabaseAccessor<Database> with _$TestDaoMixin {
     DateTime date,
     String content,
     int priority,
+    Subject subject,
   }) {
     final TestsCompanion companion = TestsCompanion(
       id: Value<String>(test.id),
-      title: name != null ? Value<String>(name) : const Value<String>.absent(),
-      content: content != null
-          ? Value<String>(content)
-          : const Value<String>.absent(),
-      date:
-          date != null ? Value<DateTime>(date) : const Value<DateTime>.absent(),
-      priority:
-          priority != null ? Value<int>(priority) : const Value<int>.absent(),
+      title: DbValue(name),
+      content: DbValue(content),
+      date: DbValue(date),
+      priority: DbValue(priority),
+      subjectId: DbValue(subject?.id),
       lastUpdated: Value<DateTime>(DateTime.now()),
     );
     return (update(tests)..whereSamePrimaryKey(companion)).write(companion);

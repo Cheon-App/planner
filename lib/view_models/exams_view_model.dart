@@ -126,12 +126,16 @@ class ExamsVM {
     String name,
     DateTime date,
     String content,
+    int priority,
+    Subject subject,
   }) {
     return _testDao.updateTest(
       test,
       name: name,
       date: date != null ? date.truncateToDay() : null,
       content: content,
+      priority: priority,
+      subject: subject,
     );
   }
 

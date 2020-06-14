@@ -5,6 +5,7 @@ import 'package:flutter/material.dart' hide Table;
 import 'package:moor/moor.dart';
 
 // Project imports:
+import 'package:cheon/database/db_value.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/database/tables.dart';
 import 'package:cheon/models/exam.dart';
@@ -117,21 +118,14 @@ class ExamDao extends DatabaseAccessor<Database> with _$ExamDaoMixin {
   }) {
     final ExamsCompanion companion = ExamsCompanion(
       id: Value<String>(examId),
-      title: name != null ? Value<String>(name) : const Value<String>.absent(),
-      start: start != null
-          ? Value<DateTime>(start)
-          : const Value<DateTime>.absent(),
-      end: end != null ? Value<DateTime>(end) : const Value<DateTime>.absent(),
-      seat: seat != null ? Value<String>(seat) : const Value<String>.absent(),
-      location: location != null
-          ? Value<String>(location)
-          : const Value<String>.absent(),
-      priority:
-          priority != null ? Value<int>(priority) : const Value<int>.absent(),
+      title: DbValue(name),
+      start: DbValue(start),
+      end: DbValue(end),
+      seat: DbValue(seat),
+      location: DbValue(location),
+      priority: DbValue(priority),
+      subjectId: DbValue(subject?.id),
       lastUpdated: Value<DateTime>(DateTime.now()),
-      subjectId: subject == null //
-          ? Value<String>.absent()
-          : Value<String>(subject.id),
     );
     return (update(exams)..whereSamePrimaryKey(companion)).write(companion);
   }

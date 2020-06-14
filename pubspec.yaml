@@ -147,9 +147,9 @@ dev_dependencies:
 
   ############################## Code Generation ###############################
   # Run:
-  # flutter packages pub run build_runner build
+  # flutter packages pub run build_runner build --delete-conflicting-outputs
   # Or run:
-  # flutter packages pub run build_runner watch
+  # flutter packages pub run build_runner watch --delete-conflicting-outputs
   # To execute the code generation process either once or for every file change
   # with the watch command
 

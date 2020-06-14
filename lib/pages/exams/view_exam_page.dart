@@ -79,7 +79,7 @@ class _ExamBody extends StatefulWidget {
 
   final Exam exam;
   final Subject subject;
-  final Function(Subject) onSubjectChanged;
+  final ValueChanged<Subject> onSubjectChanged;
 
   @override
   __ExamBodyState createState() => __ExamBodyState();
@@ -127,22 +127,22 @@ class __ExamBodyState extends State<_ExamBody> {
     final examsVM = context.read<ExamsVM>();
     final start = date.withTime(_startDateTime.time);
     final end = date.withTime(_endDateTime.time);
-    await examsVM.updateExam(examID, start: start, end: end);
     setState(() => _startDateTime = start);
+    await examsVM.updateExam(examID, start: start, end: end);
   }
 
   Future<void> _setStartTime(TimeOfDay time) async {
     final examsVM = context.read<ExamsVM>();
     final start = _startDateTime.withTime(time);
-    await examsVM.updateExam(examID, start: start);
     setState(() => _startDateTime = start);
+    await examsVM.updateExam(examID, start: start);
   }
 
   Future<void> _setEndTime(TimeOfDay time) async {
     final examsVM = context.read<ExamsVM>();
     final end = _endDateTime.withTime(time);
-    await examsVM.updateExam(examID, end: end);
     setState(() => _endDateTime = end);
+    await examsVM.updateExam(examID, end: end);
   }
 
   Future<void> _setSeat(String seat) async {
