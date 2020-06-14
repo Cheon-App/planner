@@ -1,4 +1,6 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
 // Inspired by https://stackoverflow.com/questions/55306855/hide-keyboard-on-scroll-in-flutter
 
 class TapToDismiss extends StatelessWidget {

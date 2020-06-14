@@ -1,14 +1,20 @@
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/foundation.dart';
+
+// Package imports:
+import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart' hide Subject;
+
+// Project imports:
 import 'package:cheon/database/daos/task_dao.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/task.dart';
 import 'package:cheon/view_models/view_model.dart';
-import 'package:meta/meta.dart';
-import 'package:rxdart/rxdart.dart' hide Subject;
 
 class TaskVM extends ChangeNotifier with ViewModel {
   TaskVM() {

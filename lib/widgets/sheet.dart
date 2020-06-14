@@ -1,7 +1,11 @@
+// Dart imports:
 import 'dart:ui';
 
-import 'package:cheon/widgets/sheet_handle.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:cheon/widgets/sheet_handle.dart';
 
 class Sheet {
   /// Creates a Material bottom sheet with a blurred background

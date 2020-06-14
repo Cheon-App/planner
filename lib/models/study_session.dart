@@ -1,9 +1,12 @@
+// Package imports:
+import 'package:meta/meta.dart';
+
+// Project imports:
 import 'package:cheon/database/database.dart';
 import 'package:cheon/models/compare_date_time.dart';
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/test.dart';
-import 'package:meta/meta.dart';
 
 @immutable
 class StudySession extends CompareDateTime {

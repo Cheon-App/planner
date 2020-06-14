@@ -1,3 +1,10 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/widgets/empty_placeholder.dart';
 import 'package:cheon/widgets/error_message.dart';
 import 'package:cheon/widgets/loading_indicator.dart';
@@ -8,8 +15,6 @@ import 'package:cheon/pages/lessons/view_lesson_page.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/lessons_view_model.dart';
 import 'package:cheon/view_models/timetable_view_model.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 /// Creates a page that lists all of the user's lessons
 class LessonsPage extends StatelessWidget {

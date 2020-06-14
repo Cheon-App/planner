@@ -1,12 +1,16 @@
+// Dart imports:
 import 'dart:collection';
 import 'dart:convert';
 
+// Package imports:
+import 'package:device_calendar/device_calendar.dart' as dc;
+import 'package:meta/meta.dart';
+
+// Project imports:
 import 'package:cheon/models/calendar.dart';
 import 'package:cheon/models/calendar_event.dart';
 import 'package:cheon/services/calendar_service/calendar_service.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
-import 'package:device_calendar/device_calendar.dart' as dc;
-import 'package:meta/meta.dart';
 
 class DeviceCalendarService implements CalendarService {
   DeviceCalendarService({@required KeyValueService keyValueService})

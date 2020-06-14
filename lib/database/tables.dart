@@ -1,6 +1,9 @@
+// Package imports:
+import 'package:moor/moor.dart';
+
+// Project imports:
 import 'package:cheon/database/converters/color_converter.dart';
 import 'package:cheon/database/converters/uuid_converter.dart';
-import 'package:moor/moor.dart';
 
 @DataClassName('SubjectModel')
 class Subjects extends Table {

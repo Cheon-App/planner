@@ -1,12 +1,17 @@
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+// Project imports:
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/calendar.dart';
 import 'package:cheon/repositories/event_repository.dart';
 import 'package:cheon/services/calendar_service/calendar_service.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
 import 'package:cheon/utils.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class Preferences extends ChangeNotifier {
   Preferences() {

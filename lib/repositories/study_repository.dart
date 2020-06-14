@@ -1,3 +1,11 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:equatable/equatable.dart';
+import 'package:rxdart/rxdart.dart' hide Subject;
+
+// Project imports:
 import 'package:cheon/database/daos/exam_dao.dart';
 import 'package:cheon/database/daos/study_dao.dart';
 import 'package:cheon/database/daos/test_dao.dart';
@@ -8,9 +16,6 @@ import 'package:cheon/models/study_session.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/test.dart';
 import 'package:cheon/utils.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart' hide Subject;
 
 class StudyRepository {
   StudyRepository._() {

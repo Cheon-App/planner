@@ -1,3 +1,7 @@
+// Package imports:
+import 'package:rxdart/rxdart.dart' hide Subject;
+
+// Project imports:
 import 'package:cheon/database/daos/lesson_dao.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/dependency_injection.dart';
@@ -7,7 +11,6 @@ import 'package:cheon/models/timetable.dart';
 import 'package:cheon/repositories/timetable_repository.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
 import 'package:cheon/utils.dart';
-import 'package:rxdart/rxdart.dart' hide Subject;
 
 class LessonRepository {
   LessonRepository._internal() {

@@ -1,7 +1,12 @@
-import 'package:animations/animations.dart';
-import 'package:cheon/app.dart';
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:animations/animations.dart';
+
+// Project imports:
+import 'package:cheon/app.dart';
 import 'package:cheon/utils.dart';
 
 /// Inflates a dialog containing a list of given items.

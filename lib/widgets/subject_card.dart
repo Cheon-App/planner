@@ -1,5 +1,8 @@
-import 'package:cheon/app.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:cheon/app.dart';
 
 class SubjectCard extends StatelessWidget {
   /// Creates a card containing subject information

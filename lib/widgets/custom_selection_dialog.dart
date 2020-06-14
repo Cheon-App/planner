@@ -1,6 +1,11 @@
-import 'package:cheon/app.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+// Project imports:
+import 'package:cheon/app.dart';
 
 class CustomSelectionDialog extends StatelessWidget {
   /// A dialog used to select an item from a list of given widgets.

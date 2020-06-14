@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:sticky_headers/sticky_headers.dart';
 
 class StickySection extends StatelessWidget {

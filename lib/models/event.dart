@@ -1,6 +1,11 @@
-import 'package:cheon/models/compare_time.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:meta/meta.dart';
+
+// Project imports:
+import 'package:cheon/models/compare_time.dart';
 
 @immutable
 class Event extends CompareTime {

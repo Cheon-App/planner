@@ -1,4 +1,12 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:animations/animations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/app.dart';
 import 'package:cheon/widgets/custom_selection_dialog.dart';
 import 'package:cheon/widgets/error_message.dart';
@@ -12,9 +20,6 @@ import 'package:cheon/pages/timetable/timetable_settings_page.dart';
 import 'package:cheon/pages/lessons/view_lesson_page.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/timetable_view_model.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 /// Creates a page used to view and edit a lesson timetable
 class TimetablePage extends StatefulWidget {

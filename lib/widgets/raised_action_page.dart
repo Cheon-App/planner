@@ -1,8 +1,13 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+// Project imports:
 import 'package:cheon/widgets/primary_action_button.dart';
 import 'package:cheon/widgets/raised_body.dart';
 import 'package:cheon/widgets/tap_to_dismiss.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RaisedActionPage extends StatelessWidget {
   /// Abstraction for a common page design containing a coloured app bar, an

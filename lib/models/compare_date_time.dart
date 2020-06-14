@@ -1,6 +1,11 @@
-import 'package:cheon/models/compare_time.dart';
-import 'package:equatable/equatable.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:equatable/equatable.dart';
+
+// Project imports:
+import 'package:cheon/models/compare_time.dart';
 
 @immutable
 class CompareDateTime extends CompareTime with EquatableMixin {

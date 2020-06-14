@@ -1,5 +1,8 @@
-import 'package:cheon/widgets/menu_icon.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:cheon/widgets/menu_icon.dart';
 
 class CheonAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// Creates a Material Design [AppBar] with the title set to Cheon.

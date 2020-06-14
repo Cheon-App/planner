@@ -1,5 +1,8 @@
-import 'package:cheon/constants.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:cheon/constants.dart';
 
 class LinearProgressBar extends ImplicitlyAnimatedWidget {
   /// Creates a styled progress bar that animated declaratively using

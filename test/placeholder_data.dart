@@ -1,9 +1,14 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+// Project imports:
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/test.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 Subject placeholderSubject = Subject(
   id: 'id',

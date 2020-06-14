@@ -1,3 +1,7 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/lesson_time.dart';
@@ -7,7 +11,6 @@ import 'package:cheon/models/timetable.dart';
 import 'package:cheon/repositories/lesson_repository.dart';
 import 'package:cheon/repositories/timetable_repository.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
-import 'package:flutter/material.dart';
 
 class TimetableVM extends ChangeNotifier {
   TimetableVM() {

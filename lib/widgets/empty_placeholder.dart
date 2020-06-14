@@ -1,6 +1,11 @@
-import 'package:cheon/constants.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
+
+// Project imports:
+import 'package:cheon/constants.dart';
 
 class EmptyPlaceholder extends StatelessWidget {
   /// Creates an image showing an illustration of a person holding an empty box

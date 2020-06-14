@@ -1,5 +1,8 @@
-import 'package:cheon/constants.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:cheon/constants.dart';
 
 class PageSwitcher extends StatefulWidget {
   /// Uses a [PageView] widget to switch between pages provided by the

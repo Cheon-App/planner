@@ -1,3 +1,10 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/subject.dart';
@@ -25,8 +32,6 @@ import 'package:cheon/pages/subjects/view_subject_page.dart';
 import 'package:cheon/pages/tasks/view_task_page.dart';
 import 'package:cheon/pages/exams/view_test_page.dart';
 import 'package:cheon/view_models/view_model.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:cheon/view_models/task_view_model.dart';
 
 /// App routes used by the [Navigator] to navigate between pages

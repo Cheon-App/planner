@@ -1,10 +1,16 @@
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
+// Project imports:
 import 'package:cheon/app.dart';
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/flavor_config.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/material.dart';
 
 /// Runs the app in a release configuration
 Future<void> main() async {

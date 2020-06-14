@@ -1,5 +1,8 @@
-import 'package:cheon/widgets/platform_date_time_picker.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:cheon/widgets/platform_date_time_picker.dart';
 
 class SelectDateCard extends StatelessWidget {
   /// Creates a card containg the shorthand form of a date and a dropdown button

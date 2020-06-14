@@ -1,6 +1,9 @@
+// Package imports:
+import 'package:flutter_test/flutter_test.dart';
+
+// Project imports:
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/view_models/app_info_view_model.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 Future<void> main() async {
   await registerTestDependencies();

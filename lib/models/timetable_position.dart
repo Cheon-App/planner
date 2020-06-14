@@ -1,6 +1,9 @@
-import 'package:cheon/models/timetable.dart';
+// Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+
+// Project imports:
+import 'package:cheon/models/timetable.dart';
 
 @immutable
 class TimetablePosition extends Equatable {

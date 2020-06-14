@@ -1,6 +1,10 @@
+// Dart imports:
 import 'dart:convert';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:uuid/uuid.dart';
 

@@ -1,11 +1,17 @@
+// Dart imports:
 import 'dart:ui';
 
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+
+// Package imports:
+import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
+
+// Project imports:
 import 'package:cheon/constants.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/models/teacher.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 
 @immutable
 class Subject extends Equatable {

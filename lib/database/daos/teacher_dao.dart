@@ -1,8 +1,11 @@
+// Package imports:
+import 'package:moor/moor.dart';
+
+// Project imports:
 import 'package:cheon/database/database.dart';
 import 'package:cheon/database/tables.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/utils.dart';
-import 'package:moor/moor.dart';
 
 part 'teacher_dao.g.dart';
 

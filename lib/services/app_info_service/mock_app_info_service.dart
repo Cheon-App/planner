@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:cheon/services/app_info_service/app_info_service.dart';
 
 /// Mock implementation of the [AppInfoService] class

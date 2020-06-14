@@ -1,6 +1,9 @@
-import 'package:cheon/services/app_info_service/app_info_service.dart';
+// Package imports:
 import 'package:package_info/package_info.dart';
 import 'package:meta/meta.dart';
+
+// Project imports:
+import 'package:cheon/services/app_info_service/app_info_service.dart';
 
 class PackageInfoAppInfoService implements AppInfoService {
   PackageInfoAppInfoService({@required this.packageInfo});

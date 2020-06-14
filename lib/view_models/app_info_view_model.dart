@@ -1,6 +1,9 @@
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+
+// Project imports:
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/services/app_info_service/app_info_service.dart';
-import 'package:flutter/cupertino.dart';
 
 /// Exposes the version name and build number of the installed app
 class AppInfo extends ChangeNotifier {

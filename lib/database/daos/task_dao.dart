@@ -1,10 +1,13 @@
+// Package imports:
+import 'package:moor/moor.dart';
+
+// Project imports:
 import 'package:cheon/database/database.dart';
 import 'package:cheon/database/tables.dart' as tables;
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/task.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/utils.dart';
-import 'package:moor/moor.dart';
 
 part 'task_dao.g.dart';
 

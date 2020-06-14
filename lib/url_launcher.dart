@@ -1,3 +1,4 @@
+// Package imports:
 import 'package:url_launcher/url_launcher.dart';
 
 /// Opens a web url in the device's default browser

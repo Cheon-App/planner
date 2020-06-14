@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const String URL_DISCORD = 'https://discord.gg/N2YK5uq';

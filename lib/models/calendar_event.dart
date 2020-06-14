@@ -1,5 +1,8 @@
-import 'package:cheon/models/compare_date_time.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:cheon/models/compare_date_time.dart';
 
 @immutable
 class CalendarEvent extends CompareDateTime {

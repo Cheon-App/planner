@@ -1,7 +1,12 @@
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+
+// Package imports:
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/models/study_session.dart';
 import 'package:cheon/repositories/study_repository.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 
 class StudyVM {
   StudyVM();

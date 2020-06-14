@@ -1,3 +1,12 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/widgets/primary_action_button.dart';
 import 'package:cheon/widgets/select_subject_dialog.dart';
 import 'package:cheon/widgets/select_teacher_dialog.dart';
@@ -7,10 +16,6 @@ import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/timetable_position.dart';
 import 'package:cheon/view_models/timetable_view_model.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 class AddLessonPage extends StatelessWidget {
   /// Creates a page that allows the user to add a lesson to their account

@@ -1,10 +1,15 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:meta/meta.dart';
+
+// Project imports:
 import 'package:cheon/database/database.dart';
 import 'package:cheon/models/compare_time.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/timetable.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 class Lesson extends CompareTime {
   /// Represents a lesson

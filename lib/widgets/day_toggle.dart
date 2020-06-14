@@ -1,6 +1,9 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:cheon/app.dart';
 import 'package:cheon/utils.dart';
-import 'package:flutter/material.dart';
 
 class DayToggle extends StatelessWidget {
   const DayToggle({

@@ -1,5 +1,19 @@
+// Dart imports:
 import 'dart:convert';
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:quick_actions/quick_actions.dart';
+import 'package:rate_my_app/rate_my_app.dart';
+import 'package:share/share.dart';
+import 'package:wiredash/wiredash.dart';
+
+// Project imports:
 import 'package:cheon/widgets/cheon_icons.dart';
 import 'package:cheon/widgets/page_switcher.dart';
 import 'package:cheon/constants.dart';
@@ -14,14 +28,6 @@ import 'package:cheon/pages/timeline/timeline_page.dart';
 import 'package:cheon/pages/timetable/timetable_page.dart';
 import 'package:cheon/url_launcher.dart';
 import 'package:cheon/view_models/task_view_model.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:quick_actions/quick_actions.dart';
-import 'package:rate_my_app/rate_my_app.dart';
-import 'package:share/share.dart';
-import 'package:wiredash/wiredash.dart';
 
 /// All pages shown on the home page, changing the order changes the order
 /// of the items in the bottom and side navigation bar

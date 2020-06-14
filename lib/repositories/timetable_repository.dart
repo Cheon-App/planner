@@ -1,3 +1,7 @@
+// Package imports:
+import 'package:rxdart/rxdart.dart' hide Subject;
+
+// Project imports:
 import 'package:cheon/database/daos/timetable_dao.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/dependency_injection.dart';
@@ -5,7 +9,6 @@ import 'package:cheon/models/lesson_time.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/timetable.dart';
-import 'package:rxdart/rxdart.dart' hide Subject;
 
 class TimetableRepository {
   TimetableRepository._internal() {

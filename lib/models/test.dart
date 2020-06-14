@@ -1,8 +1,11 @@
+// Package imports:
+import 'package:meta/meta.dart';
+
+// Project imports:
 import 'package:cheon/database/database.dart';
 import 'package:cheon/models/assessment.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/utils.dart';
-import 'package:meta/meta.dart';
 
 @immutable
 class Test extends Assessment {

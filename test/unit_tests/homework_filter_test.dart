@@ -1,7 +1,9 @@
-import 'package:cheon/utils.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meta/meta.dart';
 
+// Project imports:
+import 'package:cheon/utils.dart';
 import '../placeholder_data.dart';
 
 void main() {

@@ -1,6 +1,9 @@
-import 'package:cheon/utils.dart';
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:cheon/utils.dart';
 
 class PlatformLoadingIndicator extends StatelessWidget {
   /// Creates a loading indicator that adheres to the conventional platform

@@ -1,10 +1,16 @@
+// Dart imports:
 import 'dart:ui';
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:meta/meta.dart';
+
+// Project imports:
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/repositories/subject_repository.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 class SubjectsVM {
   final SubjectRepository subjectRepository = SubjectRepository.instance;

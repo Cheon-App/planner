@@ -1,7 +1,12 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+// Project imports:
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/widgets/select_subject_dialog.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SelectSubjectCard extends StatelessWidget {
   /// Creates a card containing a subject name and dropdown button to let users

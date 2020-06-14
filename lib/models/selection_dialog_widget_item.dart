@@ -1,5 +1,8 @@
-import 'package:equatable/equatable.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:equatable/equatable.dart';
 
 class SelectionDialogWidgetItem<T> extends Equatable {
   /// Represents an option in a selection dialog

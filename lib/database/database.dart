@@ -1,5 +1,10 @@
+// Dart imports:
 import 'dart:ui';
 
+// Package imports:
+import 'package:moor/moor.dart';
+
+// Project imports:
 import 'package:cheon/database/daos/study_dao.dart';
 import 'package:cheon/database/daos/subject_dao.dart';
 import 'package:cheon/database/daos/teacher_dao.dart';
@@ -9,11 +14,9 @@ import 'package:cheon/database/daos/test_dao.dart';
 import 'package:cheon/database/daos/timetable_dao.dart';
 import 'package:cheon/database/daos/task_dao.dart';
 import 'package:cheon/database/tables.dart';
-import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/database/converters/uuid_converter.dart';
 import 'package:cheon/database/converters/color_converter.dart';
 import 'package:cheon/repositories/timetable_repository.dart';
-import 'package:moor/moor.dart';
 
 part 'database.g.dart';
 

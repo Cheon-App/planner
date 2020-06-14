@@ -1,3 +1,7 @@
+// Package imports:
+import 'package:moor/moor.dart';
+
+// Project imports:
 import 'package:cheon/database/database.dart';
 import 'package:cheon/database/tables.dart';
 import 'package:cheon/database/converters/uuid_converter.dart';
@@ -5,7 +9,6 @@ import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/timetable.dart';
-import 'package:moor/moor.dart';
 
 part 'lesson_dao.g.dart';
 

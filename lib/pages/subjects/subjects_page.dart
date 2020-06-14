@@ -1,3 +1,11 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/widgets/empty_placeholder.dart';
 import 'package:cheon/widgets/error_message.dart';
 import 'package:cheon/widgets/loading_indicator.dart';
@@ -7,9 +15,6 @@ import 'package:cheon/models/subject.dart';
 import 'package:cheon/pages/subjects/add_subject_page.dart';
 import 'package:cheon/pages/subjects/view_subject_page.dart';
 import 'package:cheon/view_models/subjects_view_model.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 /// Creates a page containing a list of subjects.
 class SubjectsPage extends StatelessWidget {

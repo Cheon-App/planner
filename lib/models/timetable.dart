@@ -1,6 +1,9 @@
-import 'package:cheon/database/database.dart';
+// Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+
+// Project imports:
+import 'package:cheon/database/database.dart';
 
 @immutable
 class Timetable extends Equatable {

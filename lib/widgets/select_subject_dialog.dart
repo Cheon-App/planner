@@ -1,11 +1,16 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:animations/animations.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/widgets/custom_selection_dialog.dart';
 import 'package:cheon/widgets/subject_card.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/pages/subjects/add_subject_page.dart';
 import 'package:cheon/view_models/subjects_view_model.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 /// Displays a dialog containing a list of subjects
 Future<Subject> showSelectSubjectDialog({

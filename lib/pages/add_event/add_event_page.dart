@@ -1,4 +1,13 @@
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:animations/animations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/app.dart';
 import 'package:cheon/widgets/platform_selection_dialog.dart';
 import 'package:cheon/widgets/primary_action_button.dart';
@@ -11,10 +20,6 @@ import 'package:cheon/models/subject.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
 import 'package:cheon/view_models/task_view_model.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 enum EventType {
   TASK,

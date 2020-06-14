@@ -1,8 +1,11 @@
+// Package imports:
+import 'package:meta/meta.dart';
+
+// Project imports:
 import 'package:cheon/models/calendar_event.dart';
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/study_session.dart';
-import 'package:meta/meta.dart';
 
 @immutable
 class TimelineData {

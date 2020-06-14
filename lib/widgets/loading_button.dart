@@ -1,6 +1,11 @@
-import 'package:cheon/constants.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+// Project imports:
+import 'package:cheon/constants.dart';
 
 class LoadingButton extends StatelessWidget {
   /// Creates a button that shows a text or a loading indicator while active

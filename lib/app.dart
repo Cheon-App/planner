@@ -1,5 +1,19 @@
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+
+// Package imports:
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:flutter_interactive_keyboard/flutter_interactive_keyboard.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
+
+// Project imports:
 import 'package:cheon/flavor_config.dart';
 import 'package:cheon/pages/home/home_page.dart';
 import 'package:cheon/routes.dart';
@@ -13,16 +27,9 @@ import 'package:cheon/view_models/subjects_view_model.dart';
 import 'package:cheon/view_models/teachers_view_model.dart';
 import 'package:cheon/view_models/timeline_view_model.dart';
 import 'package:cheon/view_models/timetable_view_model.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
-import 'package:flutter/services.dart';
-import 'package:flutter_interactive_keyboard/flutter_interactive_keyboard.dart';
-import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
 // import 'package:wiredash/wiredash.dart';
 
 /// Handles app theming and initialisation

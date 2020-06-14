@@ -1,5 +1,8 @@
-import 'package:cheon/widgets/cheon_app_bar.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:cheon/widgets/cheon_app_bar.dart';
 
 class CheonPage extends StatelessWidget {
   /// Creates a [CheonAppBar] with a provided widget underneath.

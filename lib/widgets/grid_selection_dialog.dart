@@ -1,6 +1,9 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:cheon/app.dart';
 import 'package:cheon/models/selection_dialog_widget_item.dart';
-import 'package:flutter/material.dart';
 
 class GridSelectionDialog<T> extends StatefulWidget {
   /// Creates a dialog containing [items] arranged in a four column grid

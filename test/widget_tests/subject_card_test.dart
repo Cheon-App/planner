@@ -1,7 +1,11 @@
-import 'package:cheon/widgets/subject_card.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 
+// Project imports:
+import 'package:cheon/widgets/subject_card.dart';
 import '../test_utils.dart';
 
 void main() {

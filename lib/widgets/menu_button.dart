@@ -1,6 +1,9 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:cheon/widgets/menu_icon.dart';
 import 'package:cheon/pages/home/home_page.dart';
-import 'package:flutter/material.dart';
 
 class MenuButton extends StatelessWidget {
   @override

@@ -1,6 +1,9 @@
+// Package imports:
+import 'package:meta/meta.dart';
+
+// Project imports:
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/repositories/teacher_repository.dart';
-import 'package:meta/meta.dart';
 
 class TeachersVM {
   final TeacherRepository _teacherRepository = TeacherRepository.instance;

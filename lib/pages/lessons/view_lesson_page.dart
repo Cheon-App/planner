@@ -1,3 +1,11 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/widgets/empty_placeholder.dart';
 import 'package:cheon/widgets/error_message.dart';
 import 'package:cheon/widgets/loading_indicator.dart';
@@ -7,9 +15,6 @@ import 'package:cheon/models/lesson.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/lessons_view_model.dart';
 import 'package:cheon/widgets/subject_card.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 class ViewLessonPage extends StatefulWidget {
   const ViewLessonPage({

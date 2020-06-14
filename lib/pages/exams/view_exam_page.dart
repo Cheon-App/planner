@@ -1,5 +1,12 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/models/subject.dart';
-import 'package:cheon/pages/add_event/add_event_page.dart';
 import 'package:cheon/widgets/raised_action_page.dart';
 import 'package:cheon/widgets/raised_body.dart';
 import 'package:cheon/models/exam.dart';
@@ -8,9 +15,6 @@ import 'package:cheon/view_models/exams_view_model.dart';
 import 'package:cheon/widgets/select_date_card.dart';
 import 'package:cheon/widgets/select_subject_card.dart';
 import 'package:cheon/widgets/select_time_card.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 /// Creates a page containing the details of the given exam
 class ViewExamPage extends StatefulWidget {

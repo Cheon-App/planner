@@ -125,6 +125,9 @@ dependencies:
 
   # Shows a rating popup after certain conditions are met
   rate_my_app: ^0.6.1+4
+
+  # Sorts imports!
+  import_sorter: ^3.1.0
   
 
 dev_dependencies:
@@ -176,11 +179,16 @@ flutter_icons:
   image_path_ios: "assets/logo/logo_filled.jpg"
 
 # Settings for the flutter_native_splash package
-# run flutter pub pub run flutter_native_splash:create to update splash screen
+# run flutter pub run flutter_native_splash:create to update splash screen
 flutter_native_splash:
   image: assets/icons/logo_filled.jpg
   color: "4caf50"
   android: false
+
+# run flutter pub run import_sorter:main to sort imports
+import_sorter:
+  ignored_files: 
+    - \/*.g.dart/
 
 # The following section is specific to Flutter.
 flutter:

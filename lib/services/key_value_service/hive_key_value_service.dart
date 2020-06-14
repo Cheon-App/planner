@@ -1,5 +1,8 @@
-import 'package:cheon/services/key_value_service/key_value_service.dart';
+// Package imports:
 import 'package:hive/hive.dart';
+
+// Project imports:
+import 'package:cheon/services/key_value_service/key_value_service.dart';
 
 class HiveKeyValueService implements KeyValueService {
   HiveKeyValueService(this.box);

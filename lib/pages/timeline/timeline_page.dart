@@ -1,3 +1,12 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:dotted_border/dotted_border.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/app.dart';
 import 'package:cheon/widgets/cheon_page.dart';
 import 'package:cheon/widgets/empty_placeholder.dart';
@@ -18,10 +27,6 @@ import 'package:cheon/pages/exams/view_exam_page.dart';
 import 'package:cheon/pages/lessons/view_lesson_page.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/timeline_view_model.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 class TimelinePage extends StatefulWidget {
   /// Creates a page containing upcoming homework, and exams

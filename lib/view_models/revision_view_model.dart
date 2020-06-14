@@ -1,8 +1,13 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/constants.dart';
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/repositories/study_repository.dart';
 

@@ -1,9 +1,14 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:provider/provider.dart';
+
+// Project imports:
 import 'package:cheon/widgets/raised_action_page.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/view_models/subjects_view_model.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 /// Creates a page to view and edit the details of an individual subject
 class ViewSubjectPage extends StatefulWidget {

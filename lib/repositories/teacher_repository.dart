@@ -1,9 +1,12 @@
+// Package imports:
+import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
+
+// Project imports:
 import 'package:cheon/database/daos/teacher_dao.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/teacher.dart';
-import 'package:meta/meta.dart';
-import 'package:rxdart/rxdart.dart';
 
 class TeacherRepository {
   TeacherRepository._internal() {
