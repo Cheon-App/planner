@@ -225,7 +225,10 @@ class __LessonBodyState extends State<_LessonBody> {
             ? Column(
                 children: <Widget>[
                   const Divider(height: 0),
-                  _OtherLessonsSection(lesson: widget.lesson),
+                  _OtherLessonsSection(
+                    subject: widget.subject,
+                    lesson: widget.lesson,
+                  ),
                 ],
               )
             : const SizedBox.shrink(),
@@ -237,10 +240,12 @@ class __LessonBodyState extends State<_LessonBody> {
 class _OtherLessonsSection extends StatefulWidget {
   const _OtherLessonsSection({
     Key key,
+    @required this.subject,
     @required this.lesson,
-  })  : assert(lesson != null),
+  })  : assert(subject != null),
         super(key: key);
 
+  final Subject subject;
   final Lesson lesson;
 
   @override
@@ -254,8 +259,7 @@ class __OtherLessonsSectionState extends State<_OtherLessonsSection> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final LessonsVM lessonsVM = Provider.of<LessonsVM>(context, listen: false);
-    _otherLessonsStream =
-        lessonsVM.lessonListFromSubjectStream(widget.lesson.subject);
+    _otherLessonsStream = lessonsVM.lessonListFromSubjectStream(widget.subject);
   }
 
   void _openLessonPage(Lesson lesson) {
@@ -277,7 +281,7 @@ class __OtherLessonsSectionState extends State<_OtherLessonsSection> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                'Other ${widget.lesson.subject.name.toLowerCase()} '
+                'Other ${widget.subject.name.toLowerCase()} '
                 'lessons',
                 style: Theme.of(context).textTheme.headline5,
               ),

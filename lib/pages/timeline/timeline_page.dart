@@ -343,7 +343,7 @@ class _TimelineListState extends State<TimelineList> {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: _DashboardCard(),
                 ), */
-                 Expanded(
+                Expanded(
                   child: EmptyPlaceholder(
                     svgPath: IMG_TIMELINE,
                     text: 'No events on this day.',
@@ -514,6 +514,8 @@ class _EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool hasDescription = event.description.trim().isNotEmpty;
+    final bool hasLocation = event.location.trim().isNotEmpty;
     return Card(
       child: InkWell(
         onTap: () {},
@@ -524,42 +526,48 @@ class _EventCard extends StatelessWidget {
             children: <Widget>[
               Text(
                 event.title,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
-              event.description.trim().isNotEmpty
-                  ? Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4),
+              if (hasDescription)
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      WidgetSpan(
+                        alignment: PlaceholderAlignment.middle,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8),
                           child: Icon(FontAwesomeIcons.alignLeft, size: 12),
                         ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            event.description,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    )
-                  : const SizedBox.shrink(),
-              event.location.trim().isNotEmpty
-                  ? Row(
-                      children: <Widget>[
-                        Icon(FontAwesomeIcons.mapMarkerAlt, size: 12),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            event.location,
-                            style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                        )
-                      ],
-                    )
-                  : const SizedBox.shrink(),
+                      ),
+                      TextSpan(text: event.description),
+                    ],
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              if (hasLocation)
+                Text.rich(
+                  TextSpan(children: [
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: Icon(FontAwesomeIcons.mapMarkerAlt, size: 12),
+                      ),
+                    ),
+                    TextSpan(
+                      text: event.location,
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                  ]),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
             ],
           ),
         ),

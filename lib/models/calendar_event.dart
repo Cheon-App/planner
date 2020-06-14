@@ -39,11 +39,13 @@ class CalendarEvent extends CompareDateTime {
   /// The event title
   final String title;
 
-  /// The event description
+  /// The event description, likely in html
   final String description;
 
   /// The physical location the event occurs in
   final String location;
+
+  // attendees, reminders, uri, all day
 
   @override
   List<Object> get props => <Object>[eventId, calendarId];

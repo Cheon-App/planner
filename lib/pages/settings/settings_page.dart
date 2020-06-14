@@ -1,4 +1,9 @@
 // Flutter imports:
+import 'package:animations/animations.dart';
+import 'package:cheon/models/calendar.dart';
+import 'package:cheon/widgets/custom_selection_dialog.dart';
+import 'package:cheon/widgets/error_message.dart';
+import 'package:cheon/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -30,8 +35,7 @@ class SettingsPage extends StatelessWidget {
         children: <Widget>[
           _ThemeCard(),
           _NotificationsCard(),
-          // _CalendarCard(),
-          // _AccountCard(),
+          _CalendarCard(),
           _AboutAppCard(),
         ],
       ),
@@ -176,7 +180,7 @@ class _NotificationsCard extends StatelessWidget {
 }
 
 /// Creates a card for syncronising a local calendar
-/* class _CalendarCard extends StatelessWidget {
+class _CalendarCard extends StatelessWidget {
   Future<void> showSelectCalendarDialog(
     BuildContext context, {
     @required Calendar selectedCalendar,
@@ -189,72 +193,90 @@ class _NotificationsCard extends StatelessWidget {
       builder: (BuildContext context) {
         return FutureBuilder<List<Calendar>>(
           future: settings.calendarList(),
-          initialData: List<Calendar>.from(<Calendar>[]),
           builder: (
             BuildContext context,
             AsyncSnapshot<List<Calendar>> snapshot,
           ) {
-            final List<Calendar> calendarList = snapshot.data;
-            // Sort the list by account name alphabetically
-            calendarList.sort((Calendar a, Calendar b) {
-              return a.accountName.compareTo(b.accountName);
-            });
+            if (snapshot.hasData) {
+              final List<Calendar> calendarList = snapshot.data;
+              // Sort the list by account name alphabetically
+              calendarList.sort((Calendar a, Calendar b) {
+                return a.accountName.compareTo(b.accountName);
+              });
 
-            final List<List<Calendar>> groupedCalendarList = <List<Calendar>>[];
+              final List<List<Calendar>> groupedCalendarList =
+                  <List<Calendar>>[];
 
-            if (calendarList.length > 1) {
-              Calendar currentAccountCalendar = calendarList.first;
-              final List<Calendar> accountCalendarList = <Calendar>[];
+              if (calendarList.length > 1) {
+                Calendar currentAccountCalendar = calendarList.first;
+                final List<Calendar> accountCalendarList = <Calendar>[];
 
-              for (Calendar calendar in calendarList) {
-                if (calendar.accountName !=
-                    currentAccountCalendar.accountName) {
-                  // Must be a new list otherwise a reference to the list will
-                  // be added that's lost when .clear() is called on the
-                  // original list
-                  groupedCalendarList.add(<Calendar>[...accountCalendarList]);
-                  accountCalendarList.clear();
-                  currentAccountCalendar = calendar;
+                for (Calendar calendar in calendarList) {
+                  if (calendar.accountName !=
+                      currentAccountCalendar.accountName) {
+                    // Must be a new list otherwise a reference to the list will
+                    // be added that's lost when .clear() is called on the
+                    // original list
+                    groupedCalendarList.add(<Calendar>[...accountCalendarList]);
+                    accountCalendarList.clear();
+                    currentAccountCalendar = calendar;
+                  }
+
+                  accountCalendarList.add(calendar);
                 }
 
-                accountCalendarList.add(calendar);
+                groupedCalendarList.add(accountCalendarList);
+              } else {
+                groupedCalendarList.add(calendarList);
               }
 
-              groupedCalendarList.add(accountCalendarList);
-            } else {
-              groupedCalendarList.add(calendarList);
-            }
+              for (List<Calendar> calendarList in groupedCalendarList) {
+                print(calendarList.map((e) => e.accountName).toList());
+              }
 
-            for (List<Calendar> calendarList in groupedCalendarList) {
-              print(calendarList.map((e) => e.accountName).toList());
-            }
-
-            return CustomSelectionDialog(
-              title: 'Select Calendar',
-              items: <Widget>[
-                for (List<Calendar> calendarList in groupedCalendarList) ...[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Text(
-                      calendarList.first.accountName.toUpperCase(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).colorScheme.secondary,
+              return CustomSelectionDialog(
+                title: 'Select Calendar',
+                items: <Widget>[
+                  for (List<Calendar> calendarList in groupedCalendarList) ...[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Text(
+                        calendarList.first.accountName.toUpperCase(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
                       ),
                     ),
+                    ...calendarList
+                        .map(
+                          (Calendar calendar) => CustomSelectionDialogItem(
+                            onTap: () => Navigator.pop(context, calendar),
+                            text: calendar.name,
+                            selected: calendar.id == selectedCalendarId,
+                          ),
+                        )
+                        .toList(),
+                  ]
+                ],
+              );
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: Dialog(
+                    child: LoadingIndicator(),
                   ),
-                  ...calendarList
-                      .map(
-                        (Calendar calendar) => CustomSelectionDialogItem(
-                          onTap: () => Navigator.pop(context, calendar),
-                          text: calendar.name,
-                          selected: calendar.id == selectedCalendarId,
-                        ),
-                      )
-                      .toList(),
-                ]
-              ],
-            );
+                ),
+              );
+            } else {
+              return Center(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: Dialog(child: ErrorMessage()),
+                ),
+              );
+            }
           },
         );
       },
@@ -280,11 +302,11 @@ class _NotificationsCard extends StatelessWidget {
         ListTile(
           enabled: settings.importCalendarEvents,
           title: const Text('Select calendar'),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: noSelectedCalendar
-                ? const <Widget>[]
-                : <Widget>[
+          subtitle: noSelectedCalendar
+              ? Text('No calendar selected')
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
                     Text(
                       settings.selectedCalendar.name,
                       style: Theme.of(context).textTheme.subtitle2.copyWith(
@@ -295,7 +317,7 @@ class _NotificationsCard extends StatelessWidget {
                     ),
                     Text(settings.selectedCalendar.accountName),
                   ],
-          ),
+                ),
           onTap: () => showSelectCalendarDialog(
             context,
             selectedCalendar: settings.selectedCalendar,
@@ -304,7 +326,7 @@ class _NotificationsCard extends StatelessWidget {
       ],
     );
   }
-} */
+}
 
 class _SettingsCard extends StatelessWidget {
   const _SettingsCard({
