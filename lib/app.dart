@@ -12,6 +12,7 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:flutter_interactive_keyboard/flutter_interactive_keyboard.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:wiredash/wiredash.dart';
 
 // Project imports:
 import 'package:cheon/flavor_config.dart';
@@ -30,7 +31,6 @@ import 'package:cheon/view_models/timetable_view_model.dart';
 
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
-// import 'package:wiredash/wiredash.dart';
 
 /// Handles app theming and initialisation
 void configureApp() {
@@ -296,13 +296,7 @@ class App extends StatelessWidget {
           final String titlePrefix = !FlavorConfig.instance.isProduction()
               ? FlavorConfig.instance.name
               : '';
-          /* projectId: Platform.environment['wiredash_project_id'],
-            secret: Platform.environment['wiredash_secret'],
-            navigatorKey: _navigatorKey,
-            theme: WiredashThemeData(
-              primaryColor: Colors.green,
-              secondaryColor: const Color(0xFF2bbd7e),
-            ), */
+
           return MaterialApp(
             title: '$titlePrefix Cheon Smart Planner'.trimLeft(),
             theme: theme(isDark: false),
@@ -386,6 +380,23 @@ class App extends StatelessWidget {
                     dispose: (_, StudyVM vm) => vm.dispose(),
                   ),
                 ],
+              );
+
+              child = Material(
+                type: MaterialType.transparency,
+                child: Wiredash(
+                  child: child,
+                  projectId: Platform.environment['wiredash_project_id'] ?? '',
+                  secret: Platform.environment['wiredash_secret'] ?? '',
+                  navigatorKey: _navigatorKey,
+                  theme: WiredashThemeData(
+                    primaryColor: Colors.green,
+                    secondaryColor: const Color(0xFF2bbd7e),
+                  ),
+                  options: WiredashOptionsData(
+                    showDebugFloatingEntryPoint: false,
+                  ),
+                ),
               );
 
               return child;

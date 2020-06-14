@@ -1,16 +1,16 @@
 // Flutter imports:
-import 'package:animations/animations.dart';
-import 'package:cheon/models/calendar.dart';
-import 'package:cheon/widgets/custom_selection_dialog.dart';
-import 'package:cheon/widgets/error_message.dart';
-import 'package:cheon/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:animations/animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
+import 'package:cheon/models/calendar.dart';
+import 'package:cheon/widgets/custom_selection_dialog.dart';
+import 'package:cheon/widgets/error_message.dart';
+import 'package:cheon/widgets/loading_indicator.dart';
 import 'package:cheon/widgets/day_toggle.dart';
 import 'package:cheon/widgets/platform_selection_dialog.dart';
 import 'package:cheon/constants.dart';

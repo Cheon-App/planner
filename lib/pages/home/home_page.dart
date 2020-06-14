@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 import 'package:share/share.dart';
-// import 'package:wiredash/wiredash.dart';
+import 'package:wiredash/wiredash.dart';
 
 // Project imports:
 import 'package:cheon/widgets/cheon_icons.dart';
@@ -451,11 +451,11 @@ class _Drawer extends StatelessWidget {
               text: 'Roadmap',
               icon: FontAwesomeIcons.clipboardList,
             ),
-            /* _DrawerTab(
-              onTap: () => Wiredash.of(context).show,
-              text: 'Found a bug?',
-              icon: FontAwesomeIcons.bug,
-            ), */
+            _DrawerTab(
+              onTap: Wiredash.of(context).show,
+              text: 'Got Feedback?',
+              icon: FontAwesomeIcons.comments,
+            ),
             Spacer(flex: 6),
           ],
         ),
