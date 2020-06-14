@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:cheon/pages/events/view_event_page.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -87,6 +88,9 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   StudyPage.routeName: (BuildContext context) => StudyPage(
         studySession: routeArguments(context),
       ),
+  ViewEventPage.routeName: (context) => ViewEventPage(
+        event: routeArguments(context),
+      )
 };
 
 Object routeArguments(BuildContext context) =>

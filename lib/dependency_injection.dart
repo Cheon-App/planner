@@ -5,7 +5,7 @@ import 'dart:isolate';
 // Package imports:
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
-import 'package:kiwi/kiwi.dart' as kiwi;
+import 'package:kiwi/kiwi.dart';
 import 'package:moor/isolate.dart';
 import 'package:moor_ffi/moor_ffi.dart';
 import 'package:package_info/package_info.dart';
@@ -25,7 +25,7 @@ import 'package:cheon/services/key_value_service/key_value_service.dart';
 import 'package:cheon/services/notification_service/notification_service.dart';
 import 'package:cheon/services/notification_service/local_notification_service.dart';
 
-final kiwi.Container container = kiwi.Container();
+final KiwiContainer container = KiwiContainer();
 
 final FlutterLocalNotificationsPlugin notificationsPlugin =
     FlutterLocalNotificationsPlugin();

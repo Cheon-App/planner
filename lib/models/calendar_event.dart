@@ -15,6 +15,7 @@ class CalendarEvent extends CompareDateTime {
     @required this.title,
     @required this.description,
     @required this.location,
+    @required this.uri,
   })  : assert(eventId != null),
         assert(calendarId != null),
         assert(start != null),
@@ -45,7 +46,10 @@ class CalendarEvent extends CompareDateTime {
   /// The physical location the event occurs in
   final String location;
 
-  // attendees, reminders, uri, all day
+  /// A URL
+  final Uri uri;
+
+  // attendees, reminders,all day
 
   @override
   List<Object> get props => <Object>[eventId, calendarId];

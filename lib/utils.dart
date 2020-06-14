@@ -8,6 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:uuid/uuid.dart';
 
+extension ContextTheme on BuildContext {
+  ColorScheme get colorScheme => Theme.of(this).colorScheme;
+}
+
+Brightness invertedBrigntness(Brightness brightness) =>
+    brightness == Brightness.light ? Brightness.dark : Brightness.light;
+
 /// Converts a [DateTime] to a string in the form 'day month'
 String dateTimeToDayMonth(DateTime dateTime) {
   final String day = '${dateTime.day}';

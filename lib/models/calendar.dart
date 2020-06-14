@@ -22,13 +22,16 @@ class Calendar extends Equatable {
 
   Map<String, dynamic> toJson() => _$CalendarToJson(this);
 
-  // The device-specific identifier for the calendar
+  /// The device-specific identifier for the calendar
   final String id;
-  // The name of the calendar
+
+  /// The name of the calendar
   final String name;
-  // The name or email the calendar belongs to
+
+  /// The name or email the calendar belongs to
   final String accountName;
-  // A domain for the calendar e.g. com.google
+
+  /// A domain for the calendar e.g. com.google
   final String accountType;
 
   @override

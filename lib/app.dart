@@ -191,9 +191,14 @@ class App extends StatelessWidget {
       ),
       dialogBackgroundColor: surface,
       pageTransitionsTheme: _pageTransitionsTheme,
-      textTheme: const TextTheme(
-        headline5: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+      textTheme: TextTheme(
         subtitle1: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+        headline4: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: onSurface,
+        ),
+        headline5: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         headline6: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
       ),
       inputDecorationTheme: InputDecorationTheme(

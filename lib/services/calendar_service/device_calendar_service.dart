@@ -57,8 +57,10 @@ class DeviceCalendarService implements CalendarService {
               start: event.start,
               end: event.end,
               title: event.title,
-              description: event.description,
+              // Some descriptions contain metadata starting after -::
+              description: event.description.split('-::').first,
               location: event.location,
+              uri: event.url,
             ))
         .toList();
   }

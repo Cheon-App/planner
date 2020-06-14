@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:cheon/pages/events/view_event_page.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -510,7 +511,22 @@ class _ExamCard extends StatelessWidget {
 
 class _EventCard extends StatelessWidget {
   const _EventCard({Key key, this.event}) : super(key: key);
+
   final CalendarEvent event;
+
+  void _openEvent(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (context) => ViewEventPage(event: event),
+        fullscreenDialog: true,
+        settings: RouteSettings(
+          arguments: event,
+          name: ViewEventPage.routeName,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -518,7 +534,7 @@ class _EventCard extends StatelessWidget {
     final bool hasLocation = event.location.trim().isNotEmpty;
     return Card(
       child: InkWell(
-        onTap: () {},
+        onTap: () => _openEvent(context),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Column(

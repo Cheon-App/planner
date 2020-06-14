@@ -442,6 +442,11 @@ class _Drawer extends StatelessWidget {
             ),
             Divider(),
             _DrawerTab(
+              onTap: Wiredash.of(context).show,
+              text: 'Got Feedback?',
+              icon: FontAwesomeIcons.comments,
+            ),
+            _DrawerTab(
               onTap: _shareApp,
               text: 'Share',
               icon: FontAwesomeIcons.shareAlt,
@@ -450,11 +455,6 @@ class _Drawer extends StatelessWidget {
               onTap: () => _openRoadmap(context),
               text: 'Roadmap',
               icon: FontAwesomeIcons.clipboardList,
-            ),
-            _DrawerTab(
-              onTap: Wiredash.of(context).show,
-              text: 'Got Feedback?',
-              icon: FontAwesomeIcons.comments,
             ),
             Spacer(flex: 6),
           ],
