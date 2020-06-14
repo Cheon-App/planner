@@ -13,14 +13,14 @@ class SelectSubjectCard extends StatelessWidget {
   /// select a subject for an event.
   const SelectSubjectCard({
     Key key,
-    this.currentSubject,
+    this.subject,
     @required this.onSubjectSelected,
     this.isRequired = false,
     this.enabled = true,
   }) : super(key: key);
 
   /// The selected subject
-  final Subject currentSubject;
+  final Subject subject;
 
   /// A callback function invoked when a subject is selected.
   final Function(Subject) onSubjectSelected;
@@ -32,10 +32,10 @@ class SelectSubjectCard extends StatelessWidget {
 
   /// Displays the dialog containing a list of subjects that the user can choose
   /// from.
-  Future<void> selectSubject(BuildContext context) async {
+  Future<void> _selectSubject(BuildContext context) async {
     final Subject subject = await showSelectSubjectDialog(
       context: context,
-      selectedSubject: currentSubject,
+      selectedSubject: this.subject,
     );
 
     if (subject != null) onSubjectSelected(subject);
@@ -49,14 +49,14 @@ class SelectSubjectCard extends StatelessWidget {
       child: Card(
         child: Row(
           children: <Widget>[
-            Container(color: currentSubject?.color ?? Colors.grey, width: 4),
+            Container(color: subject?.color ?? Colors.grey, width: 4),
             Expanded(
               child: ListTile(
                 title: Text(
-                  currentSubject?.name ?? 'Subject${isRequired ? '*' : ''}',
+                  subject?.name ?? 'Subject${isRequired ? '*' : ''}',
                 ),
                 trailing: FaIcon(FontAwesomeIcons.chevronDown),
-                onTap: () => selectSubject(context),
+                onTap: () => _selectSubject(context),
                 enabled: enabled,
               ),
             ),

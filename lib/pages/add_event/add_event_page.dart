@@ -428,7 +428,7 @@ class _SelectSubjectAndEventRow extends StatelessWidget {
         Expanded(
           child: SelectSubjectCard(
             onSubjectSelected: onSubjectSelected,
-            currentSubject: currentSubject,
+            subject: currentSubject,
             isRequired: subjectRequired,
           ),
         ),

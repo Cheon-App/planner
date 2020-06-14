@@ -189,7 +189,7 @@ class __ExamBodyState extends State<_ExamBody> {
                 Expanded(
                   child: SelectSubjectCard(
                     onSubjectSelected: widget.onSubjectChanged,
-                    currentSubject: widget.subject,
+                    subject: widget.subject,
                     isRequired: true,
                   ),
                 ),

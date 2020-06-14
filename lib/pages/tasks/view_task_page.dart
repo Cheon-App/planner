@@ -77,7 +77,7 @@ class __TaskBodyState extends State<_TaskBody> {
     super.dispose();
   }
 
-  void updateTitle(String title) {
+  void _updateTitle(String title) {
     final taskVM = context.read<TaskVM>();
     taskVM.updateTask(
       widget.task,
@@ -86,7 +86,7 @@ class __TaskBodyState extends State<_TaskBody> {
     );
   }
 
-  void updateDescription(String description) {
+  void _updateDescription(String description) {
     final taskVM = context.read<TaskVM>();
     taskVM.updateTask(
       widget.task,
@@ -134,7 +134,7 @@ class __TaskBodyState extends State<_TaskBody> {
         TextField(
           controller: _titleController,
           decoration: InputDecoration(labelText: 'Title'),
-          onChanged: updateTitle,
+          onChanged: _updateTitle,
         ),
         const SizedBox(height: 4),
         Row(
@@ -150,7 +150,7 @@ class __TaskBodyState extends State<_TaskBody> {
             const SizedBox(width: 8),
             Expanded(
               child: SelectSubjectCard(
-                currentSubject: _task.subject,
+                subject: _task.subject,
                 onSubjectSelected: _updateSubject,
               ),
             ),
@@ -170,7 +170,7 @@ class __TaskBodyState extends State<_TaskBody> {
             labelText: 'Description',
             alignLabelWithHint: true,
           ),
-          onChanged: updateDescription,
+          onChanged: _updateDescription,
           minLines: 2,
           maxLines: null,
         ),
@@ -193,7 +193,7 @@ class _SelectSubjectFormCard extends FormField<Subject> {
           builder: (FormFieldState<Subject> state) {
             return SelectSubjectCard(
               onSubjectSelected: state.didChange,
-              currentSubject: state.value,
+              subject: state.value,
               isRequired: subjectRequired,
               enabled: enabled,
             );

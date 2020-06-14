@@ -2,20 +2,18 @@
 import 'dart:math';
 
 // Flutter imports:
+import 'package:cheon/pages/subjects/widgets/select_color_card.dart';
+import 'package:cheon/pages/subjects/widgets/select_icon_card.dart';
+import 'package:cheon/pages/subjects/widgets/select_teacher_card.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:animations/animations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:cheon/widgets/grid_selection_dialog.dart';
 import 'package:cheon/widgets/primary_action_button.dart';
-import 'package:cheon/widgets/select_teacher_dialog.dart';
 import 'package:cheon/widgets/tap_to_dismiss.dart';
 import 'package:cheon/constants.dart';
-import 'package:cheon/models/selection_dialog_widget_item.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/view_models/subjects_view_model.dart';
 
@@ -34,9 +32,9 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
   TextEditingController _roomController;
 
   // The colour chosen for the subject
-  Color color = Colors.primaries[_random.nextInt(Colors.primaries.length)];
-  IconData icon = subjectIconMap.values.first;
-  Teacher teacher;
+  Color _color = Colors.primaries[_random.nextInt(Colors.primaries.length)];
+  IconData _icon = subjectIconMap.values.first;
+  Teacher _teacher;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -54,92 +52,27 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
     _roomController.dispose();
   }
 
-  void addSubject() {
+  Future<void> _addSubject() async {
     if (_formKey.currentState.validate() == false) return;
     final String name = _nameController.text;
     final String room = _roomController.text;
-    final SubjectsVM vm = context.read<SubjectsVM>();
-    vm.addSubject(
-      color: color,
-      icon: icon,
+    final subjectsVM = context.read<SubjectsVM>();
+    await subjectsVM.addSubject(
+      color: _color,
+      icon: _icon,
       name: name,
       room: room.isNotEmpty ? room : null,
-      teacher: teacher,
+      teacher: _teacher,
     );
     Navigator.pop(context);
   }
 
-  String nameValidator(String name) {
+  String _nameValidator(String name) {
     if (name.length > 18) return 'Subject name cannot be over 18 characters.';
     return null;
   }
 
-  bool canAdd() => _nameController.text.trim().isNotEmpty;
-
-  Future<void> selectColor() async {
-    final Color newColor = await showModal<Color>(
-      context: context,
-      configuration: FadeScaleTransitionConfiguration(),
-      builder: (BuildContext context) {
-        return GridSelectionDialog<Color>(
-          defaultItem: color,
-          title: 'Select A Colour',
-          items: Colors.primaries
-              .map(
-                (Color c) => SelectionDialogWidgetItem<Color>(
-                  widget: Material(color: c, shape: const CircleBorder()),
-                  value: c,
-                ),
-              )
-              .toList(),
-        );
-      },
-    );
-
-    if (newColor != null) {
-      setState(() {
-        color = newColor;
-      });
-    }
-  }
-
-  Future<void> selectIcon() async {
-    final IconData newIcon = await showModal<IconData>(
-      configuration: FadeScaleTransitionConfiguration(),
-      context: context,
-      builder: (BuildContext context) {
-        return GridSelectionDialog<IconData>(
-          defaultItem: icon,
-          title: 'Select An Icon',
-          items: subjectIconMap.values
-              .map(
-                (IconData i) => SelectionDialogWidgetItem<IconData>(
-                  widget: Icon(i),
-                  value: i,
-                ),
-              )
-              .toList(),
-        );
-      },
-    );
-
-    if (newIcon != null) {
-      setState(() {
-        icon = newIcon;
-      });
-    }
-  }
-
-  Future<void> selectTeacher() async {
-    final Teacher teacher = await showSelectTeacherDialog(
-      context: context,
-      selectedTeacher: this.teacher,
-    );
-
-    if (teacher != null) setState(() => this.teacher = teacher);
-
-    print(this.teacher);
-  }
+  bool _canAdd() => _nameController.text.trim().isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -161,36 +94,23 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
                 ),
                 maxLength: 18,
                 maxLengthEnforced: false,
-                validator: nameValidator,
+                validator: _nameValidator,
                 textCapitalization: TextCapitalization.sentences,
               ),
               const SizedBox(height: 4),
               Row(
                 children: <Widget>[
                   Expanded(
-                    child: Card(
-                      child: ListTile(
-                        title: const Text('Colour'),
-                        trailing: Container(
-                          height: 24,
-                          width: 24,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: color,
-                          ),
-                        ),
-                        onTap: selectColor,
-                      ),
+                    child: SelectColorCard(
+                      color: _color,
+                      onColorChanged: (color) => setState(() => _color = color),
                     ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Card(
-                      child: ListTile(
-                        title: const Text('Icon'),
-                        trailing: Icon(icon),
-                        onTap: selectIcon,
-                      ),
+                    child: SelectIconCard(
+                      icon: _icon,
+                      onIconChanged: (icon) => setState(() => _icon = icon),
                     ),
                   ),
                 ],
@@ -204,14 +124,9 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
                 textCapitalization: TextCapitalization.sentences,
               ),
               const SizedBox(height: 4),
-              Card(
-                child: ListTile(
-                  title: const Text('Teacher'),
-                  trailing: teacher != null
-                      ? Text(teacher.name)
-                      : Icon(FontAwesomeIcons.chevronDown),
-                  onTap: () => selectTeacher(),
-                ),
+              SelectTeacherCard(
+                teacher: _teacher,
+                onTeacherChanged: (t) => setState(() => _teacher = t),
               ),
             ],
           ),
@@ -219,7 +134,7 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(16),
           child: PrimaryActionButton(
-            onTap: canAdd() ? addSubject : null,
+            onTap: _canAdd() ? _addSubject : null,
             text: 'ADD',
           ),
         ),

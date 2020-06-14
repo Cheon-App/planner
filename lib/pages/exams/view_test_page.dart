@@ -64,7 +64,6 @@ class _ViewTestPageState extends State<ViewTestPage> {
         subject: _subject,
         onSubjectChanged: _setSubject,
       ),
-      onDelete: _deleteTest,
     );
   }
 }
@@ -162,7 +161,7 @@ class __TestBodyState extends State<_TestBody> {
               Expanded(
                 child: SelectSubjectCard(
                   onSubjectSelected: widget.onSubjectChanged,
-                  currentSubject: widget.subject,
+                  subject: widget.subject,
                   isRequired: true,
                 ),
               ),
