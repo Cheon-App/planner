@@ -195,7 +195,7 @@ class HomePageState extends State<HomePage> {
 
     await rateMyApp.init();
 
-    if (rateMyApp.shouldOpenDialog || true) {
+    if (rateMyApp.shouldOpenDialog) {
       rateMyApp.showRateDialog(
         context,
         // The dialog title.
