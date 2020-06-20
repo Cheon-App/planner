@@ -182,7 +182,7 @@ class HomePageState extends State<HomePage> {
   Future<void> _initReviewPopup() async {
     const dialogMessage =
         'Finding the app useful? Help others discover it by leaving a review. '
-        'It\'s really quick!';
+        'It takes a few seconds!';
 
     final RateMyApp rateMyApp = RateMyApp(
       googlePlayIdentifier: 'app.cheon.app',

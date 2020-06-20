@@ -27,17 +27,6 @@ String dateTimeToDayMonth(DateTime dateTime) {
 DateTime strippedDateTime(DateTime dateTime) =>
     DateTime(dateTime.year, dateTime.month, dateTime.day);
 
-/// Returns a [DateTime] with the hour and minute provided by [timeOfDay]
-DateTime dateTimeWithTimeOfDay(DateTime dateTime, TimeOfDay timeOfDay) {
-  return DateTime(
-    dateTime.year,
-    dateTime.month,
-    dateTime.day,
-    timeOfDay.hour,
-    timeOfDay.minute,
-  );
-}
-
 /// Generates an Universally Unique identifier
 String generateUUID() => Uuid().v4();
 
@@ -74,12 +63,6 @@ class TimeAheadMessages extends timeago.EnMessages {
   String prefixFromNow() => 'In';
   @override
   String suffixFromNow() => '';
-}
-
-extension StrippedDateTime on DateTime {
-  /// Returns a new [DateTime] with precision truncated to a day.
-  /// Useful for comparing dates where the time is irrelevant
-  DateTime truncateToDay() => strippedDateTime(this);
 }
 
 /// An extension method added to [TimeOfDay] at compile time.
@@ -119,23 +102,6 @@ extension TimeOfDayComparison on TimeOfDay {
       isAfter(timeOfDay) || isSameTimeAs(timeOfDay);
 
   bool isSameTimeAs(TimeOfDay timeOfDay) => timeOfDay == this;
-}
-
-extension CopyWithTime on DateTime {
-  DateTime withTime(TimeOfDay time) => dateTimeWithTimeOfDay(this, time);
-
-  TimeOfDay get time => TimeOfDay.fromDateTime(this);
-}
-
-/// Returns a [DateTime] matching the start of the week i.e. 00:00 on Monday.
-DateTime startOfWeek(DateTime date) {
-  // TODO unit test this function
-  final int weekday = date.weekday;
-  if (weekday == DateTime.monday) {
-    return date;
-  } else {
-    return date.subtract(Duration(days: weekday - 1));
-  }
 }
 
 final numberRegExp = RegExp('1|2|3|4|5|6|7|8|9|0');

@@ -8,6 +8,7 @@ import 'package:cheon/utils.dart';
 import 'package:cheon/widgets/raised_body.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:cheon/utils/date_utils.dart';
 
 class ViewEventPage extends StatelessWidget {
   const ViewEventPage({Key key, @required this.event}) : super(key: key);

@@ -19,6 +19,7 @@ import 'package:cheon/widgets/select_time_card.dart';
 import 'package:cheon/widgets/tap_to_dismiss.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/utils.dart';
+import 'package:cheon/utils/date_utils.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
 import 'package:cheon/view_models/task_view_model.dart';
 
@@ -694,9 +695,9 @@ class _ExamFormState extends State<_ExamForm> {
   }
 
   Subject subject;
-  DateTime dateTime = dateTimeWithTimeOfDay(
-      DateTime.now().add(const Duration(days: 1)),
-      const TimeOfDay(hour: 9, minute: 0));
+  DateTime dateTime = DateTime.now().nextDay().withTime(
+        TimeOfDay(hour: 9, minute: 0),
+      );
   Duration length = const Duration(minutes: 90);
   String seat = '';
   String location = '';
@@ -710,18 +711,13 @@ class _ExamFormState extends State<_ExamForm> {
 
   void setDate(DateTime date) {
     if (date != null && dateTime != date) {
-      setState(
-        () => dateTime = dateTimeWithTimeOfDay(
-          date,
-          TimeOfDay.fromDateTime(dateTime),
-        ),
-      );
+      setState(() => dateTime = date.withTime(dateTime.time));
     }
   }
 
   void setTime(TimeOfDay time) {
     if (time != null && TimeOfDay.fromDateTime(dateTime) != time) {
-      setState(() => dateTime = dateTimeWithTimeOfDay(dateTime, time));
+      setState(() => dateTime = dateTime.withTime(time));
     }
   }
 

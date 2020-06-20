@@ -28,6 +28,7 @@ import 'package:cheon/pages/assessments/view_exam_page.dart';
 import 'package:cheon/pages/lessons/view_lesson_page.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/timeline_view_model.dart';
+import 'package:cheon/utils/date_utils.dart';
 
 class TimelinePage extends StatefulWidget {
   /// Creates a page containing upcoming homework, and exams
@@ -187,7 +188,7 @@ class __DateSelectorState extends State<_DateSelector> {
             itemCount: 57,
             itemBuilder: (BuildContext context, int week) {
               final DateTime weekStart =
-                  startOfWeek(now).add(Duration(days: (week - 28) * 7));
+                  now.startOfWeek().add(Duration(days: (week - 28) * 7));
               return _DateRow(
                 currentDate: now,
                 onDateSelected: widget.onDateChanged,

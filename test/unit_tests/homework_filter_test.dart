@@ -1,4 +1,4 @@
-// Package imports:
+/* // Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meta/meta.dart';
 
@@ -23,7 +23,7 @@ void main() {
         due: due,
         length: const Duration(),
         progress: progress,
-        subject: placeholderSubject,
+        _subject: placeholderSubject,
         title: '',
         scheduled: null,
       );
@@ -270,3 +270,4 @@ void main() {
     });
   });
 }
+ */

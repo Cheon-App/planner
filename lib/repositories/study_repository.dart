@@ -16,6 +16,7 @@ import 'package:cheon/models/study_session.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/test.dart';
 import 'package:cheon/utils.dart';
+import 'package:cheon/utils/date_utils.dart';
 
 class StudyRepository {
   StudyRepository._() {
@@ -209,10 +210,8 @@ class StudyRepository {
 
     /// The final time that a session could be started at today in order for
     /// it to not overrun the [endTime]
-    final DateTime lastSessionStartToday = dateTimeWithTimeOfDay(
-      nowTruncated,
-      endTime,
-    ).subtract(revisionDuration);
+    final DateTime lastSessionStartToday =
+        nowTruncated.withTime(endTime).subtract(revisionDuration);
 
     /// The final day of assessments
     final bool lastDay = daysUntilLastAssessment == 0;

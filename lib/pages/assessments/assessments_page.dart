@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:cheon/core/dates/date_filter.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -17,7 +18,6 @@ import 'package:cheon/constants.dart';
 import 'package:cheon/models/assessment.dart';
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/test.dart';
-import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
 
 class AssessmentsPage extends StatefulWidget {
@@ -39,79 +39,38 @@ class AssessmentsPagePageState extends State<AssessmentsPage>
 
   // True if assessments occuring now and in the future should be shown
   bool _showCurrent = true;
-  final DateTime now = strippedDateTime(DateTime.now());
+  final dateFilter = DateFilter();
 
   void toggleShowCurrent() => setState(() => _showCurrent = !_showCurrent);
 
   List<Assessment> assessmentListToday(List<Assessment> assessmentList) {
-    final bool Function(DateTime) isToday =
-        (DateTime dateTime) => strippedDateTime(dateTime).isAtSameMomentAs(now);
-
-    final bool Function(Assessment) assessmentIsToday =
-        (Assessment assessment) => isToday(assessment.compareDateTime);
-
-    return assessmentList.where(assessmentIsToday).toList();
+    return assessmentList
+        .where((a) => dateFilter.isToday(a.compareDateTime))
+        .toList();
   }
 
   List<Assessment> assessmentListTomorrow(List<Assessment> assessmentList) {
-    final DateTime tomorrow = now.add(const Duration(days: 1));
-    final bool Function(DateTime) isTomorrow = (DateTime dateTime) =>
-        tomorrow.difference(strippedDateTime(dateTime)) == Duration.zero;
-
-    final bool Function(Assessment) assessmentIsTomorrow =
-        (Assessment assessment) => isTomorrow(assessment.compareDateTime);
-
-    return assessmentList.where(assessmentIsTomorrow).toList();
+    return assessmentList
+        .where((a) => dateFilter.isTomorrow(a.compareDateTime))
+        .toList();
   }
 
   List<Assessment> assessmentListThisWeek(List<Assessment> assessmentList) {
-    final DateTime weekStart = startOfWeek(now);
-    final DateTime weekEnd = weekStart.add(const Duration(days: 7));
-    final DateTime twoDays = now.add(const Duration(days: 2));
-
-    final bool Function(DateTime) isThisWeek = (DateTime dateTime) =>
-        (dateTime.isAfter(twoDays) || dateTime.isAtSameMomentAs(twoDays)) &&
-        dateTime.isBefore(weekEnd);
-
-    final bool Function(Assessment) assessmentIsThisWeek =
-        (Assessment assessment) => isThisWeek(assessment.compareDateTime);
-
-    return assessmentList.where(assessmentIsThisWeek).toList();
+    return assessmentList
+        .where((a) => dateFilter.isThisWeek(a.compareDateTime))
+        .toList();
   }
 
   List<Assessment> assessmentListNextWeek(List<Assessment> assessmentList) {
-    final bool isSunday = now.weekday == DateTime.sunday;
-    final DateTime nextWeekStart =
-        startOfWeek(now).add(const Duration(days: 7));
-
-    final DateTime nextWeekEnd = nextWeekStart.add(const Duration(days: 7));
-
-    final DateTime nextWeekStartAdjusted =
-        nextWeekStart.add(Duration(days: isSunday ? 1 : 0));
-
-    final bool Function(DateTime) isNextWeek = (DateTime dateTime) =>
-        (dateTime.isAfter(nextWeekStartAdjusted) ||
-            dateTime.isAtSameMomentAs(nextWeekStartAdjusted)) &&
-        dateTime.isBefore(nextWeekEnd);
-
-    final bool Function(Assessment) assessmentIsNextWeek =
-        (Assessment assessment) => isNextWeek(assessment.compareDateTime);
-
-    return assessmentList.where(assessmentIsNextWeek).toList();
+    return assessmentList
+        .where((a) => dateFilter.isNextWeek(a.compareDateTime))
+        .toList();
   }
 
   List<Assessment> assessmentListOther(List<Assessment> assessmentList) {
-    final DateTime nextWeekEnd = strippedDateTime(now)
-        .add(Duration(days: DateTime.sunday - now.weekday + 1))
-        .add(const Duration(days: 7));
-
-    final bool Function(DateTime) isOther = (DateTime dateTime) =>
-        dateTime.isAfter(nextWeekEnd) || dateTime.isAtSameMomentAs(nextWeekEnd);
-
-    final bool Function(Assessment) assessmentIsOther =
-        (Assessment assessment) => isOther(assessment.compareDateTime);
-
-    return assessmentList.where(assessmentIsOther).toList();
+    return assessmentList
+        .where((a) => dateFilter.isOther(a.compareDateTime))
+        .toList();
   }
 
   Widget assessmentToCard(Assessment assessment) {

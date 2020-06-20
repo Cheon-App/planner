@@ -10,6 +10,7 @@ import 'package:cheon/models/timetable.dart';
 import 'package:cheon/repositories/timetable_repository.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
 import 'package:cheon/utils.dart';
+import 'package:cheon/utils/date_utils.dart';
 
 class LessonRepository {
   LessonRepository._internal() {
@@ -64,9 +65,9 @@ class LessonRepository {
         print('\tActiveTimetable: ${activeTimetable.id.substring(0, 4)}');
         print('\tTimetableList: '
             '${timetableList.map((e) => e.id.substring(0, 4)).toList()}');
-        final DateTime weekStart = strippedDateTime(startOfWeek(date));
+        final DateTime weekStart = strippedDateTime(date.startOfWeek());
         final DateTime timetableWeekStart =
-            strippedDateTime(startOfWeek(activeTimetable.lastSelected));
+            strippedDateTime(activeTimetable.lastSelected.startOfWeek());
         // positive if week start occurs after timetableWeekStart
         final int dayDiff = weekStart.difference(timetableWeekStart).inDays;
 

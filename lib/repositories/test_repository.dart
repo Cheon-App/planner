@@ -26,6 +26,4 @@ class TestRepository {
   Stream<List<Test>> get currentTestListStream =>
       _currentTestListSubject.stream;
   Stream<List<Test>> get pastTestListStream => _pastTestListSubject.stream;
-
-  Future<void> deleteTest(Test test) => _dao.deleteTest(test);
 }

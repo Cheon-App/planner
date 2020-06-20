@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'package:cheon/database/daos/timetable_dao.dart';
+import 'package:cheon/database/database.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
@@ -35,6 +37,7 @@ class TimetableVM extends ChangeNotifier {
 
   final TimetableRepository _timetableRepository = TimetableRepository.instance;
   final LessonRepository _lessonRepository = LessonRepository.instance;
+  final TimetableDao _dao = container<Database>().timetableDao;
 
   final KeyValueService _keyValueService =
       container<KeyValueService>('timetable');
@@ -84,8 +87,7 @@ class TimetableVM extends ChangeNotifier {
   int _lessonsPerDay = 1;
   int get lessonsPerDay => _lessonsPerDay;
 
-  Future<void> addTimetable({@required int index}) =>
-      _timetableRepository.addTimetable(index);
+  Future<void> addTimetable({@required int index}) => _dao.addTimetable(index);
 
   Stream<List<Timetable>> get timetableListStream =>
       _timetableRepository.timetableListStream;
@@ -98,16 +100,15 @@ class TimetableVM extends ChangeNotifier {
       _timetableRepository.lessonTimeListStream;
 
   Future<void> switchTimetable(Timetable timetable) =>
-      _timetableRepository.switchTimetable(timetable);
+      _dao.switchTimetable(timetable);
 
   Future<void> addLessonTime(int index, DateTime startTime) =>
-      _timetableRepository.addLessonTime(index, startTime);
+      _dao.addLessonTime(index, startTime);
 
   Future<void> updateLessonTime(LessonTime lessonTime, DateTime startTime) =>
-      _timetableRepository.updateLessonTime(lessonTime, startTime);
+      _dao.updateLessonTime(lessonTime, startTime);
 
-  Future<void> deleteLessonTime(int period) =>
-      _timetableRepository.deleteLessonTime(period);
+  Future<void> deleteLessonTime(int period) => _dao.deleteLessonTime(period);
 
   Future<void> addLesson({
     @required Subject subject,
@@ -117,28 +118,30 @@ class TimetableVM extends ChangeNotifier {
     @required int weekday,
     @required int period,
     @required Timetable timetable,
-  }) =>
-      _timetableRepository.addLesson(
-        subject: subject,
-        teacher: teacher,
-        room: room,
-        note: note,
-        weekday: weekday,
-        period: period,
-        timetable: timetable,
-      );
+  }) {
+    return _dao.addLesson(
+      subject: subject,
+      teacher: teacher,
+      room: room,
+      note: note,
+      weekday: weekday,
+      period: period,
+      timetable: timetable,
+    );
+  }
 
   Future<void> updateTimetable(
     Timetable timetable, {
     bool showSaturday,
     bool showSunday,
-  }) =>
-      _timetableRepository.updateTimetable(
-        timetable,
-        showSaturday: showSaturday,
-        showSunday: showSunday,
-      );
+  }) {
+    return _dao.updateTimetable(
+      timetable,
+      showSaturday: showSaturday,
+      showSunday: showSunday,
+    );
+  }
 
   Future<void> deleteTimetable(Timetable timetable) =>
-      _timetableRepository.deleteTimetable(timetable);
+      _dao.deleteTimetable(timetable);
 }
