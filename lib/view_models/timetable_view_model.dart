@@ -1,9 +1,9 @@
 // Flutter imports:
-import 'package:cheon/database/daos/timetable_dao.dart';
-import 'package:cheon/database/database.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:cheon/database/daos/timetable_dao.dart';
+import 'package:cheon/database/database.dart';
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/lesson_time.dart';

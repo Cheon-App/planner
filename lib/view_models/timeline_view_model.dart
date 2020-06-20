@@ -22,7 +22,6 @@ import 'package:cheon/repositories/lesson_repository.dart';
 import 'package:cheon/repositories/study_repository.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
 import 'package:cheon/utils/date_utils.dart';
-
 import 'package:cheon/view_models/settings_view_model.dart';
 
 class TimelineVM extends ChangeNotifier {

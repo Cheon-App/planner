@@ -1,11 +1,11 @@
 // Flutter imports:
-import 'package:cheon/pages/events/view_event_page.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:provider/provider.dart';
 
 // Project imports:
+import 'package:cheon/pages/events/view_event_page.dart';
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/subject.dart';

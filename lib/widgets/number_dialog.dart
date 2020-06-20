@@ -1,6 +1,8 @@
 // Flutter imports:
-import 'package:cheon/utils.dart';
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:cheon/utils.dart';
 
 class NumberDialog extends StatefulWidget {
   const NumberDialog({

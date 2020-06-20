@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:cheon/utils.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -7,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
+import 'package:cheon/utils.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/widgets/select_date_card.dart';
 import 'package:cheon/widgets/select_subject_card.dart';

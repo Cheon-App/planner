@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:cheon/pages/events/view_event_page.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -8,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
+import 'package:cheon/pages/events/view_event_page.dart';
 import 'package:cheon/app.dart';
 import 'package:cheon/widgets/cheon_page.dart';
 import 'package:cheon/widgets/empty_placeholder.dart';

@@ -1,13 +1,17 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_html/flutter_html.dart';
+
+// Project imports:
 import 'package:cheon/app.dart';
 import 'package:cheon/url_launcher.dart';
 import 'package:cheon/widgets/status_bar_theme.dart';
-import 'package:flutter/material.dart';
-
 import 'package:cheon/models/calendar_event.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/widgets/raised_body.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:cheon/utils/date_utils.dart';
 
 class ViewEventPage extends StatelessWidget {

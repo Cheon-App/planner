@@ -1,6 +1,9 @@
-import 'package:cheon/utils.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Project imports:
+import 'package:cheon/utils.dart';
 
 class StatusBarTheme extends StatelessWidget {
   const StatusBarTheme({
