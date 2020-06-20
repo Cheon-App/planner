@@ -23,7 +23,7 @@ Stream<DateTime> showPlatformDatePicker({
   @required DateTime initialDate,
 }) async* {
   minimunDate ??= DateTime.now().subtract(const Duration(days: 365));
-  maximumDate ??= DateTime.now().add(const Duration(days: 365));
+  maximumDate ??= DateTime.now().add(const Duration(days: 365 * 3));
   assert(initialDate != null);
 
   if (isMaterial(context)) {
