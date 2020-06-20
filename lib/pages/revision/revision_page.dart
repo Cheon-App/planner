@@ -631,7 +631,7 @@ class __RevisionSetupConfigurationState
                 text: 'Here you can configure how revision sessions and breaks'
                     ' are structured. The default settings are based on the ',
                 children: <InlineSpan>[
-                  tappableTextSpan(
+                  TappableTextSpan(
                     context,
                     onTap: () => launchUrl(URL_POMODORO_TECHNIQUE),
                     text: 'Pomodoro Technique.',
