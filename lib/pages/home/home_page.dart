@@ -19,7 +19,7 @@ import 'package:cheon/widgets/page_switcher.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/pages/add_event/add_event_page.dart';
 import 'package:cheon/pages/tasks/tasks_page.dart';
-import 'package:cheon/pages/assessments/exams_page.dart';
+import 'package:cheon/pages/assessments/assessments_page.dart';
 import 'package:cheon/pages/settings/settings_page.dart';
 import 'package:cheon/pages/revision/revision_page.dart';
 import 'package:cheon/pages/subjects/subjects_page.dart';

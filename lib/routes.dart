@@ -17,7 +17,7 @@ import 'package:cheon/pages/add_event/add_event_page.dart';
 import 'package:cheon/pages/lessons/add_lesson_page.dart';
 import 'package:cheon/pages/subjects/add_subject_page.dart';
 import 'package:cheon/pages/tasks/tasks_page.dart';
-import 'package:cheon/pages/assessments/exams_page.dart';
+import 'package:cheon/pages/assessments/assessments_page.dart';
 import 'package:cheon/pages/home/home_page.dart';
 import 'package:cheon/pages/lessons/lessons_page.dart';
 import 'package:cheon/pages/settings/settings_page.dart';
