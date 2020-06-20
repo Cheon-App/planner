@@ -115,10 +115,10 @@ class AssessmentsPagePageState extends State<AssessmentsPage>
   }
 
   Widget assessmentToCard(Assessment assessment) {
-    if (assessment.isExam) {
-      return ExamCard(exam: assessment as Exam);
-    } else if (assessment.isTest) {
-      return TestCard(test: assessment as Test);
+    if (assessment is Exam) {
+      return ExamCard(exam: assessment);
+    } else if (assessment is Test) {
+      return TestCard(test: assessment);
     } else {
       return const SizedBox.shrink();
     }
@@ -141,7 +141,7 @@ class AssessmentsPagePageState extends State<AssessmentsPage>
 
     return Scaffold(
       appBar: AppBar(
-          centerTitle: false,
+        centerTitle: false,
         title: Text('Assessments'),
         leading: MenuButton(),
         actions: <Widget>[

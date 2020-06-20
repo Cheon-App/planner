@@ -13,8 +13,11 @@ class TestCard extends StatelessWidget {
 
   final Test test;
 
-  void openTest(BuildContext context) =>
-      Navigator.pushNamed(context, ViewTestPage.routeName, arguments: test);
+  void openTest(BuildContext context) => Navigator.pushNamed(
+        context,
+        ViewTestPage.routeName,
+        arguments: test,
+      );
 
   @override
   Widget build(BuildContext context) {
