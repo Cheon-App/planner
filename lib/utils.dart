@@ -3,6 +3,7 @@ import 'dart:convert';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:timeago/timeago.dart' as timeago;
@@ -136,6 +137,9 @@ DateTime startOfWeek(DateTime date) {
     return date.subtract(Duration(days: weekday - 1));
   }
 }
+
+final numberRegExp = RegExp('1|2|3|4|5|6|7|8|9|0');
+final numberInputFormatter = WhitelistingTextInputFormatter(numberRegExp);
 
 /// Converts a DateTime.day value to a short string e.g. 1 -> Mon
 String dayToShortString(int weekday) {

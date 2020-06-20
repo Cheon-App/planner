@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:cheon/utils.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -175,6 +176,7 @@ class __TestBodyState extends State<_TestBody> {
           onChanged: _setPriority,
           decoration: InputDecoration(labelText: 'Revision Priority'),
           keyboardType: TextInputType.number,
+          inputFormatters: [numberInputFormatter],
           textCapitalization: TextCapitalization.sentences,
         ),
         const SizedBox(height: 8),

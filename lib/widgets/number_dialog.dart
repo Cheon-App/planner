@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:cheon/utils.dart';
 import 'package:flutter/material.dart';
 
 class NumberDialog extends StatefulWidget {
@@ -63,6 +64,7 @@ class _NumberDialogState extends State<NumberDialog> {
         child: TextFormField(
           controller: _controller,
           keyboardType: TextInputType.number,
+          inputFormatters: [numberInputFormatter],
           validator: validator,
           decoration: InputDecoration(suffixText: widget.suffixText),
           autofocus: true,

@@ -248,6 +248,7 @@ class __ExamBodyState extends State<_ExamBody> {
             controller: _priorityController,
             onChanged: _setPriority,
             decoration: InputDecoration(labelText: 'Revision Priority'),
+            inputFormatters: [numberInputFormatter],
             keyboardType: TextInputType.number,
             textCapitalization: TextCapitalization.sentences,
           ),

@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:cheon/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -167,6 +168,7 @@ class __PeriodListState extends State<_PeriodList> {
                 controller: _lessonsPerDayController,
                 decoration: const InputDecoration(labelText: 'Lessons Per Day'),
                 keyboardType: TextInputType.number,
+                inputFormatters: [numberInputFormatter],
                 validator: (String value) {
                   if (value.isEmpty) return null;
                   return int.parse(value) > 20
