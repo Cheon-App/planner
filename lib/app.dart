@@ -391,8 +391,8 @@ class App extends StatelessWidget {
                 type: MaterialType.transparency,
                 child: Wiredash(
                   child: child,
-                  projectId: Platform.environment['wiredash_project_id'] ?? '',
-                  secret: Platform.environment['wiredash_secret'] ?? '',
+                  projectId: 'wiredash_project_id',
+                  secret: 'wiredash_secret',
                   navigatorKey: _navigatorKey,
                   theme: WiredashThemeData(
                     primaryColor: Colors.green,
