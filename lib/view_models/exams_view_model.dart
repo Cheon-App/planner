@@ -15,7 +15,7 @@ import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/study_session.dart';
 import 'package:cheon/models/test.dart';
 import 'package:cheon/models/subject.dart';
-import 'package:cheon/utils/date_utils.dart';
+import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/repositories/exam_repository.dart';
 import 'package:cheon/repositories/study_repository.dart';
 import 'package:cheon/repositories/test_repository.dart';

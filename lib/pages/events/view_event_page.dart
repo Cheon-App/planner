@@ -12,7 +12,7 @@ import 'package:cheon/widgets/status_bar_theme.dart';
 import 'package:cheon/models/calendar_event.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/widgets/raised_body.dart';
-import 'package:cheon/utils/date_utils.dart';
+import 'package:cheon/core/dates/date_utils.dart';
 
 class ViewEventPage extends StatelessWidget {
   const ViewEventPage({Key key, @required this.event}) : super(key: key);

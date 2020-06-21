@@ -1,5 +1,5 @@
 // Project imports:
-import 'package:cheon/utils/date_utils.dart';
+import 'package:cheon/core/dates/date_utils.dart';
 
 // TODO test this
 class DateFilter {

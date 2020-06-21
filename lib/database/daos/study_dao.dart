@@ -11,7 +11,7 @@ import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/test.dart';
 import 'package:cheon/utils.dart';
-import 'package:cheon/utils/date_utils.dart';
+import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/repositories/study_repository.dart';
 
 part 'study_dao.g.dart';

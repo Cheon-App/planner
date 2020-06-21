@@ -10,7 +10,7 @@ import 'package:cheon/models/timetable.dart';
 import 'package:cheon/repositories/timetable_repository.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
 import 'package:cheon/utils.dart';
-import 'package:cheon/utils/date_utils.dart';
+import 'package:cheon/core/dates/date_utils.dart';
 
 class LessonRepository {
   LessonRepository._internal() {

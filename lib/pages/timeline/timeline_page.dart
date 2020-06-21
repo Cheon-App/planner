@@ -28,7 +28,7 @@ import 'package:cheon/pages/assessments/view_exam_page.dart';
 import 'package:cheon/pages/lessons/view_lesson_page.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/timeline_view_model.dart';
-import 'package:cheon/utils/date_utils.dart';
+import 'package:cheon/core/dates/date_utils.dart';
 
 class TimelinePage extends StatefulWidget {
   /// Creates a page containing upcoming homework, and exams

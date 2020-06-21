@@ -15,7 +15,7 @@ import 'package:cheon/view_models/exams_view_model.dart';
 import 'package:cheon/widgets/select_date_card.dart';
 import 'package:cheon/widgets/select_subject_card.dart';
 import 'package:cheon/widgets/select_time_card.dart';
-import 'package:cheon/utils/date_utils.dart';
+import 'package:cheon/core/dates/date_utils.dart';
 
 /// Creates a page containing the details of the given exam
 class ViewExamPage extends StatefulWidget {

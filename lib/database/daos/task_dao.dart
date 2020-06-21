@@ -8,7 +8,7 @@ import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/task.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/utils.dart';
-import 'package:cheon/utils/date_utils.dart';
+import 'package:cheon/core/dates/date_utils.dart';
 
 part 'task_dao.g.dart';
 

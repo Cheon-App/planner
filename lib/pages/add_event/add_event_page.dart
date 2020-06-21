@@ -19,7 +19,7 @@ import 'package:cheon/widgets/select_time_card.dart';
 import 'package:cheon/widgets/tap_to_dismiss.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/utils.dart';
-import 'package:cheon/utils/date_utils.dart';
+import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
 import 'package:cheon/view_models/task_view_model.dart';
 
