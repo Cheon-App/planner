@@ -29,11 +29,12 @@ Stream<DateTime> showPlatformDatePicker({
   if (isMaterial(context)) {
     // Shows the material design date picker dialog
     yield await showDatePicker(
-      context: context,
-      firstDate: minimunDate,
-      initialDate: initialDate,
-      lastDate: maximumDate,
-    );
+          context: context,
+          firstDate: minimunDate,
+          initialDate: initialDate,
+          lastDate: maximumDate,
+        ) ??
+        initialDate;
   } else {
     final StreamController<DateTime> controller =
         StreamController<DateTime>.broadcast();
@@ -76,11 +77,12 @@ Stream<TimeOfDay> showPlatformTimePicker({
 
   if (isMaterial(context)) {
     yield await showRoundedTimePicker(
-      context: context,
-      initialTime: initialTime,
-      theme: Theme.of(context),
-      borderRadius: App.borderRadius,
-    );
+          context: context,
+          initialTime: initialTime,
+          theme: Theme.of(context),
+          borderRadius: App.borderRadius,
+        ) ??
+        initialTime;
   } else {
     final StreamController<TimeOfDay> controller =
         StreamController<TimeOfDay>.broadcast();
