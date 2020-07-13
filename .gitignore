@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+cloc.exe
 
 # IntelliJ related
 *.iml
@@ -33,6 +34,7 @@
 /windows/
 /macos/
 .flutter-plugins-dependencies
+lib/generated_plugin_registrant.dart
 
 # Android related
 **/android/**/gradle-wrapper.jar
@@ -42,7 +44,9 @@
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
-android/key.properties
+**/android/key.properties
+**/android/**/google-services.json
+*.jks
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
@@ -67,9 +71,11 @@ android/key.properties
 **/ios/Flutter/app.flx
 **/ios/Flutter/app.zip
 **/ios/Flutter/flutter_assets/
+**/ios/Flutter/Flutter.podspec
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 **/ios/Flutter/flutter_export_environment.sh
+**/ios/**/GoogleService-Info.plist
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
@@ -77,10 +83,3 @@ android/key.properties
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-
-
-cloc.exe
-ios/Flutter/Flutter.podspec
-lib/generated_plugin_registrant.dart
-android/app/google-services.json
-ios/Runner/GoogleService-Info.plist
