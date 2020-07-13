@@ -1,6 +1,4 @@
-👉🏿 Calendar synchronisation has been added, head over to settings to test it out.
-👉 Leaving in-app feedback(with screenshots) is now easier than ever! Try it out via the "Got Feedback?" button in the menu.
-👉🏿 Tests, subjects, and lessons are now editable.
+👉🏿 A database issue affecting some Android devices has been fixed!
 Thanks for using the Cheon Smart Planner app!
 We release regular updates to the app to add new features and squash bugs.
 Join our Discord channel to contact the developer and other students! https://discord.com/invite/N2YK5uq
