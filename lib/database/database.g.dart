@@ -6,7 +6,7 @@ part of 'database.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this, always_specify_types, implicit_dynamic_parameter, sort_constructors_first, implicit_dynamic_map_literal, avoid_renaming_method_parameters, sort_constructors_first, lines_longer_than_80_chars
+// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class SubjectModel extends DataClass implements Insertable<SubjectModel> {
   final String id;
   final String yearId;

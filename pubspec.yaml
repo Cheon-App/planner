@@ -56,8 +56,6 @@ dependencies:
   # moor_flutter: ^2.1.1
   # https://github.com/simolus3/moor/issues/446
   moor_ffi: ^0.7.0
-  # update moor once this issue is fixed
-  # https://github.com/simolus3/moor/issues/581
 
   # Supplies the app with the directory location for storing files
   path_provider: ^1.6.11
@@ -82,7 +80,7 @@ dependencies:
 
   # Inversion of control container based dependency injection using a map
   # Supports constructor injection.
-  kiwi: ^1.0.0
+  kiwi: ^2.0.0
 
   # Creates fuzzy timestamps from DateTime objects e.g. 5 minutes ago
   timeago: ^2.0.26
@@ -159,7 +157,7 @@ dev_dependencies:
   build_runner: ^1.10.0
 
   # Constructor injection code generator for kiwi
-  kiwi_generator: ^1.0.0
+  kiwi_generator: ^2.0.0
 
   # Dart sqlite table to raw sql code generator for moor
   moor_generator: ^3.2.0

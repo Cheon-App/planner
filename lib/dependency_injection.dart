@@ -34,8 +34,7 @@ final FlutterLocalNotificationsPlugin notificationsPlugin =
 Future<void> registerTestDependencies() async {
   final AppInfoService mockAppInfoService = MockAppInfoService();
 
-  container
-      .registerInstance<AppInfoService, MockAppInfoService>(mockAppInfoService);
+  container.registerInstance<AppInfoService>(mockAppInfoService);
 }
 
 Future<void> registerDependencies() async {
@@ -91,36 +90,34 @@ Future<void> registerDependencies() async {
 
   final Database db = Database.connect(connection);
 
-  container.registerInstance<AppInfoService, PackageInfoAppInfoService>(
+  container.registerInstance<AppInfoService>(
     packageInfoAppInfoService,
   );
 
-  container.registerInstance<KeyValueService, HiveKeyValueService>(
+  container.registerInstance<KeyValueService>(
     settingsKeyValueService,
   );
 
-  container.registerInstance<KeyValueService, HiveKeyValueService>(
+  container.registerInstance<KeyValueService>(
     timetableKeyValueService,
     name: 'timetable',
   );
 
-  container.registerInstance<KeyValueService, HiveKeyValueService>(
+  container.registerInstance<KeyValueService>(
     eventKeyValueService,
     name: 'event',
   );
 
-  container.registerInstance<KeyValueService, HiveKeyValueService>(
+  container.registerInstance<KeyValueService>(
     revisionKeyValueService,
     name: 'revision',
   );
 
   container.registerInstance(db);
 
-  container.registerInstance<CalendarService, DeviceCalendarService>(
-      deviceCalendarService);
+  container.registerInstance<CalendarService>(deviceCalendarService);
 
-  container.registerInstance<NotificationService, LocalNotificationService>(
-      localNotificationService);
+  container.registerInstance<NotificationService>(localNotificationService);
 }
 
 void unregisterDependencies() => container.clear();
