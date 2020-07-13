@@ -58,6 +58,13 @@ android {
 
    buildTypes {
        release {
+           /*  if (BuildConfig.FLAVOR.equals("prod")) {
+                signingConfig signingConfigs.release
+                println "Signing with release config"
+            } else {
+                signingConfig signingConfigs.debug
+                println "Signing with debug config"
+            } */
             signingConfig signingConfigs.release
 
             minifyEnabled true
