@@ -6,7 +6,7 @@ part of 'database.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
+// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this, always_specify_types, implicit_dynamic_parameter, sort_constructors_first, implicit_dynamic_map_literal, avoid_renaming_method_parameters, sort_constructors_first, lines_longer_than_80_chars
 class SubjectModel extends DataClass implements Insertable<SubjectModel> {
   final String id;
   final String yearId;
@@ -303,6 +303,21 @@ class SubjectsCompanion extends UpdateCompanion<SubjectModel> {
       map['last_updated'] = Variable<DateTime>(lastUpdated.value);
     }
     return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SubjectsCompanion(')
+          ..write('id: $id, ')
+          ..write('yearId: $yearId, ')
+          ..write('teacherId: $teacherId, ')
+          ..write('name: $name, ')
+          ..write('room: $room, ')
+          ..write('iconId: $iconId, ')
+          ..write('color: $color, ')
+          ..write('lastUpdated: $lastUpdated')
+          ..write(')'))
+        .toString();
   }
 }
 
@@ -673,6 +688,18 @@ class TeachersCompanion extends UpdateCompanion<TeacherModel> {
       map['last_updated'] = Variable<DateTime>(lastUpdated.value);
     }
     return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TeachersCompanion(')
+          ..write('id: $id, ')
+          ..write('yearId: $yearId, ')
+          ..write('name: $name, ')
+          ..write('email: $email, ')
+          ..write('lastUpdated: $lastUpdated')
+          ..write(')'))
+        .toString();
   }
 }
 
@@ -1116,6 +1143,22 @@ class ExamsCompanion extends UpdateCompanion<ExamModel> {
       map['last_updated'] = Variable<DateTime>(lastUpdated.value);
     }
     return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExamsCompanion(')
+          ..write('id: $id, ')
+          ..write('subjectId: $subjectId, ')
+          ..write('title: $title, ')
+          ..write('location: $location, ')
+          ..write('seat: $seat, ')
+          ..write('start: $start, ')
+          ..write('end: $end, ')
+          ..write('priority: $priority, ')
+          ..write('lastUpdated: $lastUpdated')
+          ..write(')'))
+        .toString();
   }
 }
 
@@ -1632,6 +1675,22 @@ class LessonsCompanion extends UpdateCompanion<LessonModel> {
     }
     return map;
   }
+
+  @override
+  String toString() {
+    return (StringBuffer('LessonsCompanion(')
+          ..write('id: $id, ')
+          ..write('subjectId: $subjectId, ')
+          ..write('teacherId: $teacherId, ')
+          ..write('timetableId: $timetableId, ')
+          ..write('period: $period, ')
+          ..write('room: $room, ')
+          ..write('weekday: $weekday, ')
+          ..write('note: $note, ')
+          ..write('lastUpdated: $lastUpdated')
+          ..write(')'))
+        .toString();
+  }
 }
 
 class $LessonsTable extends Lessons with TableInfo<$LessonsTable, LessonModel> {
@@ -2093,6 +2152,20 @@ class TimetablesCompanion extends UpdateCompanion<TimetableModel> {
       map['last_updated'] = Variable<DateTime>(lastUpdated.value);
     }
     return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TimetablesCompanion(')
+          ..write('id: $id, ')
+          ..write('yearId: $yearId, ')
+          ..write('week: $week, ')
+          ..write('saturday: $saturday, ')
+          ..write('sunday: $sunday, ')
+          ..write('lastSelected: $lastSelected, ')
+          ..write('lastUpdated: $lastUpdated')
+          ..write(')'))
+        .toString();
   }
 }
 
@@ -2558,6 +2631,21 @@ class TestsCompanion extends UpdateCompanion<TestModel> {
     }
     return map;
   }
+
+  @override
+  String toString() {
+    return (StringBuffer('TestsCompanion(')
+          ..write('id: $id, ')
+          ..write('subjectId: $subjectId, ')
+          ..write('lessonId: $lessonId, ')
+          ..write('title: $title, ')
+          ..write('content: $content, ')
+          ..write('date: $date, ')
+          ..write('priority: $priority, ')
+          ..write('lastUpdated: $lastUpdated')
+          ..write(')'))
+        .toString();
+  }
 }
 
 class $TestsTable extends Tests with TableInfo<$TestsTable, TestModel> {
@@ -3021,6 +3109,21 @@ class StudyingCompanion extends UpdateCompanion<StudyModel> {
     }
     return map;
   }
+
+  @override
+  String toString() {
+    return (StringBuffer('StudyingCompanion(')
+          ..write('id: $id, ')
+          ..write('examId: $examId, ')
+          ..write('testId: $testId, ')
+          ..write('title: $title, ')
+          ..write('start: $start, ')
+          ..write('end: $end, ')
+          ..write('completed: $completed, ')
+          ..write('lastUpdated: $lastUpdated')
+          ..write(')'))
+        .toString();
+  }
 }
 
 class $StudyingTable extends Studying
@@ -3337,6 +3440,16 @@ class LessonTimesCompanion extends UpdateCompanion<LessonTimeModel> {
       map['last_updated'] = Variable<DateTime>(lastUpdated.value);
     }
     return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LessonTimesCompanion(')
+          ..write('period: $period, ')
+          ..write('startTime: $startTime, ')
+          ..write('lastUpdated: $lastUpdated')
+          ..write(')'))
+        .toString();
   }
 }
 
@@ -3697,6 +3810,20 @@ class TasksCompanion extends UpdateCompanion<TaskModel> {
       map['last_updated'] = Variable<DateTime>(lastUpdated.value);
     }
     return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TasksCompanion(')
+          ..write('id: $id, ')
+          ..write('subjectId: $subjectId, ')
+          ..write('title: $title, ')
+          ..write('description: $description, ')
+          ..write('due: $due, ')
+          ..write('completed: $completed, ')
+          ..write('lastUpdated: $lastUpdated')
+          ..write(')'))
+        .toString();
   }
 }
 
@@ -4072,6 +4199,18 @@ class SubTasksCompanion extends UpdateCompanion<SubTaskModel> {
       map['last_updated'] = Variable<DateTime>(lastUpdated.value);
     }
     return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SubTasksCompanion(')
+          ..write('id: $id, ')
+          ..write('taskId: $taskId, ')
+          ..write('title: $title, ')
+          ..write('completed: $completed, ')
+          ..write('lastUpdated: $lastUpdated')
+          ..write(')'))
+        .toString();
   }
 }
 

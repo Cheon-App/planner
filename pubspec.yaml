@@ -52,11 +52,10 @@ dependencies:
   hive: ^1.4.1+1
 
   # Adds SQLite support with Data Access Objects and streams
-  # TODO address breaking changes introduced in 3.1.0
-  moor: ^3.1.0
+  moor: ^3.2.0
   # moor_flutter: ^2.1.1
   # https://github.com/simolus3/moor/issues/446
-  moor_ffi: 0.5.0
+  moor_ffi: ^0.7.0
   # update moor once this issue is fixed
   # https://github.com/simolus3/moor/issues/581
 
@@ -163,7 +162,7 @@ dev_dependencies:
   kiwi_generator: ^1.0.0
 
   # Dart sqlite table to raw sql code generator for moor
-  moor_generator: ^3.1.0
+  moor_generator: ^3.2.0
 
   # Uses code generation to generate serialization functions to convert objects
   # to and from JSON
