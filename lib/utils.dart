@@ -104,8 +104,7 @@ extension TimeOfDayComparison on TimeOfDay {
   bool isSameTimeAs(TimeOfDay timeOfDay) => timeOfDay == this;
 }
 
-final numberRegExp = RegExp('1|2|3|4|5|6|7|8|9|0');
-final numberInputFormatter = WhitelistingTextInputFormatter(numberRegExp);
+final numberInputFormatter = FilteringTextInputFormatter.digitsOnly;
 
 /// Converts a DateTime.day value to a short string e.g. 1 -> Mon
 String dayToShortString(int weekday) {
