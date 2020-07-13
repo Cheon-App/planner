@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Project imports:
-import 'package:cheon/widgets/subject_card.dart';
 import 'package:cheon/models/study_session.dart';
 import 'package:cheon/pages/study/study_page.dart';
+import 'package:cheon/widgets/subject_card.dart';
 
 class StudySessionCard extends StatelessWidget {
   const StudySessionCard({Key key, @required this.studySession})

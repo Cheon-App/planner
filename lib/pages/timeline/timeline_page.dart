@@ -7,14 +7,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:cheon/pages/events/view_event_page.dart';
 import 'package:cheon/app.dart';
-import 'package:cheon/widgets/cheon_page.dart';
-import 'package:cheon/widgets/empty_placeholder.dart';
-import 'package:cheon/widgets/loading_indicator.dart';
-import 'package:cheon/widgets/study_session_card.dart';
-import 'package:cheon/widgets/subject_card.dart';
 import 'package:cheon/constants.dart';
+import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/models/calendar_event.dart';
 import 'package:cheon/models/compare_time.dart';
 import 'package:cheon/models/exam.dart';
@@ -23,12 +18,17 @@ import 'package:cheon/models/study_session.dart';
 import 'package:cheon/models/timeline_data.dart';
 import 'package:cheon/models/timetable.dart';
 import 'package:cheon/pages/add_event/add_event_page.dart';
-import 'package:cheon/widgets/error_message.dart';
 import 'package:cheon/pages/assessments/view_exam_page.dart';
+import 'package:cheon/pages/events/view_event_page.dart';
 import 'package:cheon/pages/lessons/view_lesson_page.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/timeline_view_model.dart';
-import 'package:cheon/core/dates/date_utils.dart';
+import 'package:cheon/widgets/cheon_page.dart';
+import 'package:cheon/widgets/empty_placeholder.dart';
+import 'package:cheon/widgets/error_message.dart';
+import 'package:cheon/widgets/loading_indicator.dart';
+import 'package:cheon/widgets/study_session_card.dart';
+import 'package:cheon/widgets/subject_card.dart';
 
 class TimelinePage extends StatefulWidget {
   /// Creates a page containing upcoming homework, and exams

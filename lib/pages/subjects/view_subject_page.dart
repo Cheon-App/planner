@@ -6,13 +6,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:cheon/pages/subjects/widgets/select_color_card.dart';
-import 'package:cheon/pages/subjects/widgets/select_icon_card.dart';
-import 'package:cheon/widgets/select_teacher_card.dart';
-import 'package:cheon/widgets/raised_action_page.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
+import 'package:cheon/pages/subjects/widgets/select_color_card.dart';
+import 'package:cheon/pages/subjects/widgets/select_icon_card.dart';
 import 'package:cheon/view_models/subjects_view_model.dart';
+import 'package:cheon/widgets/raised_action_page.dart';
+import 'package:cheon/widgets/select_teacher_card.dart';
 
 /// Creates a page to view and edit the details of an individual subject
 class ViewSubjectPage extends StatefulWidget {

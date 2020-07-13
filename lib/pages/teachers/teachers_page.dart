@@ -6,14 +6,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:cheon/widgets/empty_placeholder.dart';
-import 'package:cheon/widgets/error_message.dart';
-import 'package:cheon/widgets/loading_indicator.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/pages/teachers/teacher_page.dart';
 import 'package:cheon/url_launcher.dart';
 import 'package:cheon/view_models/teachers_view_model.dart';
+import 'package:cheon/widgets/empty_placeholder.dart';
+import 'package:cheon/widgets/error_message.dart';
+import 'package:cheon/widgets/loading_indicator.dart';
 
 /// Creates a page containing a list of teachers and a button to add a teacher
 class TeachersPage extends StatelessWidget {

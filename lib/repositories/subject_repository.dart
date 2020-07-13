@@ -9,8 +9,8 @@ import 'package:cheon/constants.dart';
 import 'package:cheon/database/daos/subject_dao.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/dependency_injection.dart';
-import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/subject.dart';
+import 'package:cheon/models/teacher.dart';
 
 class SubjectRepository {
   SubjectRepository._internal() {

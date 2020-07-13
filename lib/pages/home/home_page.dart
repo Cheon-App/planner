@@ -14,20 +14,20 @@ import 'package:share/share.dart';
 import 'package:wiredash/wiredash.dart';
 
 // Project imports:
-import 'package:cheon/widgets/cheon_icons.dart';
-import 'package:cheon/widgets/page_switcher.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/pages/add_event/add_event_page.dart';
-import 'package:cheon/pages/tasks/tasks_page.dart';
 import 'package:cheon/pages/assessments/assessments_page.dart';
-import 'package:cheon/pages/settings/settings_page.dart';
 import 'package:cheon/pages/revision/revision_page.dart';
+import 'package:cheon/pages/settings/settings_page.dart';
 import 'package:cheon/pages/subjects/subjects_page.dart';
+import 'package:cheon/pages/tasks/tasks_page.dart';
 import 'package:cheon/pages/teachers/teachers_page.dart';
 import 'package:cheon/pages/timeline/timeline_page.dart';
 import 'package:cheon/pages/timetable/timetable_page.dart';
 import 'package:cheon/url_launcher.dart';
 import 'package:cheon/view_models/task_view_model.dart';
+import 'package:cheon/widgets/cheon_icons.dart';
+import 'package:cheon/widgets/page_switcher.dart';
 
 /// All pages shown on the home page, changing the order changes the order
 /// of the items in the bottom and side navigation bar

@@ -2,8 +2,8 @@
 import 'package:moor/moor.dart';
 
 // Project imports:
-import 'package:cheon/database/db_value.dart';
 import 'package:cheon/database/database.dart';
+import 'package:cheon/database/db_value.dart';
 import 'package:cheon/database/tables.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';

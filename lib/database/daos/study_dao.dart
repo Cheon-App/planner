@@ -2,6 +2,7 @@
 import 'package:moor/moor.dart';
 
 // Project imports:
+import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/database/converters/uuid_converter.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/database/tables.dart';
@@ -10,9 +11,8 @@ import 'package:cheon/models/study_session.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/test.dart';
-import 'package:cheon/utils.dart';
-import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/repositories/study_repository.dart';
+import 'package:cheon/utils.dart';
 
 part 'study_dao.g.dart';
 

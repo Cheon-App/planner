@@ -8,6 +8,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Project imports:
 import 'package:cheon/app.dart';
+import 'package:cheon/constants.dart';
+import 'package:cheon/repositories/study_repository.dart';
+import 'package:cheon/url_launcher.dart';
+import 'package:cheon/utils.dart';
+import 'package:cheon/view_models/revision_view_model.dart';
 import 'package:cheon/widgets/empty_placeholder.dart';
 import 'package:cheon/widgets/error_message.dart';
 import 'package:cheon/widgets/linear_progress_bar.dart';
@@ -17,11 +22,6 @@ import 'package:cheon/widgets/platform_date_time_picker.dart';
 import 'package:cheon/widgets/platform_loading_indicator.dart';
 import 'package:cheon/widgets/primary_action_button.dart';
 import 'package:cheon/widgets/tappable_text_span.dart';
-import 'package:cheon/constants.dart';
-import 'package:cheon/utils.dart';
-import 'package:cheon/repositories/study_repository.dart';
-import 'package:cheon/url_launcher.dart';
-import 'package:cheon/view_models/revision_view_model.dart';
 
 /// Creates a page containing a list of revision plans.
 class RevisonPage extends StatefulWidget {

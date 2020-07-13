@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:cheon/pages/subjects/widgets/select_color_card.dart';
-import 'package:cheon/pages/subjects/widgets/select_icon_card.dart';
-import 'package:cheon/widgets/select_teacher_card.dart';
-import 'package:cheon/widgets/primary_action_button.dart';
-import 'package:cheon/widgets/tap_to_dismiss.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/teacher.dart';
+import 'package:cheon/pages/subjects/widgets/select_color_card.dart';
+import 'package:cheon/pages/subjects/widgets/select_icon_card.dart';
 import 'package:cheon/view_models/subjects_view_model.dart';
+import 'package:cheon/widgets/primary_action_button.dart';
+import 'package:cheon/widgets/select_teacher_card.dart';
+import 'package:cheon/widgets/tap_to_dismiss.dart';
 
 /// Creates a page that allows the user to add a subject to their account
 class AddSubjectPage extends StatefulWidget {

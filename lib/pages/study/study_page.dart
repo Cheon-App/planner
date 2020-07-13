@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:cheon/widgets/empty_placeholder.dart';
-import 'package:cheon/widgets/raised_action_page.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/study_session.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/view_models/study_view_model.dart';
+import 'package:cheon/widgets/empty_placeholder.dart';
+import 'package:cheon/widgets/raised_action_page.dart';
 
 class StudyPage extends StatefulWidget {
   /// Creates a page where details of a study session can be viewed and edited.

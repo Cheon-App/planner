@@ -1,6 +1,6 @@
 // Package imports:
-import 'package:package_info/package_info.dart';
 import 'package:meta/meta.dart';
+import 'package:package_info/package_info.dart';
 
 // Project imports:
 import 'package:cheon/services/app_info_service/app_info_service.dart';

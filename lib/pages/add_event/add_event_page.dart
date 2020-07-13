@@ -10,6 +10,11 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:cheon/app.dart';
+import 'package:cheon/core/dates/date_utils.dart';
+import 'package:cheon/models/subject.dart';
+import 'package:cheon/utils.dart';
+import 'package:cheon/view_models/exams_view_model.dart';
+import 'package:cheon/view_models/task_view_model.dart';
 import 'package:cheon/widgets/platform_selection_dialog.dart';
 import 'package:cheon/widgets/primary_action_button.dart';
 import 'package:cheon/widgets/raised_body.dart';
@@ -17,11 +22,6 @@ import 'package:cheon/widgets/select_date_card.dart';
 import 'package:cheon/widgets/select_subject_card.dart';
 import 'package:cheon/widgets/select_time_card.dart';
 import 'package:cheon/widgets/tap_to_dismiss.dart';
-import 'package:cheon/models/subject.dart';
-import 'package:cheon/utils.dart';
-import 'package:cheon/core/dates/date_utils.dart';
-import 'package:cheon/view_models/exams_view_model.dart';
-import 'package:cheon/view_models/task_view_model.dart';
 
 enum EventType {
   TASK,

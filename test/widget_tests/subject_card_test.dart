@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:cheon/widgets/subject_card.dart';
 import '../test_utils.dart';
+import 'package:cheon/widgets/subject_card.dart';
 
 void main() {
   group('subject_card.dart |', () {

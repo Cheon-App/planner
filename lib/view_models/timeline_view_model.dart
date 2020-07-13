@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 // Project imports:
+import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/database/daos/study_dao.dart';
 import 'package:cheon/database/daos/task_dao.dart';
 import 'package:cheon/database/database.dart';
@@ -21,7 +22,6 @@ import 'package:cheon/repositories/exam_repository.dart';
 import 'package:cheon/repositories/lesson_repository.dart';
 import 'package:cheon/repositories/study_repository.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
-import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/view_models/settings_view_model.dart';
 
 class TimelineVM extends ChangeNotifier {

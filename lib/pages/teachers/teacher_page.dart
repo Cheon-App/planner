@@ -7,12 +7,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:cheon/widgets/primary_action_button.dart';
-import 'package:cheon/widgets/tap_to_dismiss.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/validators.dart';
 import 'package:cheon/view_models/teachers_view_model.dart';
+import 'package:cheon/widgets/primary_action_button.dart';
+import 'package:cheon/widgets/tap_to_dismiss.dart';
 
 class TeacherPage extends StatefulWidget {
   const TeacherPage({Key key, this.teacher}) : super(key: key);

@@ -2,8 +2,8 @@
 import 'dart:io';
 
 // Flutter imports:
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
@@ -21,8 +21,8 @@ import 'package:cheon/routes.dart';
 import 'package:cheon/view_models/app_info_view_model.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
 import 'package:cheon/view_models/lessons_view_model.dart';
-import 'package:cheon/view_models/settings_view_model.dart';
 import 'package:cheon/view_models/revision_view_model.dart';
+import 'package:cheon/view_models/settings_view_model.dart';
 import 'package:cheon/view_models/study_view_model.dart';
 import 'package:cheon/view_models/subjects_view_model.dart';
 import 'package:cheon/view_models/teachers_view_model.dart';

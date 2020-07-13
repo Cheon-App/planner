@@ -2,8 +2,8 @@
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:cheon/validators.dart';
 import '../test_utils.dart';
+import 'package:cheon/validators.dart';
 
 void main() {
   group('validators.dart |', () {

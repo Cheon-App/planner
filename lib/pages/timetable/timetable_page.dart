@@ -8,18 +8,18 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:cheon/app.dart';
-import 'package:cheon/widgets/custom_selection_dialog.dart';
-import 'package:cheon/widgets/error_message.dart';
-import 'package:cheon/widgets/loading_indicator.dart';
-import 'package:cheon/widgets/menu_button.dart';
 import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/timetable.dart';
 import 'package:cheon/models/timetable_position.dart';
 import 'package:cheon/pages/lessons/add_lesson_page.dart';
-import 'package:cheon/pages/timetable/timetable_settings_page.dart';
 import 'package:cheon/pages/lessons/view_lesson_page.dart';
+import 'package:cheon/pages/timetable/timetable_settings_page.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/timetable_view_model.dart';
+import 'package:cheon/widgets/custom_selection_dialog.dart';
+import 'package:cheon/widgets/error_message.dart';
+import 'package:cheon/widgets/loading_indicator.dart';
+import 'package:cheon/widgets/menu_button.dart';
 
 /// Creates a page used to view and edit a lesson timetable
 class TimetablePage extends StatefulWidget {

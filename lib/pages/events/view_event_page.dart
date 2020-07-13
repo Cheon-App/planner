@@ -2,17 +2,17 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Project imports:
 import 'package:cheon/app.dart';
-import 'package:cheon/url_launcher.dart';
-import 'package:cheon/widgets/status_bar_theme.dart';
+import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/models/calendar_event.dart';
+import 'package:cheon/url_launcher.dart';
 import 'package:cheon/utils.dart';
 import 'package:cheon/widgets/raised_body.dart';
-import 'package:cheon/core/dates/date_utils.dart';
+import 'package:cheon/widgets/status_bar_theme.dart';
 
 class ViewEventPage extends StatelessWidget {
   const ViewEventPage({Key key, @required this.event}) : super(key: key);

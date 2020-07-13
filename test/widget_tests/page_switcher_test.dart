@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:cheon/widgets/page_switcher.dart';
 import '../test_utils.dart';
+import 'package:cheon/widgets/page_switcher.dart';
 
 void main() {
   testWidgets('page_switcher.dart | PageSwitcher behaves as intended', (

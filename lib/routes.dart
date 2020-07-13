@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:cheon/pages/events/view_event_page.dart';
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/subject.dart';
@@ -14,26 +13,27 @@ import 'package:cheon/models/teacher.dart';
 import 'package:cheon/models/test.dart';
 import 'package:cheon/models/timetable_position.dart';
 import 'package:cheon/pages/add_event/add_event_page.dart';
-import 'package:cheon/pages/lessons/add_lesson_page.dart';
-import 'package:cheon/pages/subjects/add_subject_page.dart';
-import 'package:cheon/pages/tasks/tasks_page.dart';
 import 'package:cheon/pages/assessments/assessments_page.dart';
+import 'package:cheon/pages/assessments/view_exam_page.dart';
+import 'package:cheon/pages/assessments/view_test_page.dart';
+import 'package:cheon/pages/events/view_event_page.dart';
 import 'package:cheon/pages/home/home_page.dart';
+import 'package:cheon/pages/lessons/add_lesson_page.dart';
 import 'package:cheon/pages/lessons/lessons_page.dart';
+import 'package:cheon/pages/lessons/view_lesson_page.dart';
 import 'package:cheon/pages/settings/settings_page.dart';
 import 'package:cheon/pages/study/study_page.dart';
+import 'package:cheon/pages/subjects/add_subject_page.dart';
 import 'package:cheon/pages/subjects/subjects_page.dart';
+import 'package:cheon/pages/subjects/view_subject_page.dart';
+import 'package:cheon/pages/tasks/tasks_page.dart';
+import 'package:cheon/pages/tasks/view_task_page.dart';
 import 'package:cheon/pages/teachers/teacher_page.dart';
 import 'package:cheon/pages/teachers/teachers_page.dart';
 import 'package:cheon/pages/timetable/timetable_page.dart';
 import 'package:cheon/pages/timetable/timetable_settings_page.dart';
-import 'package:cheon/pages/assessments/view_exam_page.dart';
-import 'package:cheon/pages/lessons/view_lesson_page.dart';
-import 'package:cheon/pages/subjects/view_subject_page.dart';
-import 'package:cheon/pages/tasks/view_task_page.dart';
-import 'package:cheon/pages/assessments/view_test_page.dart';
-import 'package:cheon/view_models/view_model.dart';
 import 'package:cheon/view_models/task_view_model.dart';
+import 'package:cheon/view_models/view_model.dart';
 
 /// App routes used by the [Navigator] to navigate between pages
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{

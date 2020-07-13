@@ -6,7 +6,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
+import 'package:cheon/constants.dart';
 import 'package:cheon/core/dates/date_filter.dart';
+import 'package:cheon/models/assessment.dart';
+import 'package:cheon/models/exam.dart';
+import 'package:cheon/models/test.dart';
+import 'package:cheon/view_models/exams_view_model.dart';
 import 'package:cheon/widgets/empty_placeholder.dart';
 import 'package:cheon/widgets/error_message.dart';
 import 'package:cheon/widgets/exam_card.dart';
@@ -14,11 +19,6 @@ import 'package:cheon/widgets/loading_indicator.dart';
 import 'package:cheon/widgets/menu_button.dart';
 import 'package:cheon/widgets/sticky_section.dart';
 import 'package:cheon/widgets/test_card.dart';
-import 'package:cheon/constants.dart';
-import 'package:cheon/models/assessment.dart';
-import 'package:cheon/models/exam.dart';
-import 'package:cheon/models/test.dart';
-import 'package:cheon/view_models/exams_view_model.dart';
 
 class AssessmentsPage extends StatefulWidget {
   /// Creates a page containing upcoming exams and tests
