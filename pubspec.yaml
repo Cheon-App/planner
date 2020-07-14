@@ -169,6 +169,11 @@ dev_dependencies:
 dependency_overrides:
   xml: ^4.1.0
   flutter_svg: ^0.18.0
+  moor_ffi:
+    git:
+      url: https://github.com/simolus3/moor.git
+      ref: develop
+      path: moor_ffi
 
 # part of the flutter_launcher_icons package
 # run flutter pub run flutter_launcher_icons:main to update icons

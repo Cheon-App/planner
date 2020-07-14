@@ -610,9 +610,11 @@ packages:
   moor_ffi:
     dependency: "direct main"
     description:
-      name: moor_ffi
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: moor_ffi
+      ref: develop
+      resolved-ref: f77fdd8ee8eba01983a194ab47f57a6fde56ef02
+      url: "https://github.com/simolus3/moor.git"
+    source: git
     version: "0.7.0"
   moor_generator:
     dependency: "direct dev"
