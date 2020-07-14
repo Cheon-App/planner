@@ -204,10 +204,11 @@ class HomePageState extends State<HomePage> {
         message: dialogMessage,
         // The button click listener (useful if you want to cancel the click
         // event
-        listener: (button) {
+        /* listener: (button) {
           switch (button) {
             case RateMyAppDialogButton.rate:
               print('Clicked on "Rate".');
+              rateMyApp.launchStore();
               break;
             case RateMyAppDialogButton.later:
               print('Clicked on "Later".');
@@ -218,7 +219,7 @@ class HomePageState extends State<HomePage> {
           }
 
           return true; // Return false if you want to cancel the click event.
-        },
+        }, */
         // Set to false if you want to show the Apple's native app rating dialog
         //  on iOS.
         ignoreIOS: false,
@@ -231,6 +232,7 @@ class HomePageState extends State<HomePage> {
         onDismissed: () => rateMyApp.callEvent(
           RateMyAppEventType.laterButtonPressed,
         ),
+
         // This one allows you to change the default dialog content.
         // contentBuilder: (context, defaultContent) => content,
         // This one allows you to use your own buttons.
@@ -254,8 +256,9 @@ class HomePageState extends State<HomePage> {
             color: Theme.of(context).colorScheme.secondary,
             textColor: Theme.of(context).colorScheme.onSecondary,
             onPressed: () {
-              Navigator.pop(context);
               rateMyApp.callEvent(RateMyAppEventType.rateButtonPressed);
+              rateMyApp.launchStore();
+              Navigator.pop(context);
             },
           ),
         ],
