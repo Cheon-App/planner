@@ -29,7 +29,7 @@ dependencies:
   flutter_spinkit: ^4.1.2+1
 
   # Creates a dashed line border around a provided widget
-  dotted_border: ^1.0.5
+  dotted_border: ^1.0.6
 
   # Places a label at the top of scrolling lists
   sticky_headers: ^0.1.8+1
