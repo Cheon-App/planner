@@ -453,10 +453,10 @@ class StudyRepository {
         /// assessments
         for (WeightedAssessment assessment in weightedAssessmentList) {
           if (assessment == bestAssessment) {
-            assessment.varietyWeight = assessment.varietyWeight * 0.5;
+            assessment.varietyWeight *= 0.5;
           } else {
-            assessment.varietyWeight = assessment.varietyWeight *
-                (1 + (0.5 / weightedAssessmentList.length));
+            assessment.varietyWeight *=
+                1 + (0.5 / weightedAssessmentList.length);
           }
         }
 
