@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/subject.dart';
-import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
+import 'package:cheon/widgets/number_field.dart';
 import 'package:cheon/widgets/raised_action_page.dart';
 import 'package:cheon/widgets/raised_body.dart';
 import 'package:cheon/widgets/select_date_card.dart';
@@ -156,9 +156,9 @@ class __ExamBodyState extends State<_ExamBody> {
     await examsVM.updateExam(examID, location: location);
   }
 
-  Future<void> _setPriority(String priority) async {
+  Future<void> _setPriority(int priority) async {
     final examsVM = context.read<ExamsVM>();
-    await examsVM.updateExam(examID, priority: int.parse(priority));
+    await examsVM.updateExam(examID, priority: priority);
   }
 
   @override
@@ -245,13 +245,13 @@ class __ExamBodyState extends State<_ExamBody> {
             ),
           ),
           const SizedBox(height: 8),
-          TextField(
-            controller: _priorityController,
-            onChanged: _setPriority,
-            decoration: InputDecoration(labelText: 'Revision Priority'),
-            inputFormatters: [numberInputFormatter],
-            keyboardType: TextInputType.number,
-            textCapitalization: TextCapitalization.sentences,
+          NumberField(
+            minNumber: 1,
+            maxNumber: 5,
+            defaultNumber: widget.exam.priority,
+            onNumberChanged: _setPriority,
+            suffixText: '1-5',
+            label: 'Revision Priority',
           ),
         ],
       ),

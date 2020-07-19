@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:moor/moor.dart';
+import 'package:rxdart/rxdart.dart' hide Subject;
 
 // Project imports:
 import 'package:cheon/core/dates/date_utils.dart';
@@ -26,15 +27,34 @@ part 'study_dao.g.dart';
 class StudyDao extends DatabaseAccessor<Database> with _$StudyDaoMixin {
   StudyDao(Database db) : super(db);
 
-  JoinedSelectStatement<Table, DataClass> _studySessionDateQuery(
+  JoinedSelectStatement<Table, DataClass> _studySessionDateExamQuery(
     DateTime date,
   ) {
     final DateTime startDate = date.truncateToDay();
     final DateTime dayAfterStartDate = startDate.add(Duration(days: 1));
 
     final $SubjectsTable examSubject = alias(subjects, 'exam_subject');
-    final $SubjectsTable testSubject = alias(subjects, 'test_subject');
     final $TeachersTable examTeacher = alias(teachers, 'exam_teacher');
+
+    return (select(studying)
+          ..where(
+            (tbl) => tbl.start.isBetweenValues(startDate, dayAfterStartDate),
+          ))
+        .join(<Join<Table, DataClass>>[
+      innerJoin(exams, exams.id.equalsExp(studying.examId)),
+      innerJoin(examSubject, examSubject.id.equalsExp(exams.subjectId)),
+      leftOuterJoin(
+          examTeacher, examTeacher.id.equalsExp(examSubject.teacherId)),
+    ]);
+  }
+
+  JoinedSelectStatement<Table, DataClass> _studySessionDateTestQuery(
+    DateTime date,
+  ) {
+    final DateTime startDate = date.truncateToDay();
+    final DateTime dayAfterStartDate = startDate.add(Duration(days: 1));
+
+    final $SubjectsTable testSubject = alias(subjects, 'test_subject');
     final $TeachersTable testTeacher = alias(teachers, 'test_teacher');
 
     return (select(studying)
@@ -42,12 +62,8 @@ class StudyDao extends DatabaseAccessor<Database> with _$StudyDaoMixin {
             (tbl) => tbl.start.isBetweenValues(startDate, dayAfterStartDate),
           ))
         .join(<Join<Table, DataClass>>[
-      leftOuterJoin(exams, exams.id.equalsExp(studying.examId)),
-      leftOuterJoin(tests, tests.id.equalsExp(studying.testId)),
-      leftOuterJoin(examSubject, examSubject.id.equalsExp(exams.subjectId)),
-      leftOuterJoin(testSubject, testSubject.id.equalsExp(tests.subjectId)),
-      leftOuterJoin(
-          examTeacher, examTeacher.id.equalsExp(examSubject.teacherId)),
+      innerJoin(tests, tests.id.equalsExp(studying.testId)),
+      innerJoin(testSubject, testSubject.id.equalsExp(tests.subjectId)),
       leftOuterJoin(
           testTeacher, testTeacher.id.equalsExp(testSubject.teacherId)),
     ]);
@@ -141,7 +157,40 @@ class StudyDao extends DatabaseAccessor<Database> with _$StudyDaoMixin {
   }
 
   Stream<List<StudySession>> studySessionListFromDateStream(DateTime date) {
-    return _studySessionDateQuery(date).map(_dateRowToStudySession).watch();
+    final examStream =
+        _studySessionDateExamQuery(date).map(_dateRowToStudySession).watch();
+    final testStream =
+        _studySessionDateTestQuery(date).map(_dateRowToStudySession).watch();
+
+    return CombineLatestStream.combine2(
+      examStream,
+      testStream,
+      (List<StudySession> exams, List<StudySession> tests) {
+        final List<StudySession> combined = [];
+
+        while (exams.isNotEmpty || tests.isNotEmpty) {
+          if (exams.isEmpty) {
+            for (int i = 0; i < tests.length; i++) {
+              combined.add(tests.removeAt(0));
+            }
+          } else if (tests.isEmpty) {
+            for (int i = 0; i < exams.length; i++) {
+              combined.add(exams.removeAt(0));
+            }
+          } else {
+            if (exams.first.exam.compareDateTime
+                    .compareTo(tests.first.test.compareDateTime) >=
+                0) {
+              combined.add(tests.removeAt(0));
+            } else {
+              combined.add(exams.removeAt(0));
+            }
+          }
+        }
+
+        return combined;
+      },
+    );
   }
 
   Stream<List<StudySession>> studySessionListFromExam(Exam exam) {
