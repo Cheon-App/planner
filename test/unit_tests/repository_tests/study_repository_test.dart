@@ -4,13 +4,13 @@ import 'package:moor/moor.dart';
 import 'package:moor_ffi/moor_ffi.dart';
 
 // Project imports:
-import '../../placeholder_data.dart';
 import 'package:cheon/database/database.dart';
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/models/exam.dart';
 import 'package:cheon/models/test.dart';
 import 'package:cheon/repositories/study_repository.dart';
 import 'package:cheon/utils.dart';
+import '../../placeholder_data.dart';
 
 void main() {
   group('StudyRepository', () {

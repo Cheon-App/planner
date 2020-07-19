@@ -12,9 +12,9 @@ import 'package:provider/provider.dart';
 import 'package:cheon/app.dart';
 import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/models/subject.dart';
-import 'package:cheon/utils.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
 import 'package:cheon/view_models/task_view_model.dart';
+import 'package:cheon/widgets/number_field.dart';
 import 'package:cheon/widgets/platform_selection_dialog.dart';
 import 'package:cheon/widgets/primary_action_button.dart';
 import 'package:cheon/widgets/raised_body.dart';
@@ -479,91 +479,6 @@ class _ContentField extends StatelessWidget {
   }
 }
 
-class _NumberField extends StatefulWidget {
-  /// Abstraction for a text field
-  const _NumberField({
-    Key key,
-    this.label,
-    @required this.onNumberChanged,
-    this.focusNode,
-    this.icon,
-    @required this.minNumber,
-    @required this.maxNumber,
-    this.defaultNumber,
-    this.suffixText,
-  })  : assert(onNumberChanged != null),
-        assert(minNumber != null),
-        assert(minNumber != null),
-        assert(minNumber <= maxNumber),
-        super(key: key);
-
-  /// The text field label
-  final String label;
-  final Function(int) onNumberChanged;
-  final FocusNode focusNode;
-  final Widget icon;
-  final int minNumber;
-  final int maxNumber;
-  final int defaultNumber;
-  final String suffixText;
-
-  @override
-  __NumberFieldState createState() => __NumberFieldState();
-}
-
-class __NumberFieldState extends State<_NumberField> {
-  TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(
-      text:
-          widget.defaultNumber != null ? widget.defaultNumber.toString() : null,
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  String validator(String value) {
-    if (value.isEmpty) return 'A number is required';
-    final int intValue = int.parse(value);
-    if (intValue < widget.minNumber || intValue > widget.maxNumber) {
-      return 'Must be between ${widget.minNumber} and ${widget.maxNumber}';
-    }
-    return null;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      autovalidate: true,
-      child: TextFormField(
-        controller: _controller,
-        focusNode: widget.focusNode,
-        decoration: InputDecoration(
-          labelText: widget.label ?? 'Content',
-          alignLabelWithHint: true,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 16,
-          ),
-          prefixIcon: widget.icon,
-          suffixText: widget.suffixText,
-        ),
-        inputFormatters: [numberInputFormatter],
-        keyboardType: TextInputType.number,
-        onChanged: (String val) => widget.onNumberChanged(int.parse(val)),
-        validator: validator,
-      ),
-    );
-  }
-}
-
 class _Slider extends StatelessWidget {
   const _Slider({
     Key key,
@@ -810,7 +725,7 @@ class _ExamFormState extends State<_ExamForm> {
         Row(
           children: <Widget>[
             Expanded(
-              child: _NumberField(
+              child: NumberField(
                 onNumberChanged: (int value) => priority = value,
                 label: 'Revision Priority',
                 defaultNumber: priority,
@@ -906,7 +821,7 @@ class _TestFormState extends State<_TestForm> {
         Row(
           children: <Widget>[
             Expanded(
-              child: _NumberField(
+              child: NumberField(
                 onNumberChanged: (int value) => priority = value,
                 label: 'Revision Priority',
                 defaultNumber: priority,
