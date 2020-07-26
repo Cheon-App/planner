@@ -280,40 +280,7 @@ class _TimelineListState extends State<TimelineList> {
     _timelineDataStream ??= timelineVM.timelineDataStream();
   }
 
-  Widget addEvent(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: FractionallySizedBox(
-        widthFactor: 0.8,
-        child: Container(
-          height: 24,
-          margin: const EdgeInsets.only(top: 4, bottom: 4),
-          child: DottedBorder(
-            color: Theme.of(context).colorScheme.secondary,
-            strokeWidth: 1,
-            borderType: BorderType.RRect,
-            radius: const Radius.circular(CheonApp.borderRadius),
-            strokeCap: StrokeCap.round,
-            dashPattern: const <double>[10, 10],
-            padding: const EdgeInsets.all(0),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(CheonApp.borderRadius),
-              onTap: () {},
-              child: Center(
-                child: Icon(
-                  FontAwesomeIcons.plus,
-                  color: Theme.of(context).colorScheme.secondary,
-                  size: 12,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget compareTimeToCard(CompareTime compareTime) {
+  Widget _compareTimeToCard(CompareTime compareTime) {
     switch (compareTime.runtimeType) {
       case Lesson:
         return _LessonCard(lesson: compareTime as Lesson);
@@ -339,6 +306,7 @@ class _TimelineListState extends State<TimelineList> {
         if (snapshot.hasData) {
           final TimelineData timelineData = snapshot.data;
           if (timelineData.isEmpty) {
+            // No events
             return Column(
               children: const <Widget>[
                 /* Padding(
@@ -378,10 +346,7 @@ class _TimelineListState extends State<TimelineList> {
               children.add(
                 _TimeRow(
                   time: gropuedEvents.first.compareTime,
-                  children: gropuedEvents
-                      .map((CompareTime compareTime) =>
-                          compareTimeToCard(compareTime))
-                      .toList(),
+                  children: gropuedEvents.map(_compareTimeToCard).toList(),
                 ),
               );
             }
@@ -413,54 +378,6 @@ class _TimelineListState extends State<TimelineList> {
         }
         return const ErrorMessage();
       },
-    );
-  }
-}
-
-class _AddEventButton extends StatelessWidget {
-  void openAddEventPage(BuildContext context) {
-    // TODO replace this with adding a study session.
-    Navigator.pushNamed(
-      context,
-      AddEventPage.routeName,
-      arguments: EventType.TASK,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: FractionallySizedBox(
-        widthFactor: 0.8,
-        child: Tooltip(
-          message: 'Add Event',
-          child: Container(
-            height: 24,
-            margin: const EdgeInsets.only(top: 4, bottom: 4),
-            child: DottedBorder(
-              color: Theme.of(context).colorScheme.secondary,
-              strokeWidth: 1,
-              borderType: BorderType.RRect,
-              radius: const Radius.circular(CheonApp.borderRadius),
-              strokeCap: StrokeCap.round,
-              dashPattern: const <double>[10, 10],
-              padding: const EdgeInsets.all(0),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(CheonApp.borderRadius),
-                onTap: () => openAddEventPage(context),
-                child: Center(
-                  child: Icon(
-                    FontAwesomeIcons.plus,
-                    color: Theme.of(context).colorScheme.secondary,
-                    size: 12,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

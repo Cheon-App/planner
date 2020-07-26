@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "6.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.39.12"
+    version: "0.39.15"
   analyzer_plugin:
     dependency: transitive
     description:
@@ -245,7 +245,7 @@ packages:
       name: equatable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.2"
+    version: "1.2.3"
   fake_async:
     dependency: transitive
     description:
@@ -452,7 +452,7 @@ packages:
       name: hive
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.1+1"
+    version: "1.4.2"
   html:
     dependency: transitive
     description:
@@ -466,7 +466,7 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.1"
+    version: "0.12.2"
   http_multi_server:
     dependency: transitive
     description:
@@ -605,7 +605,7 @@ packages:
     description:
       path: moor_ffi
       ref: develop
-      resolved-ref: "144116b5e16971cd0d56b4e44ea348babd1b4cbd"
+      resolved-ref: c2ce93436142b7a1df7b5772ffceca4fab432b00
       url: "https://github.com/simolus3/moor.git"
     source: git
     version: "0.7.0"
@@ -713,14 +713,14 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.0"
+    version: "1.9.2"
   petitparser:
     dependency: transitive
     description:
       name: petitparser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.4"
+    version: "3.1.0"
   platform:
     dependency: transitive
     description:
@@ -956,7 +956,7 @@ packages:
       name: synchronized
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0+1"
+    version: "2.2.0+2"
   term_glyph:
     dependency: transitive
     description:
@@ -1119,12 +1119,12 @@ packages:
     source: hosted
     version: "0.1.0"
   xml:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.2.0"
+    version: "4.3.0"
   yaml:
     dependency: transitive
     description:
