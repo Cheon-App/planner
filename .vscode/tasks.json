@@ -18,11 +18,11 @@
             "type": "shell",
             "command": "flutter packages pub run build_runner watch --delete-conflicting-outputs"
         },
-
         {
             "label": "sort imports",
             "type": "shell",
-            "command": "flutter pub run import_sorter:main"
+            "command": "flutter pub run import_sorter:main",
+            "problemMatcher": []
         }
     ]
 }

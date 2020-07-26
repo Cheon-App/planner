@@ -53,7 +53,7 @@ void configureApp() {
 class CheonApp extends StatelessWidget {
   CheonApp({Key key}) : super(key: key);
 
-  static const double borderRadius = 8;
+  static const double borderRadius = 10;
 
   /// Dark theme colours based on
   /// https://material.io/design/color/dark-theme.html
@@ -177,7 +177,7 @@ class CheonApp extends StatelessWidget {
         color: Colors.transparent,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(12),
           side: BorderSide(color: borderColor),
         ),
         clipBehavior: Clip.antiAlias,
@@ -202,13 +202,14 @@ class CheonApp extends StatelessWidget {
         headline6: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: borderColor),
         ),
+      ),
+      timePickerTheme: TimePickerThemeData(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       popupMenuTheme: PopupMenuThemeData(
         shape: RoundedRectangleBorder(

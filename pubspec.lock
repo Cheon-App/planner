@@ -396,13 +396,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.9"
-  flutter_rounded_date_picker:
-    dependency: "direct main"
-    description:
-      name: flutter_rounded_date_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.4"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -612,7 +605,7 @@ packages:
     description:
       path: moor_ffi
       ref: develop
-      resolved-ref: f77fdd8ee8eba01983a194ab47f57a6fde56ef02
+      resolved-ref: "144116b5e16971cd0d56b4e44ea348babd1b4cbd"
       url: "https://github.com/simolus3/moor.git"
     source: git
     version: "0.7.0"

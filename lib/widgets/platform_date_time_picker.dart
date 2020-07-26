@@ -5,11 +5,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:flutter_rounded_date_picker/rounded_picker.dart';
-
 // Project imports:
-import 'package:cheon/cheon_app.dart';
 import 'package:cheon/utils.dart';
 
 /// The default height of popups in IOS's cupertino design language
@@ -76,11 +72,9 @@ Stream<TimeOfDay> showPlatformTimePicker({
   assert(initialTime != null);
 
   if (isMaterial(context)) {
-    yield await showRoundedTimePicker(
+    yield await showTimePicker(
           context: context,
           initialTime: initialTime,
-          theme: Theme.of(context),
-          borderRadius: CheonApp.borderRadius,
         ) ??
         initialTime;
   } else {

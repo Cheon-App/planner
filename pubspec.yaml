@@ -43,9 +43,6 @@ dependencies:
   # Official animations package providing Material Design transitions
   animations: ^1.1.1
 
-  # Customisable Material & Cupertino date picker
-  flutter_rounded_date_picker: ^1.0.4
-
   ########################## DATA PERSISTENCE PACKAGES #########################
 
   # A super fast key value store
@@ -128,7 +125,6 @@ dependencies:
 
   # Render html
   flutter_html: ^1.0.0
-  
 
 dev_dependencies:
   flutter_test:
@@ -193,7 +189,7 @@ flutter_native_splash:
 
 # run flutter pub run import_sorter:main to sort imports
 import_sorter:
-  ignored_files: 
+  ignored_files:
     - \/*.g.dart/
 
 # The following section is specific to Flutter.

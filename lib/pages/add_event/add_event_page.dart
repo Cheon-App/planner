@@ -269,7 +269,7 @@ class _EventBodyState extends State<_EventBody> {
       borderSide: BorderSide(
         color: Theme.of(context).colorScheme.onSecondary,
       ),
-      borderRadius: BorderRadius.circular(CheonApp.borderRadius),
+      borderRadius: BorderRadius.circular(12),
     );
 
     /// Styling for the name text field.
