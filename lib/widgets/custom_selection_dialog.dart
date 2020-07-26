@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Project imports:
-import 'package:cheon/app.dart';
+import 'package:cheon/cheon_app.dart';
 
 class CustomSelectionDialog extends StatelessWidget {
   /// A dialog used to select an item from a list of given widgets.
@@ -86,7 +86,7 @@ class CustomSelectionDialogItem extends StatelessWidget {
         color: Theme.of(context).colorScheme.surface,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(App.borderRadius),
+          borderRadius: BorderRadius.circular(CheonApp.borderRadius),
           side: selected
               ? BorderSide(
                   color: Theme.of(context).colorScheme.secondary,

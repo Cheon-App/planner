@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:cheon/app.dart';
+import 'package:cheon/cheon_app.dart';
 
 class PrimaryActionButton extends StatelessWidget {
   /// Creates a button typically representing the most important action
@@ -37,7 +37,7 @@ class PrimaryActionButton extends StatelessWidget {
                 .colorScheme
                 .secondary
                 .withOpacity(onTap != null ? 1 : 0.5),
-        borderRadius: BorderRadius.circular(App.borderRadius),
+        borderRadius: BorderRadius.circular(CheonApp.borderRadius),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: onTap,

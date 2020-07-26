@@ -7,7 +7,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Project imports:
-import 'package:cheon/app.dart';
+import 'package:cheon/cheon_app.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/repositories/study_repository.dart';
 import 'package:cheon/url_launcher.dart';
@@ -98,7 +98,7 @@ class _RevisionDashboard extends StatelessWidget {
               Card(
                 color: Theme.of(context).colorScheme.surface,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(App.borderRadius),
+                  borderRadius: BorderRadius.circular(CheonApp.borderRadius),
                 ),
                 child: SwitchListTile.adaptive(
                   value: revisionVM.revisionEnabled,
@@ -256,7 +256,7 @@ class _StatCard extends StatelessWidget {
     return Card(
       color: Theme.of(context).colorScheme.surface,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(App.borderRadius),
+        borderRadius: BorderRadius.circular(CheonApp.borderRadius),
       ),
       child: Column(
         children: <Widget>[

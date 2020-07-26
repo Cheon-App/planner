@@ -6,7 +6,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // Project imports:
-import 'package:cheon/app.dart';
+import 'package:cheon/cheon_app.dart';
 import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/models/calendar_event.dart';
 import 'package:cheon/url_launcher.dart';
@@ -103,7 +103,7 @@ class _Background extends StatelessWidget {
               children: [
                 Material(
                   color: context.colorScheme.secondaryVariant,
-                  borderRadius: BorderRadius.circular(App.borderRadius),
+                  borderRadius: BorderRadius.circular(CheonApp.borderRadius),
                   elevation: 8,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),

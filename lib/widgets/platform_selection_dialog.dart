@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
 
 // Project imports:
-import 'package:cheon/app.dart';
+import 'package:cheon/cheon_app.dart';
 import 'package:cheon/utils.dart';
 
 /// Inflates a dialog containing a list of given items.
@@ -145,7 +145,7 @@ class _SelectionItem<T> extends StatelessWidget {
       child: selected
           ? Material(
               color: Theme.of(context).colorScheme.secondary.withOpacity(0.75),
-              borderRadius: BorderRadius.circular(App.borderRadius),
+              borderRadius: BorderRadius.circular(CheonApp.borderRadius),
               clipBehavior: Clip.antiAlias,
               child: ListTile(
                 title: Text(
@@ -159,7 +159,7 @@ class _SelectionItem<T> extends StatelessWidget {
               ),
             )
           : Material(
-              borderRadius: BorderRadius.circular(App.borderRadius),
+              borderRadius: BorderRadius.circular(CheonApp.borderRadius),
               clipBehavior: Clip.antiAlias,
               type: MaterialType.transparency,
               child: ListTile(

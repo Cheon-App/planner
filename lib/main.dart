@@ -5,7 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:cheon/app.dart';
+import 'package:cheon/cheon_app.dart';
 import 'package:cheon/dependency_injection.dart';
 import 'package:cheon/flavor_config.dart';
 
@@ -17,5 +17,5 @@ Future<void> main() async {
 
   await registerDependencies();
 
-  runApp(App());
+  runApp(CheonApp());
 }

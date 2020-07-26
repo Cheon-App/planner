@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:cheon/app.dart';
+import 'package:cheon/cheon_app.dart';
 import 'package:cheon/utils.dart';
 
 class DayToggle extends StatelessWidget {
@@ -43,7 +43,7 @@ class DayToggle extends StatelessWidget {
             ),
           ),
           isSelected: List.generate(7, isSelected),
-          borderRadius: BorderRadius.circular(App.borderRadius),
+          borderRadius: BorderRadius.circular(CheonApp.borderRadius),
         );
       },
     );

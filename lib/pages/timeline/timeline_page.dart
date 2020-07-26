@@ -7,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:cheon/app.dart';
+import 'package:cheon/cheon_app.dart';
 import 'package:cheon/constants.dart';
 import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/models/calendar_event.dart';
@@ -234,14 +234,14 @@ class _DateRow extends StatelessWidget {
                     border: Border.all(
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    borderRadius: BorderRadius.circular(App.borderRadius),
+                    borderRadius: BorderRadius.circular(CheonApp.borderRadius),
                   )
                 : null,
             child: Material(
               color: date == selectedDay
                   ? Theme.of(context).colorScheme.secondary
                   : Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.circular(App.borderRadius),
+              borderRadius: BorderRadius.circular(CheonApp.borderRadius),
               clipBehavior: Clip.antiAlias,
               child: InkWell(
                 onTap: () => onDateSelected(date),
@@ -292,12 +292,12 @@ class _TimelineListState extends State<TimelineList> {
             color: Theme.of(context).colorScheme.secondary,
             strokeWidth: 1,
             borderType: BorderType.RRect,
-            radius: const Radius.circular(App.borderRadius),
+            radius: const Radius.circular(CheonApp.borderRadius),
             strokeCap: StrokeCap.round,
             dashPattern: const <double>[10, 10],
             padding: const EdgeInsets.all(0),
             child: InkWell(
-              borderRadius: BorderRadius.circular(App.borderRadius),
+              borderRadius: BorderRadius.circular(CheonApp.borderRadius),
               onTap: () {},
               child: Center(
                 child: Icon(
@@ -442,12 +442,12 @@ class _AddEventButton extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary,
               strokeWidth: 1,
               borderType: BorderType.RRect,
-              radius: const Radius.circular(App.borderRadius),
+              radius: const Radius.circular(CheonApp.borderRadius),
               strokeCap: StrokeCap.round,
               dashPattern: const <double>[10, 10],
               padding: const EdgeInsets.all(0),
               child: InkWell(
-                borderRadius: BorderRadius.circular(App.borderRadius),
+                borderRadius: BorderRadius.circular(CheonApp.borderRadius),
                 onTap: () => openAddEventPage(context),
                 child: Center(
                   child: Icon(

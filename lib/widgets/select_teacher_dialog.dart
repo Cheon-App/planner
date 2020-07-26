@@ -6,7 +6,7 @@ import 'package:animations/animations.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:cheon/app.dart';
+import 'package:cheon/cheon_app.dart';
 import 'package:cheon/models/teacher.dart';
 import 'package:cheon/pages/teachers/teacher_page.dart';
 import 'package:cheon/view_models/teachers_view_model.dart';
@@ -75,7 +75,7 @@ class _TeacherCard extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         type: MaterialType.transparency,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(App.borderRadius),
+          borderRadius: BorderRadius.circular(CheonApp.borderRadius),
           side: selected
               ? BorderSide(color: Theme.of(context).colorScheme.secondary)
               : BorderSide.none,

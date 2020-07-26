@@ -7,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:cheon/app.dart';
+import 'package:cheon/cheon_app.dart';
 import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/timetable.dart';
 import 'package:cheon/models/timetable_position.dart';
@@ -97,7 +97,7 @@ class _TimetablePageState extends State<TimetablePage>
                   onTapHint: 'switch timetables',
                   child: Material(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(App.borderRadius),
+                      borderRadius: BorderRadius.circular(CheonApp.borderRadius),
                       side: BorderSide(
                           color: Theme.of(context).colorScheme.secondary),
                     ),
@@ -218,7 +218,7 @@ class _TimetableLesson extends StatelessWidget {
       transitionType: ContainerTransitionType.fade,
       openBuilder: (_, __) => ViewLessonPage(lesson: lesson),
       closedShape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(App.borderRadius),
+        borderRadius: BorderRadius.circular(CheonApp.borderRadius),
       ),
       closedElevation: 0,
       closedColor: lesson.subject.color.withOpacity(0.75),

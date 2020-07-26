@@ -50,8 +50,8 @@ void configureApp() {
   WidgetsFlutterBinding.ensureInitialized();
 }
 
-class App extends StatelessWidget {
-  App({Key key}) : super(key: key);
+class CheonApp extends StatelessWidget {
+  CheonApp({Key key}) : super(key: key);
 
   static const double borderRadius = 8;
 
@@ -212,7 +212,7 @@ class App extends StatelessWidget {
       ),
       popupMenuTheme: PopupMenuThemeData(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(App.borderRadius),
+          borderRadius: BorderRadius.circular(CheonApp.borderRadius),
         ),
       ),
       cupertinoOverrideTheme: CupertinoThemeData(
@@ -259,7 +259,7 @@ class App extends StatelessWidget {
           statusBarBrightness: Brightness.light,
           statusBarColor: Colors.transparent,
           systemNavigationBarColor:
-              isAmoled ? App.amoledBottomBar : App.darkBottomBar,
+              isAmoled ? CheonApp.amoledBottomBar : CheonApp.darkBottomBar,
           systemNavigationBarIconBrightness: Brightness.light,
         ),
       );
@@ -269,7 +269,7 @@ class App extends StatelessWidget {
           statusBarIconBrightness: Brightness.dark,
           statusBarBrightness: Brightness.dark,
           statusBarColor: Colors.transparent,
-          systemNavigationBarColor: App.lightBottomBar,
+          systemNavigationBarColor: CheonApp.lightBottomBar,
           systemNavigationBarIconBrightness: Brightness.dark,
         ),
       );

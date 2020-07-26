@@ -9,7 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:cheon/app.dart';
+import 'package:cheon/cheon_app.dart';
 import 'package:cheon/core/dates/date_utils.dart';
 import 'package:cheon/models/subject.dart';
 import 'package:cheon/view_models/exams_view_model.dart';
@@ -269,7 +269,7 @@ class _EventBodyState extends State<_EventBody> {
       borderSide: BorderSide(
         color: Theme.of(context).colorScheme.onSecondary,
       ),
-      borderRadius: BorderRadius.circular(App.borderRadius),
+      borderRadius: BorderRadius.circular(CheonApp.borderRadius),
     );
 
     /// Styling for the name text field.

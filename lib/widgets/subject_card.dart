@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:cheon/app.dart';
+import 'package:cheon/cheon_app.dart';
 
 class SubjectCard extends StatelessWidget {
   /// Creates a card containing subject information
@@ -49,7 +49,7 @@ class SubjectCard extends StatelessWidget {
         shape: isDark
             ? Theme.of(context).cardTheme.shape
             : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(App.borderRadius),
+                borderRadius: BorderRadius.circular(CheonApp.borderRadius),
               ),
         margin: margin,
         child: InkWell(
