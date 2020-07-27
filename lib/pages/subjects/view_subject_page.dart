@@ -43,6 +43,8 @@ class _ViewSubjectPageState extends State<ViewSubjectPage> {
   }
 
   Future<void> _setName(String name) async {
+    // Subject name has a SQLite constraint of 1-70 characters
+    if (name.isEmpty) return;
     setState(() => _name = name);
     final subjectsVM = context.read<SubjectsVM>();
     await subjectsVM.updateSubject(widget.subject, name: name);
