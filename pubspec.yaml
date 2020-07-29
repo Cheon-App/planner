@@ -41,7 +41,7 @@ dependencies:
   flutter_svg: ^0.18.0
 
   # Official animations package providing Material Design transitions
-  animations: ^1.1.1
+  animations: ^1.1.2
 
   ########################## DATA PERSISTENCE PACKAGES #########################
 
@@ -101,7 +101,7 @@ dependencies:
   # Remotely triggered push notifications
   # firebase_messaging: ^6.0.12
   # Crash monitoring
-  firebase_crashlytics: ^0.1.3+3
+  firebase_crashlytics: ^0.1.4+1
 
   # Retreives events from the default device calendar
   device_calendar: ^3.1.0
