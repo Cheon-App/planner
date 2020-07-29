@@ -49,10 +49,8 @@ dependencies:
   hive: ^1.4.2
 
   # Adds SQLite support with Data Access Objects and streams
-  moor: ^3.2.0
-  # moor_flutter: ^2.1.1
-  # https://github.com/simolus3/moor/issues/446
-  moor_ffi: ^0.7.0
+  moor: ^3.3.0
+  sqlite3_flutter_libs: ^0.2.0
 
   # Supplies the app with the directory location for storing files
   path_provider: ^1.6.11
@@ -156,7 +154,7 @@ dev_dependencies:
   kiwi_generator: ^2.0.0
 
   # Dart sqlite table to raw sql code generator for moor
-  moor_generator: ^3.2.0
+  moor_generator: ^3.3.0
 
   # Uses code generation to generate serialization functions to convert objects
   # to and from JSON
@@ -164,11 +162,6 @@ dev_dependencies:
 
 dependency_overrides:
   flutter_svg: ^0.18.0
-  moor_ffi:
-    git:
-      url: https://github.com/simolus3/moor.git
-      ref: develop
-      path: moor_ffi
 
 # part of the flutter_launcher_icons package
 # run flutter pub run flutter_launcher_icons:main to update icons

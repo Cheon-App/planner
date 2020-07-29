@@ -8,7 +8,7 @@ import 'package:hive/hive.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:moor/isolate.dart';
 import 'package:moor/moor.dart';
-import 'package:moor_ffi/moor_ffi.dart';
+import 'package:moor/ffi.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
