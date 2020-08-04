@@ -55,7 +55,12 @@ class _AboutAppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppInfo appInfo = Provider.of<AppInfo>(context);
-    final String appVersion = '${appInfo.versionName} | ${appInfo.buildNumber}';
+    final String commitHash = bool.hasEnvironment('BUILD_COMMIT')
+        ? String.fromEnvironment('BUILD_COMMIT').substring(0, 7)
+        : '---';
+
+    final String appVersion =
+        'Version ${appInfo.versionName} | ${appInfo.buildNumber} | $commitHash';
 
     return _SettingsCard(
       title: 'About This App',

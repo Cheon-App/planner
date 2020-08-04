@@ -1,7 +1,7 @@
 // Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:moor/moor.dart';
 import 'package:moor/ffi.dart';
+import 'package:moor/moor.dart';
 
 // Project imports:
 import 'package:cheon/database/database.dart';
