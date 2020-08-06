@@ -124,6 +124,9 @@ dependencies:
   # Render html
   flutter_html: ^1.0.0
 
+  # In-App Review pop up
+  in_app_review: ^0.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

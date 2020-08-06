@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:rate_my_app/rate_my_app.dart';
@@ -179,10 +180,18 @@ class HomePageState extends State<HomePage> {
     );
   }
 
+  Future<void> _requestReview() async {
+    final InAppReview inAppReview = InAppReview.instance;
+    if (await inAppReview.isAvailable()) {
+      inAppReview.requestReview();
+    } else {
+      inAppReview.openStoreListing(iOSAppStoreId: '1486076973');
+    }
+  }
+
   Future<void> _initReviewPopup() async {
     const dialogMessage =
-        'Finding the app useful? Help others discover it by leaving a review. '
-        'It takes a few seconds!';
+        'Finding the app useful? Help others discover it by rating it :)';
 
     final RateMyApp rateMyApp = RateMyApp(
       googlePlayIdentifier: 'app.cheon.app',
@@ -257,7 +266,8 @@ class HomePageState extends State<HomePage> {
             textColor: Theme.of(context).colorScheme.onSecondary,
             onPressed: () {
               rateMyApp.callEvent(RateMyAppEventType.rateButtonPressed);
-              rateMyApp.launchStore();
+              _requestReview();
+
               Navigator.pop(context);
             },
           ),
