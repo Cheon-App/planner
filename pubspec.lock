@@ -388,7 +388,7 @@ packages:
       name: flutter_markdown
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.3"
   flutter_native_splash:
     dependency: "direct dev"
     description:
@@ -795,7 +795,7 @@ packages:
       name: rate_my_app
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.1+6"
+    version: "0.6.1+7"
   recase:
     dependency: transitive
     description:

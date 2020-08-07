@@ -190,9 +190,6 @@ class HomePageState extends State<HomePage> {
   }
 
   Future<void> _initReviewPopup() async {
-    const dialogMessage =
-        'Finding the app useful? Help others discover it by rating it :)';
-
     final RateMyApp rateMyApp = RateMyApp(
       googlePlayIdentifier: 'app.cheon.app',
       appStoreIdentifier: '1486076973',
@@ -205,74 +202,8 @@ class HomePageState extends State<HomePage> {
     await rateMyApp.init();
 
     if (rateMyApp.shouldOpenDialog) {
-      rateMyApp.showRateDialog(
-        context,
-        // The dialog title.
-        title: 'Rate this app!',
-        // The dialog message.
-        message: dialogMessage,
-        // The button click listener (useful if you want to cancel the click
-        // event
-        /* listener: (button) {
-          switch (button) {
-            case RateMyAppDialogButton.rate:
-              print('Clicked on "Rate".');
-              rateMyApp.launchStore();
-              break;
-            case RateMyAppDialogButton.later:
-              print('Clicked on "Later".');
-              break;
-            case RateMyAppDialogButton.no:
-              print('Clicked on "No".');
-              break;
-          }
-
-          return true; // Return false if you want to cancel the click event.
-        }, */
-        // Set to false if you want to show the Apple's native app rating dialog
-        //  on iOS.
-        ignoreIOS: false,
-        // Custom dialog styles.
-        dialogStyle: DialogStyle(
-          dialogShape: Theme.of(context).dialogTheme.shape,
-        ),
-        // Called when the user dismissed the dialog (either by taping outside
-        // or by pressing the "back" button).
-        onDismissed: () => rateMyApp.callEvent(
-          RateMyAppEventType.laterButtonPressed,
-        ),
-
-        // This one allows you to change the default dialog content.
-        // contentBuilder: (context, defaultContent) => content,
-        // This one allows you to use your own buttons.
-        actionsBuilder: (context) => [
-          FlatButton(
-            child: Text('NO'),
-            onPressed: () {
-              Navigator.pop(context);
-              rateMyApp.callEvent(RateMyAppEventType.noButtonPressed);
-            },
-          ),
-          FlatButton(
-            child: Text('LATER'),
-            onPressed: () {
-              Navigator.pop(context);
-              rateMyApp.callEvent(RateMyAppEventType.laterButtonPressed);
-            },
-          ),
-          RaisedButton(
-            child: Text('RATE!'),
-            color: Theme.of(context).colorScheme.secondary,
-            textColor: Theme.of(context).colorScheme.onSecondary,
-            onPressed: () {
-              rateMyApp.callEvent(RateMyAppEventType.rateButtonPressed);
-              _requestReview();
-
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      );
+      _requestReview();
+      rateMyApp.callEvent(RateMyAppEventType.rateButtonPressed);
     }
   }
 
