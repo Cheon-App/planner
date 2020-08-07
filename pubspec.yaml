@@ -165,6 +165,15 @@ dev_dependencies:
 
 dependency_overrides:
   flutter_svg: ^0.18.0
+  # Removes nullsafety
+  characters: 1.0.0
+  collection: 1.14.13
+  matcher: 0.12.9
+  meta: 1.2.2
+  typed_data: 1.2.0
+  vector_math: 2.0.8
+
+
 
 # part of the flutter_launcher_icons package
 # run flutter pub run flutter_launcher_icons:main to update icons
