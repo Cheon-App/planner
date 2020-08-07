@@ -56,11 +56,11 @@ class _AboutAppCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final AppInfo appInfo = Provider.of<AppInfo>(context);
     final String commitHash = bool.hasEnvironment('BUILD_COMMIT')
-        ? String.fromEnvironment('BUILD_COMMIT').substring(0, 7)
+        ? const String.fromEnvironment('BUILD_COMMIT').substring(0, 7)
         : '---';
 
     final String appVersion =
-        'Version ${appInfo.versionName} | ${appInfo.buildNumber} | $commitHash';
+        'Version ${appInfo.versionName}(${appInfo.buildNumber}) | $commitHash';
 
     return _SettingsCard(
       title: 'About This App',
