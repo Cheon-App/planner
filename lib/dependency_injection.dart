@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:isolate';
 
 // Package imports:
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:kiwi/kiwi.dart';
@@ -38,6 +39,7 @@ Future<void> registerTestDependencies() async {
 }
 
 Future<void> registerDependencies() async {
+  Firebase.initializeApp();
   final PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
   final AppInfoService packageInfoAppInfoService =

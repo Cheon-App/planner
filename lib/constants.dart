@@ -14,6 +14,8 @@ const String URL_POMODORO_TECHNIQUE =
 const String URL_ROADMAP =
     'https://www.notion.so/822ef39ffbde4b308b0e9a6be629bbc7?v=8fa2d150f76546b4b7132d8da86bb7aa';
 
+const String APP_STORE_ID = '1486076973';
+
 const String IMG_FORGOT_PASSWORD = 'assets/images/forgot_password.svg';
 const String IMG_ADD_TEACHER = 'assets/images/add_teacher.svg';
 const String IMG_EMPTY = 'assets/images/empty.svg';

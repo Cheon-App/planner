@@ -184,8 +184,6 @@ class HomePageState extends State<HomePage> {
     final InAppReview inAppReview = InAppReview.instance;
     if (await inAppReview.isAvailable()) {
       inAppReview.requestReview();
-    } else {
-      inAppReview.openStoreListing(iOSAppStoreId: '1486076973');
     }
   }
 
