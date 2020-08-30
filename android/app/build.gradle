@@ -45,6 +45,13 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            // Prevents x86 binaries from being included in the app as it won't
+            // contain x86 Flutter binaries until Flutter provides x86 support
+            // so the app crashes 
+            abiFilters 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
 
     signingConfigs {
