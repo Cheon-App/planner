@@ -136,8 +136,11 @@ class CheonApp extends StatelessWidget {
       textSelectionHandleColor: accentColor,
       toggleableActiveColor: accentColor,
       dividerColor: dividerColor,
-      bottomAppBarColor:
-          isDark ? isAmoled ? amoledBottomBar : darkBottomBar : lightBottomBar,
+      bottomAppBarColor: isDark
+          ? isAmoled
+              ? amoledBottomBar
+              : darkBottomBar
+          : lightBottomBar,
       buttonColor: isDark ? const Color(0xFF303030) : const Color(0xFFE4E6EB),
       buttonTheme: ButtonThemeData(
         buttonColor: isDark ? accentColor : Colors.grey.shade300,
@@ -399,9 +402,7 @@ class CheonApp extends StatelessWidget {
                     primaryColor: Colors.green,
                     secondaryColor: const Color(0xFF2bbd7e),
                   ),
-                  options: WiredashOptionsData(
-                    showDebugFloatingEntryPoint: false,
-                  ),
+                  options: WiredashOptionsData(),
                 ),
               );
 

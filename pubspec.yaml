@@ -23,7 +23,7 @@ dependencies:
   ################################ UI PACKAGES #################################
 
   # Icons from https://fontawesome.com
-  font_awesome_flutter: ^8.8.1
+  font_awesome_flutter: ^8.9.0
 
   # Animated loading indicators
   flutter_spinkit: ^4.1.2+1
@@ -35,7 +35,7 @@ dependencies:
   sticky_headers: ^0.1.8+1
 
   # Renders text based on the markdown text formatting standard
-  flutter_markdown: ^0.4.3
+  flutter_markdown: ^0.4.4
 
   # Renders a Scalable Vector Graphic image
   flutter_svg: ^0.18.1
@@ -49,42 +49,42 @@ dependencies:
   ########################## DATA PERSISTENCE PACKAGES #########################
 
   # A super fast key value store
-  hive: ^1.4.4
+  hive: ^1.4.4+1
 
   # Adds SQLite support with Data Access Objects and streams
   moor: ^3.3.1
   sqlite3_flutter_libs: ^0.2.0
 
   # Supplies the app with the directory location for storing files
-  path_provider: ^1.6.14
+  path_provider: ^1.6.18
 
   ############################### OTHER PACKAGES ###############################
 
   # Officially endorsed state management library with O(1) access time from
   # anywhere in the widget tree
-  provider: ^4.3.2+1
+  provider: ^4.3.2+2
 
   # Opens urls in the phone browser
-  url_launcher: ^5.5.0
+  url_launcher: ^5.7.2
 
   # Supplies the app version details e.g. build name/number
   package_info: ^0.4.3
 
   # Shares in app content using respective system sharing APIs
-  share: ^0.6.5
+  share: ^0.6.5+2
 
   # Allows the app to be opened to a specific page/feature from the app launcher
-  quick_actions: ^0.4.0+8
+  quick_actions: ^0.4.0+9
 
   # Inversion of control container based dependency injection using a map
   # Supports constructor injection.
-  kiwi: ^2.0.0
+  kiwi: ^2.0.1
 
   # Creates fuzzy timestamps from DateTime objects e.g. 5 minutes ago
   timeago: ^2.0.27
 
   # Annotations for classes that utilise code gen from json_serializable
-  json_annotation: ^3.0.1
+  json_annotation: ^3.1.0
 
   # ReaxtiveX Dart. Provides extra features to Dart's streams
   rxdart: ^0.24.1
@@ -96,39 +96,39 @@ dependencies:
   uuid: ^2.2.2
 
   # Required package for the Firebase platform
-  firebase_core: ^0.5.0
+  firebase_core: ^0.5.0+1
   # Analytics for the Firebase platform
-  firebase_analytics: ^6.0.0
+  firebase_analytics: ^6.0.2
   # Crash monitoring
-  firebase_crashlytics: ^0.1.4+1
+  firebase_crashlytics: ^0.2.1+1
 
   # Retreives events from the default device calendar
   device_calendar: ^3.1.0
 
   # Enables object comparison without overriding == and hashCode
-  equatable: ^1.2.4
+  equatable: ^1.2.5
 
   # In app feedback by wiredash.io
-  wiredash: ^0.2.0
+  wiredash: ^0.3.0
 
   # Drag to hide keyboard on IOS
   flutter_interactive_keyboard: ^0.1.3
 
   # Shows a rating popup after certain conditions are met
-  rate_my_app: ^0.7.0+1
+  rate_my_app: ^0.7.2
 
   # Sorts imports!
-  import_sorter: ^4.2.1
+  import_sorter: ^4.2.2
 
   # In-App Review pop up
-  in_app_review: ^0.2.0+3
+  in_app_review: ^0.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # Home screen icon generator
-  flutter_launcher_icons: ^0.7.5
+  flutter_launcher_icons: ^0.8.1
 
   # Splash screen generator
   flutter_native_splash: ^0.1.9
@@ -155,7 +155,7 @@ dev_dependencies:
 
   # Uses code generation to generate serialization functions to convert objects
   # to and from JSON
-  json_serializable: ^3.4.1
+  json_serializable: ^3.5.0
 
 dependency_overrides:
   flutter_svg: ^0.18.1
