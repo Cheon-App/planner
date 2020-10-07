@@ -38,47 +38,50 @@ dependencies:
   flutter_markdown: ^0.4.3
 
   # Renders a Scalable Vector Graphic image
-  flutter_svg: ^0.18.0
+  flutter_svg: ^0.18.1
 
   # Official animations package providing Material Design transitions
   animations: ^1.1.2
 
+  # Render html
+  flutter_html: ^1.0.2
+
   ########################## DATA PERSISTENCE PACKAGES #########################
 
   # A super fast key value store
-  hive: ^1.4.2
+  hive: ^1.4.4
 
   # Adds SQLite support with Data Access Objects and streams
-  moor: ^3.3.0
+  moor: ^3.3.1
   sqlite3_flutter_libs: ^0.2.0
 
   # Supplies the app with the directory location for storing files
-  path_provider: ^1.6.11
+  path_provider: ^1.6.14
 
   ############################### OTHER PACKAGES ###############################
 
   # Officially endorsed state management library with O(1) access time from
   # anywhere in the widget tree
-  provider: ^4.3.1
+  provider: ^4.3.2+1
 
   # Opens urls in the phone browser
   url_launcher: ^5.5.0
 
   # Supplies the app version details e.g. build name/number
-  package_info: ^0.4.1
+  package_info: ^0.4.3
 
   # Shares in app content using respective system sharing APIs
-  share: ^0.6.4+3
+  share: ^0.6.5
 
   # Allows the app to be opened to a specific page/feature from the app launcher
-  quick_actions: ^0.4.0+6
+  quick_actions: ^0.4.0+8
 
   # Inversion of control container based dependency injection using a map
   # Supports constructor injection.
   kiwi: ^2.0.0
 
   # Creates fuzzy timestamps from DateTime objects e.g. 5 minutes ago
-  timeago: ^2.0.26
+  timeago: ^2.0.27
 
   # Annotations for classes that utilise code gen from json_serializable
   json_annotation: ^3.0.1
@@ -87,19 +90,15 @@ dependencies:
   rxdart: ^0.24.1
 
   # Uses platform APIs to send push notifications
-  flutter_local_notifications: ^1.4.4+2
+  flutter_local_notifications: ^1.4.4+4
 
   # Generates and parses Universally unique identifiers
-  uuid: ^2.2.0
+  uuid: ^2.2.2
 
   # Required package for the Firebase platform
-  firebase_core: ^0.4.5
+  firebase_core: ^0.5.0
   # Analytics for the Firebase platform
-  firebase_analytics: ^5.0.16
-  # Custom messages to increase engagement
-  firebase_in_app_messaging: ^0.1.2
-  # Remotely triggered push notifications
-  # firebase_messaging: ^6.0.12
+  firebase_analytics: ^6.0.0
   # Crash monitoring
   firebase_crashlytics: ^0.1.4+1
 
@@ -107,7 +106,7 @@ dependencies:
   device_calendar: ^3.1.0
 
   # Enables object comparison without overriding == and hashCode
-  equatable: ^1.2.3
+  equatable: ^1.2.4
 
   # In app feedback by wiredash.io
   wiredash: ^0.2.0
@@ -116,21 +115,16 @@ dependencies:
   flutter_interactive_keyboard: ^0.1.3
 
   # Shows a rating popup after certain conditions are met
-  rate_my_app: ^0.6.1+7
+  rate_my_app: ^0.7.0+1
 
   # Sorts imports!
   import_sorter: ^4.2.1
 
-  # Render html
-  flutter_html: ^1.0.0
-
   # In-App Review pop up
-  in_app_review: ^0.1.0
+  in_app_review: ^0.2.0+3
 
 dev_dependencies:
   flutter_test:
-    sdk: flutter
-  flutter_driver:
     sdk: flutter
 
   # Home screen icon generator
@@ -140,7 +134,7 @@ dev_dependencies:
   flutter_native_splash: ^0.1.9
 
   # Mocks classes for testing purposes
-  mockito: ^4.1.1
+  mockito: ^4.1.2
 
   ############################## Code Generation ###############################
   # Run:
@@ -151,29 +145,27 @@ dev_dependencies:
   # with the watch command
 
   # Official code generation package for Dart
-  build_runner: ^1.10.0
+  build_runner: ^1.10.2
 
   # Constructor injection code generator for kiwi
   kiwi_generator: ^2.0.0
 
   # Dart sqlite table to raw sql code generator for moor
-  moor_generator: ^3.3.0
+  moor_generator: ^3.3.1
 
   # Uses code generation to generate serialization functions to convert objects
   # to and from JSON
-  json_serializable: ^3.3.0
+  json_serializable: ^3.4.1
 
 dependency_overrides:
-  flutter_svg: ^0.18.0
-  # Removes nullsafety
-  characters: 1.0.0
-  collection: 1.14.13
-  matcher: 0.12.9
-  meta: 1.2.2
-  typed_data: 1.2.0
-  vector_math: 2.0.8
-
-
+  flutter_svg: ^0.18.1
+  # # Removes nullsafety
+  # characters: 1.0.0
+  # collection: 1.14.13
+  # matcher: 0.12.9
+  # meta: 1.2.2
+  # typed_data: 1.2.0
+  # vector_math: 2.0.8
 
 # part of the flutter_launcher_icons package
 # run flutter pub run flutter_launcher_icons:main to update icons

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:animations/animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
@@ -52,6 +53,11 @@ class _AboutAppCard extends StatelessWidget {
 
   void openTermsAndConditions() => launchUrl(URL_TERMS_AND_CONDITIONS);
 
+  void _leaveReview() {
+    final inAppReview = InAppReview.instance;
+    inAppReview.openStoreListing(appStoreId: APP_STORE_ID);
+  }
+
   @override
   Widget build(BuildContext context) {
     final AppInfo appInfo = Provider.of<AppInfo>(context);
@@ -82,6 +88,10 @@ class _AboutAppCard extends StatelessWidget {
               color: Theme.of(context).iconTheme.color),
           isThreeLine: true,
           onTap: openDiscord,
+        ),
+        ListTile(
+          title: const Text('Leave a review!'),
+          onTap: _leaveReview,
         ),
         ListTile(
           title: const Text('Website'),
