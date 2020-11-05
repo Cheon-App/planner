@@ -30,9 +30,6 @@ cloc.exe
 .pub-cache/
 .pub/
 /build/
-/web/
-/windows/
-/macos/
 .flutter-plugins-dependencies
 lib/generated_plugin_registrant.dart
 

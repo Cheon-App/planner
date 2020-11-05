@@ -13,10 +13,10 @@ class HiveKeyValueService implements KeyValueService {
   List<String> getKeys() => box.keys.map((dynamic k) => k.toString()).toList();
 
   @override
-  dynamic getValue(String key) => box.get(key);
+  T getValue<T>(String key) => box.get(key);
 
   @override
-  Future<void> setValue(String key, dynamic value) => box.put(key, value);
+  Future<void> setValue<T>(String key, T value) => box.put(key, value);
 
   @override
   Future<void> clearAll() => box.clear();

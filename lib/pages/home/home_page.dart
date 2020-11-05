@@ -339,6 +339,14 @@ class _Drawer extends StatelessWidget {
     }
   }
 
+  Future<void> _openDonate(BuildContext context) async {
+    try {
+      await launchUrl(URL_ROADMAP);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -397,6 +405,11 @@ class _Drawer extends StatelessWidget {
               onTap: () => _openRoadmap(context),
               text: 'Roadmap',
               icon: FontAwesomeIcons.clipboardList,
+            ),
+            _DrawerTab(
+              onTap: () => _openRoadmap(context),
+              text: 'Donate',
+              icon: FontAwesomeIcons.dollarSign,
             ),
             Spacer(flex: 6),
           ],

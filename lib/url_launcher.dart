@@ -18,9 +18,9 @@ Future<void> launchUrl(String url) async {
 /// and body
 Future<void> launchEmail(String email, {String subject, String body}) async {
   final parameters = <String, dynamic>{
-    'subject': subject,
-    'body': body,
-  }..removeWhere((_, dynamic value) => value == null);
+    if (subject != null) 'subject': subject,
+    if (body != null) 'body': body,
+  };
 
   final uri = Uri(
     scheme: 'mailto',

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-const String URL_DISCORD = 'https://discord.gg/N2YK5uq';
+const String URL_DISCORD = 'https://discord.cheon.app';
 const String URL_INSTAGRAM = 'https://instagram.com/cheonapp';
 const String URL_WEBSITE = 'https://cheon.app';
 const String URL_PRIVACY_POLICY = '$URL_WEBSITE/privacy_policy';

@@ -183,7 +183,9 @@ class _SubjectProgressSection extends StatelessWidget {
                       ? 'Maths'
                       : index == 1
                           ? 'Physics'
-                          : index == 2 ? 'Computer Science' : 'Further Maths',
+                          : index == 2
+                              ? 'Computer Science'
+                              : 'Further Maths',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 LinearProgressBar(
@@ -393,7 +395,7 @@ class _RevisionSetupDescription extends StatelessWidget {
             shrinkWrap: true,
             data: _smartRevisionMessage,
             padding: EdgeInsets.zero,
-            onTapLink: launchUrl,
+            onTapLink: (text, href, title) => launchUrl(href),
             styleSheet:
                 MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
               horizontalRuleDecoration: BoxDecoration(
@@ -851,7 +853,11 @@ class __RevisionSetupConfigurationState
                 const SizedBox(width: 8),
                 Expanded(
                   child: PrimaryActionButton(
-                    onTap: lastForm ? !loading ? complete : null : next,
+                    onTap: lastForm
+                        ? !loading
+                            ? complete
+                            : null
+                        : next,
                     text: lastForm ? 'COMPLETE' : 'NEXT',
                   ),
                 ),

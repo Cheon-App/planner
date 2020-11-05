@@ -1,9 +1,9 @@
 abstract class KeyValueService {
   /// Writes a key value pair to local storage
-  Future<void> setValue(String key, dynamic value);
+  Future<void> setValue<T>(String key, T value);
 
   /// Retreives a key value pair from local storage
-  dynamic getValue(String key);
+  T getValue<T>(String key);
 
   /// Returns a list containing all keys with corresponding values
   List<String> getKeys();

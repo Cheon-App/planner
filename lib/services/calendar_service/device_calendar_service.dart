@@ -92,7 +92,7 @@ class DeviceCalendarService implements CalendarService {
 
   @override
   Calendar getSelectedCalendar() {
-    final dynamic calendarJson = _keyValueService.getValue(SELECTED_CALENDAR);
+    final calendarJson = _keyValueService.getValue(SELECTED_CALENDAR);
     if (calendarJson == null) return null;
     return Calendar.fromJson(jsonDecode(calendarJson));
   }
