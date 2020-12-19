@@ -123,6 +123,8 @@ dependencies:
   # In-App Review pop up
   in_app_review: ^1.0.1+1
 
+  freezed_annotation: ^0.12.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -156,6 +158,8 @@ dev_dependencies:
   # Uses code generation to generate serialization functions to convert objects
   # to and from JSON
   json_serializable: ^3.5.0
+
+  freezed: ^0.12.2
 
 dependency_overrides:
   flutter_svg: ^0.18.1

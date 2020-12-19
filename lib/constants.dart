@@ -31,6 +31,7 @@ const String IMG_SUBJECTS = 'assets/images/subjects.svg';
 const String IMG_TEACHER = 'assets/images/teacher.svg';
 const String IMG_SMART_REVISION = 'assets/images/smart_revision.svg';
 const String IMG_STUDYING = 'assets/images/studying.svg';
+const String IMG_CALENDAR = 'assets/images/calendar.svg';
 
 const String KEY_USER = 'user';
 const String KEY_REVISION_BOX = 'revision';

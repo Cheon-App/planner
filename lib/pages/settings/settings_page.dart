@@ -1,24 +1,17 @@
 // Flutter imports:
-import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:animations/animations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:in_app_review/in_app_review.dart';
-import 'package:provider/provider.dart';
-
 // Project imports:
 import 'package:cheon/constants.dart';
-import 'package:cheon/models/calendar.dart';
+import 'package:cheon/pages/manage_calendars/manage_calendars_page.dart';
 import 'package:cheon/url_launcher.dart';
 import 'package:cheon/view_models/app_info_view_model.dart';
 import 'package:cheon/view_models/settings_view_model.dart';
-import 'package:cheon/widgets/custom_selection_dialog.dart';
 import 'package:cheon/widgets/day_toggle.dart';
-import 'package:cheon/widgets/error_message.dart';
-import 'package:cheon/widgets/loading_indicator.dart';
 import 'package:cheon/widgets/platform_date_time_picker.dart';
 import 'package:cheon/widgets/platform_selection_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:provider/provider.dart';
 
 /// A page used to change app settings
 class SettingsPage extends StatelessWidget {
@@ -196,147 +189,19 @@ class _NotificationsCard extends StatelessWidget {
 
 /// Creates a card for syncronising a local calendar
 class _CalendarCard extends StatelessWidget {
-  Future<void> showSelectCalendarDialog(
-    BuildContext context, {
-    @required Calendar selectedCalendar,
-  }) async {
-    final SettingsVM settings = Provider.of(context, listen: false);
-    final String selectedCalendarId = selectedCalendar?.id;
-    final Calendar calendar = await showModal<Calendar>(
-      context: context,
-      configuration: FadeScaleTransitionConfiguration(),
-      builder: (BuildContext context) {
-        return FutureBuilder<List<Calendar>>(
-          future: settings.calendarList(),
-          builder: (
-            BuildContext context,
-            AsyncSnapshot<List<Calendar>> snapshot,
-          ) {
-            if (snapshot.hasData) {
-              final List<Calendar> calendarList = snapshot.data;
-              // Sort the list by account name alphabetically
-              calendarList.sort((Calendar a, Calendar b) {
-                return a.accountName.compareTo(b.accountName);
-              });
-
-              final List<List<Calendar>> groupedCalendarList =
-                  <List<Calendar>>[];
-
-              if (calendarList.length > 1) {
-                Calendar currentAccountCalendar = calendarList.first;
-                final List<Calendar> accountCalendarList = <Calendar>[];
-
-                for (Calendar calendar in calendarList) {
-                  if (calendar.accountName !=
-                      currentAccountCalendar.accountName) {
-                    // Must be a new list otherwise a reference to the list will
-                    // be added that's lost when .clear() is called on the
-                    // original list
-                    groupedCalendarList.add(<Calendar>[...accountCalendarList]);
-                    accountCalendarList.clear();
-                    currentAccountCalendar = calendar;
-                  }
-
-                  accountCalendarList.add(calendar);
-                }
-
-                groupedCalendarList.add(accountCalendarList);
-              } else {
-                groupedCalendarList.add(calendarList);
-              }
-
-              for (List<Calendar> calendarList in groupedCalendarList) {
-                print(calendarList.map((e) => e.accountName).toList());
-              }
-
-              return CustomSelectionDialog(
-                title: 'Select Calendar',
-                items: <Widget>[
-                  for (List<Calendar> calendarList in groupedCalendarList) ...[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Text(
-                        calendarList.first.accountName.toUpperCase(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ),
-                    ),
-                    ...calendarList
-                        .map(
-                          (Calendar calendar) => CustomSelectionDialogItem(
-                            onTap: () => Navigator.pop(context, calendar),
-                            text: calendar.name,
-                            selected: calendar.id == selectedCalendarId,
-                          ),
-                        )
-                        .toList(),
-                  ]
-                ],
-              );
-            } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: Dialog(
-                    child: LoadingIndicator(),
-                  ),
-                ),
-              );
-            } else {
-              return Center(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: Dialog(child: ErrorMessage()),
-                ),
-              );
-            }
-          },
-        );
-      },
-    );
-    if (calendar == null) return;
-    settings.selectedCalendar = calendar;
-  }
+  void _openManageCalendars(BuildContext context) =>
+      Navigator.pushNamed(context, ManageCalendarsPage.routeName);
 
   @override
   Widget build(BuildContext context) {
-    final SettingsVM settings = Provider.of<SettingsVM>(context);
-    final bool noSelectedCalendar = settings.selectedCalendar == null;
     return _SettingsCard(
       title: 'Calendar',
       subtitle: 'Manage calendar syncronisation',
       separated: true,
       children: <Widget>[
-        SwitchListTile.adaptive(
-          onChanged: (bool value) => settings.importCalendarEvents = value,
-          value: settings.importCalendarEvents,
-          title: const Text('Import calendar events'),
-        ),
         ListTile(
-          enabled: settings.importCalendarEvents,
-          title: const Text('Select calendar'),
-          subtitle: noSelectedCalendar
-              ? Text('No calendar selected')
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Text(
-                      settings.selectedCalendar.name,
-                      style: Theme.of(context).textTheme.subtitle2.copyWith(
-                            color: !settings.importCalendarEvents
-                                ? Colors.grey.shade700
-                                : null,
-                          ),
-                    ),
-                    Text(settings.selectedCalendar.accountName),
-                  ],
-                ),
-          onTap: () => showSelectCalendarDialog(
-            context,
-            selectedCalendar: settings.selectedCalendar,
-          ),
+          title: Text('Manage Calendars'),
+          onTap: () => _openManageCalendars(context),
         ),
       ],
     );

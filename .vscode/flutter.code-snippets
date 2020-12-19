@@ -1,0 +1,114 @@
+{
+	// Place your reflection_flutter workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"Part statement": {
+		"prefix": "pts",
+		"body": [
+			"part '${TM_FILENAME_BASE}.g.dart';",
+		],
+		"description": "Creates a filled-in part statement"
+	},
+	"Part 'Freezed' statement": {
+		"prefix": "ptf",
+		"body": [
+			"part '${TM_FILENAME_BASE}.freezed.dart';",
+		],
+		"description": "Creates a filled-in freezed part statement"
+	},
+	"Freezed Data Class": {
+		"prefix": "fdataclass",
+		"body": [
+			"@immutable",
+			"@freezed",
+			"abstract class ${1:DataClass} with _$${1:DataClass}{",
+			"  const factory ${1:DataClass}(${2}) = _${1:DataClass};",
+			"}"
+		],
+		"description": "Freezed Data Class"
+	},
+	"Freezed Union": {
+		"prefix": "funion",
+		"body": [
+			"@immutable",
+			"@freezed",
+			"abstract class ${1:Union} with _$${1:Union}{",
+			"  const factory ${1:Union}.${2}(${4}) = ${3};",
+			"}"
+		],
+		"description": "Freezed Union"
+	},
+	"Freezed Union Case": {
+		"prefix": "funioncase",
+		"body": [
+			"const factory ${1:Union}.${2}(${4}) = ${3};"
+		],
+		"description": "Freezed Union Case"
+	},
+	"Flutter stateless widget with named route": {
+		"prefix": "page",
+		"description": "Insert a StatelessWidget",
+		"body": [
+			"class $1 extends StatelessWidget {",
+			"static const String routeName = '/$2';",
+			"  @override",
+			"  Widget build(BuildContext context) {",
+			"    return Container(",
+			"      $3",
+			"    );",
+			"  }",
+			"}"
+		]
+	},
+	"Flutter stateful widget": {
+		"prefix": "spage",
+		"description": "Insert a StatefulWidget",
+		"body": [
+			"class $1 extends StatefulWidget {",
+			"",
+			"static const String routeName = '/$2';",
+			"",
+			"  @override",
+			"  _$1State createState() => _$1State();",
+			"}",
+			"",
+			"class _$1State extends State<$1> {",
+			"  @override",
+			"  Widget build(BuildContext context) {",
+			"    return Container(",
+			"      $3",
+			"    );",
+			"  }",
+			"}"
+		]
+	},
+	"triple_a_test": {
+		"prefix": "aaa",
+		"body": [
+			"test(",
+			"\t'should $1',",
+			"\t()async {",
+			"\t\t// ARRANGE",
+			"\t\t$2",
+			"\t\t// ACT",
+			"\t\t$3",
+			"\t\t// ASSERT",
+			"\t\t$4",
+			"\t},",
+			");"
+		],
+	}
+}

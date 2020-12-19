@@ -406,11 +406,11 @@ class _Drawer extends StatelessWidget {
               text: 'Roadmap',
               icon: FontAwesomeIcons.clipboardList,
             ),
-            _DrawerTab(
-              onTap: () => _openRoadmap(context),
-              text: 'Donate',
-              icon: FontAwesomeIcons.dollarSign,
-            ),
+            // _DrawerTab(
+            //   onTap: () => _openRoadmap(context),
+            //   text: 'Donate',
+            //   icon: FontAwesomeIcons.dollarSign,
+            // ),
             Spacer(flex: 6),
           ],
         ),

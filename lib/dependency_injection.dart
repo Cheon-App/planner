@@ -2,7 +2,16 @@
 import 'dart:io';
 import 'dart:isolate';
 
-// Package imports:
+// Project imports:
+import 'package:cheon/database/database.dart';
+import 'package:cheon/services/app_info_service/app_info_service.dart';
+import 'package:cheon/services/app_info_service/mock_app_info_service.dart';
+import 'package:cheon/services/app_info_service/pi_app_info_service.dart';
+import 'package:cheon/services/calendar_service/calendar_service.dart';
+import 'package:cheon/services/key_value_service/hive_key_value_service.dart';
+import 'package:cheon/services/key_value_service/key_value_service.dart';
+import 'package:cheon/services/notification_service/local_notification_service.dart';
+import 'package:cheon/services/notification_service/notification_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
@@ -13,18 +22,6 @@ import 'package:moor/moor.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-
-// Project imports:
-import 'package:cheon/database/database.dart';
-import 'package:cheon/services/app_info_service/app_info_service.dart';
-import 'package:cheon/services/app_info_service/mock_app_info_service.dart';
-import 'package:cheon/services/app_info_service/pi_app_info_service.dart';
-import 'package:cheon/services/calendar_service/calendar_service.dart';
-import 'package:cheon/services/calendar_service/device_calendar_service.dart';
-import 'package:cheon/services/key_value_service/hive_key_value_service.dart';
-import 'package:cheon/services/key_value_service/key_value_service.dart';
-import 'package:cheon/services/notification_service/local_notification_service.dart';
-import 'package:cheon/services/notification_service/notification_service.dart';
 
 final KiwiContainer container = KiwiContainer();
 
@@ -71,10 +68,6 @@ Future<void> registerDependencies() async {
   final KeyValueService calendarKeyValueService =
       HiveKeyValueService(calendarBox);
 
-  final CalendarService deviceCalendarService = DeviceCalendarService(
-    keyValueService: calendarKeyValueService,
-  );
-
   final NotificationService localNotificationService =
       LocalNotificationService();
 
@@ -115,11 +108,20 @@ Future<void> registerDependencies() async {
     name: 'revision',
   );
 
+  container.registerInstance<KeyValueService>(
+    calendarKeyValueService,
+    name: 'calendar',
+  );
+
   container.registerInstance(db);
+
+  final CalendarService deviceCalendarService = CalendarService();
 
   container.registerInstance<CalendarService>(deviceCalendarService);
 
   container.registerInstance<NotificationService>(localNotificationService);
+
+  // container.registerInstance<CalendarVM>(CalendarVM());
 }
 
 void unregisterDependencies() => container.clear();

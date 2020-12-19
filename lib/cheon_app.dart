@@ -2,6 +2,8 @@
 import 'dart:io';
 
 // Flutter imports:
+import 'package:cheon/dependency_injection.dart';
+import 'package:cheon/view_models/calendar_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -376,6 +378,9 @@ class CheonApp extends StatelessWidget {
                   ),
                   ChangeNotifierProvider<TimelineVM>(
                     create: (_) => TimelineVM(),
+                  ),
+                  ChangeNotifierProvider<CalendarVM>(
+                    create: (_) => CalendarVM(),
                   ),
                   Provider<ExamsVM>(
                     create: (_) => ExamsVM(),

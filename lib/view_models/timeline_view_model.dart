@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'package:cheon/services/calendar_service/calendar_service.dart';
+import 'package:cheon/view_models/calendar_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +19,6 @@ import 'package:cheon/models/lesson.dart';
 import 'package:cheon/models/study_session.dart';
 import 'package:cheon/models/timeline_data.dart';
 import 'package:cheon/models/timetable.dart';
-import 'package:cheon/repositories/event_repository.dart';
 import 'package:cheon/repositories/exam_repository.dart';
 import 'package:cheon/repositories/lesson_repository.dart';
 import 'package:cheon/repositories/study_repository.dart';
@@ -53,35 +54,40 @@ class TimelineVM extends ChangeNotifier {
 
   final LessonRepository _lessonRepository = LessonRepository.instance;
   final ExamRepository _examRepository = ExamRepository.instance;
-  final EventRepository _eventRepository = EventRepository.instance;
   final StudyRepository _studyRepository = StudyRepository.instance;
+  final _calendarService = container<CalendarService>();
 
   /// A stream of [TimelineData] i.e. data consumed by the timeline page.
-  Stream<TimelineData> timelineDataStream() =>
-      _selectedDateSubject.stream.distinct().switchMap(
-            (DateTime date) => CombineLatestStream.combine4(
-              _lessonRepository.lessonListFromDateStream(date),
-              _examRepository.examListFromDateStream(date),
-              _studyRepository.studySessionListFromDateStream(date),
-              _keyValueService.getValue(SettingsVM.IMPORT_CALENDAR_EVENTS) ??
-                      false
-                  ? _eventRepository.eventListStreamFromDate(date).asStream()
-                  : Stream<List<CalendarEvent>>.value(<CalendarEvent>[]),
-              (
-                List<Lesson> lessonList,
-                List<Exam> examList,
-                List<StudySession> studySessionList,
-                List<CalendarEvent> eventList,
-              ) {
-                return TimelineData(
-                  lessonList: lessonList,
-                  examList: examList,
-                  eventList: eventList,
-                  studySessionList: studySessionList,
-                );
-              },
-            ),
-          );
+  Stream<TimelineData> timelineDataStream() => _selectedDateSubject.stream
+      .distinct()
+      .switchMap(
+        (DateTime date) => CombineLatestStream.combine4(
+          _lessonRepository.lessonListFromDateStream(date).doOnError((_) => []),
+          _examRepository.examListFromDateStream(date).doOnError((_) => []),
+          _studyRepository
+              .studySessionListFromDateStream(date)
+              .doOnError((_) => []),
+          _keyValueService.getValue(SettingsVM.IMPORT_CALENDAR_EVENTS) ?? false
+              ? _calendarService
+                  .eventListFromDate(date: date)
+                  .asStream()
+                  .doOnError((_) => [])
+              : Stream<List<CalendarEvent>>.value(<CalendarEvent>[]),
+          (
+            List<Lesson> lessonList,
+            List<Exam> examList,
+            List<StudySession> studySessionList,
+            List<CalendarEvent> eventList,
+          ) {
+            return TimelineData(
+              lessonList: lessonList,
+              examList: examList,
+              eventList: eventList,
+              studySessionList: studySessionList,
+            );
+          },
+        ),
+      );
 
   int _sessionsToGo = 0;
   int get sessionsToGo => _sessionsToGo;

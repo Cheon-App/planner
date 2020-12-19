@@ -41,14 +41,8 @@ class _SettingsTabs extends StatefulWidget {
 
 class __SettingsTabsState extends State<_SettingsTabs>
     with SingleTickerProviderStateMixin {
-  PageController _pageController;
-  int tabIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
+  final PageController _pageController = PageController();
+  int _tabIndex = 0;
 
   @override
   void dispose() {
@@ -57,9 +51,9 @@ class __SettingsTabsState extends State<_SettingsTabs>
   }
 
   void changePage(int index) {
-    if (tabIndex == index) return;
+    if (_tabIndex == index) return;
     setState(() {
-      tabIndex = index;
+      _tabIndex = index;
       _pageController.animateToPage(
         index,
         duration: DURATION_MEDIUM,
@@ -77,7 +71,7 @@ class __SettingsTabsState extends State<_SettingsTabs>
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: CupertinoSlidingSegmentedControl<int>(
             onValueChanged: changePage,
-            groupValue: tabIndex,
+            groupValue: _tabIndex,
             children: const <int, Widget>{
               0: Text('TIMETABLES'),
               1: Text('OPTIONS'),
@@ -173,7 +167,9 @@ class __PeriodListState extends State<_PeriodList> {
                   if (value.isEmpty) return null;
                   return int.parse(value) > 20
                       ? 'Must be 20 or lower.'
-                      : int.parse(value) < 1 ? 'Must be 1 or higher.' : null;
+                      : int.parse(value) < 1
+                          ? 'Must be 1 or higher.'
+                          : null;
                 },
                 onChanged: (String value) => updateLessonsPerDay(
                   lessons: int.parse(value),

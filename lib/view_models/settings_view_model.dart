@@ -1,17 +1,12 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-// Package imports:
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 // Project imports:
 import 'package:cheon/dependency_injection.dart';
-import 'package:cheon/models/calendar.dart';
-import 'package:cheon/repositories/event_repository.dart';
-import 'package:cheon/services/calendar_service/calendar_service.dart';
 import 'package:cheon/services/key_value_service/key_value_service.dart';
 import 'package:cheon/utils.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// Package imports:
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class SettingsVM extends ChangeNotifier {
   SettingsVM() {
@@ -48,10 +43,8 @@ class SettingsVM extends ChangeNotifier {
   static const String IMPORT_CALENDAR_EVENTS = 'import_calendar_events';
 
   final KeyValueService _keyValueService = container<KeyValueService>();
-  final EventRepository _eventRepository = EventRepository.instance;
   final FlutterLocalNotificationsPlugin _localNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-  final CalendarService _calendarService = container<CalendarService>();
 
   ThemeMode _themeMode;
   ThemeMode get themeMode => _themeMode;
@@ -128,13 +121,6 @@ class SettingsVM extends ChangeNotifier {
     _importCalendarEvents = importCalendarEvents;
     notifyListeners();
     _keyValueService.setValue(IMPORT_CALENDAR_EVENTS, _importCalendarEvents);
-  }
-
-  Future<List<Calendar>> calendarList() => _eventRepository.calendarList();
-
-  Calendar get selectedCalendar => _calendarService.getSelectedCalendar();
-  set selectedCalendar(Calendar calendar) {
-    _calendarService.selectCalendar(calendar).then((_) => notifyListeners());
   }
 
   Future<void> _enableHomeworkNotifications() async {

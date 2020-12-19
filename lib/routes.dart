@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:cheon/pages/manage_calendars/manage_calendars_page.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -90,7 +91,8 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
       ),
   ViewEventPage.routeName: (context) => ViewEventPage(
         event: routeArguments(context),
-      )
+      ),
+  ManageCalendarsPage.routeName: (context) => ManageCalendarsPage(),
 };
 
 Object routeArguments(BuildContext context) =>

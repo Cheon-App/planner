@@ -36,4 +36,7 @@ class Calendar extends Equatable {
 
   @override
   List<Object> get props => <Object>[id];
+
+  @override
+  bool get stringify => true;
 }
