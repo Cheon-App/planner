@@ -22,6 +22,7 @@ import 'package:moor/moor.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 final KiwiContainer container = KiwiContainer();
 
@@ -78,7 +79,11 @@ Future<void> registerDependencies() async {
   /// we can now create a database connection that will use the isolate
   /// internally. This is NOT what's returned from _backgroundConnection, moor
   /// uses an internal proxy class for isolate communication.
-  // final DatabaseConnection connection =  await moorIsolate.connect();
+  // final DatabaseConnection connection =  await moorIsolate.connect()
+
+  if (Platform.isAndroid) {
+    await applyWorkaroundToOpenSqlite3OnOldAndroidVersions();
+  }
 
   final DatabaseConnection connection = DatabaseConnection.fromExecutor(
       LazyDatabase(() => VmDatabase(File(dbPath))));

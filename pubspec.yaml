@@ -23,7 +23,7 @@ dependencies:
   ################################ UI PACKAGES #################################
 
   # Icons from https://fontawesome.com
-  font_awesome_flutter: ^8.10.0
+  font_awesome_flutter: ^8.11.0
 
   # Animated loading indicators
   flutter_spinkit: ^4.1.2+1
@@ -53,7 +53,7 @@ dependencies:
 
   # Adds SQLite support with Data Access Objects and streams
   moor: ^3.4.0
-  sqlite3_flutter_libs: ^0.2.0
+  sqlite3_flutter_libs: ^0.3.0
 
   # Supplies the app with the directory location for storing files
   path_provider: ^1.6.22
@@ -96,11 +96,11 @@ dependencies:
   uuid: ^2.2.2
 
   # Required package for the Firebase platform
-  firebase_core: ^0.5.0+1
+  firebase_core: ^0.5.3
   # Analytics for the Firebase platform
-  firebase_analytics: ^6.0.2
+  firebase_analytics: ^6.3.0
   # Crash monitoring
-  firebase_crashlytics: ^0.2.1+1
+  firebase_crashlytics: ^0.2.4
 
   # Retreives events from the default device calendar
   device_calendar: ^3.1.0
@@ -121,7 +121,7 @@ dependencies:
   import_sorter: ^4.2.2
 
   # In-App Review pop up
-  in_app_review: ^1.0.1+1
+  in_app_review: ^1.0.4
 
   freezed_annotation: ^0.12.0
 
