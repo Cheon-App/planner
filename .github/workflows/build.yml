@@ -6,8 +6,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - run: git clone https://github.com/flutter/flutter.git --depth 1 -b beta _flutter
-      - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
+      - name: Installing Flutter
+        uses: britannio/action-install-flutter@v0.4
+        with:
+          version: 'stable'
       - run: flutter pub get
       - run: flutter build ios --no-codesign
       - run: git diff --exit-code
@@ -19,8 +21,10 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: "12.x"
-      - run: git clone https://github.com/flutter/flutter.git --depth 1 -b beta _flutter
-      - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
+      - name: Installing Flutter
+        uses: britannio/action-install-flutter@v0.4
+        with:
+          version: 'stable'
       - run: flutter pub get
       - run: flutter build appbundle --release --flavor prod 
       - run: git diff --exit-code
