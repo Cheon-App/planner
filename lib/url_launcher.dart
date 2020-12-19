@@ -2,10 +2,15 @@
 import 'package:url_launcher/url_launcher.dart';
 
 /// Opens a web url in the device's default browser
-Future<void> launchUrl(String url) async {
+Future<void> launchUrl(String url, {bool openInBrowser = false}) async {
   final bool canLaunchUrl = await canLaunch(url);
   if (canLaunchUrl) {
-    final bool successful = await launch(url);
+    final bool successful = await launch(
+      url,
+      forceSafariVC: !openInBrowser,
+      forceWebView: !openInBrowser,
+      enableJavaScript: true,
+    );
     if (!successful) {
       return Future<void>.error('Failed to launch $url');
     }

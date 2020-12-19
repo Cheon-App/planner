@@ -25,6 +25,13 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>itms</string>
+		<string>http</string>
+		<string>https</string>
+		<string>mailto</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
@@ -38,9 +45,9 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIStatusBarHidden</key>
-	<true/>
+	<false/>
 	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
+	<string>UIStatusBarStyleDefault</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -56,20 +63,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>We do not require your location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We do not require your location.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/> 	
-	<key>UIStatusBarHidden</key>
-	<true/>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Enables events from your calendar to be shown in the app.</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-    	<string>itms</string>
-	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDefault</string>
 </dict>
 </plist>

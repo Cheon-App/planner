@@ -89,13 +89,21 @@ class _CalendarGroupList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: groups.length,
-      itemBuilder: (context, index) {
-        final group = groups[index];
-        return _CalendarGroup(group: group);
-      },
-    );
+    final settingsVM = context.watch<SettingsVM>();
+    if (settingsVM.importCalendarEvents) {
+      return ListView.builder(
+        itemCount: groups.length,
+        itemBuilder: (context, index) {
+          final group = groups[index];
+          return _CalendarGroup(group: group);
+        },
+      );
+    } else {
+      return EmptyPlaceholder(
+        svgPath: IMG_CALENDAR,
+        text: '',
+      );
+    }
   }
 }
 

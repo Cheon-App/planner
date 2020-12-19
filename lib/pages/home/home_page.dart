@@ -308,7 +308,7 @@ class _Drawer extends StatelessWidget {
   /// Opens an invite url to the community Discord(messaging platform) group
   Future<void> _openDiscord(BuildContext context) async {
     try {
-      await launchUrl(URL_DISCORD);
+      await launchUrl(URL_DISCORD, openInBrowser: true);
     } catch (e) {
       print(e);
     }
