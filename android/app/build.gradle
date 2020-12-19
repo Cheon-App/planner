@@ -31,6 +31,8 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+apply plugin: 'com.google.firebase.crashlytics'
+
 android {
     compileSdkVersion 28
 
@@ -131,4 +133,3 @@ dependencies {
 
 
 apply plugin: 'com.google.gms.google-services'  // Google Services plugin
-apply plugin: 'io.fabric' // Fabric plugin
