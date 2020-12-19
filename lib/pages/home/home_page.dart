@@ -325,7 +325,7 @@ class _Drawer extends StatelessWidget {
 
   Future<void> _openInstagram(BuildContext context) async {
     try {
-      await launchUrl(URL_INSTAGRAM);
+      await launchUrl(URL_INSTAGRAM, openInBrowser: true);
     } catch (e) {
       print(e);
     }
