@@ -1,4 +1,4 @@
-• An issue causing the timeline to break when deleting an assessment has been fixed;
+• You can now import events from multiple calendars!
 Thanks for using the Cheon Smart Planner app!
 We release regular updates to the app to add new features and squash bugs.
 Join our Discord channel to contact the developer and other students! https://discord.com/invite/N2YK5uq
