@@ -16,28 +16,22 @@ import 'package:cheon/flavor_config.dart';
 Future<void> main() async {
   // Pass all uncaught errors from the framework to Crashlytics.
 
-  await runZonedGuarded<Future<void>>(() async {
-    configureApp();
-    FlavorConfig(flavor: Flavor.PRODUCTION);
-    await registerDependencies();
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  await runZonedGuarded<Future<void>>(
+    () async {
+      configureApp();
+      FlavorConfig(flavor: Flavor.PRODUCTION);
+      await registerDependencies();
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
-    runApp(CheonApp());
-  }, (Object error, StackTrace stackTrace) {
-    FirebaseCrashlytics.instance.recordError(error, stackTrace);
-    /* if (const bool.fromEnvironment('dart.vm.product')) {
-      try {
-        sentry.captureException(
-          exception: error,
-          stackTrace: stackTrace,
-        );
-        print('Error sent to sentry.io: $error');
-      } catch (e) {
-        print('Sending report to sentry.io failed: $e');
-        print('Original error: $error');
-      }
-    } else {
-      print(error);
-    } */
-  });
+      runApp(CheonApp());
+    },
+    (exception, stackTrace, {reason, information, printDetails}) =>
+        FirebaseCrashlytics.instance.recordError(
+      exception,
+      stackTrace,
+      reason: reason,
+      information: information,
+      printDetails: printDetails,
+    ),
+  );
 }
