@@ -697,7 +697,12 @@ class _ExamFormState extends State<_ExamForm> {
           minimum: 10,
           maximum: 300,
           onValueChanged: (double length) => setLength(
-            Duration(minutes: length.toInt()),
+            Duration(
+              // workaround for the slider skipping 180 minutes
+              minutes: length % 10 < 5
+                  ? length.toInt()
+                  : length.toInt() + (10 - (length.toInt() % 10)),
+            ),
           ),
           value: length.inMinutes,
         ),
