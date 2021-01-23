@@ -40,7 +40,7 @@ class SettingsPage extends StatelessWidget {
 class _AboutAppCard extends StatelessWidget {
   void openWebsite() => launchUrl(URL_WEBSITE);
 
-  void openDiscord() => launchUrl(URL_DISCORD);
+  void openDiscord() => launchUrl(URL_DISCORD, openInBrowser: true);
 
   void openPrivacyPolicy() => launchUrl(URL_PRIVACY_POLICY);
 
