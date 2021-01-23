@@ -35,7 +35,7 @@ dependencies:
   sticky_headers: ^0.1.8+1
 
   # Renders text based on the markdown text formatting standard
-  flutter_markdown: ^0.5.0
+  flutter_markdown: ^0.5.2
 
   # Renders a Scalable Vector Graphic image
   flutter_svg: ^0.18.1
@@ -44,7 +44,7 @@ dependencies:
   animations: ^1.1.2
 
   # Render html
-  flutter_html: ^1.0.2
+  flutter_html: ^1.1.0
 
   ########################## DATA PERSISTENCE PACKAGES #########################
 
@@ -62,7 +62,7 @@ dependencies:
 
   # Officially endorsed state management library with O(1) access time from
   # anywhere in the widget tree
-  provider: ^4.3.2+2
+  provider: ^4.3.3
 
   # Opens urls in the phone browser
   url_launcher: ^5.7.2
@@ -96,11 +96,11 @@ dependencies:
   uuid: ^2.2.2
 
   # Required package for the Firebase platform
-  firebase_core: ^0.5.3
+  firebase_core: ^0.7.0
   # Analytics for the Firebase platform
-  firebase_analytics: ^6.3.0
+  firebase_analytics: ^7.0.1
   # Crash monitoring
-  firebase_crashlytics: ^0.2.4
+  firebase_crashlytics: ^0.4.0
 
   # Retreives events from the default device calendar
   device_calendar: ^3.1.0
@@ -109,7 +109,7 @@ dependencies:
   equatable: ^1.2.5
 
   # In app feedback by wiredash.io
-  wiredash: ^0.3.0
+  wiredash: ^0.4.0
 
   # Drag to hide keyboard on IOS
   flutter_interactive_keyboard: ^0.1.3
@@ -153,13 +153,13 @@ dev_dependencies:
   kiwi_generator: ^2.1.1
 
   # Dart sqlite table to raw sql code generator for moor
-  moor_generator: ^3.4.0
+  moor_generator: ^3.4.1
 
   # Uses code generation to generate serialization functions to convert objects
   # to and from JSON
   json_serializable: ^3.5.0
 
-  freezed: ^0.12.2
+  freezed: ^0.12.7
 
 dependency_overrides:
   flutter_svg: ^0.18.1
