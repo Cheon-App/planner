@@ -333,7 +333,7 @@ class _Drawer extends StatelessWidget {
 
   Future<void> _openRoadmap(BuildContext context) async {
     try {
-      await launchUrl(URL_ROADMAP);
+      await launchUrl(URL_ROADMAP, openInBrowser: true);
     } catch (e) {
       print(e);
     }
