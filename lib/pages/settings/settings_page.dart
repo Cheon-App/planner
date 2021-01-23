@@ -61,6 +61,8 @@ class _AboutAppCard extends StatelessWidget {
     final String appVersion =
         'Version ${appInfo.versionName}(${appInfo.buildNumber}) | $commitHash';
 
+    final year = DateTime.now().year;
+
     return _SettingsCard(
       title: 'About This App',
       subtitle: 'App information',
@@ -102,7 +104,7 @@ class _AboutAppCard extends StatelessWidget {
             applicationName: 'Cheon',
             applicationIcon: Image.asset(IMG_LOGO, width: 40, height: 40),
             applicationVersion: appVersion,
-            applicationLegalese: 'Copyright © Britannio Jarrett 2020',
+            applicationLegalese: 'Copyright © Britannio Jarrett $year',
           ),
         ),
         ListTile(
